@@ -1,0 +1,88 @@
+% Packages for math
+\usepackage{amsmath}
+% For theorem environments, which is not used in this document
+% \usepackage{amsthm}
+% For math symbols, e.g. \mathbb, \mathcal
+\usepackage{amssymb}
+% Dor a range of integral symbols
+\usepackage{esint}
+\usepackage{physics}
+
+% ==================================================
+
+% Package for Chinese characters
+\usepackage[UTF8, scheme=plain,heading=true]{ctex}
+
+% Packages for writing
+% For better control of the layout of lists, which is not used in this document
+% \usepackage{enumerate}
+% \usepackage[shortlabels]{enumitem}
+% \usepackage{framed}
+% \usepackage{csquotes}
+
+% ==================================================
+
+% Miscellaneous packages
+% For environment setting
+\usepackage{environ}
+% For table setting, which is not used in this document
+% \usepackage{float}
+% For better table layout, which is not used in this document
+% \usepackage{tabularx}
+% For color setting, used in hyperlinks temporarily
+\usepackage{xcolor}
+% For multi-column layout, which might be useful for some problems
+\usepackage{multicol}
+% For subcaption and caption setting, which is not used in this document
+% \usepackage{subcaption}
+\usepackage{caption}
+\captionsetup{format = hang, margin = 10pt, font = small, labelfont = bf}
+
+% Hyperlinks setup
+\usepackage{hyperref}
+\definecolor{links}{rgb}{0.36,0.54,0.66}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    urlcolor = blue,
+    citecolor = blue,
+    filecolor = blue,
+    pdfauthor = {Author},
+    pdftitle = {Title},
+    pdfsubject = {subject},
+    pdfkeywords = {one, two},
+    pdfproducer = {LaTeX},
+    pdfcreator = {pdfLaTeX},
+}
+%% Customizes the appearance of sectioning commands like \chapter,
+% \section, etc.
+\usepackage{titlesec}
+% For colorbox setting, which is not used in this document
+% \usepackage[many]{tcolorbox}
+
+% Adjust spacing after the chapter title
+\titlespacing*{\chapter}{0cm}{-2.0cm}{0.50cm}
+\titlespacing*{\section}{0cm}{0.50cm}{0.25cm}
+
+% Indent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+
+\newcounter{problems}[section]
+\numberwithin{problems}{section}
+\NewEnviron{problem}{
+    \refstepcounter{problems}
+    \noindent\textbf{Problem \theproblems:} \BODY{}
+}
+\NewEnviron{solution}{
+    \noindent\textbf{Solution \theproblems:} \BODY{}
+}
+\usepackage{breqn}
+\everymath{\displaystyle}
+% Some may argue that the use of displaystyle in inline formulas may
+% break line spacing and make the document look ugly. However, I
+% prefer to follow the choice of the textbook setting
+
+% ==================================================
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}

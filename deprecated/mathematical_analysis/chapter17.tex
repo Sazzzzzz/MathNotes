@@ -1,0 +1,89 @@
+\chapter{幂级数}
+
+\section{幂级数的性质与求和}
+
+\begin{problem}
+    求下列各幂级数的收敛区间:
+    \begin{enumerate}
+        \item \(\sum_{n=1}^{\infty} \frac{(2n-1)!!}{(n!)^2} x^n\);
+        \item \(\sum_{n=1}^{\infty} \frac{x^{n}}{a^{n} + b^{n}}\);
+        \item \(\sum_{n=1}^{\infty} \frac{x^n}{n \ln(1+n)}\)
+        \item \(\sum_{n=1}^{\infty} \left(1 + \frac{1}{2} + \cdots +
+            \frac{1}{n}\right) x^n\).
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \begin{enumerate}
+        \item \(\sum_{n=1}^{\infty} \frac{(2n-1)!!}{(n!)^2} x^n\)
+            \begin{align*}
+                \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n}
+                \right| &= \lim_{n \to \infty} \left|
+                \frac{(2n+1)!!}{(n+1)!^2} \cdot \frac{n!^2}{(2n-1)!!} \right| \\
+                &= \lim_{n \to \infty} \left|
+                \frac{(2n+1)(2n)(2n-1)!!}{(n+1)n!} \cdot
+                \frac{n!}{(2n-1)!!} \right| \\
+                &= \lim_{n \to \infty} \left| \frac{2n+1}{n+1} \right| \\
+                &= 2
+            \end{align*}
+            故收敛半径 \(R = \frac{1}{2}\).
+        \item \(\sum_{n=1}^{\infty} \frac{x^{n}}{a^{n} + b^{n}}\)
+            \begin{align*}
+                \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n}
+                \right| &= \lim_{n \to \infty} \left| \frac{a^n +
+                b^n}{a^{n+1} + b^{n+1}} \right| \\
+                &= \lim_{n \to \infty} \left| \frac{1 +
+                \left(\frac{b}{a}\right)^n}{a + b
+                \left(\frac{b}{a}\right)^n} \right| \\
+                &= \frac{1}{a}
+            \end{align*}
+            故收敛半径 \(R = a\).
+        \item \(\sum_{n=1}^{\infty} \frac{x^n}{n \ln(1+n)}\)
+            \begin{align*}
+                \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n}
+                \right| &= \lim_{n \to \infty} \left| \frac{n
+                \ln(1+n)}{(n+1) \ln(2+n)} \right| \\
+                &= \lim_{n \to \infty} \left| \frac{n \ln(1+n)}{n
+                \ln(2+n)} \right| \\
+                &= \lim_{n \to \infty} \left|
+                \frac{\ln(1+n)}{\ln(2+n)} \right| \\
+                &= 1
+            \end{align*}
+            故收敛半径 \(R = 1\).
+        \item \(\sum_{n=1}^{\infty} \left(1 + \frac{1}{2} + \cdots +
+            \frac{1}{n}\right) x^n\)
+            \begin{align*}
+                \lim_{n \to \infty} \left| \frac{a_{n+1}}{a_n}
+                \right| &= \lim_{n \to \infty} \left| \frac{1 +
+                \frac{1}{2} + \cdots + \frac{1}{n+1}}{1 + \frac{1}{2}
+                + \cdots + \frac{1}{n}} \right| \\
+                &= \lim_{n \to \infty} \left| \frac{1}{1 +
+                \frac{1}{n+1}} \right| \\
+                &= 1
+            \end{align*}
+            故收敛半径 \(R = 1\).
+    \end{enumerate}
+\end{solution}
+\begin{problem}
+    求下列各幂级数的和:
+    \begin{enumerate}
+        \item \(\sum_{n=1}^{\infty} n(n + 2) x^n\);
+        \item \(\sum_{n=2}^{\infty} \frac{x^n}{n(n - 1)}\)
+        \item \(\sum_{n=1}^{\infty} \frac{x^n}{n^2}\);
+        \item \(\sum_{n=1}^{\infty} n^{3}x^{n}\)
+    \end{enumerate}
+\end{problem}
+\section{泰勒级数}
+
+\begin{problem}
+    求下列各函数在 \(x_0 = 0\)的泰勒展开式:
+    \begin{enumerate}
+        \item \(a^x, \quad (a > 0)\)
+        \item \(\sinh x\)
+        \item \((1 + x) \ln(1 + x)\)
+        \item \(\frac{1}{1 - 3x + 2x^2}\)
+        \item \(\frac{1}{2x+1}\) 
+        \item \(\frac{1}{1 - x^2}\) 
+    \end{enumerate}
+\end{problem}
+\section{习题}

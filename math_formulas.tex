@@ -1,0 +1,99 @@
+% This is a mathematical formula memo
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{geometry}
+\usepackage{ctex}
+
+\setlength{\parindent}{0pt}
+\geometry{a4paper,scale=0.8}
+
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+
+\begin{document}
+
+\begin{alignat*}{3}
+    \arcsinh'x & =\frac{1}{\sqrt{x^{2}+1}} & \quad &
+    \longleftrightarrow \quad & \arcsin'x & =\frac{1}{\sqrt{1-x^{2}}}  \\
+    \arccosh'x & =\frac{1}{\sqrt{x^{2}-1}} &       &
+    \longleftrightarrow       & \arccos'x & =-\frac{1}{\sqrt{1-x^{2}}} \\
+    \arctanh'x & =\frac{1}{1-x^{2}}        &       &
+    \longleftrightarrow       & \arctan'x & =\frac{1}{x^{2}+1}
+\end{alignat*}
+
+\begin{align*}
+    \sin \theta \cos \varphi & = \frac{\sin(\theta + \varphi) +
+    \sin(\theta - \varphi)}{2} \\
+    \cos \theta \sin \varphi & = \frac{\sin(\theta + \varphi) -
+    \sin(\theta - \varphi)}{2} \\
+    \sin \theta \sin \varphi & = \frac{\cos(\theta - \varphi) -
+    \cos(\theta + \varphi)}{2} \\
+    \cos \theta \cos \varphi & = \frac{\cos(\theta - \varphi) +
+    \cos(\theta + \varphi)}{2}
+\end{align*}
+
+\begin{align*}
+    \sin \theta + \sin \varphi & = 2 \sin \left( \frac{\theta +
+    \varphi}{2} \right) \cos \left( \frac{\theta - \varphi}{2} \right)  \\
+    \sin \theta - \sin \varphi & = 2 \cos \left( \frac{\theta +
+    \varphi}{2} \right) \sin \left( \frac{\theta - \varphi}{2} \right)  \\
+    \cos \theta + \cos \varphi & = 2 \cos \left( \frac{\theta +
+    \varphi}{2} \right) \cos \left( \frac{\theta - \varphi}{2} \right)  \\
+    \cos \theta - \cos \varphi & = -2 \sin \left( \frac{\theta +
+    \varphi}{2} \right) \sin \left( \frac{\theta - \varphi}{2} \right)
+\end{align*}
+
+\begin{align*}
+    \arcsinh x & = \ln \left( x + \sqrt{x^2 + 1} \right)              \\
+    \arccosh x & = \ln \left( x + \sqrt{x^2 - 1} \right)              \\
+    \arccosh x & = \frac{1}{2} \ln \left( \frac{1 + x}{1 - x} \right)
+\end{align*}
+
+\begin{align*}
+    \sinh x=\sqrt{\frac{\tanh^{2}x}{1-\tanh^{2}x}} \\
+    \cosh x=\sqrt{\frac{1}{1-\tanh^{2}x}}          \\
+\end{align*}
+
+\begin{align*}
+    \sinh' x & = \cosh x                \\
+    \cosh' x & = \sinh x                \\
+    \tanh' x & = \frac{1}{\cosh^{2}x}   \\
+    \coth' x & =- \frac{1}{\sinh^{2} x}
+\end{align*}
+
+\begin{align*}
+    \arcsinh' x & =\frac{1}{\sqrt{x^{2}+1}} \\
+    \arccosh' x & =\frac{1}{\sqrt{x^{2}-1}} \\
+    \arctanh' x & =\frac{1}{1-x^{2}}
+\end{align*}
+
+\begin{align*}
+    \mathrm{d} xy
+    & =x\mathrm{d}y+y\mathrm{d}x                     \\
+    \mathrm{d} \left( \frac{y}{x} \right)
+    & =\frac{x\mathrm{d}y-y\mathrm{d}x}{x^{2}}       \\
+    \mathrm{d} \ln \left( \frac{y}{x} \right)
+    & =\frac{x\mathrm{d}y-y\mathrm{d}x}{xy}          \\
+    \mathrm{d} \arctan \left( \frac{y}{x} \right)
+    & =\frac{x\mathrm{d}y-y\mathrm{d}x}{x^{2}+y^{2}} \\
+    \mathrm{d} \ln \left| \frac{y - x}{y + x} \right|=\mathrm{d}
+    \arctanh \left( \frac{y}{x} \right) &
+    =\frac{x\mathrm{d}y-y\mathrm{d}x}{x^{2}-y^{2}} \\
+\end{align*}
+
+\[\arcsin x +\arccos x =\frac{\pi}{2} \]
+\(\dfrac{\dfrac{\partial M}{\partial y} - \dfrac{\partial N}{\partial
+x}}{N}\)只与\(x\)有关 \\
+\(\dfrac{\dfrac{\partial N}{\partial x} - \dfrac{\partial M}{\partial
+y}}{M}\)只与\(y\)有关 \\
+
+\begin{align*}
+    \int \ee^{ax} \sin bx \mathrm{d}x & =\frac{a\ee^{ax} \sin bx -
+    b\ee^{ax}\cos bx}{a^{2}+b^{2}} \\
+    \int \ee^{ax} \cos bx \mathrm{d}x & =\frac{a\ee^{ax} \sin bx +
+    b\ee^{ax}\cos bx}{a^{2}+b^{2}} \\
+\end{align*}
+\end{document}

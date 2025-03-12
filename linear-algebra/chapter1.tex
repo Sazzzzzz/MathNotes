@@ -1,0 +1,185 @@
+\chapter{向量空间}
+\subsubsection{小结}
+\begin{itemize}
+    \item 域的定义
+    \item 元组和他们的运算
+\end{itemize}
+\subsection{那些``显然''的结论}
+\paragraph{\(\ii\) 究竟等于\(\sqrt{-1}\)还是\(-\sqrt{-1}\)?}
+
+贴吧里曾流传着这么一张图片：
+\begin{flalign*}
+    &
+    \begin{aligned}
+        \frac{1}{\ii} &= \frac{\sqrt{-1} \cdot \sqrt{-1}}{\ii}\\
+        &= \frac{\ii \cdot \ii}{\ii} = \ii
+    \end{aligned}
+    &&
+    \begin{aligned}
+        \frac{1}{\ii}&=\frac{1\cdot \ii}{\ii \cdot \ii}\\
+        &=\frac{\ii}{-1}=-\ii
+    \end{aligned}&
+\end{flalign*}
+如果我们说的再直接一些：
+\[
+    1 = \sqrt{-1}\cdot \sqrt{-1} = \ii \cdot \ii = \ii^{2} = -1
+\]
+
+悖论的关键在于，虚数 \(\ii\) 的定义从来不是 \(\sqrt{-1}\) 或者\(-\sqrt{-1}\),
+而是\(\ii^{2}=-1\). \(\ii\) 只是满足这个性质的一个数。实数轴从不在乎单位虚数在它的左边或是右边.
+从某种意义上看，\(\ii\) 可以看作是\(\sqrt{-1}\)和\(-\sqrt{-1}\)的任选一。
+如果我们``假定''\(\ii=\sqrt{-1}\),
+那么我们将所有的\(\ii\)再替换成\(j=-\ii=-\sqrt{-1}\)，所有的式子仍将成立，欧拉公式\(e^{j\pi}+1=0\)
+照样对偶。\footnote{至于\(\sqrt{ab}=\sqrt{a}\cdot\sqrt{b}\)在复数域中为何不再成立，读者可以参见复变函数的教材。}
+
+在本书中，复数被定义为满足复数乘法和加法关系的二元数组。\(\ii^{2}=-1\)则更是结论而不是定义了。
+\begin{definition}
+    一个复数是一个有序对\((a,b)\) ，其中\(a,b\in\mathbb{R}\) ，不过我们会把这写成\(a+b\ii\) ．
+    全体复数所构成的集合用\(\mathbb{C}\) 表示：
+    \[\mathbb{C}=\{a+b\ii:a,b\in \mathbb{C}\}．\]
+    \(\mathbb{C}\) 上的加法(addition)和乘法(multiplication)定义为
+    \[(a+b\ii)+(c+d\ii)=(a+c)+(b+d)\ii,\]
+    \[(a+b\ii)(c+d\ii)=(ac-bd)+(ad+bc)\ii;\]
+    其中\(a,b,c,d\in\mathbb{R}\)
+\end{definition}
+
+\paragraph{域是什么？}
+
+% TODO: Add reference
+抽象代数中我们与域第一次见面时，域的定义是这样一个诘屈聱牙的形式：
+\begin{definition}
+    无零因子的的交换幺环称为\emph{整环}; 若一个幺环\(R\) 满足条件
+    \(R^{*}=U\)，即\(R^{*}\) 对于乘法构成群，则称\(R\)为\emph{除环}. 交换的除环称为\emph{域}.
+\end{definition}
+% TODO: Add Jesse image
+% TODO: Add reference to abstract algebra
+事实上域的定义没有那么复杂，上面域的定义完全可以化简为以下的通俗易懂且好记的等价形式：
+\begin{definition}
+    设\(F\) 是一个集合，其中定义了加法\((+)\) 和乘法\((\cdot)\) 两种运算，满足以下条件：
+    \begin{itemize}
+        \item \((F, +)\) 构成一个交换群
+        \item \((F^{*}, \cdot)\) 构成一个交换群
+        \item 加法和乘法满足(左/右)分配律
+    \end{itemize}
+    则称\((F, +, \cdot)\) 是一个\emph{域}.
+\end{definition}
+
+这个定义乍看是非常优雅的，满足了我们对域美好性质的一切幻想。但细想一下，凭什么乘法只能在\(F^{*}\)上构成群呢？难道乘法天然比加法低人一等吗？
+
+事实上我们可以从定义出发，证明若乘法在\(F\)上构成群，则\(F\)最多只包含零元素。这样的域是平凡的。
+
+\begin{theorem}\footnote{这是抽象代数中一道关于域的课后习题，见}
+    若集合\((F, +, \cdot)\)且\((F,\cdot)\)构成群，则\(F\)只能包含零元素。
+\end{theorem}
+\begin{proof}
+    % TODO: Add reference
+    先证明\(0 \cdot a=0\), \(\forall a \in F\).
+    \begin{align*}
+        0 \cdot a &= (0+0) \cdot a\\
+        &= 0 \cdot a + 0 \cdot a
+    \end{align*}
+    故\(0 \cdot a=0\). 从而 \(0\cdot 0^{-1}=0\).
+    但由乘法逆元的定义， \(0 \cdot 0^{-1}=1\), 从而\(1=0\).
+    于是\(\forall a \in F\), \(a=1 \cdots a=0 \cdots a=0\).
+    故\(F\)只包含零元素。
+\end{proof}
+
+所以我们现在见到的域已经是我们能做到的性质最好的定义了。
+
+此外还有一些特殊的域：
+\begin{itemize}
+    \item 代数闭域：一个域\(F\) 被称作代数闭域，当且仅当任何系数属于\(F\)
+        且次数大于零的单变量多项式在\(F\) 里至少有一个根。\footnote{性质可见维基百科}
+        % TODO: Add reference
+    \item 数域：元素全是数的域。
+\end{itemize}
+
+\subsection{向量空间的定义}\footnote{这本书中的向量空间就是高等代数中的线性空间}
+向量空间是一个完全超脱于\(R^{n}\)的一个概念，是一个独立而抽象的代数结构，只有从公理出发，才能真正理解它。
+
+向量空间看上去有点像交换幺环，但乘法被数乘代替。
+向量空间是广泛存在的，（但不是一些人想的那样无处不在），本章中最有趣的向量空间是\(F^{S}\)：定义域为\(S\)，值域为\(F\)的函数全体所构成的向量空间
+
+如果我们定义：
+\[
+    \begin{aligned}
+        f: F^{\{0,1,\ldots,n\}} &\to F^{n}\\
+        f(x_{0}, x_{1}, \ldots, x_{n}) &\mapsto (x_{0},
+        x_{1}, \ldots, x_{n})
+    \end{aligned}
+\]
+
+就能找到\(F^{\{0,1,\ldots,n\}}\)和\(F^{n}\)之间的一个双射，这事实上证明了\(R^{n}\)
+是一个向量空间。
+同理，\(\mathbb{R}^{\mathbb{R}}\)等一系列奇形怪状的向量空间也能被定义出来。
+\begin{definition}
+    设\(V\) 是一个集合，其中定义了加法\((+)\) 和数乘\((\cdot)\) 两种运算，满足以下条件：
+    \begin{itemize}
+        \item \((V, +)\) 构成一个交换群
+        \item 数乘满足分配律
+    \end{itemize}
+    则称\((V, +, \cdot)\) 是一个\emph{向量空间}.
+\end{definition}
+
+通过定义可以得到线性空间的一些性质：
+\begin{itemize}
+    \item 数乘与加法的部分关系：\(a0=0\quad 0v=0\quad (-1)v=-v\)
+    \item 加法上的消去律：\(v+w=v+u \Rightarrow w=u \)
+    \item （习题2）无零因子性：\(a\cdot v=0 \Rightarrow a=0
+        \text{或} v=0\)
+\end{itemize}
+
+实向量空间的复化：
+\begin{definition}
+    设 \(V\) 是实向量空间．
+    \begin{itemize}
+        \item \(V\) 的\emph{复化（complexification）}记为
+            \(V_{\mathbb{C}}\)，等于 \(V \times
+            V\)。\(V_{\mathbb{C}}\)
+            中的元素为有序对 \((u, v)\)，其中
+            \(u, v \in V\)，不过我们把它写作 \(u + \mathrm{i}v\)。
+        \item \(V_{\mathbb{C}}\) 上的加法定义为
+            \((u_1 + \mathrm{i}v_1) + (u_2 +
+                \mathrm{i}v_2) = (u_1 +
+            u_2) + \mathrm{i} (v_1 + v_2)\)
+            对所有 \(u_1, v_1, u_2, v_2 \in V\) 成立．
+        \item \(V_{\mathbb{C}}\) 上的复标量乘法定义为
+            \((a + b\mathrm{i}) (u + \mathrm{i}v) =
+                (au - bv) +
+            \mathrm{i} (av + bu)\)
+            对所有 \(a, b \in \mathbb{R}\) 和所有 \(u, v \in V\) 成立
+    \end{itemize}
+    % TODO: How to define determinant with Sn?
+    % TODO: What does complexification adds?
+\end{definition}
+这样的形成的代数结构\(V_{\mathbb{C}}\)也是向量空间。
+
+\subsection{子空间}
+子空间的判定法则和环与子环的判定方法颇为相似：
+\begin{theorem}[子空间的条件]
+    当且仅当 \(V\) 的子集 \(U\) 满足以下三个条件时，\(U\) 是 \(V\) 的子空间．
+    \begin{enumerate}
+        \item 加法恒等元（additive identity）：\(0 \in U\).
+        \item 对于加法封闭（closed under addition）：\(u, w \in U\)
+            意味着 \(u + w \in U\) .
+        \item 对于标量乘法封闭（closed under scalar
+            multiplication）：\(a \in F\)  且 \(u \in U\) 意味着
+            \(au \in U\)．
+    \end{enumerate}
+    % TODO: Add subring theorem in parallel
+\end{theorem}
+子空间的一些有趣例子包括：
+\begin{itemize}
+    \item 线性方程组的解集是子空间，更进一步，满足某齐次线性方程式的点集是子空间。
+    \item \(\mathbb{R}\) 上的连续函数、可微函数构成\(\mathbb{R}^{\mathbb{R}}\)的子空间
+    \item \(\{0\}\), 过原点的直线与过原点的平面是 \(\mathbb{R}^{2}\) 上的全部子空间
+\end{itemize}
+什么不是子空间：
+\begin{itemize}
+    \item 加法恒等元不存在：平凡反例\(\emptyset\)
+    \item 对加法不封闭：利用孤立分支构造的反例\(\left\{ (a,b)\in
+        \mathbb{R}^{2}: a^{3}=b^{3}\right\}\)
+    \item 对标量乘法不封闭：利用不连续性构造的反例\(\left\{(a,0):a\in \mathbb{Z}\right\}\)
+\end{itemize}
+
+如何把子空间变大/变小：
