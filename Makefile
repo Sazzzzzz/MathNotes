@@ -1,7 +1,34 @@
-# Makefile for LaTeX document building on Windows
+# Makefile for LaTeX document building (cross-platform)
 # cSpell: words xelatex rclone
+
+# Detect OS
+ifeq ($(OS),Windows_NT)
+	# Windows-specific settings
+	MKDIR = if not exist $(OUTPUT_DIR) mkdir $(OUTPUT_DIR)
+	COPY = copy $(OUTPUT_DIR)\main.pdf $(OUTPUT_DIR)\$*.pdf
+	RM_TEMP = if exist $(OUTPUT_DIR)\*.aux del /Q $(OUTPUT_DIR)\*.aux & \
+			  if exist $(OUTPUT_DIR)\*.log del /Q $(OUTPUT_DIR)\*.log & \
+			  if exist $(OUTPUT_DIR)\*.out del /Q $(OUTPUT_DIR)\*.out & \
+			  if exist $(OUTPUT_DIR)\*.toc del /Q $(OUTPUT_DIR)\*.toc & \
+			  if exist $(OUTPUT_DIR)\*.bbl del /Q $(OUTPUT_DIR)\*.bbl & \
+			  if exist $(OUTPUT_DIR)\*.blg del /Q $(OUTPUT_DIR)\*.blg & \
+			  if exist $(OUTPUT_DIR)\main.pdf del /Q $(OUTPUT_DIR)\main.pdf
+	RM_PDF = if exist $(OUTPUT_DIR)\*.pdf del /Q $(OUTPUT_DIR)\*.pdf
+	PATH_SEP = \\
+	LIST_CMD = @for %%p in ($(PROJECTS)) do @echo - %%p
+else
+	# macOS/Unix settings
+	MKDIR = mkdir -p $(OUTPUT_DIR)
+	COPY = cp $(OUTPUT_DIR)/main.pdf $(OUTPUT_DIR)/$*.pdf
+	RM_TEMP = rm -f $(OUTPUT_DIR)/*.aux $(OUTPUT_DIR)/*.log $(OUTPUT_DIR)/*.out \
+			  $(OUTPUT_DIR)/*.toc $(OUTPUT_DIR)/*.bbl $(OUTPUT_DIR)/*.blg \
+			  $(OUTPUT_DIR)/main.pdf
+	RM_PDF = rm -f $(OUTPUT_DIR)/*.pdf
+	PATH_SEP = /
+	LIST_CMD = @for p in $(PROJECTS); do echo "- $$p"; done
+endif
+
 # Default project list
-# TODO: Add error handling
 PROJECTS = linear_algebra math_formulas
 
 # Output directory
@@ -10,46 +37,29 @@ SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
 .PHONY: all clean-all clean-temp list $(PROJECTS) sync
 
-# Main build command - build all projects
 all: $(PROJECTS) sync
 
-# Make each project depend on its PDF output
 $(PROJECTS): %: $(OUTPUT_DIR)/%.pdf
 	@$(MAKE) clean-temp
 
-# Define dependencies for each project
-define project_deps
-$(OUTPUT_DIR)/$(1).pdf: header.tex $$(wildcard $(1)/*.tex)
-	@echo Building $(1) PDF...
-	@if not exist $(OUTPUT_DIR) mkdir $(OUTPUT_DIR)
-	xelatex -include-directory=./$(1) -interaction=nonstopmode -file-line-error -output-directory=$(OUTPUT_DIR) $(1)/main.tex
-	xelatex -include-directory=./$(1) -interaction=nonstopmode -file-line-error -output-directory=$(OUTPUT_DIR) $(1)/main.tex
-	@copy $(OUTPUT_DIR)\main.pdf $(OUTPUT_DIR)\$(1).pdf
-endef
+$(OUTPUT_DIR)/%.pdf: %/main.tex header.tex
+	@echo Building $* PDF...
+	@$(MKDIR)
+	@cd $* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../$(OUTPUT_DIR) main.tex
+	@cd $* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../$(OUTPUT_DIR) main.tex
+	@$(COPY)
 
-# Generate specific rules for each project with all its .tex files as dependencies
-$(foreach proj,$(PROJECTS),$(eval $(call project_deps,$(proj))))
-
-# List available projects
 list:
 	@echo Available projects:
-	@for %%p in ($(PROJECTS)) do @echo - %%p
+	$(LIST_CMD)
 	@echo Use 'make' to build all projects
 	@echo Use 'make PROJECT' to build a specific project
 
-# Clean up temporary files but keep PDFs
 clean-temp:
-	@if exist $(OUTPUT_DIR)\*.aux del /Q $(OUTPUT_DIR)\*.aux
-	@if exist $(OUTPUT_DIR)\*.log del /Q $(OUTPUT_DIR)\*.log
-	@if exist $(OUTPUT_DIR)\*.out del /Q $(OUTPUT_DIR)\*.out
-	@if exist $(OUTPUT_DIR)\*.toc del /Q $(OUTPUT_DIR)\*.toc
-	@if exist $(OUTPUT_DIR)\*.bbl del /Q $(OUTPUT_DIR)\*.bbl
-	@if exist $(OUTPUT_DIR)\*.blg del /Q $(OUTPUT_DIR)\*.blg
-	@if exist $(OUTPUT_DIR)\main.pdf del /Q $(OUTPUT_DIR)\main.pdf
+	@$(RM_TEMP)
 
-# Clean everything including PDFs
 clean-all: clean-temp
-	@if exist $(OUTPUT_DIR)\*.pdf del /Q $(OUTPUT_DIR)\*.pdf
+	@$(RM_PDF)
 
 sync: 
 	rclone sync $(OUTPUT_DIR) $(SYNC_FOLDER) --verbose --size-only
