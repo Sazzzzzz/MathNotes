@@ -1,0 +1,31 @@
+\section{线性映射的向量空间}
+初学线性代数常犯的错误是, 在了解矩阵与线性变换的一一对应后, 便不愿再思考线性映射的本质, 这对于线性代数精髓的掌握, 是极为不利的.
+\begin{quote}
+    ``我的经验是, 如果抛开矩阵的话, 可将一个原本用矩阵完成的证明缩短 50\%.''
+    % TODO: Better quotation
+    \hfill --- Emil Artin\footnote{摘自LADR, 3c}
+\end{quote}
+\subsubsection{线性映射基础}
+线性映射最基本也是最重要的定义如下:
+\begin{definition}
+    设\(V\)和\(W\)是两个向量空间, \(T: V \to W\) 是一个映射, 如果对于任意的\(u,
+    v \in V\)和任意的\(a \in F\), 都有:
+    \begin{itemize}
+        \item[可加性] \(T(u+v)=T(u)+T(v)\)
+        \item[齐次性] \(T(a u) = a T(u)\)
+    \end{itemize}
+    则称\(T\)是一个线性映射.
+\end{definition}
+可以看到, 线性映射的定义与矩阵是毫无关系的.
+
+线性映射的有趣例子包括:
+\begin{itemize}
+    \item 微分算子 \(D: C^{\infty} \to C^{\infty}\), \(D(f) = f'\)
+    \item 积分算子 \(I: C^{\infty} \to C^{\infty}\), \(I(f) = \int f\)
+    \item 移位映射 \(S: F^{\infty} \to F^{\infty}\),
+        \(S((x_{1},\ldots, x_{n}, \ldots)) = (x_{2},\ldots,
+        x_{n}, \ldots)\)
+    \item （加法）逆映射 映射 \(T\) 在 \(\mathcal{L}(V,W)\) 中的加法逆元
+        \(S(v)=T(-v)\)
+\end{itemize}
+\subsection{线性映射的性质}
