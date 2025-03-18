@@ -1,3 +1,4 @@
+\chapter{线性映射}
 \section{线性映射的向量空间}
 初学线性代数常犯的错误是, 在了解矩阵与线性变换的一一对应后, 便不愿再思考线性映射的本质, 这对于线性代数精髓的掌握, 是极为不利的.
 \begin{quote}
@@ -10,10 +11,11 @@
 \begin{definition}
     设\(V\)和\(W\)是两个向量空间, \(T: V \to W\) 是一个映射, 如果对于任意的\(u,
     v \in V\)和任意的\(a \in F\), 都有:
-    \begin{itemize}
-        \item[可加性] \(T(u+v)=T(u)+T(v)\)
-        \item[齐次性] \(T(a u) = a T(u)\)
-    \end{itemize}
+    \begin{description}
+            % TODO： A better way to write this?
+        \item[可加性:] \(T(u+v)=T(u)+T(v)\)
+        \item[齐次性:] \(T(a u) = a T(u)\)
+    \end{description}
     则称\(T\)是一个线性映射.
 \end{definition}
 可以看到, 线性映射的定义与矩阵是毫无关系的.
