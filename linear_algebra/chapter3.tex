@@ -6,7 +6,7 @@
     % TODO: Better quotation
     \hfill --- Emil Artin\footnote{摘自LADR, 3c}
 \end{quote}
-\subsubsection{线性映射基础}
+\subsubsection{什么不是线性映射?}
 线性映射最基本也是最重要的定义如下:
 \begin{definition}
     设\(V\)和\(W\)是两个向量空间, \(T: V \to W\) 是一个映射, 如果对于任意的\(u,
@@ -20,14 +20,189 @@
 \end{definition}
 可以看到, 线性映射的定义与矩阵是毫无关系的.
 
+接下来我们参照习题8、9, 给出两个不是线性映射的例子:
+
+\paragraph{满足齐次性不满足可加性的变换}
+取
+\begin{align*}
+    \varphi: \mathbb{C} &\to \mathbb{C} \\
+    v &\mapsto
+    \begin{cases}
+        v, &\Im v \geq 0 \\
+        2v, &\Im v < 0
+    \end{cases}
+\end{align*}
+容易证明在各个方向上\(\varphi\) 都是齐次的, 但显然不满足可加性.
+
+\paragraph{满足可加性不满足齐次性的变换}
+取
+\begin{align*}
+    \varphi: \mathbb{C} &\to \mathbb{C} \\
+    a+b \ii &\mapsto a
+\end{align*}
+容易发现\(\forall a+b\ii,c+d\ii \in \mathbb{C},\) 有
+\begin{align*}
+    \varphi((a+b\ii)+(c+d\ii)) &= \varphi((a+c)+(b+d)\ii) = a+c \\
+    &=\varphi(a+b\ii) + \varphi(c+d\ii) =a+c
+\end{align*}
+但是
+\begin{align*}
+    \varphi(\ii(a+b\ii)) &= \varphi(b-a\ii) = b \\
+    &\neq \ii\varphi(a+b\ii) =\ii a
+\end{align*}
+于是\(\varphi\) 不是线性映射.
+
+实际上以上两个反例的构造与之前子空间反例\ref{item:subspace
+counterexample}
+的构造非常相似, 其中我们能够一窥可加性与齐次性真正的含义:
+\begin{description}
+    \item[可加性:] 加法能够扩展基向量, 却不能严格要求方向一致, 容易导致值域离散或方向有限
+    \item[齐次性:] 线性映射在缩放时保持方向一致, 但不能扩展基向量.
+\end{description}
+
+感兴趣的读者看完书上内容后可能会好奇: ``那存不存在\(\varphi: \mathbb{R} \to
+\mathbb{R}\) 满足可加性却不是线性映射呢?'' 有的兄弟, 有的.
+事实上我们是在问是否存在\(f:\mathbb{R} \to \mathbb{R}\)使得方程
+\[
+    f(x+y) = f(x) + f(y) \qquad \forall x,y \in \mathbb{R}
+\]
+有非线性解. 这就是大名鼎鼎的Cauchy方程! （看到这里可能会唤醒你数分I死去的回忆）
+% TODO: Input roman characters
+% TODO：Solution to Cauchy equation
+% TODO: How to reference problems?
+% TODO: Environment for problems
+
 线性映射的有趣例子包括:
 \begin{itemize}
-    \item 微分算子 \(D: C^{\infty} \to C^{\infty}\), \(D(f) = f'\)
-    \item 积分算子 \(I: C^{\infty} \to C^{\infty}\), \(I(f) = \int f\)
-    \item 移位映射 \(S: F^{\infty} \to F^{\infty}\),
+    \item 微分算子 \(D: \mathbb{C}^{\infty} \to
+        \mathbb{C}^{\infty}\), \(D(f) = f'\)
+    \item 积分算子 \(I: \mathbb{C}^{\infty} \to
+        \mathbb{C}^{\infty}\), \(I(f) = \int f\)
+    \item 移位映射 \(S: \mathbb{F}^{\infty} \to \mathbb{F}^{\infty}\),
         \(S((x_{1},\ldots, x_{n}, \ldots)) = (x_{2},\ldots,
         x_{n}, \ldots)\)
-    \item （加法）逆映射 映射 \(T\) 在 \(\mathcal{L}(V,W)\) 中的加法逆元
+    \item （加法）逆映射 映射 \(T\) 在 \(\mathscr{L}(V,W)\) 中的加法逆元
         \(S(v)=T(-v)\)
 \end{itemize}
-\subsection{线性映射的性质}
+\subsection{为什么线性映射能写成矩阵?}
+线性映射引理告诉我们: 线性映射被基和基的像唯一确定. 接下来我们顺着习题3, 证明线性映射可以写成矩阵的形式
+\begin{theorem}
+    设\(T \in \mathscr{L}(\mathbb{F}^{n},\mathbb{F}^{m})\)
+    存在标量\(A_{j,k} \in
+    \mathbb{F} (j = 1, \dots ,m, k=1, \dots, n) \), 使得:
+    \[
+        T(x_{1},\dots,x_{n})=(A_{1,1}x_{1}+\dots+A_{1,n}x_{n},\dots,A_{m,1}x_{1}+\dots+A_{m,n}x_{n})
+    \]
+    对任意\(x_{1},\dots,x_{n} \in \mathbb{F}\) 成立
+\end{theorem}
+
+\begin{proof}
+    记\(e_{1}, ..., e_{n}\) 是\(\mathbb{F}^{n}\)的基向量,
+    \(e^{\prime}_{1}, ..., e^{\prime}_{m}\) 是\(\mathbb{F}^{m}\)的基向量.
+    不妨设 \(T(e_{i}) = A_{1,i}e^{\prime}_{1} +
+        A_{2,i}e^{\prime}_{2} + \ldots +
+    A_{m,i}e^{\prime}_{m}\) 对于所有 \(1\leq i\leq n\) 成立.
+    于是:
+    \begin{align*}
+        T(x_{1},\dots,x_{n}) &= T(x_{1}e_{1} + \ldots +
+        x_{n}e_{n})\\
+        &= x_{1}T(e_{1}) + \ldots + x_{n}T(e_{n})\\
+        &= x_{1}(A_{1,1}e^{\prime}_{1} + A_{2,1}e^{\prime}_{2} +
+        \ldots + A_{m,1}e^{\prime}_{m}) \nonumber \\
+        &\quad + \ldots +
+        x_{n}(A_{1,n}e^{\prime}_{1} + A_{2,n}e^{\prime}_{2} +
+        \ldots + A_{m,n}e^{\prime}_{m})\\    &=
+        (A_{1,1}x_{1}+\dots+A_{1,n}x_{n},\dots,A_{m,1}x_{1}+\dots+A_{m,n}x_{n})
+    \end{align*}
+    也即\[
+        T(x_1, \dots, x_n) =
+        \begin{pmatrix}
+            A_{1,1} & A_{1,2} & \cdots & A_{1,n} \\
+            A_{2,1} & A_{2,2} & \cdots & A_{2,n} \\
+            \vdots  & \vdots  & \ddots & \vdots  \\
+            A_{m,1} & A_{m,2} & \cdots & A_{m,n}
+        \end{pmatrix}
+        \begin{pmatrix}
+            x_1 \\
+            x_2 \\
+            \vdots \\
+            x_n
+        \end{pmatrix}
+    \]
+\end{proof}
+这事实上证明了所有（有限维）线性变换都可以写成矩阵的形式
+
+\subsection{其他性质}
+\begin{itemize}
+    \item 线性映射对加法、数乘构成新的线性空间
+    \item \(V\)到\(V\)的线性映射构成一个环（矩阵环）
+    \item （习题1, 2）不严谨的说, 线性映射的笛卡尔积也是线性变换. 即若\(\mathscr{A}_{1}\)
+        是\(V_{1} \to W_{1}\) 的线性变换, \(\mathscr{A}_{2}\)
+        是\(V_{2} \to W_{2}\) 的线性变换, 则
+        \begin{align*}
+            \mathscr{A}_{1} \times \mathscr{A}_{2} : V_{1}
+            \times V_{2} &\to W_{1} \times W_{2}\\
+            (v_{1},v_{2}) &\mapsto
+            (\mathscr{A}_{1}(v_{1}),\mathscr{A}_{2}(v_{2}))
+        \end{align*}
+        是\(V_{1} \times V_{2} \to
+        W_{1} \times W_{2}\) 的线性变换.
+    \item （习题4）线性变换不严格单调降低向量组的秩
+    \item （习题7）一维子空间有特征值
+\end{itemize}
+
+\section{零空间与值域}
+\subsection{记号}
+\begin{description}
+    \item[零空间(Null space):] \(\nullspace \mathscr{A}\)
+        \(\mathscr{A}\) 是单射当且仅当
+        \(\nullspace \mathscr{A} = \{0\}\)
+    \item[值域(Range):] \(\range \mathscr{A}\) \(\mathscr{A}\) 是满射当且仅当
+        \(\range \mathscr{A} = W\)
+\end{description}
+个人认为这样的记号比高代当中 \(\mathscr{A}^{-1}(\mathbf{0})\)
+\footnote{当然记号 \(\operatorname{Ker} \mathscr{A}\) 也很不错的,
+因为它看起来更酷一些 \UseVerb{smile}} 和 \(\mathscr{A}(V)\)
+更自然，更能体现出零空间和值域是线性变换内蕴的性质.
+
+\(\mathscr{A}\)的零空间与值域都构成线性空间.
+
+\subsection{为什么线性映射基本定理基本?}
+
+\begin{theorem}
+    假设\(V\) 是有限维的且 \(T \in \mathscr{L}(V,W)\), 那么\(\range
+    T\) 是有限维的, 且\[
+        \dim V = \dim \nullspace T + \dim \range T
+    \]
+\end{theorem}
+
+本书中先取零空间的基向量并扩充为整个空间的基, 再证明扩充得到的向量经过线性变换后构成值域的一组基向量.
+相比于高等代数中取值域基的逆向量并在值域与定义域中反复横跳的证明方法而言, 书中的证明避免了对线性相关的技巧性讨论, 自然而符合直觉.
+
+线性映射基本定理是极为强大的工具, 可以直接推导出以下结论:
+
+\begin{itemize}
+    \item 映到更高维空间上的线性映射不是满射
+    \item 映到更低维空间上的线性映射不是单射
+\end{itemize}
+所以线性映射是双射当且仅当它的值域和定义域维数相等! 这就为逆的定义提供了必要条件
+
+如果我们把线性方程组的左半部分看作一个线性映射, 那么我们直接可以看出:
+\begin{itemize}
+    \item 齐次线性方程组有非零解当且仅当未知数个数大于等于方程个数
+    \item 方程个数多于未知数个数的线性方程组当常数项取某些值时无解．
+\end{itemize}
+
+在高等代数中这两个结论的证明都是依靠高斯消元法证明的, 这里的证明则高屋建瓴的从线性变换的角度给出: 线性方程组就是线性变换
+
+最后, 如果我们反观习题3A. 4, 我们将发现它是线性代数基本定理的直接推论:
+\begin{proof}
+    记\(T^{\prime}= T|\Span(v1, \dots, v_{m})\),
+    则对于\(T^{\prime}: \Span(v1, \dots, v_{m}) \to
+    \Span(Tv_{1}, \dots, Tv_{m})\), 有:
+    \[
+        \dim \Span(v_{1}, \dots, v_{m}) = \dim \nullspace T^{\prime} +
+        \dim \range T^{\prime} \geq \dim \range T^{\prime} = m
+    \]
+    故\(v_{1}, \dots, v_{m}\) 线性无关.
+\end{proof}

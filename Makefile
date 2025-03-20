@@ -29,7 +29,7 @@ else
 endif
 
 # Default project list
-PROJECTS = linear_algebra math_formulas
+PROJECTS = linear_algebra
 
 # Output directory
 OUTPUT_DIR = build

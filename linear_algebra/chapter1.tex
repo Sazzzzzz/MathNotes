@@ -31,7 +31,8 @@
 \footnote{事实上, 在抽象代数中广泛使用\(\sqrt{-1}\) 记号而非\(\ii\), 原因就在于此}。
 如果我们``假定''\(\ii=\sqrt{-1}\),
 那么我们将所有的\(\ii\)再替换成\(j=-\ii=-\sqrt{-1}\)，所有的式子仍将成立，欧拉公式\(e^{j\pi}+1=0\)
-照样对偶。\footnote{至于\(\sqrt{ab}=\sqrt{a}\cdot\sqrt{b}\)在复数域中为何不再成立，读者可以参见复变函数的教材。}
+照样对偶.
+\footnote{至于\(\sqrt{ab}=\sqrt{a}\cdot\sqrt{b}\)在复数域中为何不再成立，读者可以参见复变函数的教材。}
 
 在本书中，复数被定义为满足复数乘法和加法关系的二元数组。\(\ii^{2}=-1\)则更是结论而不是定义了。
 \begin{definition}
@@ -69,8 +70,10 @@
 
 事实上我们可以从定义出发，证明若乘法在\(F\)上构成群，则\(F\)最多只包含零元素。这样的域是平凡的。
 
-\begin{theorem}\footnote{这是抽象代数中一道关于域的课后习题，见}
-    若集合\((F, +, \cdot)\)且\((F,\cdot)\)构成群，则\(F\)只能包含零元素。
+\begin{theorem}
+    若集合\((F, +,
+    \cdot)\)且\((F,\cdot)\)构成群，则\(F\)只能包含零元素.
+    \footnote{这是抽象代数中一道关于域的课后习题，见}
 \end{theorem}
 \begin{proof}
     % TODO: Add reference
@@ -89,18 +92,25 @@
 
 此外还有一些特殊的域：
 \begin{itemize}
-    \item 代数闭域：一个域\(F\) 被称作代数闭域，当且仅当任何系数属于\(F\)
+    \item \emph{代数闭域}：一个域\(F\) 被称作代数闭域，当且仅当任何系数属于\(F\)
         且次数大于零的单变量多项式在\(F\) 里至少有一个根。\footnote{性质可见维基百科}
         % TODO: Add reference
-    \item 数域：元素全是数的域。
+    \item \emph{数域}：元素全是数的域。
 \end{itemize}
 
-\subsection{向量空间的定义}\footnote{这本书中的向量空间就是高等代数中的线性空间}
-向量空间是一个完全超脱于\(R^{n}\)的一个概念，是一个独立而抽象的代数结构，只有从公理出发，才能真正理解它。
+\subsection{向量空间的定义}
+向量空间\footnote{这本书中的向量空间就是高等代数中的线性空间}是一个完全超脱于\(R^{n}\)的一个概念，是一个独立而抽象的代数结构，只有从公理出发，才能真正理解它。
 
 向量空间看上去有点像交换幺环，但乘法被数乘代替。
 向量空间是广泛存在的，（但不是一些人想的那样无处不在），本章中最有趣的向量空间是\(F^{S}\)：定义域为\(S\)，值域为\(F\)的函数全体所构成的向量空间
-
+% TODO:  Change another position
+% TODO： give it a better look
+\begin{quote}
+    线性映射在数学中普遍存在, 然而, 他们并不如有些人想象的那样无处不在.
+    当这些人错误的写出\(\cos(x+y)\) 等于\(\cos x+\cos y\) 和\(\cos 2x\)
+    等于 \(2\cos x\) 时, 似乎连\(\cos\)
+    都能看成从\(\mathbb{R}\)到\(\mathbb{R}\)的线性映射.
+\end{quote}
 如果我们定义：
 \[
     \begin{aligned}
@@ -176,7 +186,7 @@
     \item \(\{0\}\), 过原点的直线与过原点的平面是 \(\mathbb{R}^{2}\) 上的全部子空间
 \end{itemize}
 什么不是子空间：
-\begin{itemize}
+\begin{itemize}\label{item:subspace counterexample}
     \item 加法恒等元不存在：平凡反例\(\emptyset\)
     \item 对加法不封闭：利用孤立分支构造的反例\(\left\{ (a,b)\in
         \mathbb{R}^{2}: a^{3}=b^{3}\right\}\)
