@@ -150,11 +150,40 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 其中每个灯光状态都可以用一个\(3 \times 3=9\) 维的行向量表示, 其中每个元素为0或1. 容易发现,
 \(\mathbb{F}=\mathbb{Z}_{2}^{9}\).
 
-同时我们记在\(\mathbb{F}\) 上灯光状态全部变换的集合为\(\overrightarrow{\mathbb{F}}\),
+同时我们记在\(\mathbb{F}\)
+上灯光状态全部变换的集合为\(\overrightarrow{\mathbb{F}}=\overrightarrow{\mathbb{Z}_{2}^{9}}\),
+读者不难验证 \(\overrightarrow{\mathbb{Z}_{2}^{9}}\)
+对\(\mathbb{Z}_{2}\)上的加法构成群, 对\(\mathbb{Z}_{2}\) 上的加法与数乘构成一个线性空间.
+
+注意到灯光状态变换实际上是通过加法实现\(\mathbb{Z}^{9}_{2}\) 上的变换的, 定义群作用
+\begin{align*}
+    T: \overrightarrow{\mathbb{Z}_{2}^{9}} \times
+    \mathbb{Z}_{2}^{9} &\to \mathbb{Z}_{2}^{9}\\
+    (\vec{p},y) &\mapsto \vec{p}+y
+\end{align*}
+
+于是\((\mathbb{Z}^{9}_{2},
+\overrightarrow{\mathbb{Z}^{9}_{2}}, T)\) 构成一个仿射空间.
+
+不难注意到线性空间\(\overrightarrow{\mathbb{Z}^{9}_{2}}\) 上自然诱导出一组标准基
+\(\vec{e_{n}}=[0,\dots,1,\dots,0]^{\mathrm{T}}\),
+表示仅改变第\(n\) 个灯光的状态, 其余灯光不变.  那么原先解法中矩阵\(A\) 就有了实际意义, 他表示从规则构造的向量组
+\({T_{1}, \dots, T_{n}}\) 到标准基 \({e_{1}, \dots, e_{n}}\) 的过渡矩阵.
+\footnote{当然这里的说法可能并不严谨, 因为规则构造的向量组并不一定是满秩的,
+我个人最初的理解是矩阵从``操作空间''到\(\overrightarrow{\mathbb{Z}^{9}_{2}}\) 的线性变换.}
+% TODO: More Understanding
+% TODO: Solve this with computational algebra
+
+于是求解灭灯问题也自然的等价于在\(\mathbb{Z}_{2}\) 上求解方程组:
+\[
+    Ax+B=0
+\]
+% TODO: There might be some misunderstanding on affine
+% space and group action
 
 \section{向量空间的定义}
 向量空间\footnote{这本书中的向量空间就是高等代数中的线性空间}是一个完全超脱于\(\mathbb{R}^{n}\)的一个概念,
-是一个独立而抽象的代数结构, 只有从公理出发, 才能真正理解它.
+是一个独立而抽象的代数结构. 只有从公理出发, 才能真正理解它.
 
 向量空间看上去有点像交换幺环, 但乘法被数乘代替.
 向量空间是广泛存在的, （但不是一些人想的那样无处不在\UseVerb{surprised}）,
@@ -247,7 +276,7 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 \begin{itemize}\label{item:subspace counterexample}
     \item 加法恒等元不存在：平凡反例\(\emptyset\)
     \item 对加法不封闭：利用孤立分支构造的反例\(\left\{ (a,b)\in
-        \mathbb{R}^{2}: a^{3}=b^{3}\right\}\)
+        \mathbb{C}^{2}: a^{3}=b^{3}\right\}\)
     \item 对标量乘法不封闭：利用不连续性构造的反例\(\left\{(a,0):a\in
         \mathbb{Z}\right\}\)
 \end{itemize}

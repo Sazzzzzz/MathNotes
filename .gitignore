@@ -4,4 +4,5 @@ test.*
 README.md
 /build
 /develop_reference
+.DS_Store
 /test
