@@ -3,13 +3,18 @@
 \begin{problem}
     判定下列各函数列在指定区间上的一致收敛性:
     \begin{enumerate}
-        \item \(f_n(x) = \sin \frac{x}{n}, \quad -\infty < x < +\infty\);
-        \item \(f_n(x) = \frac{x}{n} \ln \frac{x}{n}, \quad 0 < x < 1\)
-        \item \(f_n(x) = \arctan nx, \quad (a) - 1 \leq x \leq 1, \quad (b) 0 <
+        \item \(f_n(x) = \sin \frac{x}{n}, \quad -\infty <
+            x < +\infty\);
+        \item \(f_n(x) = \frac{x}{n} \ln \frac{x}{n}, \quad
+            0 < x < 1\)
+        \item \(f_n(x) = \arctan nx, \quad (a) - 1 \leq x
+                \leq 1, \quad (b) 0 <
             \delta < x < +\infty\);
-        \item \(f_n(x) = nxe^{-nx}, \quad (a) 0 \leq x < +\infty, \quad (b) 0 <
+        \item \(f_n(x) = nxe^{-nx}, \quad (a) 0 \leq x <
+                +\infty, \quad (b) 0 <
             \delta < x < +\infty\);
-        \item \(f_n(x) = \frac{x^n}{1 + x^n}, \quad (a) 0 \leq x \leq 1 -
+        \item \(f_n(x) = \frac{x^n}{1 + x^n}, \quad (a) 0
+                \leq x \leq 1 -
                 \delta, \quad (b) 1 - \delta \leq x \leq 1 + \delta,
             \quad (c) 1 + \delta \leq x < +\infty\), 其中 \(0 <
             \delta < 1\).
@@ -24,15 +29,18 @@
 
             但:
             \[
-                \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
-                = \lim_{n \to \infty} \sup_{x \in \mathbb{R}} \left\lvert \sin
+                \lim_{n \to \infty} \left\lVert f_{n}(x) -
+                f(x) \right\rVert
+                = \lim_{n \to \infty} \sup_{x \in
+                \mathbb{R}} \left\lvert \sin
                 \frac{x}{n} \right\rvert
                 = 1
             \]
             故不一致收敛.
 
         \item 一致收敛.
-            由于\(f(x)=\lim_{n \to \infty} \frac{x}{n} \ln \frac{x}{n} = 0\),
+            由于\(f(x)=\lim_{n \to \infty} \frac{x}{n} \ln
+            \frac{x}{n} = 0\),
             故\(f_{n}(x)\)逐点收敛到\(0\).
 
             令\(g(x)=x \ln x\). 则可知\(g(x)\)在\((0,\frac{1}{\ee})\)上单调递减.
@@ -41,10 +49,13 @@
             \frac{x}{n}\)单调递增. 由Dini定理知\(f_{n}(x)\)一致收敛到\(0\).
 
         \item 一致收敛.
-            当\(x \in [0,1-\delta]\), 此时\(\lim_{n \to \infty}f_{n}(x) = 0\). 且:
+            当\(x \in [0,1-\delta]\), 此时\(\lim_{n \to
+            \infty}f_{n}(x) = 0\). 且:
             \[
-                \lim_{n \to \infty}\left\lVert f_{n}(x) - 0 \right\rVert
-                = \lim_{n \to \infty} \sup_{x \in [0,1-\delta]} \left\vert 1 -
+                \lim_{n \to \infty}\left\lVert f_{n}(x) - 0
+                \right\rVert
+                = \lim_{n \to \infty} \sup_{x \in
+                [0,1-\delta]} \left\vert 1 -
                 \frac{1}{1+ x^{n}} \right\vert
                 = 0
             \]
@@ -60,20 +71,24 @@
 
             考虑函数\(g(x) = \frac{1}{1-x}\)在\([0,\frac{1}{2}]\)的一致连续性.
 
-            \(\forall x_1, x_2 \in [0, \frac{1}{2}]\) 且 \(\left\vert x_1 - x_2
+            \(\forall x_1, x_2 \in [0, \frac{1}{2}]\) 且
+            \(\left\vert x_1 - x_2
             \right\vert < \delta\), 有:
             \[
                 \left\vert g(x_1) - g(x_2) \right\vert
-                = \left\vert \frac{x_1 - x_2}{(1-x_1)(1-x_2)} \right\vert
+                = \left\vert \frac{x_1 -
+                x_2}{(1-x_1)(1-x_2)} \right\vert
                 \le 4 \delta
             \]
             故\(g(x)\)在\([0,\frac{1}{2}]\)上一致连续.
-            % TODO: What's the right format for proof by contradiction?
+            % TODO: What's the right format for proof by
+            % contradiction?
 
         \item 不一致收敛
 
             \textbf{反证法}:
-            假设\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上一致收敛, 则 \(g(f_n(x))=x^{n}\)在\([1-\delta,1+\delta]\)上一致收敛.
+            假设\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上一致收敛, 则
+            \(g(f_n(x))=x^{n}\)在\([1-\delta,1+\delta]\)上一致收敛.
             由于\(g(f_n(x))\)在\([1-\delta,1+\delta]\)上一致收敛,
             故\(g(f_n(x)) = x^{n}\)在\([1-\delta,1+\delta]\)上一致连续.
             但\(x^{n}\)在\([1-\delta,1+\delta]\)上不一致连续, 矛盾!
@@ -81,10 +96,13 @@
             故\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上不一致收敛.
 
         \item 一致收敛.
-            当\(x \in [1+\delta,+\infty)\), 可知\(f_n(x)\)逐点收敛到\(1\). %ChkTeX 9
+            当\(x \in [1+\delta,+\infty)\),
+            可知\(f_n(x)\)逐点收敛到\(1\). %ChkTeX 9
             \[
-                \lim_{n \to \infty} \left\lVert f_{n}(x) - 1 \right\rVert
-                = \lim_{n \to \infty} \sup_{x \in [1+\delta,+\infty)} \left\vert %ChkTeX 9
+                \lim_{n \to \infty} \left\lVert f_{n}(x) -
+                1 \right\rVert
+                = \lim_{n \to \infty} \sup_{x \in
+                [1+\delta,+\infty)} \left\vert %ChkTeX 9
                 \frac{1}{1 + x^{n}} \right\vert
                 = \lim_{n \to \infty} \frac{1}{1+(1+\delta)^{n}} = 0
             \]
@@ -100,18 +118,21 @@
 \end{problem}
 
 \begin{solution}
-    可知, \(f(x)\) 是连续函数. 故\(\forall \varepsilon > 0\), \(\exists \delta > 0\)
+    可知, \(f(x)\) 是连续函数. 故\(\forall \varepsilon > 0\),
+    \(\exists \delta > 0\)
     使得\(\forall x \in B_{\delta}(x_{0})\), 有:
     \[
         \left| f(x)- f(x_{0}) \right| < \frac{\varepsilon}{2}
     \]
-    由于\(\lim_{n \to \infty} x_{n}=x_{0}\) 对于上述的\(\delta\), 存在\(N>0\), 使得:
+    由于\(\lim_{n \to \infty} x_{n}=x_{0}\) 对于上述的\(\delta\),
+    存在\(N>0\), 使得:
     \[
         \left| x_{n} - x_{0} \right| < \delta, \quad \forall n > N
     \]
     故 \(\forall \varepsilon > 0\), \(\exists N_1 > 0\), 使得:
     \[
-        \left| f(x_{n})- f(x_{0}) \right| < \frac{\varepsilon}{2}, \quad
+        \left| f(x_{n})- f(x_{0}) \right| <
+        \frac{\varepsilon}{2}, \quad
         \forall n > N_1
     \]
     同时\(f_{n}(x) \rightrightarrows f(x)\), 故\(\exists N_2 > 0\), 使得:
@@ -121,8 +142,10 @@
     \]
     综上: \(\forall \varepsilon > 0\), 取\(N = \max\{N_1, N_2\}\), 则:
     \[
-        \left| f_{n}(x_{n}) - f(x_{0}) \right| \le \left| f_{n}(x_{n}) -
-        f(x_{n}) \right| + \left| f(x_{n}) - f(x_{0}) \right| < \varepsilon
+        \left| f_{n}(x_{n}) - f(x_{0}) \right| \le \left|
+        f_{n}(x_{n}) -
+        f(x_{n}) \right| + \left| f(x_{n}) - f(x_{0})
+        \right| < \varepsilon
     \]
     即 \(\lim_{n \to \infty} f_{n}(x_{n}) = f(x_{0})\).
 \end{solution}
@@ -130,7 +153,7 @@
 
 \begin{problem}
     设函数列\[
-        f_n(x) = nx e^{-nx^2} , \quad n = 1, 2, \ldots
+        f_n(x) = nx e^{-nx^2} , \quad n = 1, 2, \dots
     \]
     在 \([0, 1]\) 上逐点收敛于 \(f(x)\)，求证：
     \begin{enumerate}
@@ -144,7 +167,8 @@
     由于\(f(x) = \lim_{n \to \infty} nx e^{-nx^2} = 0\),
     故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\).
     可知\(f_{n}'(x) = n \ee^{-nx^{2}}(1-2nx)\), 求得\(f'\left(
-    \frac{1}{2n} \right) = 0\). 故\(f_{n}(x)\) 的最大值在\(\frac{1}{2n}\)处取得.
+    \frac{1}{2n} \right) = 0\). 故\(f_{n}(x)\)
+    的最大值在\(\frac{1}{2n}\)处取得.
     故:
     \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
@@ -159,18 +183,20 @@
         \lim_{n \to \infty} \frac{1}{2}\int_{0}^{1}
         \ee^{-nx^{2}} \mathrm{d}nx^{2} = \frac{1}{2}
     \end{align*}
-    故\(\int_{0}^{1} f(x) \mathrm{d}x \neq \lim_{n \to \infty} \int_{0}^{1}\)
+    故\(\int_{0}^{1} f(x) \mathrm{d}x \neq \lim_{n \to
+    \infty} \int_{0}^{1}\)
 
 \end{solution}
 
 \begin{problem}
     求证：函数列
     \[
-        f_n(x) = nx(1-x)^n, \quad n = 1, 2, \cdots
+        f_n(x) = nx(1-x)^n, \quad n = 1, 2, \dots
     \]
     在 \([0, 1]\) 上逐点收敛但非一致收敛，可是却有
     \[
-        \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x = \int_0^1 \left[
+        \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x =
+        \int_0^1 \left[
         \lim_{n \to \infty} f_n(x) \right] \mathrm{d}x.
     \]
 \end{problem}
@@ -193,8 +219,10 @@
     \begin{align*}
         & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x
         = \lim_{n \to \infty} \int_0^1 nx(1-x)^n \mathrm{d}x
-        = \lim_{n \to \infty} \frac{n}{n+1} = 1                           \\
-        & \int_0^1 \left[ \lim_{n \to \infty} f_n(x) \right] \mathrm{d}x
+        = \lim_{n \to \infty} \frac{n}{n+1} = 1
+        \\
+        & \int_0^1 \left[ \lim_{n \to \infty} f_n(x)
+        \right] \mathrm{d}x
         = \int_0^1 0 \mathrm{d}x = 0
     \end{align*}
     故\(\lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \neq \int_0^1
@@ -204,13 +232,14 @@
 \begin{problem}
     问参数\(\alpha\) 分别取什么值时，函数列
     \[
-        f_n(x) = n^\alpha x\ee^{-n x}, \quad n = 1, 2, \cdots
+        f_n(x) = n^\alpha x\ee^{-n x}, \quad n = 1, 2, \dots
     \] 在\([0,1]\) 上:
     \begin{itemize}
         \item 收敛
         \item 一致收敛
         \item 可以在积分号下取极限, 即\[
-                \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x = \int_0^1
+                \lim_{n \to \infty} \int_0^1 f_n(x)
+                \mathrm{d}x = \int_0^1
                 \left[ \lim_{n \to \infty} f_n(x) \right] \mathrm{d}x
             \]
     \end{itemize}
@@ -250,11 +279,12 @@
 \begin{problem}
     求证：函数列
     \[
-        f_n(x) = \frac{1}{n} \arctan x^n, \quad n = 1, 2, \ldots
+        f_n(x) = \frac{1}{n} \arctan x^n, \quad n = 1, 2, \dots
     \]
     在 \((-\infty, +\infty)\) 上一致收敛，但是
     \[
-        \left. \left[ \lim_{n \to \infty} f_n(x) \right]' \right|_{x = 1}
+        \left. \left[ \lim_{n \to \infty} f_n(x) \right]'
+        \right|_{x = 1}
         \neq \lim_{n \to \infty} f_n'(1).
     \]
 \end{problem}
@@ -275,7 +305,8 @@
         \right|_{x=1}                & = 0           \\
     \end{align*}
     故: \[
-        \left. \left[ \lim_{n \to \infty} f_n(x) \right]' \right|_{x = 1}
+        \left. \left[ \lim_{n \to \infty} f_n(x) \right]'
+        \right|_{x = 1}
         \neq \lim_{n \to \infty} f_n'(1).
     \]
 \end{solution}
@@ -284,7 +315,7 @@
     求证：函数列
     \[
         f_n(x) = x^2 + \frac{1}{n} \sin n \left( x + \frac{\pi}{2}
-        \right), \quad n = 1, 2, \cdots
+        \right), \quad n = 1, 2, \dots
     \]
     在 \((-\infty, +\infty)\) 上一致收敛，但是
     \[
@@ -309,7 +340,7 @@
 \begin{problem}
     设函数列
     \[
-        f_n(x) = \frac{1}{n} e^{-n^2 x^2}, \quad n = 1, 2, \ldots
+        f_n(x) = \frac{1}{n} e^{-n^2 x^2}, \quad n = 1, 2, \dots
     \]
     在 \((-\infty, +\infty)\) 上逐点收敛于 \(f(x)\)，求证：
     \begin{itemize}
@@ -338,7 +369,8 @@
             故函数列不一致收敛
         \item 可知:
             \begin{align*}
-                f'(x)                         & = 0                   \\
+                f'(x)                         & = 0
+                \\
                 \lim_{n \to \infty} f'_{n}(x) & = \lim_{n \to \infty}
                 \frac{2x}{n}\ee^{-n^{2}x^{2}} = 0
             \end{align*}
@@ -352,7 +384,8 @@
 \begin{problem}
     设 \(f_0(x)\) 在 \([a, b]\) 上连续，求证：函数列
     \begin{align*}
-        f_n(x) = \int_a^x f_{n-1}(t) \, \mathrm{d}t, \quad n = 1, 2, \cdots
+        f_n(x) = \int_a^x f_{n-1}(t) \, \mathrm{d}t, \quad
+        n = 1, 2, \dots
     \end{align*}
     在 \([a, b]\) 上一致收敛于0.
 \end{problem}

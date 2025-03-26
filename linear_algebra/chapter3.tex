@@ -1,5 +1,6 @@
 \chapter{线性映射}
 \section{线性映射的向量空间}
+% TODO:  Problems to do: 11; 13; 14; 16; 17
 初学线性代数常犯的错误是, 在了解矩阵与线性变换的一一对应后, 便不愿再思考线性映射的本质, 这对于线性代数精髓的掌握, 是极为不利的.
 \begin{quote}
     ``我的经验是, 如果抛开矩阵的话, 可将一个原本用矩阵完成的证明缩短 50\%.''
@@ -79,8 +80,8 @@ counterexample}
     \item 积分算子 \(I: \mathbb{C}^{\infty} \to
         \mathbb{C}^{\infty}\), \(I(f) = \int f\)
     \item 移位映射 \(S: \mathbb{F}^{\infty} \to \mathbb{F}^{\infty}\),
-        \(S((x_{1},\ldots, x_{n}, \ldots)) = (x_{2},\ldots,
-        x_{n}, \ldots)\)
+        \(S((x_{1},\dots, x_{n}, \dots)) = (x_{2},\dots,
+        x_{n}, \dots)\)
     \item （加法）逆映射 映射 \(T\) 在 \(\mathscr{L}(V,W)\) 中的加法逆元
         \(S(v)=T(-v)\)
 \end{itemize}
@@ -97,30 +98,30 @@ counterexample}
 \end{theorem}
 
 \begin{proof}
-    记\(e_{1}, ..., e_{n}\) 是\(\mathbb{F}^{n}\)的基向量,
-    \(e^{\prime}_{1}, ..., e^{\prime}_{m}\) 是\(\mathbb{F}^{m}\)的基向量.
+    记\(e_{1}, \dots, e_{n}\) 是\(\mathbb{F}^{n}\)的基向量,
+    \(e^{\prime}_{1}, \dots, e^{\prime}_{m}\) 是\(\mathbb{F}^{m}\)的基向量.
     不妨设 \(T(e_{i}) = A_{1,i}e^{\prime}_{1} +
-        A_{2,i}e^{\prime}_{2} + \ldots +
+        A_{2,i}e^{\prime}_{2} + \dots +
     A_{m,i}e^{\prime}_{m}\) 对于所有 \(1\leq i\leq n\) 成立.
     于是:
     \begin{align*}
-        T(x_{1},\dots,x_{n}) &= T(x_{1}e_{1} + \ldots +
+        T(x_{1},\dots,x_{n}) &= T(x_{1}e_{1} + \dots +
         x_{n}e_{n})\\
-        &= x_{1}T(e_{1}) + \ldots + x_{n}T(e_{n})\\
+        &= x_{1}T(e_{1}) + \dots + x_{n}T(e_{n})\\
         &= x_{1}(A_{1,1}e^{\prime}_{1} + A_{2,1}e^{\prime}_{2} +
-        \ldots + A_{m,1}e^{\prime}_{m}) \nonumber \\
-        &\quad + \ldots +
+        \dots + A_{m,1}e^{\prime}_{m}) \nonumber \\
+        &\quad + \dots +
         x_{n}(A_{1,n}e^{\prime}_{1} + A_{2,n}e^{\prime}_{2} +
-        \ldots + A_{m,n}e^{\prime}_{m})\\    &=
+        \dots + A_{m,n}e^{\prime}_{m})\\    &=
         (A_{1,1}x_{1}+\dots+A_{1,n}x_{n},\dots,A_{m,1}x_{1}+\dots+A_{m,n}x_{n})
     \end{align*}
     也即\[
         T(x_1, \dots, x_n) =
         \begin{pmatrix}
-            A_{1,1} & A_{1,2} & \cdots & A_{1,n} \\
-            A_{2,1} & A_{2,2} & \cdots & A_{2,n} \\
+            A_{1,1} & A_{1,2} & \dots & A_{1,n} \\
+            A_{2,1} & A_{2,2} & \dots & A_{2,n} \\
             \vdots  & \vdots  & \ddots & \vdots  \\
-            A_{m,1} & A_{m,2} & \cdots & A_{m,n}
+            A_{m,1} & A_{m,2} & \dots & A_{m,n}
         \end{pmatrix}
         \begin{pmatrix}
             x_1 \\
@@ -175,7 +176,7 @@ counterexample}
         \dim V = \dim \nullspace T + \dim \range T
     \]
 \end{theorem}
-
+% TODO: Add Proofs
 本书中先取零空间的基向量并扩充为整个空间的基, 再证明扩充得到的向量经过线性变换后构成值域的一组基向量.
 相比于高等代数中取值域基的逆向量并在值域与定义域中反复横跳的证明方法而言, 书中的证明避免了对线性相关的技巧性讨论, 自然而符合直觉.
 
@@ -193,12 +194,13 @@ counterexample}
     \item 方程个数多于未知数个数的线性方程组当常数项取某些值时无解．
 \end{itemize}
 
-在高等代数中这两个结论的证明都是依靠高斯消元法证明的, 这里的证明则高屋建瓴的从线性变换的角度给出: 线性方程组就是线性变换
+在高等代数中这两个结论的证明都是依靠高斯消元法证明的, 从实用性出发以LU分解的角度给出;
+这里的证明则从线性变换的角度给出: 线性方程组就是线性变换.
 
 最后, 如果我们反观习题3A. 4, 我们将发现它是线性代数基本定理的直接推论:
 \begin{proof}
-    记\(T^{\prime}= T|\Span(v1, \dots, v_{m})\),
-    则对于\(T^{\prime}: \Span(v1, \dots, v_{m}) \to
+    记\(T^{\prime}= T|\Span(v_{1}, \dots, v_{m})\),
+    则对于\(T^{\prime}: \Span(v_{1}, \dots, v_{m}) \to
     \Span(Tv_{1}, \dots, Tv_{m})\), 有:
     \[
         \dim \Span(v_{1}, \dots, v_{m}) = \dim \nullspace T^{\prime} +
@@ -206,3 +208,27 @@ counterexample}
     \]
     故\(v_{1}, \dots, v_{m}\) 线性无关.
 \end{proof}
+
+\section{矩阵}
+\subsection{什么是矩阵}
+矩阵是一种高效表示线性变换的方法，是一种助记符, 是一个配方表.
+
+在高等代数中, 我时常对这样的记号感到困惑:
+\begin{align*}
+    \mathscr{A}(\varepsilon_{1}, \dots, \varepsilon_{n}) &=
+    (\mathscr{A}(\varepsilon_{1}), \dots,
+    \mathscr{A}(\varepsilon_{n})) = (\varepsilon_{1},
+    \dots, \varepsilon_{n})A\\
+    \varepsilon &= (\varepsilon_{1}, \dots, \varepsilon_{n})
+    (x_{1}, \dots,   x_{n})^{\mathrm{T}}
+\end{align*}
+好端端的矩阵, 为什么前面必须乘一堆向量组?
+
+高等代数中, 我们只讨论了\(V \to V\)的线性变换,
+并且已经先入为主的给出了\(\varepsilon_{1}, \dots, \varepsilon_{n}\) 作为基向量.
+即便如此, 当我们单纯讨论记号\(A\) 时,
+我们仅仅在讨论矩阵代数——充其量是在讨论\(\mathbb{F}^{n}\) 上的线性变换.
+只有在矩阵前乘上给定的基向量组, 我们才能表示\(V\) 上的线性变换.
+
+\subsection{什么是矩阵乘法}
+\subsection{秩!}
