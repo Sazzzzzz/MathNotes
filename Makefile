@@ -35,7 +35,7 @@ PROJECTS = linear_algebra
 OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
-.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge release
+.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge release tag-release github-release
 
 all: $(PROJECTS)
 
@@ -78,3 +78,40 @@ merge:
 	@echo "Pushing changes to remote..."
 	@git push origin develop
 	@echo "Changes pushed successfully."
+
+tag-release:
+	@echo "Creating tag with today's date..."
+	@if [ "$(OS)" = "Windows_NT" ]; then \
+		powershell -Command "$$tag=Get-Date -Format 'yyyy-MM-dd'; echo $$tag > .release_date"; \
+	else \
+		date +%Y-%m-%d > .release_date; \
+	fi
+	@TODAY=$$(cat .release_date) && \
+	git tag -a "$$TODAY" -m "Release $$TODAY" && \
+	echo "Tagged version: $$TODAY" && \
+	git push origin --tags && \
+	echo "$$TODAY" > .current_tag
+	@echo "Tag created and pushed successfully."
+
+github-release:
+	@echo "Creating GitHub release..."
+	@if [ ! -f .current_tag ]; then \
+		echo "No tag found. Run 'make tag-release' first."; \
+		exit 1; \
+	fi
+	@TAG=$$(cat .current_tag) && \
+	gh release create "$$TAG" $(OUTPUT_DIR)/*.pdf \
+		--title "MathNotes Release $$TAG" \
+		--notes-file release_message.md && \
+	echo "GitHub release created successfully."
+	@rm -f .current_tag .release_date
+
+release: all merge tag-release github-release
+	@echo "✅ Release process completed successfully!"
+	@echo "MathNotes $(shell cat .release_date) has been released."
+	@rm -f .release_date
+
+test: tag-release
+	@echo "Test complete - tag created but not published to GitHub."
+	@echo "Use 'make release' for full release process."
+
