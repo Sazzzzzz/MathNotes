@@ -35,7 +35,7 @@ PROJECTS = linear_algebra
 OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
-.PHONY: all clean-all clean-temp list $(PROJECTS) sync
+.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge
 
 all: $(PROJECTS) sync
 
