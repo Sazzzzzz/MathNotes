@@ -35,9 +35,9 @@ PROJECTS = linear_algebra
 OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
-.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge
+.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge release
 
-all: $(PROJECTS) sync
+all: $(PROJECTS)
 
 $(PROJECTS): %: $(OUTPUT_DIR)/%.pdf
 	@$(MAKE) clean-temp
@@ -70,9 +70,17 @@ merge:
 	@echo "Merging develop to main..."
 	@git merge develop
 	@echo "Merge completed successfully."
+	@echo "Pushing changes to remote..."
+	@git push origin main
+	@echo "Changes pushed successfully."
 	@echo "Switching back to develop branch..."
 	@git checkout develop
 	@echo "Pushing changes to remote..."
 	@git push origin develop
 	@echo "Changes pushed successfully."
 
+release: all
+	@echo "Switching to main branch..."
+	@git checkout main
+
+	
