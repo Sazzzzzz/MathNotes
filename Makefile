@@ -63,3 +63,13 @@ clean-all: clean-temp
 
 sync: 
 	rclone sync $(OUTPUT_DIR) $(SYNC_FOLDER) --verbose --size-only
+
+merge:
+	@echo "Switching to main branch..."
+	@git checkout main
+	@echo "Merging develop to main..."
+	@git merge develop
+	@echo "Merge completed successfully."
+	@echo "Switching back to develop branch..."
+	@git checkout develop
+
