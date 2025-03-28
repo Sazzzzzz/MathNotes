@@ -37,7 +37,7 @@ SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
 .PHONY: all clean-all clean-temp list $(PROJECTS) sync merge
 
-all: $(PROJECTS) sync
+all: $(PROJECTS)
 
 $(PROJECTS): %: $(OUTPUT_DIR)/%.pdf
 	@$(MAKE) clean-temp
@@ -75,16 +75,3 @@ merge:
 	@echo "Pushing changes to remote..."
 	@git push origin develop
 	@echo "Changes pushed successfully."
-
-release: all
-	@echo "Switching to main branch..."
-	@git checkout main
-	@echo "Creating tag with today's date..."
-ifeq ($(OS),Windows_NT)
-	@powershell -Command "$${tag}=Get-Date -Format 'yyyy-MM-dd'; Write-Host \"Creating tag: $${tag}\"; git tag $${tag}; git push origin $${tag}"
-else
-	@tag=$$(date +%Y-%m-%d); echo "Creating tag: $$tag"; git tag $$tag; git push origin $$tag
-endif
-	@echo "Tag created and pushed successfully."
-	@echo "Switching back to develop branch..."
-	@git checkout develop
