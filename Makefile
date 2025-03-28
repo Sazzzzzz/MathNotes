@@ -1,6 +1,21 @@
 # Makefile for LaTeX document building (cross-platform)
 # cSpell: words xelatex rclone
 
+# Define colors for terminal output
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+BLUE = \033[1;34m
+PURPLE = \033[1;35m
+CYAN = \033[1;36m
+WHITE = \033[1;37m
+RESET = \033[0m
+
+# Function to print colored messages
+define colorecho
+	@echo "$(1)$(2)$(RESET)"
+endef
+
 # Detect OS
 ifeq ($(OS),Windows_NT)
 	# Windows-specific settings
@@ -35,7 +50,10 @@ PROJECTS = linear_algebra
 OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
-.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge release tag-release github-release
+.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge release tag-release github-release help
+
+# Make help the default target if no target is specified
+.DEFAULT_GOAL := help
 
 all: $(PROJECTS)
 
@@ -43,44 +61,48 @@ $(PROJECTS): %: $(OUTPUT_DIR)/%.pdf
 	@$(MAKE) clean-temp
 
 $(OUTPUT_DIR)/%.pdf: %/main.tex header.tex
-	@echo Building $* PDF...
+	$(call colorecho,$(BLUE),Building $* PDF...)
 	@$(MKDIR)
 	@cd $* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../$(OUTPUT_DIR) main.tex
 	@cd $* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../$(OUTPUT_DIR) main.tex
 	@$(COPY)
+	$(call colorecho,$(GREEN),$* PDF built successfully!)
 
 list:
-	@echo Available projects:
+	$(call colorecho,$(CYAN),Available projects:)
 	$(LIST_CMD)
-	@echo Use 'make' to build all projects
-	@echo Use 'make PROJECT' to build a specific project
+	$(call colorecho,$(CYAN),Use 'make' to build all projects)
+	$(call colorecho,$(CYAN),Use 'make PROJECT' to build a specific project)
 
 clean-temp:
 	@$(RM_TEMP)
 
 clean-all: clean-temp
 	@$(RM_PDF)
+	$(call colorecho,$(YELLOW),All files cleaned)
 
 sync: 
-	rclone sync $(OUTPUT_DIR) $(SYNC_FOLDER) --verbose --size-only
+	$(call colorecho,$(PURPLE),Syncing files to remote storage...)
+	@rclone sync $(OUTPUT_DIR) $(SYNC_FOLDER) --verbose --size-only
+	$(call colorecho,$(GREEN),Sync completed successfully)
 
 merge:
-	@echo "Switching to main branch..."
+	$(call colorecho,$(BLUE),Switching to main branch...)
 	@git checkout main
-	@echo "Merging develop to main..."
+	$(call colorecho,$(BLUE),Merging develop to main...)
 	@git merge develop
-	@echo "Merge completed successfully."
-	@echo "Pushing changes to remote..."
+	$(call colorecho,$(GREEN),Merge completed successfully.)
+	$(call colorecho,$(BLUE),Pushing changes to remote...)
 	@git push origin main
-	@echo "Changes pushed successfully."
-	@echo "Switching back to develop branch..."
+	$(call colorecho,$(GREEN),Changes pushed successfully.)
+	$(call colorecho,$(BLUE),Switching back to develop branch...)
 	@git checkout develop
-	@echo "Pushing changes to remote..."
+	$(call colorecho,$(BLUE),Pushing changes to remote...)
 	@git push origin develop
-	@echo "Changes pushed successfully."
+	$(call colorecho,$(GREEN),Changes pushed successfully.)
 
 tag-release:
-	@echo "Creating tag with today's date..."
+	$(call colorecho,$(BLUE),Creating tag with today's date...)
 	@if [ "$(OS)" = "Windows_NT" ]; then \
 		powershell -Command "$$tag=Get-Date -Format 'yyyy-MM-dd'; echo $$tag > .release_date"; \
 	else \
@@ -88,30 +110,42 @@ tag-release:
 	fi
 	@TODAY=$$(cat .release_date) && \
 	git tag -a "$$TODAY" -m "Release $$TODAY" && \
-	echo "Tagged version: $$TODAY" && \
+	$(call colorecho,$(YELLOW),"Tagged version: $$TODAY") && \
 	git push origin --tags && \
 	echo "$$TODAY" > .current_tag
-	@echo "Tag created and pushed successfully."
+	$(call colorecho,$(GREEN),Tag created and pushed successfully.)
 
 github-release:
-	@echo "Creating GitHub release..."
+	$(call colorecho,$(BLUE),Creating GitHub release...)
 	@if [ ! -f .current_tag ]; then \
-		echo "No tag found. Run 'make tag-release' first."; \
+		$(call colorecho,$(RED),No tag found. Run 'make tag-release' first.); \
 		exit 1; \
 	fi
 	@TAG=$$(cat .current_tag) && \
 	gh release create "$$TAG" $(OUTPUT_DIR)/*.pdf \
 		--title "MathNotes Release $$TAG" \
 		--notes-file release_message.md && \
-	echo "GitHub release created successfully."
+	$(call colorecho,$(GREEN),GitHub release created successfully.)
 	@rm -f .current_tag .release_date
 
 release: all merge tag-release github-release
-	@echo "✅ Release process completed successfully!"
-	@echo "MathNotes $(shell cat .release_date) has been released."
+	$(call colorecho,$(GREEN),✅ Release process completed successfully!)
+	$(call colorecho,$(GREEN),MathNotes $$(cat .release_date) has been released.)
 	@rm -f .release_date
 
-test: tag-release
-	@echo "Test complete - tag created but not published to GitHub."
-	@echo "Use 'make release' for full release process."
-
+help:
+	$(call colorecho,$(CYAN),MathNotes LaTeX Build System)
+	$(call colorecho,$(CYAN),============================)
+	$(call colorecho,$(WHITE),Main commands:)
+	$(call colorecho,$(GREEN),  make               - Build all PDF documents)
+	$(call colorecho,$(GREEN),  make [project]     - Build specific project PDF)
+	$(call colorecho,$(GREEN),  make list          - Show available projects)
+	$(call colorecho,$(GREEN),  make clean-temp    - Remove temporary files)
+	$(call colorecho,$(GREEN),  make clean-all     - Remove all generated files)
+	$(call colorecho,$(WHITE),Sync commands:)
+	$(call colorecho,$(GREEN),  make sync          - Sync PDFs to remote storage)
+	$(call colorecho,$(WHITE),Release workflow:)
+	$(call colorecho,$(GREEN),  make release       - Full release workflow (build, merge, tag, GitHub release))
+	$(call colorecho,$(GREEN),  make merge         - Merge develop into main)
+	$(call colorecho,$(GREEN),  make tag-release   - Create and push tag with today's date)
+	$(call colorecho,$(GREEN),  make github-release - Create GitHub release with current PDFs)
