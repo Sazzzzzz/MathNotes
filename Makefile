@@ -72,4 +72,7 @@ merge:
 	@echo "Merge completed successfully."
 	@echo "Switching back to develop branch..."
 	@git checkout develop
+	@echo "Pushing changes to remote..."
+	@git push origin develop
+	@echo "Changes pushed successfully."
 
