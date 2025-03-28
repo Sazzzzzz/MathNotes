@@ -78,9 +78,3 @@ merge:
 	@echo "Pushing changes to remote..."
 	@git push origin develop
 	@echo "Changes pushed successfully."
-
-release: all
-	@echo "Switching to main branch..."
-	@git checkout main
-
-	
