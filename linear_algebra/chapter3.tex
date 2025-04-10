@@ -99,21 +99,21 @@ counterexample}
 
 \begin{proof}
     记\(e_{1}, \dots, e_{n}\) 是\(\mathbb{F}^{n}\)的基向量,
-    \(e^{\prime}_{1}, \dots, e^{\prime}_{m}\)
+    \(e'_{1}, \dots, e'_{m}\)
     是\(\mathbb{F}^{m}\)的基向量.
-    不妨设 \(T(e_{i}) = A_{1,i}e^{\prime}_{1} +
-        A_{2,i}e^{\prime}_{2} + \dots +
-    A_{m,i}e^{\prime}_{m}\) 对于所有 \(1\leq i\leq n\) 成立.
+    不妨设 \(T(e_{i}) = A_{1,i}e'_{1} +
+        A_{2,i}e'_{2} + \dots +
+    A_{m,i}e'_{m}\) 对于所有 \(1\leq i\leq n\) 成立.
     于是:
     \begin{align*}
         T(x_{1},\dots,x_{n}) &= T(x_{1}e_{1} + \dots +
         x_{n}e_{n})\\
         &= x_{1}T(e_{1}) + \dots + x_{n}T(e_{n})\\
-        &= x_{1}(A_{1,1}e^{\prime}_{1} + A_{2,1}e^{\prime}_{2} +
-        \dots + A_{m,1}e^{\prime}_{m}) \nonumber \\
+        &= x_{1}(A_{1,1}e'_{1} + A_{2,1}e'_{2} +
+        \dots + A_{m,1}e'_{m}) \nonumber \\
         &\quad + \dots +
-        x_{n}(A_{1,n}e^{\prime}_{1} + A_{2,n}e^{\prime}_{2} +
-        \dots + A_{m,n}e^{\prime}_{m})\\    &=
+        x_{n}(A_{1,n}e'_{1} + A_{2,n}e'_{2} +
+        \dots + A_{m,n}e'_{m})\\    &=
         (A_{1,1}x_{1}+\dots+A_{1,n}x_{n},\dots,A_{m,1}x_{1}+\dots+A_{m,n}x_{n})
     \end{align*}
     也即\[
@@ -210,13 +210,13 @@ counterexample}
 
 最后, 如果我们反观习题3A. 4, 我们将发现它是线性代数基本定理的直接推论:
 \begin{proof}
-    记\(T^{\prime}= T|\Span(v_{1}, \dots, v_{m})\),
-    则对于\(T^{\prime}: \Span(v_{1}, \dots, v_{m}) \to
+    记\(T'= T|\Span(v_{1}, \dots, v_{m})\),
+    则对于\(T': \Span(v_{1}, \dots, v_{m}) \to
     \Span(Tv_{1}, \dots, Tv_{m})\), 有:
     \[
         \dim \Span(v_{1}, \dots, v_{m}) = \dim
-        \nullspace T^{\prime} +
-        \dim \range T^{\prime} \geq \dim \range T^{\prime} = m
+        \nullspace T' +
+        \dim \range T' \geq \dim \range T' = m
     \]
     故\(v_{1}, \dots, v_{m}\) 线性无关.
 \end{proof}
@@ -298,6 +298,32 @@ counterexample}
 太大的代数结构我们看不全, 太小的代数结构我们看不清. 直积允许我们放大代数结构, 而商空间则允许我们缩小代数结构.
 在某种意义上, 求商空间可以直接看做直积的逆运算
 
+\subsubsection{矩阵分块的原理}
+\begin{problem}
+    设\(V_1,\dots ,V_{m}\) 是向量空间, 证明\(\mathscr{L}(V_1\times
+    \dots \times V_{m},W)\) 和\(\mathscr{L}(V_1,W)\times \dots
+    \times \mathscr{L}(V_{m},W)\) 是同构向量空间.
+\end{problem}
+
+\begin{proof}
+    记\(\dim V_{i}=n_{i}\), \(\dim W=m\)
+    \begin{align*}
+        &\mathrel{\phantom{=}}\dim \mathscr{L}(V_{1} \times
+        \dots \times V_{m}) \\
+        &= (n_1+\dots+n_{m})m \\
+        &= n_{1}m + \dots + n_{m}m \\
+        &= \dim \mathscr{L}(V_{1},W) + \dots +
+        \dim \mathscr{L}(V_{m},W)\\
+    \end{align*}
+\end{proof}
+% TODO: I want to add a matrix here to illustrate the proof
+这道题的证明是简单的. 但却启示我们向量空间直积的线性映射空间同构于线性映射空间的直积,
+其实是在告诉我们可以矩阵按列组合/分块的几何意义是\hl{向量空间做直积/商}.
+
+同理, \(\mathscr{L}(V,W_1\times W_{n})\cong
+    \mathscr{L}(V,W_1)\times \dots \times
+\mathscr{L}(V,W_{n})\) 表示的是矩阵按行分块的几何意义.
+
 \begin{problem}
     设\(V\) 是一个有限维线性空间, \(U\) 是\(V\) 的子空间, 证明:
     \[
@@ -354,7 +380,7 @@ counterexample}
 我也不太清楚\UseVerb{confused}}
 
 % TODO:  Add reference
-在前面我们早有介绍, 向量可以写作矩阵的形式. 可是向量怎么能看作线性变换呢? 不难理解, 我们实际上是将\(V\)
+在前面我们早有介绍, 向量可以写作矩阵的形式. 可是向量怎么能看作线性变换呢? 我们实际上是将\(V\)
 上向量看作线性变换：\[
     \mathscr{L}(\mathbb{F},V):
     \begin{pmatrix}
@@ -377,4 +403,22 @@ counterexample}
 从线性变换的角度看, 这是一个从\(V\) 到\(\mathbb{F}\) 的线性映射, 也就是一个\textbf{线性泛函}.
 从某种意义上，线性泛函就是一个行向量. 这样理解不仅可以省去不断把线性泛函看作函数而非``对象'',
 导致在思考对偶映射时处理``线性映射空间上的线性映射空间''的麻烦, 对偶基向量也一目了然:
-他们只不过是行向量的基\((1,0,\dots ,0), (0,1,\dots ,0),\dots \) 罢了.
+他们只不过是行向量的基\((1,0,\dots ,0)\),\((0,1,\dots ,0),\dots \) 罢了.
+
+线性泛函通过矩阵乘法作用在向量上, 也就是行向量与列向量的乘法. 不严谨的说, 可以看作两个向量之间的内积,
+线性泛函的作用也就是求``分量''. 基于我们对内积空间的认识，不难理解
+\begin{theorem}
+    设\(V\) 是有限维线性空间, \(v_{1}, \dots ,v_{n}\) 是\(V\) 的一组基, \(v \in V\)
+    \(V'\) 是\(V\) 的对偶空间, \(\varphi_{1}, \dots ,\varphi_{n}\)
+    是\(v_{1}, \dots ,v_{n}\) 的对偶基, \(\varphi \in V'\)
+    则:
+    \begin{align*}
+        v &= \varphi_{1}(v)v_{1} + \dots + \varphi_{n}(v)v_{n} \\
+        \varphi &= \varphi(v_{1})\varphi_{1} + \dots +
+        \varphi(v_{n})\varphi_{n}
+    \end{align*}
+\end{theorem}
+
+至于对偶映射为何定义为\(T'(\varphi)=\varphi o T\),
+我目前还仅能暂时理解为转置矩阵做行向量乘法需把向量放到矩阵的左侧. 更深层次的关于对偶本质的理解,
+\href{https://www.zhihu.com/question/38464481/answer/2110009942}{这篇文章}有一些新的见解.

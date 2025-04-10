@@ -4,7 +4,8 @@
 \usepackage{amssymb}
 \usepackage{booktabs}  % 提供更专业的表格线条
 \usepackage{array}     % 增强的表格功能
-
+\usepackage{ulem}
+\usepackage{color}
 \usepackage{breqn}
 % Use verb inside other environments
 \usepackage{fancyvrb}
@@ -58,4 +59,6 @@
 % If we use Chinese punctuation with space behind, the
 % source code will be ugly
 % If we use English punctuation, the output will be ugly
-\setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
+% \setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
+\newcommand\hl{\bgroup\markoverwith
+{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.5ex}}}\ULon}
