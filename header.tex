@@ -1,4 +1,4 @@
-\usepackage[UTF8, scheme=plain,heading=true]{ctex}
+\usepackage[UTF8, scheme=plain,heading=true,punct=quanjiao]{ctex}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -51,3 +51,11 @@
 \SaveVerb{kiss}|:-*|
 \SaveVerb{surprised}|:-o|
 \SaveVerb{grin}|:-]|
+% There is a big conflict between Chinese punctuation and
+% English punctuation
+% If we use Chinese punctuation only, the formatter won't
+% work recognize the break
+% If we use Chinese punctuation with space behind, the
+% source code will be ugly
+% If we use English punctuation, the output will be ugly
+\setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
