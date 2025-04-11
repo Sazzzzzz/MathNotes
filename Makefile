@@ -13,7 +13,7 @@ RESET = \033[0m
 
 # Function to print colored messages
 define colorecho
-	@echo "$(1)$(2)$(RESET)"
+printf "$(1)$(2)$(RESET)\n"
 endef
 
 # Detect OS

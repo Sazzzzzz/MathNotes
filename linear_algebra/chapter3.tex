@@ -1,3 +1,4 @@
+% !TeX root = main.tex
 \chapter{线性映射}
 \section{线性映射的向量空间}
 % TODO:  Problems to do: 11; 13; 14; 16; 17
@@ -11,7 +12,7 @@
 线性映射最基本也是最重要的定义如下:
 \begin{definition}
     设\(V\)和\(W\)是两个向量空间, \(T: V \to W\) 是一个映射, 如果对于任意的\(u,
-    v \in V\)和任意的\(a \in F\), 都有:
+    v \in V\)和任意的\(a \in \F\), 都有:
     \begin{description}
             % TODO： A better way to write this?
         \item[可加性:] \(T(u+v)=T(u)+T(v)\)
@@ -79,28 +80,28 @@ counterexample}
         \mathbb{C}^{\infty}\), \(D(f) = f'\)
     \item 积分算子 \(I: \mathbb{C}^{\infty} \to
         \mathbb{C}^{\infty}\), \(I(f) = \int f\)
-    \item 移位映射 \(S: \mathbb{F}^{\infty} \to \mathbb{F}^{\infty}\),
+    \item 移位映射 \(S: \F^{\infty} \to \F^{\infty}\),
         \(S((x_{1},\dots, x_{n}, \dots)) = (x_{2},\dots,
         x_{n}, \dots)\)
-    \item （加法）逆映射 映射 \(T\) 在 \(\mathscr{L}(V,W)\) 中的加法逆元
+    \item （加法）逆映射 映射 \(T\) 在 \(\L(V,W)\) 中的加法逆元
         \(S(v)=T(-v)\)
 \end{itemize}
 \subsection{为什么线性映射能写成矩阵?}
 线性映射引理告诉我们: 线性映射被基和基的像唯一确定. 接下来我们顺着习题3, 证明线性映射可以写成矩阵的形式
 \begin{theorem}
-    设\(T \in \mathscr{L}(\mathbb{F}^{n},\mathbb{F}^{m})\)
+    设\(T \in \L(\F^{n},\F^{m})\)
     存在标量\(A_{j,k} \in
-    \mathbb{F} (j = 1, \dots ,m, k=1, \dots, n) \), 使得:
+    \F (j = 1, \dots ,m, k=1, \dots, n) \), 使得:
     \[
         T(x_{1},\dots,x_{n})=(A_{1,1}x_{1}+\dots+A_{1,n}x_{n},\dots,A_{m,1}x_{1}+\dots+A_{m,n}x_{n})
     \]
-    对任意\(x_{1},\dots,x_{n} \in \mathbb{F}\) 成立
+    对任意\(x_{1},\dots,x_{n} \in \F\) 成立
 \end{theorem}
 
 \begin{proof}
-    记\(e_{1}, \dots, e_{n}\) 是\(\mathbb{F}^{n}\)的基向量,
+    记\(e_{1}, \dots, e_{n}\) 是\(\F^{n}\)的基向量,
     \(e'_{1}, \dots, e'_{m}\)
-    是\(\mathbb{F}^{m}\)的基向量.
+    是\(\F^{m}\)的基向量.
     不妨设 \(T(e_{i}) = A_{1,i}e'_{1} +
         A_{2,i}e'_{2} + \dots +
     A_{m,i}e'_{m}\) 对于所有 \(1\leq i\leq n\) 成立.
@@ -153,8 +154,8 @@ counterexample}
     \item （习题7）一维子空间有特征值
 \end{itemize}
 
-从抽象代数的角度看, 线性映射\(A \in \mathscr{L}(V,W)\)可以看作是从\(V\) 到\(W\)
-保持线性结构的映射, 也就是同态. 故也可记为\(\mathscr{L}(V,W)=\Hom(V,W)\)
+从抽象代数的角度看, 线性映射\(A \in \L(V,W)\)可以看作是从\(V\) 到\(W\)
+保持线性结构的映射, 也就是同态. 故也可记为\(\L(V,W)=\Hom(V,W)\)
 
 \section{零空间与值域}
 \subsection{记号}
@@ -176,7 +177,7 @@ counterexample}
 \subsection{为什么线性映射基本定理基本?}
 
 \begin{theorem}
-    假设\(V\) 是有限维的且 \(T \in \mathscr{L}(V,W)\), 那么\(\range
+    假设\(V\) 是有限维的且 \(T \in \L(V,W)\), 那么\(\range
     T\) 是有限维的, 且\[
         \dim V = \dim \nullspace T + \dim \range T
     \]
@@ -243,7 +244,7 @@ counterexample}
 高等代数中, 我们只讨论了\(V \to V\)的线性变换,
 并且已经先入为主的给出了\(\varepsilon_{1}, \dots, \varepsilon_{n}\) 作为基向量.
 即便如此, 当我们单纯讨论记号\(A\) 时,
-我们仅仅在讨论矩阵代数——充其量是在讨论\(\mathbb{F}^{n}\) 上的线性变换.
+我们仅仅在讨论矩阵代数——充其量是在讨论\(\F^{n}\) 上的线性变换.
 只有在矩阵前乘上给定的基向量组, 我们才能表示\(V\) 上的线性变换.
 
 \subsection{什么是矩阵乘法}
@@ -300,29 +301,29 @@ counterexample}
 
 \subsubsection{矩阵分块的原理}
 \begin{problem}
-    设\(V_1,\dots ,V_{m}\) 是向量空间, 证明\(\mathscr{L}(V_1\times
-    \dots \times V_{m},W)\) 和\(\mathscr{L}(V_1,W)\times \dots
-    \times \mathscr{L}(V_{m},W)\) 是同构向量空间.
+    设\(V_1,\dots ,V_{m}\) 是向量空间, 证明\(\L(V_1\times
+    \dots \times V_{m},W)\) 和\(\L(V_1,W)\times \dots
+    \times \L(V_{m},W)\) 是同构向量空间.
 \end{problem}
 
 \begin{proof}
     记\(\dim V_{i}=n_{i}\), \(\dim W=m\)
     \begin{align*}
-        &\mathrel{\phantom{=}}\dim \mathscr{L}(V_{1} \times
+        &\mathrel{\phantom{=}}\dim \L(V_{1} \times
         \dots \times V_{m}) \\
         &= (n_1+\dots+n_{m})m \\
         &= n_{1}m + \dots + n_{m}m \\
-        &= \dim \mathscr{L}(V_{1},W) + \dots +
-        \dim \mathscr{L}(V_{m},W)\\
+        &= \dim \L(V_{1},W) + \dots +
+        \dim \L(V_{m},W)\\
     \end{align*}
 \end{proof}
 % TODO: I want to add a matrix here to illustrate the proof
 这道题的证明是简单的. 但却启示我们向量空间直积的线性映射空间同构于线性映射空间的直积,
 其实是在告诉我们可以矩阵按列组合/分块的几何意义是\hl{向量空间做直积/商}.
 
-同理, \(\mathscr{L}(V,W_1\times W_{n})\cong
-    \mathscr{L}(V,W_1)\times \dots \times
-\mathscr{L}(V,W_{n})\) 表示的是矩阵按行分块的几何意义.
+同理, \(\L(V,W_1\times W_{n})\cong
+    \L(V,W_1)\times \dots \times
+\L(V,W_{n})\) 表示的是矩阵按行分块的几何意义.
 
 \begin{problem}
     设\(V\) 是一个有限维线性空间, \(U\) 是\(V\) 的子空间, 证明:
@@ -372,7 +373,8 @@ counterexample}
 % TODO：what is the difference between quote and quotation
 
 \begin{quote}
-    Duality in Mathematics is not a theorem, but a ``principle''\\
+    Duality in Mathematics is not a theorem, but a ``principle''
+
     \hfill --- Michael Atiyah
 \end{quote}
 
@@ -382,7 +384,7 @@ counterexample}
 % TODO:  Add reference
 在前面我们早有介绍, 向量可以写作矩阵的形式. 可是向量怎么能看作线性变换呢? 我们实际上是将\(V\)
 上向量看作线性变换：\[
-    \mathscr{L}(\mathbb{F},V):
+    \L(\F,V):
     \begin{pmatrix}
         x_1 \\
         x_2 \\
@@ -391,16 +393,16 @@ counterexample}
     \end{pmatrix}
 \]
 
-向量空间\(V\) 与\(\mathscr{L}(\mathbb{F},V)\) 同构, 这样的等价也没有任何问题.
+向量空间\(V\) 与\(\L(\F,V)\) 同构, 这样的等价也没有任何问题.
 那么同样考虑该向量（或者说矩阵）的转置:
 \[
-    \mathscr{L}(V,\mathbb{F}):
+    \L(V,\F):
     \begin{pmatrix}
         x_1 & x_2 & \dots & x_n
     \end{pmatrix}
 \]
 
-从线性变换的角度看, 这是一个从\(V\) 到\(\mathbb{F}\) 的线性映射, 也就是一个\textbf{线性泛函}.
+从线性变换的角度看, 这是一个从\(V\) 到\(\F\) 的线性映射, 也就是一个\textbf{线性泛函}.
 从某种意义上，线性泛函就是一个行向量. 这样理解不仅可以省去不断把线性泛函看作函数而非``对象'',
 导致在思考对偶映射时处理``线性映射空间上的线性映射空间''的麻烦, 对偶基向量也一目了然:
 他们只不过是行向量的基\((1,0,\dots ,0)\),\((0,1,\dots ,0),\dots \) 罢了.
@@ -419,6 +421,6 @@ counterexample}
     \end{align*}
 \end{theorem}
 
-至于对偶映射为何定义为\(T'(\varphi)=\varphi o T\),
+至于对偶映射为何定义为\(T'(\varphi)=\varphi \circ T\),
 我目前还仅能暂时理解为转置矩阵做行向量乘法需把向量放到矩阵的左侧. 更深层次的关于对偶本质的理解,
 \href{https://www.zhihu.com/question/38464481/answer/2110009942}{这篇文章}有一些新的见解.

@@ -1,3 +1,4 @@
+% !TeX root = main.tex
 \chapter{向量空间}
 \section*{小结}
 \begin{itemize}
@@ -147,12 +148,12 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 
 实际上灭灯问题的线性空间与线性变换与几何学中向量与点的关系十分相似, 这里给出一个推导.
 
-记\(\mathbb{F}\) 为\(3 \times 3\) 网格中所有灯光状态的集合,
+记\(\F\) 为\(3 \times 3\) 网格中所有灯光状态的集合,
 其中每个灯光状态都可以用一个\(3 \times 3=9\) 维的行向量表示, 其中每个元素为0或1. 容易发现,
-\(\mathbb{F}=\mathbb{Z}_{2}^{9}\).
+\(\F=\mathbb{Z}_{2}^{9}\).
 
-同时我们记在\(\mathbb{F}\)
-上灯光状态全部变换的集合为\(\overrightarrow{\mathbb{F}}=\overrightarrow{\mathbb{Z}_{2}^{9}}\),
+同时我们记在\(\F\)
+上灯光状态全部变换的集合为\(\overrightarrow{\F}=\overrightarrow{\mathbb{Z}_{2}^{9}}\),
 读者不难验证 \(\overrightarrow{\mathbb{Z}_{2}^{9}}\)
 对\(\mathbb{Z}_{2}\)上的加法构成群, 对\(\mathbb{Z}_{2}\) 上的加法与数乘构成一个线性空间.
 
@@ -188,8 +189,8 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 
 向量空间看上去有点像交换幺环, 但乘法被数乘代替.
 向量空间是广泛存在的, （但不是一些人想的那样无处不在\UseVerb{surprised}）,
-本章中最有趣的向量空间是\(\mathbb{F}^{S}\)：定义域为\(S\),
-值域为\(\mathbb{F}\)的函数全体所构成的向量空间
+本章中最有趣的向量空间是\(\F^{S}\)：定义域为\(S\),
+值域为\(\F\)的函数全体所构成的向量空间
 % TODO:  Change another position
 % TODO： give it a better look
 \begin{quote}
@@ -201,13 +202,13 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 如果我们定义：
 \[
     \begin{aligned}
-        f: \mathbb{F}^{\{0,1,\dots,n\}} &\to \mathbb{F}^{n}\\
+        f: \F^{\{0,1,\dots,n\}} &\to \F^{n}\\
         f(x_{0}, x_{1}, \dots, x_{n}) &\mapsto (x_{0},
         x_{1}, \dots, x_{n})
     \end{aligned}
 \]
 
-就能找到\(\mathbb{F}^{\{0,1,\dots,n\}}\)和\(\mathbb{F}^{n}\)之间的一个双射,
+就能找到\(\F^{\{0,1,\dots,n\}}\)和\(\F^{n}\)之间的一个双射,
 这事实上证明了\(R^{n}\)
 是一个向量空间.
 同理, \(\mathbb{R}^{\mathbb{R}}\)等一系列奇形怪状的向量空间也能被定义出来.
