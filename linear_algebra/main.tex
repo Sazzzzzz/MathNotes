@@ -1,4 +1,4 @@
-\documentclass[b5paper]{memoir}
+\documentclass[b5paper]{ctexrep}
 \usepackage[margin=1in]{geometry}
 \input{../header.tex}
 % Info: It is declared in this way because `\null' is
@@ -8,22 +8,24 @@
 \DeclareMathOperator{\Span}{span}
 \DeclareMathOperator{\Hom}{Hom}
 
+\CTEXoptions[abstractname={写在前面}]
+
 \renewcommand{\L}{\mathscr{L}}
 \newcommand{\A}{\mathscr{A}}
 \newcommand{\F}{\mathbb{F}}
 
 \begin{document}
 % cSpell: ignore LADR
-\frontmatter
+% \frontmatter
 \title{LADR学习笔记}
-\author{Caffein3}
+\author{\texttt{Caffein3}}
 \date{}
 \maketitle
 \tableofcontents
 \include{chapter0}
-\mainmatter
+% \mainmatter
 \include{chapter1}
 \include{chapter2}
 \include{chapter3}
-\backmatter
+% \backmatter
 \end{document}

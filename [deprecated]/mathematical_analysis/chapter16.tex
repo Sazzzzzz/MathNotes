@@ -32,7 +32,7 @@
                 \lim_{n \to \infty} \left\lVert f_{n}(x) -
                 f(x) \right\rVert
                 = \lim_{n \to \infty} \sup_{x \in
-                \mathbb{R}} \left\lvert \sin
+                \R} \left\lvert \sin
                 \frac{x}{n} \right\rvert
                 = 1
             \]
@@ -43,9 +43,9 @@
             \frac{x}{n} = 0\),
             故\(f_{n}(x)\)逐点收敛到\(0\).
 
-            令\(g(x)=x \ln x\). 则可知\(g(x)\)在\((0,\frac{1}{\ee})\)上单调递减.
+            令\(g(x)=x \ln x\). 则可知\(g(x)\)在\((0,\frac{1}{\e})\)上单调递减.
             故\(\forall x \in (0,1), n > 3\), 有\(\frac{x}{n} <
-            \frac{1}{\ee}\). 故\(f_{n}(x) = \frac{x}{n} \ln
+            \frac{1}{\e}\). 故\(f_{n}(x) = \frac{x}{n} \ln
             \frac{x}{n}\)单调递增. 由Dini定理知\(f_{n}(x)\)一致收敛到\(0\).
 
         \item 一致收敛.
@@ -166,14 +166,14 @@
 \begin{solution}
     由于\(f(x) = \lim_{n \to \infty} nx e^{-nx^2} = 0\),
     故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\).
-    可知\(f_{n}'(x) = n \ee^{-nx^{2}}(1-2nx)\), 求得\(f'\left(
+    可知\(f_{n}'(x) = n \e^{-nx^{2}}(1-2nx)\), 求得\(f'\left(
     \frac{1}{2n} \right) = 0\). 故\(f_{n}(x)\)
     的最大值在\(\frac{1}{2n}\)处取得.
     故:
     \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
         = \lim_{n \to \infty} f_{n}(1/2n) = \lim_{n \to \infty}
-        \frac{1}{2} \ee^{-\frac{1}{4n}} = \frac{1}{2} >  0
+        \frac{1}{2} \e^{-\frac{1}{4n}} = \frac{1}{2} >  0
     \]
     故\(f_{n}(x)\)在\([0,1]\)上非一致收敛.
 
@@ -181,7 +181,7 @@
         & \int_{0}^{1} f(x) \mathrm{d}x = 0                       \\
         & \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \mathrm{d}x =
         \lim_{n \to \infty} \frac{1}{2}\int_{0}^{1}
-        \ee^{-nx^{2}} \mathrm{d}nx^{2} = \frac{1}{2}
+        \e^{-nx^{2}} \mathrm{d}nx^{2} = \frac{1}{2}
     \end{align*}
     故\(\int_{0}^{1} f(x) \mathrm{d}x \neq \lim_{n \to
     \infty} \int_{0}^{1}\)
@@ -212,7 +212,7 @@
     故: \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
         = \lim_{n \to \infty} nx(1-x)^{n} = \lim_{n \to \infty}
-        \left( \frac{n}{n + 1} \right)^{n+1} = \frac{1}{\ee} > 0
+        \left( \frac{n}{n + 1} \right)^{n+1} = \frac{1}{\e} > 0
     \]
     故\(f_{n}(x)\)在\([0,1]\)上非一致收敛.
 
@@ -232,7 +232,7 @@
 \begin{problem}
     问参数\(\alpha\) 分别取什么值时，函数列
     \[
-        f_n(x) = n^\alpha x\ee^{-n x}, \quad n = 1, 2, \dots
+        f_n(x) = n^\alpha x\e^{-n x}, \quad n = 1, 2, \dots
     \] 在\([0,1]\) 上:
     \begin{itemize}
         \item 收敛
@@ -247,12 +247,12 @@
 
 \begin{solution}
     \begin{itemize}
-        \item 注意到\(\ee^{-nx}\)是\(x\) 的高阶无穷小, 故\(\forall \alpha
-            \in \mathbb{R}\) 都有: \[
-                \lim_{n \to \infty} n^{\alpha} x \ee^{-n x} = 0
+        \item 注意到\(\e^{-nx}\)是\(x\) 的高阶无穷小, 故\(\forall \alpha
+            \in \R\) 都有: \[
+                \lim_{n \to \infty} n^{\alpha} x \e^{-n x} = 0
             \]
         \item 考虑\(f_{n}(x)\)的最大值, 令\(f_{n}'(x) = n^{\alpha}
-            \ee^{-\alpha x} (1 - n x) = 0\). 解得\(x =
+            \e^{-\alpha x} (1 - n x) = 0\). 解得\(x =
             \frac{1}{n}\).
             则\[
                 \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x)
@@ -266,9 +266,9 @@
             \begin{align*}
                 & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \\
                 & = \lim_{n \to \infty} \int_{0}^{1} n^{\alpha} x
-                \ee^{-nx} \mathrm{d}x                       \\
+                \e^{-nx} \mathrm{d}x                       \\
                 & = \lim_{n \to \infty} -n^{\alpha - 1} \left(
-                    \ee^{-n} + \frac{1}{n}\ee^{-n}
+                    \e^{-n} + \frac{1}{n}\e^{-n}
                 -\frac{1}{n} \right)                               \\
                 & = \lim_{n \to \infty} -n^{\alpha - 2}
             \end{align*}
@@ -290,7 +290,7 @@
 \end{problem}
 
 \begin{solution}
-    由于\(\arctan x^{n}\)在 \(\mathbb{R}\)上有界, 则:
+    由于\(\arctan x^{n}\)在 \(\R\)上有界, 则:
     \[
         0 \le  \left\lVert f_{n}(x) - f(x) \right\rVert \le
         \frac{1}{n} \cdot \frac{\pi}{2}
@@ -355,8 +355,8 @@
         \item 可知函数列一致收敛于\(0\).
         \item 可知,
             \begin{align*}
-                f_{n}'(x)  & = -2nx\ee^{-n^{2}x^{2}}     \\
-                f_{n}''(x) & = 2n\ee^{-n^{2}x^{2}}\left(
+                f_{n}'(x)  & = -2nx\e^{-n^{2}x^{2}}     \\
+                f_{n}''(x) & = 2n\e^{-n^{2}x^{2}}\left(
                 2n^{2}x^{2} - 1\right)
             \end{align*}
             故\(f_{n}(x)\)最大值在\(x = -\frac{\sqrt{2}}{2n}\) 处取到.
@@ -364,7 +364,7 @@
                 \lim_{n \to \infty} \left\lVert f_{n}'(x) - f(x)
                 \right\rVert = \lim_{n \to \infty} \left|
                 f'_{n}\left(\frac{\sqrt{2}}{2n}\right) \right| =
-                -2n\ee^{-\frac{1}{2}} \to \infty
+                -2n\e^{-\frac{1}{2}} \to \infty
             \]
             故函数列不一致收敛
         \item 可知:
@@ -372,7 +372,7 @@
                 f'(x)                         & = 0
                 \\
                 \lim_{n \to \infty} f'_{n}(x) & = \lim_{n \to \infty}
-                \frac{2x}{n}\ee^{-n^{2}x^{2}} = 0
+                \frac{2x}{n}\e^{-n^{2}x^{2}} = 0
             \end{align*}
     \end{itemize}
 \end{solution}

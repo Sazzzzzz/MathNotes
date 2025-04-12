@@ -56,7 +56,7 @@
 \begin{solution}
     由于\(\sum_{n=1}^{\infty} a_{n}\) 和 \(\sum_{n=1}^{\infty} b_{n}\)
     均收敛, 由Cauchy收敛原理知: \(\forall \varepsilon > 0, \exists N \in
-    \mathbb{N}\)使得\(\forall n > N, p \in \mathbb{N}\), 有:
+    \N\)使得\(\forall n > N, p \in \N\), 有:
     \begin{align*}
         \left| a_{n} + a_{n+1} + \dots + a_{n+p} \right| <
         \varepsilon \\
@@ -404,7 +404,7 @@
         \left(1 - \frac{a_{n}}{a_{n+1}}\right) + \left(1 -
         \frac{a_{n+1}}{a_{n+2}}\right) + \dots +
         \left(1 - \frac{a_{n+p}}{a_{n+p+1}}\right) \geq 1 -
-        \frac{a_{n}}{a_{n+p+1}}, \forall n, p \in \mathbb{N}
+        \frac{a_{n}}{a_{n+p+1}}, \forall n, p \in \N
     \]
 
     用数学归纳法证明:
@@ -427,7 +427,7 @@
     故命题得证.
 
     \(\exists \varepsilon = \frac{1}{2}\), \(\forall N \in
-    \mathbb{N}\), 取\(n = N\), 由\(\{a_{n}\}\)无界知\(\exists p >
+    \N\), 取\(n = N\), 由\(\{a_{n}\}\)无界知\(\exists p >
     N\)使\(a_{n+p+1} > 2a_{n}\). 于是:
     \[
         \left| \left( 1 - \frac{a_{n}}{a_{n+1}} \right) + \left( 1 -
@@ -448,7 +448,7 @@
 \begin{solution}
     \begin{itemize}
         \item \(\sum_{n=1}^{\infty} \frac{1}{(\ln n)^{\ln n}}\) 收敛.
-            当\(n > \ee^{\ee^{2}}\), 则\(\ln \ln n > 2\), 有:
+            当\(n > \e^{\e^{2}}\), 则\(\ln \ln n > 2\), 有:
             \[
                 \frac{1}{(\ln n)^{\ln n}} = \frac{1}{\exp(\ln n
                 \ln\ln n)} < \frac{1}{\exp(2\ln n)} = \frac{1}{n^2}
@@ -456,11 +456,11 @@
             由比较判别法知级数收敛.
         \item \(\sum_{n=3}^{\infty} \frac{1}{(\ln n)^{\ln
             \ln n}}\) 发散.
-            易知\(\frac{\ln x}{x} < \frac{1}{\ee}\), \(\forall x > 0\).
+            易知\(\frac{\ln x}{x} < \frac{1}{\e}\), \(\forall x > 0\).
             则\[
                 \frac{(\ln\ln n)^{2}}{\ln n} = \left( \frac{2\ln
                 \sqrt{\ln n}}{\sqrt{\ln n}} \right)^{2} < \left(
-                \frac{2}{\ee} \right)^{2} < 1
+                \frac{2}{\e} \right)^{2} < 1
             \]
             即\(\ln n > (\ln \ln n)^{2}\), 故\[
                 \frac{1}{(\ln n)^{\ln \ln n}} = \frac{1}{\exp(\ln\ln
@@ -469,7 +469,7 @@
             由比较判别法知级数发散.
         \item \(\sum_{n=3}^{\infty} \frac{1}{(\ln \ln
             n)^{\ln n}}\) 收敛.
-            当\(n > \ee^{\ee^{\ee^{2}}}\) 时,
+            当\(n > \e^{\e^{\e^{2}}}\) 时,
             \(\ln\ln\ln n > 2\), 于是: \[
                 \frac{1}{(\ln \ln n)^{\ln n}} = \frac{1}{\exp(\ln n
                 \ln\ln\ln n)} < \frac{1}{\exp(2\ln n)} = \frac{1}{n^2}

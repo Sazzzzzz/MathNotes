@@ -1,11 +1,11 @@
-\usepackage[UTF8, scheme=plain,heading=true,punct=quanjiao]{ctex}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}  % 提供更专业的表格线条
 \usepackage{array}     % 增强的表格功能
-\usepackage{ulem}
-\usepackage{color}
+\usepackage[normalem]{ulem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[many]{tcolorbox}
 \usepackage{breqn}
 % Use verb inside other environments
 \usepackage{fancyvrb}
@@ -33,11 +33,17 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{problem}{Problem}[chapter]
-\newcommand{\ii}{\mathrm{i}}
-\newcommand{\ee}{\mathrm{e}}
-% TODO: Consider using `\R' for `\mathbb{R}q`
+\renewcommand{\i}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+% TODO: Consider using `\R' for `\Rq`
 % TODO: Still configurable
-\setlength{\parskip}{5pt}
+% \setlength{\parskip}{5pt}
 
 % TODO: Modify the `proof' environment
 
@@ -60,5 +66,26 @@
 % source code will be ugly
 % If we use English punctuation, the output will be ugly
 % \setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
-\newcommand\hl{\bgroup\markoverwith
-{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.5ex}}}\ULon}
+\newcommand\hl{\bgroup\markoverwith{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.5ex}}}\ULon}
+\newtcolorbox{refbox}[1][]{%
+enhanced,                   % Use enhanced features
+boxrule=-1pt,                % No border frame for the main box
+leftrule=1.8pt,               % Thickness of the left
+colframe=NavyBlue!75!white, % Color of the left line
+sharp corners,              % Use sharp corners
+boxsep=0pt,                 % Separation between frame
+% (rule) and content area border
+left=10pt,     % Left padding similar to quote environment
+right=2pt,    % Right padding
+top=2pt,    % Top padding
+bottom=2pt, % Bottom padding
+breakable,                  % Allow the box to break
+% across pages if needed
+#1                          % Pass additional
+}
+
+\renewenvironment{quote}
+{
+\begin{refbox}}
+{
+\end{refbox}}

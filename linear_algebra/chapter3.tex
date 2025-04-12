@@ -27,7 +27,7 @@
 \paragraph{满足齐次性不满足可加性的变换}
 取
 \begin{align*}
-    \varphi: \mathbb{C} &\to \mathbb{C} \\
+    \varphi: \C &\to \C \\
     v &\mapsto
     \begin{cases}
         v, &\Im v \geq 0 \\
@@ -39,18 +39,18 @@
 \paragraph{满足可加性不满足齐次性的变换}
 取
 \begin{align*}
-    \varphi: \mathbb{C} &\to \mathbb{C} \\
-    a+b \ii &\mapsto a
+    \varphi: \C &\to \C \\
+    a+b \i &\mapsto a
 \end{align*}
-容易发现\(\forall a+b\ii,c+d\ii \in \mathbb{C},\) 有
+容易发现\(\forall a+b\i,c+d\i \in \C,\) 有
 \begin{align*}
-    \varphi((a+b\ii)+(c+d\ii)) &= \varphi((a+c)+(b+d)\ii) = a+c \\
-    &=\varphi(a+b\ii) + \varphi(c+d\ii) =a+c
+    \varphi((a+b\i)+(c+d\i)) &= \varphi((a+c)+(b+d)\i) = a+c \\
+    &=\varphi(a+b\i) + \varphi(c+d\i) =a+c
 \end{align*}
 但是
 \begin{align*}
-    \varphi(\ii(a+b\ii)) &= \varphi(b-a\ii) = b \\
-    &\neq \ii\varphi(a+b\ii) =\ii a
+    \varphi(\i(a+b\i)) &= \varphi(b-a\i) = b \\
+    &\neq \i\varphi(a+b\i) =\i a
 \end{align*}
 于是\(\varphi\) 不是线性映射.
 
@@ -62,11 +62,11 @@ counterexample}
     \item[齐次性:] 线性映射在缩放时保持方向一致, 但不能扩展基向量.
 \end{description}
 
-感兴趣的读者看完书上内容后可能会好奇: ``那存不存在\(\varphi: \mathbb{R} \to
-\mathbb{R}\) 满足可加性却不是线性映射呢?'' 有的兄弟, 有的.
-事实上我们是在问是否存在\(f:\mathbb{R} \to \mathbb{R}\)使得方程
+感兴趣的读者看完书上内容后可能会好奇: ``那存不存在\(\varphi: \R \to
+\R\) 满足可加性却不是线性映射呢?'' 有的兄弟, 有的.
+事实上我们是在问是否存在\(f:\R \to \R\)使得方程
 \[
-    f(x+y) = f(x) + f(y) \qquad \forall x,y \in \mathbb{R}
+    f(x+y) = f(x) + f(y) \qquad \forall x,y \in \R
 \]
 有非线性解. 这就是大名鼎鼎的Cauchy方程! （看到这里可能会唤醒你数分I死去的回忆）
 % TODO: Input roman characters
@@ -76,10 +76,10 @@ counterexample}
 
 线性映射的有趣例子包括:
 \begin{itemize}
-    \item 微分算子 \(D: \mathbb{C}^{\infty} \to
-        \mathbb{C}^{\infty}\), \(D(f) = f'\)
-    \item 积分算子 \(I: \mathbb{C}^{\infty} \to
-        \mathbb{C}^{\infty}\), \(I(f) = \int f\)
+    \item 微分算子 \(D: \C^{\infty} \to
+        \C^{\infty}\), \(D(f) = f'\)
+    \item 积分算子 \(I: \C^{\infty} \to
+        \C^{\infty}\), \(I(f) = \int f\)
     \item 移位映射 \(S: \F^{\infty} \to \F^{\infty}\),
         \(S((x_{1},\dots, x_{n}, \dots)) = (x_{2},\dots,
         x_{n}, \dots)\)
@@ -139,14 +139,14 @@ counterexample}
 \begin{itemize}
     \item 线性映射对加法、数乘构成新的线性空间
     \item \(V\)到\(V\)的线性映射构成一个幺环（矩阵环）
-    \item （习题1, 2）不严谨的说, 线性映射的笛卡尔积也是线性变换. 即若\(\mathscr{A}_{1}\)
-        是\(V_{1} \to W_{1}\) 的线性变换, \(\mathscr{A}_{2}\)
+    \item （习题1, 2）不严谨的说, 线性映射的笛卡尔积也是线性变换. 即若\(\A_{1}\)
+        是\(V_{1} \to W_{1}\) 的线性变换, \(\A_{2}\)
         是\(V_{2} \to W_{2}\) 的线性变换, 则
         \begin{align*}
-            \mathscr{A}_{1} \times \mathscr{A}_{2} : V_{1}
+            \A_{1} \times \A_{2} : V_{1}
             \times V_{2} &\to W_{1} \times W_{2}\\
             (v_{1},v_{2}) &\mapsto
-            (\mathscr{A}_{1}(v_{1}),\mathscr{A}_{2}(v_{2}))
+            (\A_{1}(v_{1}),\A_{2}(v_{2}))
         \end{align*}
         是\(V_{1} \times V_{2} \to
         W_{1} \times W_{2}\) 的线性变换.
@@ -160,19 +160,19 @@ counterexample}
 \section{零空间与值域}
 \subsection{记号}
 \begin{description}
-    \item[零空间(Null space):] \(\nullspace \mathscr{A}\)
-        \(\mathscr{A}\) 是单射当且仅当
-        \(\nullspace \mathscr{A} = \{0\}\)
-    \item[值域(Range):] \(\range \mathscr{A}\)
-        \(\mathscr{A}\) 是满射当且仅当
-        \(\range \mathscr{A} = W\)
+    \item[零空间(Null space):] \(\nullspace \A\)
+        \(\A\) 是单射当且仅当
+        \(\nullspace \A = \{0\}\)
+    \item[值域(Range):] \(\range \A\)
+        \(\A\) 是满射当且仅当
+        \(\range \A = W\)
 \end{description}
-个人认为这样的记号比高代当中 \(\mathscr{A}^{-1}(\mathbf{0})\)
-\footnote{当然记号 \(\operatorname{Ker} \mathscr{A}\) 也很不错的,
-因为它看起来更酷一些 \UseVerb{smile}} 和 \(\mathscr{A}(V)\)
-更自然，更能体现出零空间和值域是线性变换内蕴的性质.
+个人认为这样的记号比高代当中 \(\A^{-1}(\mathbf{0})\) 和 \(\A(V)\)
+更自然，更能体现出零空间和值域是线性变换内蕴的性质.\footnote{当然记号
+    \(\operatorname{Ker} \A\) 也很不错的,
+因为它看起来更酷一些 \UseVerb{smile}}
 
-\(\mathscr{A}\)的零空间与值域都构成线性空间.
+\(\A\)的零空间与值域都构成线性空间.
 
 \subsection{为什么线性映射基本定理基本?}
 
@@ -232,9 +232,9 @@ counterexample}
 
 在高等代数中, 我时常对这样的记号感到困惑:
 \begin{align*}
-    \mathscr{A}(\varepsilon_{1}, \dots, \varepsilon_{n}) &=
-    (\mathscr{A}(\varepsilon_{1}), \dots,
-    \mathscr{A}(\varepsilon_{n})) = (\varepsilon_{1},
+    \A(\varepsilon_{1}, \dots, \varepsilon_{n}) &=
+    (\A(\varepsilon_{1}), \dots,
+    \A(\varepsilon_{n})) = (\varepsilon_{1},
     \dots, \varepsilon_{n})A\\
     \varepsilon &= (\varepsilon_{1}, \dots, \varepsilon_{n})
     (x_{1}, \dots,   x_{n})^{\mathrm{T}}
@@ -339,14 +339,14 @@ counterexample}
     故\(U/V \times V \cong U\)
 \end{proof}
 
-在群上却罕见这样的优美性质. 由\(\mathbb{Z}/n\mathbb{Z} \cong
-\mathbb{Z}_{n}\),
-考虑\(\mathbb{Z}/n\mathbb{Z}\times\mathbb{Z}_{n}\) 与\(\mathbb{Z}\) 的关系
+在群上却罕见这样的优美性质. 由\(\Z/n\Z \cong
+\Z_{n}\),
+考虑\(\Z/n\Z\times\Z_{n}\) 与\(\Z\) 的关系
 
-\(\forall (a_1+n\mathbb{Z}, b_1),(a_2+n\mathbb{Z}, b_2) \in
-\mathbb{Z}/n\mathbb{Z} \times \mathbb{Z}_{n}\), 设\[
-    (a_1+n\mathbb{Z}, b_1)+(a_2+n\mathbb{Z}, b_2) =
-    (a_3+n\mathbb{Z}, b_3)
+\(\forall (a_1+n\Z, b_1),(a_2+n\Z, b_2) \in
+\Z/n\Z \times \Z_{n}\), 设\[
+    (a_1+n\Z, b_1)+(a_2+n\Z, b_2) =
+    (a_3+n\Z, b_3)
 \]
 
 则有:
@@ -355,12 +355,11 @@ counterexample}
     b_3 &= b_1 + b_2
 \end{align*}
 
-考虑\(c=(1+n\mathbb{Z},0) \in \mathbb{Z}/n\mathbb{Z} \times
-\mathbb{Z}_{n}\), 则由上计算关系可知\(c, c^{2}, c^{3}, \dots \) 只有有限的\(n\) 个值,
-而\(\mathbb{Z}\)中任意非零元的幂都是无限的. 这说明
+考虑\(c=(1+n\Z,0) \in \Z/n\Z \times
+\Z_{n}\), 则由上计算关系可知\(c, c^{2}, c^{3}, \dots \) 只有有限的\(n\) 个值,
+而\(\Z\)中任意非零元的幂都是无限的. 这说明
 \[
-    \mathbb{Z}/n\mathbb{Z} \times \mathbb{Z}_{n} \not\cong
-    \mathbb{Z}
+    \Z/n\Z \times \Z_{n} \not\cong \Z
 \]
 
 与子空间的性质截然不同.
@@ -405,7 +404,7 @@ counterexample}
 从线性变换的角度看, 这是一个从\(V\) 到\(\F\) 的线性映射, 也就是一个\textbf{线性泛函}.
 从某种意义上，线性泛函就是一个行向量. 这样理解不仅可以省去不断把线性泛函看作函数而非``对象'',
 导致在思考对偶映射时处理``线性映射空间上的线性映射空间''的麻烦, 对偶基向量也一目了然:
-他们只不过是行向量的基\((1,0,\dots ,0)\),\((0,1,\dots ,0),\dots \) 罢了.
+他们只不过基向量的转置 \((1,0,\dots ,0)\),\((0,1,\dots ,0),\dots \) 罢了.
 
 线性泛函通过矩阵乘法作用在向量上, 也就是行向量与列向量的乘法. 不严谨的说, 可以看作两个向量之间的内积,
 线性泛函的作用也就是求``分量''. 基于我们对内积空间的认识，不难理解

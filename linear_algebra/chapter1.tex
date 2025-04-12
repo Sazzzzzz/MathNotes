@@ -6,48 +6,48 @@
     \item 元组和他们的运算
 \end{itemize}
 \section{那些``显然''的结论}
-\subsection{\(\ii\) 究竟等于\(\sqrt{-1}\)还是\(-\sqrt{-1}\)?}
+\subsection{\(\i\) 究竟等于\(\sqrt{-1}\)还是\(-\sqrt{-1}\)?}
 
 贴吧里曾流传着这么一张图片:
 % TODO: Add vertical dashed line
 \begin{flalign*}
     &
     \begin{aligned}
-        \frac{1}{\ii} &= \frac{\sqrt{-1} \cdot \sqrt{-1}}{\ii}\\
-        &= \frac{\ii \cdot \ii}{\ii} = \ii
+        \frac{1}{\i} &= \frac{\sqrt{-1} \cdot \sqrt{-1}}{\i}\\
+        &= \frac{\i \cdot \i}{\i} = \i
     \end{aligned}
     &&
     \begin{aligned}
-        \frac{1}{\ii}&=\frac{1\cdot \ii}{\ii \cdot \ii}\\
-        &=\frac{\ii}{-1}=-\ii
+        \frac{1}{\i}&=\frac{1\cdot \i}{\i \cdot \i}\\
+        &=\frac{\i}{-1}=-\i
     \end{aligned}&
 \end{flalign*}
 如果我们说的再直接一些：
 \[
-    1 = \sqrt{-1}\cdot \sqrt{-1} = \ii \cdot \ii = \ii^{2} = -1
+    1 = \sqrt{-1}\cdot \sqrt{-1} = \i \cdot \i = \i^{2} = -1
 \]
 
-悖论的关键在于, 虚数 \(\ii\) 的定义从来不是 \(\sqrt{-1}\) 或者\(-\sqrt{-1}\),
-而是\(\ii^{2}=-1\). \(\ii\) 只是满足这个性质的一个数. 实数轴从不在乎单位虚数在它的左边或是右边.
-从某种意义上看, \(\ii\) 可以看作是\(\sqrt{-1}\)和\(-\sqrt{-1}\)的任选一
-\footnote{事实上, 在抽象代数中广泛使用\(\sqrt{-1}\) 记号而非\(\ii\), 原因就在于此}.
-如果我们``假定''\(\ii=\sqrt{-1}\),
-那么我们将所有的\(\ii\)再替换成\(j=-\ii=-\sqrt{-1}\), 所有的式子仍将成立,
+悖论的关键在于, 虚数 \(\i\) 的定义从来不是 \(\sqrt{-1}\) 或者\(-\sqrt{-1}\),
+而是\(\i^{2}=-1\). \(\i\) 只是满足这个性质的一个数. 实数轴从不在乎单位虚数在它的左边或是右边.
+从某种意义上看, \(\i\) 可以看作是\(\sqrt{-1}\)和\(-\sqrt{-1}\)的任选一
+\footnote{事实上, 在抽象代数中广泛使用\(\sqrt{-1}\) 记号而非\(\i\), 原因就在于此}.
+如果我们``假定''\(\i=\sqrt{-1}\),
+那么我们将所有的\(\i\)再替换成\(j=-\i=-\sqrt{-1}\), 所有的式子仍将成立,
 欧拉公式\(e^{j\pi}+1=0\)
 照样对偶.
 \footnote{至于\(\sqrt{ab}=\sqrt{a}\cdot\sqrt{b}\)在复数域中为何不再成立,
 读者可以参见复变函数的教材. }
 
-在本书中, 复数被定义为满足复数乘法和加法关系的二元数组. \(\ii^{2}=-1\)则更是结论而不是定义了.
+在本书中, 复数被定义为满足复数乘法和加法关系的二元数组. \(\i^{2}=-1\)则更是结论而不是定义了.
 \begin{definition}
-    一个复数是一个有序对\((a,b)\) , 其中\(a,b\in\mathbb{R}\) ,
-    不过我们会把这写成\(a+b\ii\) ．
-    全体复数所构成的集合用\(\mathbb{C}\) 表示：
-    \[\mathbb{C}=\{a+b\ii:a,b\in \mathbb{C}\}．\]
-    \(\mathbb{C}\) 上的加法(addition)和乘法(multiplication)定义为
-    \[(a+b\ii)+(c+d\ii)=(a+c)+(b+d)\ii,\]
-    \[(a+b\ii)(c+d\ii)=(ac-bd)+(ad+bc)\ii;\]
-    其中\(a,b,c,d\in\mathbb{R}\)
+    一个复数是一个有序对\((a,b)\) , 其中\(a,b\in\R\) ,
+    不过我们会把这写成\(a+b\i\)
+    全体复数所构成的集合用\(\C\) 表示：
+    \[\C=\{a+b\i:a,b\in \C\}\]
+    \(\C\) 上的加法(addition)和乘法(multiplication)定义为
+    \[(a+b\i)+(c+d\i)=(a+c)+(b+d)\i,\]
+    \[(a+b\i)(c+d\i)=(ac-bd)+(ad+bc)\i;\]
+    其中\(a,b,c,d\in\R\)
 \end{definition}
 
 \subsection{域是什么？}
@@ -121,7 +121,7 @@
 已经解释的非常清楚了. 这里给出问题解决的大概思路.
 
 \begin{itemize}
-    \item 一个格子点击两次(偶数次)不改变状态.\footnote{这样的代数结构相当常见, 奇数偶数的乘除, 逻辑代数等等}
+    \item 一个格子点击两次(偶数次)不改变状态.\footnote{这样的代数结构相当常见: 奇数偶数的乘除、逻辑代数等等}
     \item 一个格子的状态只取决于它被点击偶数次还是奇数次, 因此\emph{与按键的顺序无关}.
 \end{itemize}
 
@@ -137,7 +137,7 @@
 这一线性组合写成矩阵乘法的形式\(Ax\), 其中\(A=(T_{1}, T_{2}, \dots,
 T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}\)
 于是求解灭灯问题就完全转化成了在有限域
-\(\mathbb{Z}_{2}\) 上求解线性方程组\[
+\(\Z_{2}\) 上求解线性方程组\[
     Ax+B=0
 \]
 
@@ -150,33 +150,33 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 
 记\(\F\) 为\(3 \times 3\) 网格中所有灯光状态的集合,
 其中每个灯光状态都可以用一个\(3 \times 3=9\) 维的行向量表示, 其中每个元素为0或1. 容易发现,
-\(\F=\mathbb{Z}_{2}^{9}\).
+\(\F=\Z_{2}^{9}\).
 
 同时我们记在\(\F\)
-上灯光状态全部变换的集合为\(\overrightarrow{\F}=\overrightarrow{\mathbb{Z}_{2}^{9}}\),
-读者不难验证 \(\overrightarrow{\mathbb{Z}_{2}^{9}}\)
-对\(\mathbb{Z}_{2}\)上的加法构成群, 对\(\mathbb{Z}_{2}\) 上的加法与数乘构成一个线性空间.
+上灯光状态全部变换的集合为\(\overrightarrow{\F}=\overrightarrow{\Z_{2}^{9}}\),
+读者不难验证 \(\overrightarrow{\Z_{2}^{9}}\)
+对\(\Z_{2}\)上的加法构成群, 对\(\Z_{2}\) 上的加法与数乘构成一个线性空间.
 
-注意到灯光状态变换实际上是通过加法实现\(\mathbb{Z}^{9}_{2}\) 上的变换的, 定义群作用
+注意到灯光状态变换实际上是通过加法实现\(\Z^{9}_{2}\) 上的变换的, 定义群作用
 \begin{align*}
-    T: \overrightarrow{\mathbb{Z}_{2}^{9}} \times
-    \mathbb{Z}_{2}^{9} &\to \mathbb{Z}_{2}^{9}\\
+    T: \overrightarrow{\Z_{2}^{9}} \times
+    \Z_{2}^{9} &\to \Z_{2}^{9}\\
     (\vec{p},y) &\mapsto \vec{p}+y
 \end{align*}
 
-于是\((\mathbb{Z}^{9}_{2},
-\overrightarrow{\mathbb{Z}^{9}_{2}}, T)\) 构成一个仿射空间.
+于是\((\Z^{9}_{2},
+\overrightarrow{\Z^{9}_{2}}, T)\) 构成一个仿射空间.
 
-不难注意到线性空间\(\overrightarrow{\mathbb{Z}^{9}_{2}}\) 上自然诱导出一组标准基
+不难注意到线性空间\(\overrightarrow{\Z^{9}_{2}}\) 上自然诱导出一组标准基
 \(\vec{e_{n}}=[0,\dots,1,\dots,0]^{\mathrm{T}}\),
 表示仅改变第\(n\) 个灯光的状态, 其余灯光不变.  那么原先解法中矩阵\(A\) 就有了实际意义, 他表示从规则构造的向量组
 \({T_{1}, \dots, T_{n}}\) 到标准基 \({e_{1}, \dots, e_{n}}\) 的过渡矩阵.
 \footnote{当然这里的说法可能并不严谨, 因为规则构造的向量组并不一定是满秩的,
-我个人最初的理解是矩阵从``操作空间''到\(\overrightarrow{\mathbb{Z}^{9}_{2}}\) 的线性变换.}
+我个人最初的理解是矩阵从``操作空间''到\(\overrightarrow{\Z^{9}_{2}}\) 的线性变换.}
 % TODO: More Understanding
 % TODO: Solve this with computational algebra
 
-于是求解灭灯问题也自然的等价于在\(\mathbb{Z}_{2}\) 上求解方程组:
+于是求解灭灯问题也自然的等价于在\(\Z_{2}\) 上求解方程组:
 \[
     Ax+B=0
 \]
@@ -184,7 +184,7 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 % space and group action
 
 \section{向量空间的定义}
-向量空间\footnote{这本书中的向量空间就是高等代数中的线性空间}是一个完全超脱于\(\mathbb{R}^{n}\)的一个概念,
+向量空间\footnote{这本书中的向量空间就是高等代数中的线性空间}是一个完全超脱于\(\R^{n}\)的一个概念,
 是一个独立而抽象的代数结构. 只有从公理出发, 才能真正理解它.
 
 向量空间看上去有点像交换幺环, 但乘法被数乘代替.
@@ -197,7 +197,7 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
     线性映射在数学中普遍存在, 然而, 他们并不如有些人想象的那样无处不在.
     当这些人错误的写出\(\cos(x+y)\) 等于\(\cos x+\cos y\) 和\(\cos 2x\)
     等于 \(2\cos x\) 时, 似乎连\(\cos\)
-    都能看成从\(\mathbb{R}\)到\(\mathbb{R}\)的线性映射.
+    都能看成从\(\R\)到\(\R\)的线性映射.
 \end{quote}
 如果我们定义：
 \[
@@ -211,7 +211,7 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 就能找到\(\F^{\{0,1,\dots,n\}}\)和\(\F^{n}\)之间的一个双射,
 这事实上证明了\(R^{n}\)
 是一个向量空间.
-同理, \(\mathbb{R}^{\mathbb{R}}\)等一系列奇形怪状的向量空间也能被定义出来.
+同理, \(\R^{\R}\)等一系列奇形怪状的向量空间也能被定义出来.
 \begin{definition}
     设\(V\) 是一个集合, 其中定义了加法\((+)\) 和数乘\((\cdot)\) 两种运算, 满足以下条件：
     \begin{itemize}
@@ -234,24 +234,24 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
     设 \(V\) 是实向量空间．
     \begin{itemize}
         \item \(V\) 的\emph{复化（complexification）}记为
-            \(V_{\mathbb{C}}\), 等于 \(V \times
-            V\). \(V_{\mathbb{C}}\)
+            \(V_{\C}\), 等于 \(V \times
+            V\). \(V_{\C}\)
             中的元素为有序对 \((u, v)\), 其中
-            \(u, v \in V\), 不过我们把它写作 \(u + \ii \).
-        \item \(V_{\mathbb{C}}\) 上的加法定义为
-            \((u_1 + \ii v_1) + (u_2 + \ii v_2) = (u_1 +
-            u_2) + \ii (v_1 + v_2)\)
+            \(u, v \in V\), 不过我们把它写作 \(u + \i \).
+        \item \(V_{\C}\) 上的加法定义为
+            \((u_1 + \i v_1) + (u_2 + \i v_2) = (u_1 +
+            u_2) + \i (v_1 + v_2)\)
             对所有 \(u_1, v_1, u_2, v_2 \in V\) 成立．
-        \item \(V_{\mathbb{C}}\) 上的复标量乘法定义为
-            \((a + b\ii) (u + \ii v) =
+        \item \(V_{\C}\) 上的复标量乘法定义为
+            \((a + b\i) (u + \i v) =
                 (au - bv) +
-            \ii (av + bu)\)
-            对所有 \(a, b \in \mathbb{R}\) 和所有 \(u, v \in V\) 成立
+            \i (av + bu)\)
+            对所有 \(a, b \in \R\) 和所有 \(u, v \in V\) 成立
     \end{itemize}
     % TODO: How to define determinant with Sn?
     % TODO: What does complexification adds?
 \end{definition}
-这样的形成的代数结构\(V_{\mathbb{C}}\)也是向量空间.
+这样的形成的代数结构\(V_{\C}\)也是向量空间.
 
 \section{子空间}
 子空间的判定法则和环与子环的判定方法颇为相似：
@@ -270,17 +270,17 @@ T_{9})\) 称作状态转移矩阵, \(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}}
 子空间的一些有趣例子包括：
 \begin{itemize}
     \item 线性方程组的解集是子空间, 更进一步, 满足某齐次线性方程式的点集是子空间.
-    \item \(\mathbb{R}\)
-        上的连续函数、可微函数构成\(\mathbb{R}^{\mathbb{R}}\)的子空间
-    \item \(\{0\}\), 过原点的直线与过原点的平面是 \(\mathbb{R}^{2}\) 上的全部子空间
+    \item \(\R\)
+        上的连续函数、可微函数构成\(\R^{\R}\)的子空间
+    \item \(\{0\}\), 过原点的直线与过原点的平面是 \(\R^{2}\) 上的全部子空间
 \end{itemize}
 什么不是子空间：
 \begin{itemize}\label{item:subspace counterexample}
     \item 加法恒等元不存在：平凡反例\(\emptyset\)
     \item 对加法不封闭：利用孤立分支构造的反例\(\left\{ (a,b)\in
-        \mathbb{C}^{2}: a^{3}=b^{3}\right\}\)
+        \C^{2}: a^{3}=b^{3}\right\}\)
     \item 对标量乘法不封闭：利用不连续性构造的反例\(\left\{(a,0):a\in
-        \mathbb{Z}\right\}\)
+        \Z\right\}\)
 \end{itemize}
 
 如何把子空间变大/变小：
