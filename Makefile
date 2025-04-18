@@ -125,7 +125,7 @@ github-release:
 	gh release create "$$TAG" $(OUTPUT_DIR)/*.pdf \
 		--title "MathNotes Release $$TAG" \
 		--notes-file release_message.md && \
-	$(call colorecho,$(GREEN),GitHub release created successfully.)
+	# $(call colorecho,$(GREEN),GitHub release created successfully.)
 	@rm -f .current_tag .release_date
 
 release: all merge tag-release github-release
