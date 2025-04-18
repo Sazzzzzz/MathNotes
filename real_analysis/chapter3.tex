@@ -1,7 +1,9 @@
 % !TeX root = main.tex
 \chapter{测度论}
 
-初学实变函数时, 我总觉得长度是人们的幻觉.
+初学实变函数时, 我总觉得长度是人们的幻觉. 所有大小的区间点集都等势, 无穷集合的特点便是包含自身,
+长度不同, 只是人类有限的感官被无穷开了个玩笑. 后来我逐渐发现, 一一对应和个数相等本来就是在有限情况的巧合,
+在无穷之下二者分离才是正常的事情. 数学家敢于在感官之上定义大小, 何尝不是一种敏锐的洞见、一种勇气的赞歌
 
 % https://www.zhihu.com/question/263902117/answer/72299795263
 \begin{quote}
@@ -10,3 +12,139 @@
 
     \hfill ---Cauchy
 \end{quote}
+
+本章的任务在于严谨化长度的定义. 我们早知道点本身是没有长度的, 但线段作为点的集合, 其长度却有意义.
+我们将像定义实数作为有理数的极限、集合的内部与闭包一样公理化地定义长度. 这就是测度论的任务.
+
+\begin{definition}
+    勒贝格测度公理: 对于实数直线上的一部分集合族 \(\mathscr{M}\), 使得每个\(E \in
+    \mathscr{M}\) 都对应实数 \(m(E)\) 满足:
+    \begin{description}
+        \item[非负性] \(m(E) \geq 0\)
+        \item[可列可加性] 如果\(E_1, \dots ,E_{n}\) 是两两不交的集合, 则
+            \[
+                m\left(\bigcup_{i=1}^{n} E_i\right) =
+                \sum_{i=1}^{n} m(E_i)
+            \]
+        \item[正则性] \(m([a,b])=b-a\)
+    \end{description}
+\end{definition}
+
+\section{外测度}
+\subsection{为什么如此定义外测度}
+
+\begin{definition}
+    \[
+        \m E=\inf_{E\subset \bigcup_{i=1}^{\infty} I_{i}}
+        \sum_{i=1}^{\infty} \abs{I_{i}}
+    \]
+\end{definition}
+
+\begin{itemize}
+    \item 如果将可数可加改为无限可加: 每个点的测度都为0, 这将导致任何点集的测度都为0.
+    \item 为什么不直接用开集覆盖而用开区间之和覆盖: 开区间长度可定义, 且开集由开区间组成.
+    \item 为什么不用有限的开集覆盖: 可数包含有限. 如果有限那我们甚至无法定义全部开集的测度, 甚至有理数测度也为1.
+\end{itemize}
+
+\subsection{一些简单的性质}
+\begin{enumerate}
+    \item \(\m(E)\geq 0\)
+    \item 若\(A \subseteq B\) 则 \(\m(A) \leq \m(B)\)
+    \item \(\m(\bigcup_{i=1}^{\infty} A_{i}) \leq
+        \sum_{i=1}^{\infty} \m(A_{i})\)
+    \item 对于区间\(I\), \(\m(I) = |I|\)
+    \item 对于可数集\(E\), \(\m(E) = 0\)
+        （利用\(\frac{\varepsilon}{2^{n}}\) 技巧证明）
+
+\end{enumerate}
+
+\section{不可测集}
+
+\subsection{Vitali集的构造}
+考虑等价关系\(\sim: x\sim y \text{ if } x-y \in \Q\) 对\([0,1]\)
+上的实数的划分, 在每个等价类选取一个代表元组成集合记为\(V\). 则\[
+    [0,1] \subset U=\bigcup_{q \in \Q\cap[0,1]} V+q \subset [-1,2]
+\]
+
+从而\[
+    1\leq \m U \leq \sum_{q \in \Q\cap[0,1]} \m(V+q) = \sum_{q \in
+    \Q\cap[0,1]} \m(V) \leq 3
+\]
+
+这是不可能的.
+
+\subsection{让不可测性遍布集合的每个角落}
+\begin{theorem}
+    对于任意的可测集\(E\) 使得\(m(E)>0\), 都存在不可测集\(A\) 使得\(A \subseteq E\).
+\end{theorem}
+
+\begin{proof}
+    由\(E= \bigcup_{n=1}^{\infty} E\cap [-n,n]>0\) 知,
+    必然存在\(n_{0}\) 使得\(G=E\cap [-n_{0},n_{0}]\) 且\(mG>0\).
+    用等价关系\(\sim\) 对\(G\) 中元素进行分划, 在每个等价类中选取代表元组成集合\(V\).
+
+    反证法: 若\(V\) 是可测集, 令\(Q=\Q\cap[-n_{0},n_{0}]\),
+    \(U=\sum_{q\in Q} V+q\), 则:
+    \[
+        G \subset U \subset [-2n_{0},2n_{0}]
+    \]
+
+    从而: \[
+        0<m G=\sum_{q\in Q} mV<2n_{0}
+    \]
+
+    这是不可能的.
+\end{proof}
+
+\subsection{记一次推倒数学大厦的尝试}
+考虑Vitali集的外测度.
+
+在选取无理数代表元的过程中, 任取\(\varepsilon>0\), 对于任意代表元\(\xi\),
+我们总能找到\(q \in \Q\) 使得\(\xi'=\xi-q \in [0,\varepsilon]\).
+从而\(0\leq \m V\leq \varepsilon\), 由\(\varepsilon\)
+的任意性知\(\m V=0\). 从而\(V\) 是可测集并且是零测集. 同时\[
+    1<\m\left( \bigcup_{q\in [0,1]} V+q  \right) < \sum_{q
+    \in [0,1]} \m(V+q) = \sum_{q\in [0,1]} \m(V) = 0
+\]
+矛盾!
+这是哪里出了问题呢? 实际上Vitali集不止一个, Vitali集的测度依赖于代表元的选取,
+我们以上证明的只是Vitali集的外测度可以任意小, 却不能改变其不可测的性质.
+% TODO: How to prove any outer measure is not 0?
+
+\section{Lebesgue测度}
+Lebesgue测度的Carathéodory定义:
+\begin{definition}
+    若对于任意的集合\(A\), 有
+    \[
+        \m(A)=\m(A\cap E)+\m(A\cap E^{c})
+    \]
+    则称\(E\) 是Lebesgue可测的.
+\end{definition}
+
+说真的, 这个定义扔出来实在是云里雾里不知所云, 不过我们可以先壮着胆子从一些结论入手, 思考可测集究竟是怎样的一类集合.
+
+书上（在没有解决困惑之前）给出了一些性质: 以上的Carathéodory条件成立\textbf{当且仅当它对开区间成立}.
+并且基于此我们可以推断出\textbf{可测集的可数次交、并、补、差都是可测集}. 故\textbf{所有的开集与闭集都是可测集}.
+同样, 我们还可以直接由定义得到\textbf{外测度为0的集合都是可测集, 也就是零测集}.
+
+\subsection{摸一摸集合}
+我们知道任意集合\(E\) 都有\(E=E^{\circ} \cup \partial E\).
+而\(E^{\circ}\) 是开集!
+这意味着一个集合的可测性实际上\hl{完全由其边界}决定（这与我们对测度的直觉也是相符的）. 若又满足集合边界的外测度为0,
+则\(\partial E\) 是可测集. 这就意味着\(E\) 也可测.
+我们生活中遇到的绝大部分集合都满足这样的性质. 我们又知道所有的可列集都是零测集,
+也就是说可列个断点根本不会影响可测性, 只有像Vitali集这样病态的集合,
+才能满足不可测性的苛刻条件\footnote{当然, 可测集与不可测集究竟哪个多还有待商榷.
+我们可以证明可测集共有\(2^{c}\) 个}.
+
+所以当我们拿不准一个集合是否可测时, 我们可以把它拿起来摸一摸, 如果它的皮足够薄, 那必然是可测的. 其次,
+用手细心地抚摸它的边界, 如果这个边界上只有可数甚至有限个断点, 那它也一定是可测的\UseVerb{smile}.
+
+回过头来看可测集的Carathéodory定义: \[
+    \m(A)=\m(A\cap E)+\m(A\cap E^{c})
+\]
+
+实际上也是在说, 如果集合的边界的粗糙程度可以用可数个开集来逼近, 那它就是可测的.
+测度性质\(mA+mB=m(A\cup B)\) 也可以理解为, 如果一个集合分开成两个互不相交的集合,
+其粗糙的边界不至于分裂而占满出新的测度, 那么它们的测度之和就是它们的测度.
+% TODO: 证明可测集和不可测集一样多
