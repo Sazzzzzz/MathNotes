@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Convert Image to PDF",
+            "type": "shell",
+            "command": "parent_dir=$(dirname \"${fileDirname}\"); mkdir -p \"$parent_dir/compiled\" && magick \"${file}\" \"$parent_dir/compiled/${fileBasenameNoExtension}.pdf\"",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "close": true
+            }
+        }
+    ]
+}
