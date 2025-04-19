@@ -110,7 +110,6 @@ tag-release:
 	fi
 	@TODAY=$$(cat .release_date) && \
 	git tag -a "$$TODAY" -m "Release $$TODAY" && \
-	$(call colorecho,$(YELLOW),"Tagged version: $$TODAY") && \
 	git push origin --tags && \
 	echo "$$TODAY" > .current_tag
 	$(call colorecho,$(GREEN),Tag created and pushed successfully.)
@@ -125,13 +124,11 @@ github-release:
 	gh release create "$$TAG" $(OUTPUT_DIR)/*.pdf \
 		--title "MathNotes Release $$TAG" \
 		--notes-file release_message.md && \
-	# $(call colorecho,$(GREEN),GitHub release created successfully.)
-	@rm -f .current_tag .release_date
+	rm -f .current_tag .release_date
 
 release: all merge tag-release github-release
 	$(call colorecho,$(GREEN),✅ Release process completed successfully!)
 	$(call colorecho,$(GREEN),MathNotes $$(cat .release_date) has been released.)
-	@rm -f .release_date
 
 help:
 	$(call colorecho,$(CYAN),MathNotes LaTeX Build System)
