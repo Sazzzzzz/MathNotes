@@ -13,7 +13,7 @@
 + `make`
 + `LaTeX`
 
-本仓库的数学笔记均使用 $\LaTeX$ 编写，使用`makefile`编译。在确保安装`make`与相应`LaTeX`环境后，直接在命令行中输入`make some_notes` (for example `make real_analysis`)即可编译完成，具体的使用方法可用`make help`查看。
+本仓库的数学笔记均使用 $\mathrm{\LaTeX}$ 编写，使用`makefile`编译。在确保安装`make`与相应`LaTeX`环境后，直接在命令行中输入`make some_notes` (for example `make real_analysis`)即可编译完成，具体的使用方法可用`make help`查看。
 编译完成后，PDF文件会在`build`目录下生成。
 
 > [!NOTE]
@@ -26,6 +26,8 @@
 ### 提建议/意见
 
 笔者数学水平有限，笔记难免缺乏深度，或有错漏之处。欢迎大家在issues中提出各种建议或意见 `:-)` 🙏 🙏
+
+### 许可证
 
 仓库中的数学笔记使用[Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc]进行许可。
 
