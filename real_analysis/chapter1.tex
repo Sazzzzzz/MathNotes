@@ -1,0 +1,80 @@
+% !TeX root = main.tex
+\chapter{集合}
+\section{Basics}
+\section{Infinity}
+\subsection{The Art of Stealing from Infinity}
+
+\begin{problem}
+    证明\((0,1)\)与 \([0,1)\) 等势.
+\end{problem}
+
+\begin{proof}
+    考虑\(f:(0,1) \to [0,1)\):\[
+        f(x) =
+        \begin{cases}
+            \frac{1}{n-1} & x =\frac{1}{n}, n=3,4,\dots  \\
+            0 & x=\frac{1}{2} \\
+            x & \text{otherwise}
+        \end{cases}
+    \]
+\end{proof}
+% TODO: reference to
+% https://math.stackexchange.com/questions/213391/how-to-construct-a-bijection-from-0-1-to-0-1
+
+\begin{quote}
+    The reason why you can map some set into some bigger
+    set bijectively is precisely because they are infinite,
+    so you must exploit this fact. If you don't, you have no chance.
+\end{quote}
+
+\begin{problem}
+    证明\(\R\backslash \Q \) 与 \(\R\) 等势.
+\end{problem}
+
+\begin{proof}
+    令\(P=\left\{ \sqrt{2}r:r \in \Q \right\} \).
+    则\(P \subset \R\backslash \Q\) 且\(P\sim
+    \Q\). 故\(P\cup \Q\sim \Q\). 令\(f: P\cup \Q \to \Q\) 是一个双射.
+    则映射: \[
+        h(x) =
+        \begin{cases}
+            f(x) & x\in P\cup \Q \\
+            x & x \notin P\cup \Q
+        \end{cases}
+    \]
+    是一个从\(\R\) 到\(\R\backslash \Q\) 的双射. 故\(\R\backslash
+    \Q \sim \R\).
+\end{proof}
+
+这里\(P\) 是用来利用可数集的等势性, 把\(\Q\) 藏起来的辅助集合.
+同样的方法可证明不可数集除去可数子集后仍不可数, 甚至更高的基数.
+
+% 集合运算与加法乘法除法的对应
+% 对称差
+% 无穷交并
+% 上下确界定义性质
+% fUa=Ufa
+% 存在与任意
+
+% bernstein定理证明
+% 为什么A《=B 与A》=B只能成立一个
+% 连续函数与解析函数只有c个
+% 可测集只有2^c个
+
+% 无穷就是与部分等价 数不完
+% 可数集合的表示是一列有序的数
+% aa=na=a 对角线法
+
+% c的表示: 一串小数
+% c^a=c^n=2^a=c
+
+% 为什么无法定义概率 22题
+% 不可数集合必有聚点
+
+% 选择公理
+% 维数为什么这么定义
+
+% ???
+% 可测集与不可测集等势?
+% 构造出一个mA+mB<mA+B的集合
+% 示性函数可以用来干嘛?可以证明mA+mB=m\cup B +mA\cap B?

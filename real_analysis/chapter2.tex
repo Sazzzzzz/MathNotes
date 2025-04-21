@@ -1,0 +1,25 @@
+% !TeX root = main.tex
+\chapter{点集（拓扑）}
+\subsection{连续函数的拓扑定义}
+\begin{definition}
+    \(f\) 是连续函数当且仅当开集的原像是开集.
+\end{definition}
+
+\begin{proof}
+    设\(f: X\to Y\) 是连续的
+    \paragraph{充分性}
+    \(\forall y \in Y, x \in X\) 且\(f(x)=y\),
+    任取\(\varepsilon >0\). 则\(B_{\varepsilon}(y) \subset Y\)
+    是开集. 从而其原像\(U=f^{-1}\left( B_{\varepsilon}(y)
+    \right)\subset X\) 是开集, 且\(x \in U\). 从而存在\(\delta >0\)
+    使得\(B_{\delta}(x) \subset U\). 由\(y\) 的任意性知\(f\) 是连续函数.
+    \paragraph{必要性}
+    设\(V \subset Y\) 是开集且\(f(U)=V\). \(\forall x \in U\) 令\(y=f(x)\).
+    存在\(\varepsilon >0\) 使得\(B_{\varepsilon}(y) \subset
+    V\). 由\(f\) 连续性可知存在\(\delta >0\) 使得\(\forall x' \in
+    B_{\delta}(x)\), \(y'=f(x')\in B_{\varepsilon}(y)
+    \subset V\). 即\(x' \in U\). 由\(x'\)
+    的任意性知\(B_{\delta}(x) \subset U\). 故\(x\) 是\(U\) 的内点. 故\(U\) 是开集.
+    \paragraph{结论}
+    因此，\(f\) 是连续的当且仅当开集的原像是开集.
+\end{proof}
