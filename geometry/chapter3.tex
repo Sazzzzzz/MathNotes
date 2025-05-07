@@ -2,6 +2,101 @@
 \chapter{等距变换群\(\Isom \R^{2}\)}
 % Chapter1： 旋转与狄利克雷逼近和. . . 逼近
 
+\section{Basics}
+
+\subsection{为什么结合律如此重要？}
+我们早已熟悉结合律和交换律, 并能轻松的找出满足其一而不满足其二的二元运算：
+
+\begin{description}
+    \item[满足交换律而不满足结合律：] \(a \otimes b \coloneq \frac{a+b}{2}\)
+    \item[满足结合律而不满足交换律：] 矩阵乘法
+\end{description}
+% TODO： Reference to
+% https://math.stackexchange.com/questions/608280/real-life-examples-of-commutative-but-non-associative-operations
+
+交换律和结合律看起来同样的重要, 可为什么我们选择了结合律作为群的定义而不是交换律呢？
+
+答案很简单, 群最初是研究对称的学问. 而对称的复合, 正如函数的复合, 满足结合律而不一定满足交换律.
+
+那为什么函数的复合满足结合律呢？
+
+\begin{theorem}
+    设\(f: X\to Y\), \(g: Y\to Z\), \(h: Z\to W\)是任意函数, 则
+    \[
+        h\circ(g\circ f)=(h\circ g)\circ f
+    \]
+\end{theorem}
+
+\begin{proof}
+    \(\forall x\in X\), 则
+    \begin{align*}
+        [h\circ(g\circ f)](x) & = h(g \circ f(x))  & = h(g(f(x))) \\
+        [(h\circ g)\circ f](x) & = (h\circ g)(f(x)) & = h(g(f(x)))
+    \end{align*}
+\end{proof}
+
+\begin{quote}
+    Young man, in mathematics you don't understand things.
+    You just get used to them.
+
+    \hfill ---John von Neumann
+\end{quote}
+
+编程过多的同学看到这里可能会疑惑, 世间那么多事物都可以抽象成纯函数, 函数的复合居然满足结合律,
+这背后一定有着更深刻的道理\footnote{其实我们困惑主要在其反直觉性：结合律居然对广泛的函数运算都成立.
+    实际上这个定理并没有那么强. 这里的二元运算已被规定为函数复合, 该定理只告诉我们对于输出严格确定唯一输入的纯函数,
+应用时间与结果无关. 在现实生活中可以理解为三个模块按顺序叠加并不影响其功能}
+
+一个函数\(f: X \to Y\)实际上可以看作集合\(X \times Y\) 上的一个二元关系.
+
+\begin{definition}
+    称\(f: X\to Y\) 是一个函数, 如果：
+
+    对于任意\(x\in X\), 存在唯一的\(y\in Y\)使得二元关系\(x \circ_{f} y\) 成立.
+\end{definition}
+
+两个函数相等实际上就是对于相同的自变量\(x\)对应相同的值\(y\).
+
+而函数的复合就可以定义为：
+\begin{definition}
+    设\(f: X\to Y\), \(g: Y\to Z\), 则\(g\circ f: X \to Z\)是一个函数, 使得
+    \[
+        x \circ_{g\circ f} z \iff \exists! y \in Y, x
+        \circ_{f} y \land y \circ_{g} z
+    \]
+    其中\(x\in X\), \(y\in Y\), \(z\in Z\).
+\end{definition}
+有了以上的定义我们就能够用量词更确切的告诉我们函数的复合性是成立的.
+
+\begin{proof}
+    \(\forall x \in X\):
+    \begin{align*}
+        &\mathrel{\phantom{\iff}}w=h \circ(g\circ f)(x) \\
+        &\iff \exists! z \in Z, x \circ_{f\circ g} z \land z
+        \circ_{h} w\\
+        &\iff \exists! z \in Z, \exists! y \in Y, x
+        \circ_{f} y \land y \circ_{g} z \land z
+        \circ_{h} w\\
+    \end{align*}
+    而：
+    \begin{align*}
+        &\mathrel{\phantom{\iff}}w=(h\circ g)\circ f(x) \\
+        &\iff \exists! y \in Y, x \circ_{f} y \land y
+        \circ_{g \circ h} w\\
+        &\iff \exists! y \in Y, \exists! z \in Z, x
+        \circ_{f} y \land y
+        \circ_{g} z \land w
+    \end{align*}
+\end{proof}
+
+\begin{tikzcd}
+    G_{1} \times G_{1} \arrow[rr, "*_{1}"] \arrow[d,
+    "{(\varphi,\varphi)}"] &  & G_{1} \arrow[d, "\varphi"] \\
+    G_{2} \times G_{2} \arrow[rr, "*_{2}"]
+    &  & G_{2}
+\end{tikzcd}
+
+群、子群、群同态、群同构等概念我们早已熟悉.
 交换图： 为什么交换图可以表示可结合的结构？
 结合律如何证明？
 
