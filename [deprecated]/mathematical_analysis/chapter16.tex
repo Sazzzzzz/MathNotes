@@ -16,16 +16,16 @@
         \item \(f_n(x) = \frac{x^n}{1 + x^n}, \quad (a) 0
                 \leq x \leq 1 -
                 \delta, \quad (b) 1 - \delta \leq x \leq 1 + \delta,
-            \quad (c) 1 + \delta \leq x < +\infty\), 其中 \(0 <
-            \delta < 1\).
+            \quad (c) 1 + \delta \leq x < +\infty\)，其中 \(0 <
+            \delta < 1\)。
     \end{enumerate}
 \end{problem}
 
 \begin{solution}
     \begin{enumerate}
-        \item 不一致收敛.
-            由于\(f(x)=\lim_{n \to \infty} \sin \frac{x}{n} = 0\),
-            故\(f_{n}(x)\)逐点收敛到\(0\).
+        \item 不一致收敛。
+            由于\(f(x)=\lim_{n \to \infty} \sin \frac{x}{n} = 0\)，
+            故\(f_{n}(x)\)逐点收敛到\(0\)。
 
             但:
             \[
@@ -36,21 +36,21 @@
                 \frac{x}{n} \right\rvert
                 = 1
             \]
-            故不一致收敛.
+            故不一致收敛。
 
-        \item 一致收敛.
+        \item 一致收敛。
             由于\(f(x)=\lim_{n \to \infty} \frac{x}{n} \ln
-            \frac{x}{n} = 0\),
-            故\(f_{n}(x)\)逐点收敛到\(0\).
+            \frac{x}{n} = 0\)，
+            故\(f_{n}(x)\)逐点收敛到\(0\)。
 
-            令\(g(x)=x \ln x\). 则可知\(g(x)\)在\((0,\frac{1}{\e})\)上单调递减.
-            故\(\forall x \in (0,1), n > 3\), 有\(\frac{x}{n} <
-            \frac{1}{\e}\). 故\(f_{n}(x) = \frac{x}{n} \ln
-            \frac{x}{n}\)单调递增. 由Dini定理知\(f_{n}(x)\)一致收敛到\(0\).
+            令\(g(x)=x \ln x\)。则可知\(g(x)\)在\((0,\frac{1}{\e})\)上单调递减。
+            故\(\forall x \in (0,1), n > 3\)，有\(\frac{x}{n} <
+            \frac{1}{\e}\)。故\(f_{n}(x) = \frac{x}{n} \ln
+            \frac{x}{n}\)单调递增。由Dini定理知\(f_{n}(x)\)一致收敛到\(0\)。
 
-        \item 一致收敛.
-            当\(x \in [0,1-\delta]\), 此时\(\lim_{n \to
-            \infty}f_{n}(x) = 0\). 且:
+        \item 一致收敛。
+            当\(x \in [0,1-\delta]\)，此时\(\lim_{n \to
+            \infty}f_{n}(x) = 0\)。且:
             \[
                 \lim_{n \to \infty}\left\lVert f_{n}(x) - 0
                 \right\rVert
@@ -59,45 +59,45 @@
                 \frac{1}{1+ x^{n}} \right\vert
                 = 0
             \]
-            故\(f_{n}(x)\)在\([0,1-\delta]\)上一致收敛到\(0\).
+            故\(f_{n}(x)\)在\([0,1-\delta]\)上一致收敛到\(0\)。
 
-        \item 不一致收敛.
+        \item 不一致收敛。
 
-            当\(x \in [1-\delta,1+\delta]\), 有:
+            当\(x \in [1-\delta,1+\delta]\)，有:
             \[
                 \frac{x^{n}}{1 + x^{n}} < \frac{(1+\delta)^{n}}{1+
                 (1+\delta)^{n}} \le \frac{1}{2}
             \]
 
-            考虑函数\(g(x) = \frac{1}{1-x}\)在\([0,\frac{1}{2}]\)的一致连续性.
+            考虑函数\(g(x) = \frac{1}{1-x}\)在\([0,\frac{1}{2}]\)的一致连续性。
 
             \(\forall x_1, x_2 \in [0, \frac{1}{2}]\) 且
             \(\left\vert x_1 - x_2
-            \right\vert < \delta\), 有:
+            \right\vert < \delta\)，有:
             \[
                 \left\vert g(x_1) - g(x_2) \right\vert
                 = \left\vert \frac{x_1 -
                 x_2}{(1-x_1)(1-x_2)} \right\vert
                 \le 4 \delta
             \]
-            故\(g(x)\)在\([0,\frac{1}{2}]\)上一致连续.
+            故\(g(x)\)在\([0,\frac{1}{2}]\)上一致连续。
             % TODO: What's the right format for proof by
             % contradiction?
 
         \item 不一致收敛
 
             \textbf{反证法}:
-            假设\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上一致收敛, 则
-            \(g(f_n(x))=x^{n}\)在\([1-\delta,1+\delta]\)上一致收敛.
-            由于\(g(f_n(x))\)在\([1-\delta,1+\delta]\)上一致收敛,
-            故\(g(f_n(x)) = x^{n}\)在\([1-\delta,1+\delta]\)上一致连续.
-            但\(x^{n}\)在\([1-\delta,1+\delta]\)上不一致连续, 矛盾!
+            假设\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上一致收敛，则
+            \(g(f_n(x))=x^{n}\)在\([1-\delta,1+\delta]\)上一致收敛。
+            由于\(g(f_n(x))\)在\([1-\delta,1+\delta]\)上一致收敛，
+            故\(g(f_n(x)) = x^{n}\)在\([1-\delta,1+\delta]\)上一致连续。
+            但\(x^{n}\)在\([1-\delta,1+\delta]\)上不一致连续，矛盾!
 
-            故\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上不一致收敛.
+            故\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上不一致收敛。
 
-        \item 一致收敛.
-            当\(x \in [1+\delta,+\infty)\),
-            可知\(f_n(x)\)逐点收敛到\(1\). %ChkTeX 9
+        \item 一致收敛。
+            当\(x \in [1+\delta,+\infty)\)，
+            可知\(f_n(x)\)逐点收敛到\(1\)。%ChkTeX 9
             \[
                 \lim_{n \to \infty} \left\lVert f_{n}(x) -
                 1 \right\rVert
@@ -106,48 +106,48 @@
                 \frac{1}{1 + x^{n}} \right\vert
                 = \lim_{n \to \infty} \frac{1}{1+(1+\delta)^{n}} = 0
             \]
-            故\(f_{n}(x)\)在\([1+\delta,+\infty)\)上一致收敛到\(1\). %ChkTeX 9
+            故\(f_{n}(x)\)在\([1+\delta,+\infty)\)上一致收敛到\(1\)。%ChkTeX 9
     \end{enumerate}
 \end{solution}
 
 \section{一致收敛与极限换序}
 \begin{problem}
     设 \(\{f_n(x)\}\) 是 \([a, b]\) 上的连续函数列，且一致收敛于 \(f(x)\)，又设\(\{x_n\}
-    \subseteq [a, b] \ \)且\( \lim_{n \to \infty} x_n = x_0\),
+    \subseteq [a, b] \ \)且\( \lim_{n \to \infty} x_n = x_0\)，
     求证：\(\lim_{n \to \infty} f_n(x_n) = f(x_0)\)
 \end{problem}
 
 \begin{solution}
-    可知, \(f(x)\) 是连续函数. 故\(\forall \varepsilon > 0\),
+    可知，\(f(x)\) 是连续函数。故\(\forall \varepsilon > 0\)，
     \(\exists \delta > 0\)
-    使得\(\forall x \in B_{\delta}(x_{0})\), 有:
+    使得\(\forall x \in B_{\delta}(x_{0})\)，有:
     \[
         \left| f(x)- f(x_{0}) \right| < \frac{\varepsilon}{2}
     \]
-    由于\(\lim_{n \to \infty} x_{n}=x_{0}\) 对于上述的\(\delta\),
-    存在\(N>0\), 使得:
+    由于\(\lim_{n \to \infty} x_{n}=x_{0}\) 对于上述的\(\delta\)，
+    存在\(N>0\)，使得:
     \[
         \left| x_{n} - x_{0} \right| < \delta, \quad \forall n > N
     \]
-    故 \(\forall \varepsilon > 0\), \(\exists N_1 > 0\), 使得:
+    故 \(\forall \varepsilon > 0\), \(\exists N_1 > 0\)，使得:
     \[
         \left| f(x_{n})- f(x_{0}) \right| <
         \frac{\varepsilon}{2}, \quad
         \forall n > N_1
     \]
-    同时\(f_{n}(x) \rightrightarrows f(x)\), 故\(\exists N_2 > 0\), 使得:
+    同时\(f_{n}(x) \rightrightarrows f(x)\), 故\(\exists N_2 > 0\)，使得:
     \[
         \left| f_{n}(x) - f(x) \right| < \frac{\varepsilon}{2}, \quad
         \forall n > N_2
     \]
-    综上: \(\forall \varepsilon > 0\), 取\(N = \max\{N_1, N_2\}\), 则:
+    综上: \(\forall \varepsilon > 0\)，取\(N = \max\{N_1, N_2\}\)，则:
     \[
         \left| f_{n}(x_{n}) - f(x_{0}) \right| \le \left|
         f_{n}(x_{n}) -
         f(x_{n}) \right| + \left| f(x_{n}) - f(x_{0})
         \right| < \varepsilon
     \]
-    即 \(\lim_{n \to \infty} f_{n}(x_{n}) = f(x_{0})\).
+    即 \(\lim_{n \to \infty} f_{n}(x_{n}) = f(x_{0})\)。
 \end{solution}
 % A normal case of the theorem
 
@@ -164,18 +164,18 @@
 \end{problem}
 
 \begin{solution}
-    由于\(f(x) = \lim_{n \to \infty} nx e^{-nx^2} = 0\),
-    故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\).
-    可知\(f_{n}'(x) = n \e^{-nx^{2}}(1-2nx)\), 求得\(f'\left(
-    \frac{1}{2n} \right) = 0\). 故\(f_{n}(x)\)
-    的最大值在\(\frac{1}{2n}\)处取得.
+    由于\(f(x) = \lim_{n \to \infty} nx e^{-nx^2} = 0\)，
+    故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\)。
+    可知\(f_{n}'(x) = n \e^{-nx^{2}}(1-2nx)\)，求得\(f'\left(
+    \frac{1}{2n} \right) = 0\)。故\(f_{n}(x)\)
+    的最大值在\(\frac{1}{2n}\)处取得。
     故:
     \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
         = \lim_{n \to \infty} f_{n}(1/2n) = \lim_{n \to \infty}
         \frac{1}{2} \e^{-\frac{1}{4n}} = \frac{1}{2} >  0
     \]
-    故\(f_{n}(x)\)在\([0,1]\)上非一致收敛.
+    故\(f_{n}(x)\)在\([0,1]\)上非一致收敛。
 
     \begin{align*}
         & \int_{0}^{1} f(x) \mathrm{d}x = 0                       \\
@@ -202,19 +202,19 @@
 \end{problem}
 
 \begin{solution}
-    可知, \(f(x) = \lim_{n \to \infty} nx(1-x)^n = 0\),
-    故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\).
+    可知，\(f(x) = \lim_{n \to \infty} nx(1-x)^n = 0\)，
+    故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\)。
     由均值不等式知: \[
         \left\lVert f_{n}(x) - f(x) \right\rVert =
         nx(1-x)^{n} \le \left( \frac{n}{n + 1} \right)^{n+1}
     \]
-    在\(x = \frac{1}{2}\) 处取得最大值.
+    在\(x = \frac{1}{2}\) 处取得最大值。
     故: \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
         = \lim_{n \to \infty} nx(1-x)^{n} = \lim_{n \to \infty}
         \left( \frac{n}{n + 1} \right)^{n+1} = \frac{1}{\e} > 0
     \]
-    故\(f_{n}(x)\)在\([0,1]\)上非一致收敛.
+    故\(f_{n}(x)\)在\([0,1]\)上非一致收敛。
 
     \begin{align*}
         & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x
@@ -226,7 +226,7 @@
         = \int_0^1 0 \mathrm{d}x = 0
     \end{align*}
     故\(\lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \neq \int_0^1
-    \left[\lim_{n \to \infty} f_n(x) \right] \mathrm{d}x\).
+    \left[\lim_{n \to \infty} f_n(x) \right] \mathrm{d}x\)。
 \end{solution}
 
 \begin{problem}
@@ -237,7 +237,7 @@
     \begin{itemize}
         \item 收敛
         \item 一致收敛
-        \item 可以在积分号下取极限, 即\[
+        \item 可以在积分号下取极限，即\[
                 \lim_{n \to \infty} \int_0^1 f_n(x)
                 \mathrm{d}x = \int_0^1
                 \left[ \lim_{n \to \infty} f_n(x) \right] \mathrm{d}x
@@ -247,22 +247,22 @@
 
 \begin{solution}
     \begin{itemize}
-        \item 注意到\(\e^{-nx}\)是\(x\) 的高阶无穷小, 故\(\forall \alpha
+        \item 注意到\(\e^{-nx}\)是\(x\) 的高阶无穷小，故\(\forall \alpha
             \in \R\) 都有: \[
                 \lim_{n \to \infty} n^{\alpha} x \e^{-n x} = 0
             \]
-        \item 考虑\(f_{n}(x)\)的最大值, 令\(f_{n}'(x) = n^{\alpha}
-            \e^{-\alpha x} (1 - n x) = 0\). 解得\(x =
-            \frac{1}{n}\).
+        \item 考虑\(f_{n}(x)\)的最大值，令\(f_{n}'(x) = n^{\alpha}
+            \e^{-\alpha x} (1 - n x) = 0\)。解得\(x =
+            \frac{1}{n}\)。
             则\[
                 \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x)
                 \right\rVert = \lim_{n \to \infty} \left|
                 f_{n}\left(\frac{1}{n}\right) \right| = \lim_{n \to
                 \infty} n^{\alpha - 1}
             \]
-            故当且仅当\(\alpha <  1\) 时, \(f_{n}\) 一致收敛.
+            故当且仅当\(\alpha <  1\) 时，\(f_{n}\) 一致收敛。
         \item 注意到\(\int_0^1 \left[ \lim_{n \to \infty} f_n(x) \right]
-            \mathrm{d}x = \int_0^1 0 \mathrm{d}x = 0\), 且有:
+            \mathrm{d}x = \int_0^1 0 \mathrm{d}x = 0\)，且有:
             \begin{align*}
                 & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \\
                 & = \lim_{n \to \infty} \int_{0}^{1} n^{\alpha} x
@@ -272,7 +272,7 @@
                 -\frac{1}{n} \right)                               \\
                 & = \lim_{n \to \infty} -n^{\alpha - 2}
             \end{align*}
-            故当且仅当\(\alpha > 2\)时, \(f_{n}\)可以在积分号下取极限.
+            故当且仅当\(\alpha > 2\)时，\(f_{n}\)可以在积分号下取极限。
     \end{itemize}
 \end{solution}
 
@@ -290,15 +290,15 @@
 \end{problem}
 
 \begin{solution}
-    由于\(\arctan x^{n}\)在 \(\R\)上有界, 则:
+    由于\(\arctan x^{n}\)在 \(\R\)上有界，则:
     \[
         0 \le  \left\lVert f_{n}(x) - f(x) \right\rVert \le
         \frac{1}{n} \cdot \frac{\pi}{2}
     \]
     即\(\lim_{n \to \infty} \left\lVert f_{n} - f(x) \right\rVert =
-    0\), 故函数列一致收敛于常函数\(0\).
+    0\)，故函数列一致收敛于常函数\(0\)。
 
-    注意到:\(f_{n}'(x) = \frac{x^{n - 1}}{x^{2n} + 1}\), 有:
+    注意到:\(f_{n}'(x) = \frac{x^{n - 1}}{x^{2n} + 1}\)，有:
     \begin{align*}
         \lim_{n \to \infty} f_{n}(1) & = \frac{1}{2} \\
         \left. \left[ \lim_{n \to \infty} f_{n}(x) \right]'
@@ -325,8 +325,8 @@
 \end{problem}
 
 \begin{solution}
-    可知函数列一致收敛于\(x^{2}\).
-    但是,
+    可知函数列一致收敛于\(x^{2}\)。
+    但是，
     \begin{align*}
         & \left[ \lim_{n \to \infty} f_{n}(x) \right]' = 2x        \\
         & \lim_{n \to \infty} f'_{n}(x) = \lim_{n \to \infty} 2x +
@@ -352,14 +352,14 @@
 
 \begin{solution}
     \begin{itemize}
-        \item 可知函数列一致收敛于\(0\).
-        \item 可知,
+        \item 可知函数列一致收敛于\(0\)。
+        \item 可知，
             \begin{align*}
                 f_{n}'(x)  & = -2nx\e^{-n^{2}x^{2}}     \\
                 f_{n}''(x) & = 2n\e^{-n^{2}x^{2}}\left(
                 2n^{2}x^{2} - 1\right)
             \end{align*}
-            故\(f_{n}(x)\)最大值在\(x = -\frac{\sqrt{2}}{2n}\) 处取到.
+            故\(f_{n}(x)\)最大值在\(x = -\frac{\sqrt{2}}{2n}\) 处取到。
             则: \[
                 \lim_{n \to \infty} \left\lVert f_{n}'(x) - f(x)
                 \right\rVert = \lim_{n \to \infty} \left|
@@ -387,7 +387,7 @@
         f_n(x) = \int_a^x f_{n-1}(t) \, \mathrm{d}t, \quad
         n = 1, 2, \dots
     \end{align*}
-    在 \([a, b]\) 上一致收敛于0.
+    在 \([a, b]\) 上一致收敛于0。
 \end{problem}
 
 \begin{solution}
@@ -395,11 +395,11 @@
     \frac{M(x-a)^{n}}{k!} \)
     % TODO: What's the right format for mathematical induction?
 
-    当\(n=0\)时, 由连续函数的性质可知, \(f_{0}(x)\)在\([a,b]\)上有最大值\(M\).
-    即\(f_{0}(x)\le M\).
-    设当\(n=k\)时, \(\forall x \in [a,b]\), 有: \(\left\vert f_{k}(x)
+    当\(n=0\)时，由连续函数的性质可知，\(f_{0}(x)\)在\([a,b]\)上有最大值\(M\)。
+    即\(f_{0}(x)\le M\)。
+    设当\(n=k\)时，\(\forall x \in [a,b]\)，有: \(\left\vert f_{k}(x)
         \right\vert \le
-    \frac{M(x-a)^{k}}{k!}\). 则:
+    \frac{M(x-a)^{k}}{k!}\)。则:
     \[
         \left\vert f_{k+1}(x) \right\vert
         = \left\vert \int_{a}^{x} f_{k}(t) \mathrm{d}t \right\vert
@@ -407,7 +407,7 @@
         \le \int_{a}^{x} \frac{M(t-a)^{k}}{k!} \mathrm{d}t =
         \frac{M(x-a)^{k+1}}{(k+1)!}
     \]
-    故原命题成立.
+    故原命题成立。
 
     则:
     \[
@@ -415,5 +415,5 @@
         =\lim_{n \to \infty} \sup_{x \in [a,b]} \left\vert f_{n}(x)
         \right\vert = \lim_{n \to \infty} \frac{M(b-a)^{n}}{n!} = 0
     \]
-    即\(f_{n}(x)\)一致收敛到\(0\).
+    即\(f_{n}(x)\)一致收敛到\(0\)。
 \end{solution}
