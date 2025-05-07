@@ -1,6 +1,25 @@
 % !TeX root = main.tex
 \chapter{集合}
 \section{Basics}
+
+\subsubsection{集合与量词}
+
+集合的交/并能够表示任意/存在量词, 是因为集合交/并本身的定义就涉及任意/存在量词. 二者的等价性使利用集合进行推理成为了可能:
+
+\begin{theorem}
+    \begin{align*}
+        \exists x \in X, \forall y \in Y \quad P(x,y) \\
+        \Rightarrow \forall y \in Y, \exists x \in X \quad P(x,y)
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \bigcup_{x \in X} \bigcap_{y \in Y} P(x,y) \subseteq
+        \bigcap_{y \in Y} \bigcup_{x \in X} P(x,y)
+    \end{align*}
+\end{proof}
+
 \section{Infinity}
 \subsection{The Art of Stealing from Infinity}
 

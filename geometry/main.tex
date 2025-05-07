@@ -1,28 +1,17 @@
-\documentclass{article}
-\usepackage[UTF8, scheme=plain,heading=true]{ctex}
-\usepackage{amsthm}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{breqn}
-% Use verb inside other environments
-\usepackage{fancyvrb}
-\everymath{\displaystyle}
-% Some may argue that the use of displaystyle in inline formulas may
-% break line spacing and make the document look ugly. However, I
-% prefer to follow the choice of the textbook setting
-\usepackage{hyperref}
-\usepackage{mathrsfs}
-\usepackage{gensymb}
-\usepackage{tikz}
+\documentclass{ctexrep}
+\usepackage[margin=1in]{geometry}
+\input{../header.tex}
 
 \DeclareMathOperator{\Isom}{\mathrm{Isom}}
-\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Stab}{\mathrm{Stab}}
 
+\newcommand{\degree}{^\circ}
 \title{什么是共轭}
 \author{}
 \begin{document}
 \maketitle
 
+\include{chapter0}
 在抽象代数中我们接触过很多代数结构里的抽象概念, 诸如正规化子, 交换子, 中心等等等等.
 其中最先出现也最先困惑我们的就是\emph{共轭}这个概念.
 
@@ -128,7 +117,7 @@
 
 如果``不变形''指的是变换过后的旋转依然是一个旋转, 实际上平面上全体旋转构成的集合压根不构成一个群.
 
-\subsection{为什么\(hgh^{-1}\) 组合能实现换基?}
+\subsection{为什么 \(hgh^{-1}\) 组合能实现换基?}
 
 \href{https://math.stackexchange.com/questions/11971/intuition-behind-conjugation-in-group-theory}{讨论}
 
@@ -143,5 +132,7 @@ Or even cooler:
 \[
     \Isom \R^{2} \cong O(2) \ltimes \R^{2}
 \]
+
+\include{chapter3}
 
 \end{document}

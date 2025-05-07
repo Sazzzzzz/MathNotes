@@ -46,7 +46,7 @@
 \end{enumerate}
 
 \begin{problem}
-    设 \(a_n \leq c_n \leq b_n, n = 1, 2, \dots\)
+    设 \(a_n \leq c_n \leq b_n，n = 1，2，\dots\)
     且级数\(\sum_{n=1}^{\infty} a_n\) 和 \(\sum_{n=1}^{\infty}
     b_n\) 都收敛，求证级数
     \(\sum_{n=1}^{\infty} c_n\) 也收敛。
@@ -55,15 +55,15 @@
 
 \begin{solution}
     由于\(\sum_{n=1}^{\infty} a_{n}\) 和 \(\sum_{n=1}^{\infty} b_{n}\)
-    均收敛, 由Cauchy收敛原理知: \(\forall \varepsilon > 0, \exists N \in
-    \N\)使得\(\forall n > N, p \in \N\), 有:
+    均收敛，由Cauchy收敛原理知: \(\forall \varepsilon > 0，\exists N \in
+    \N\)使得\(\forall n > N，p \in \N\)，有:
     \begin{align*}
         \left| a_{n} + a_{n+1} + \dots + a_{n+p} \right| <
         \varepsilon \\
         \left| b_{n} + b_{n+1} + \dots + b_{n+p} \right| < \varepsilon
     \end{align*}
     由于
-    \(a_{n} \leq c_{n} \leq b_{n}\), 故:
+    \(a_{n} \leq c_{n} \leq b_{n}\)，故:
     \[
         \left| c_{n} + c_{n+1} + \dots + c_{n+p} \right| < \varepsilon
     \]
@@ -94,7 +94,7 @@
     D_{n} = \tfrac{\tfrac{3n+2}{4n+1}}{\tfrac{3n-1}{4n-3}} =
     \frac{12n^{2}-n-6}{12n^{2}-n-3}
 \]
-当\(\forall n > 0\), 有\(D_{n} < 1\), 故由D'Alembert判别法知级数收敛.
+当\(\forall n > 0\)，有\(D_{n} < 1\)，故由D'Alembert判别法知级数收敛.
 
 \[
     \sum_{n=1}^{\infty} \frac{3^n}{n!}
@@ -103,7 +103,7 @@
 \[
     D_{n} = \frac{3}{n+1}
 \]
-当\(n>3\)时, 有\(D_{n} < 1\), 故级数收敛.
+当\(n>3\)时，有\(D_{n} < 1\)，故级数收敛.
 
 \[
     \sum_{n=1}^{\infty} \frac{3^{n}n!}{(2n)!}
@@ -127,7 +127,7 @@
         \frac{u_{n}}{u_{n+1}}= \left| \frac{n+1}{\alpha-n} \right| =
         \frac{n+1}{n-\alpha}
     \]
-    故当\(n\)足够大时, 有\(\frac{u_{n}}{u_{n+1}}\to 1\), \(n \to +\infty\)
+    故当\(n\)足够大时，有\(\frac{u_{n}}{u_{n+1}}\to 1\)，\(n \to +\infty\)
     且:
     \[
         \lim_{n \to \infty} R_{n} = \lim_{n \to \infty} n \left(
@@ -143,10 +143,10 @@
     \begin{itemize}
         \item \(\sum_{n=1}^{\infty}
                 \frac{\sqrt{n!}}{(a+1)(a+\sqrt{2}) \dots
-            (a+\sqrt{n})}, \ a > 0\)
+            (a+\sqrt{n})}，\ a > 0\)
         \item \(\sum_{n=1}^{\infty} \frac{n!n^{-p}}{q(q+1)
                 \dots (q+n)},
-            \quad p > 0, \quad q > 0\)
+            \quad p > 0，\quad q > 0\)
     \end{itemize}
 \end{problem}
 
@@ -184,13 +184,13 @@
                 & \sim \lambda + \frac{\mu}{n} + \frac{\nu}{n^{2}} +
                 o(\frac{1}{n^{2}})
             \end{align*}
-            易知: \(\lambda = 1\), \(\mu = p+q\), \(\theta_{n} =
+            易知: \(\lambda = 1\)，\(\mu = p+q\)，\(\theta_{n} =
                 \left(\frac{p}{2}-q
                 \right)\left(
             1-p\right)\cdot\frac{1}{n^{2}}+o(\frac{1}{n^{2}})\),
             \begin{itemize}
-                \item 当\(p+q > 1\)时, 级数收敛.
-                \item 当\(p+q \le 1\)时, 有\(\theta_n\)有界, 级数发散.
+                \item 当\(p+q > 1\)时，级数收敛.
+                \item 当\(p+q \le 1\)时，有\(\theta_n\)有界，级数发散.
             \end{itemize}
     \end{itemize}
 
@@ -221,37 +221,37 @@
     > \sum_{n=1}^{\infty} \frac{1}{\sqrt{n}} ;
 \]
 故级数不绝对收敛.
-且当\(n \to + \infty\), \(\frac{\ln n}{\sqrt{n}}\)单调趋于0.
+且当\(n \to + \infty\)，\(\frac{\ln n}{\sqrt{n}}\)单调趋于0.
 由莱布尼茨判别法知级数条件收敛.
 
 \[
     \sum_{n=1}^{\infty} (-1)^n \sin \frac{x}{n} \arctan n (x \neq 0);
 \]
 
-易知, \(\sin \frac{x}{n}\)单调趋于0, 故由莱布尼茨判别法知\(\sum_{n=1}^{\infty} \sin
-\frac{x}{n}\)收敛. 同时\(\arctan n\)单调有界, 故由迪利克雷判别法知\(\sum_{n=1}^{\infty}
+易知，\(\sin \frac{x}{n}\)单调趋于0，故由莱布尼茨判别法知\(\sum_{n=1}^{\infty} \sin
+\frac{x}{n}\)收敛。同时\(\arctan n\)单调有界，故由迪利克雷判别法知\(\sum_{n=1}^{\infty}
 (-1)^{n} \sin \frac{x}{n} \arctan n\)收敛.
 
 但\[
     \left| (-1)^{n}\sin \frac{x}{n} \arctan n \right| < \frac{\pi}{2}
     \sin \frac{x}{n} \sim \frac{x}{n} + o(\frac{x}{n})
 \]
-故级数不绝对收敛. 综上, 原级数条件收敛.
+故级数不绝对收敛。综上，原级数条件收敛.
 
 \section{无穷乘积}
 \section{组合级数与重排级数}
 \section{无穷乘积}
 \section{级数的乘积、累次级数与二重级数}
 \begin{problem}
-    设\(\left\vert q \right\vert < 1\), 求证明:
+    设\(\left\vert q \right\vert < 1\)，求证明:
     \[
         \left( \sum_{n=0}^{\infty} q^{n} \right)^2
         =\sum_{n=0}^{\infty} (n + 1) q^{n}
     \]
 \end{problem}
 \begin{solution}
-    由于\(\left\vert q \right\vert < 1\), 故\(\sum_{n=0}^{\infty}
-    q^{n}\)绝对收敛. 故级数乘积\(\left( \sum_{n=0}^{\infty} q^{n}
+    由于\(\left\vert q \right\vert < 1\)，故\(\sum_{n=0}^{\infty}
+    q^{n}\)绝对收敛。故级数乘积\(\left( \sum_{n=0}^{\infty} q^{n}
     \right)^2\)的任意重排收敛.
     考虑\(\sum_{n=0}^{\infty} q^{n}\)与自身的Cauchy形式的乘积:
     \[
@@ -265,23 +265,23 @@
 \begin{problem}
     设\(S(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}\),
     \(C(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}\),
-    求证对于所有的\(x\), 有\(S(2x)=2S(x)C(x)\), \([S(x)]^2+[C(x)]^2=1\)
+    求证对于所有的\(x\)，有\(S(2x)=2S(x)C(x)\)，\([S(x)]^2+[C(x)]^2=1\)
 \end{problem}
 
 % TODO: Add a figure here.
 
 \begin{solution}
     记\(S(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!} =
-    \sum_{n=0}^{\infty} s(x)\), \(C(x) = \sum_{n=0}^{\infty} (-1)^n
-    \frac{x^{2n}}{(2n)!} = \sum_{n=0}^{\infty} c(x)\), 则:
+    \sum_{n=0}^{\infty} s(x)\)，\(C(x) = \sum_{n=0}^{\infty} (-1)^n
+    \frac{x^{2n}}{(2n)!} = \sum_{n=0}^{\infty} c(x)\)，则:
     \[
         \left\vert \frac{s_{n+1}}{s_{n}} \right\vert =
-        \frac{x^2}{(2n+2)(2n+3)} \to 0, \quad n \to \infty
+        \frac{x^2}{(2n+2)(2n+3)} \to 0，\quad n \to \infty
     \]
 
     \[
         \left\vert \frac{c_{n+1}}{c_{n}} \right\vert =
-        \frac{x^2}{(2n+2)(2n+1)} \to 0, \quad n \to \infty
+        \frac{x^2}{(2n+2)(2n+1)} \to 0，\quad n \to \infty
     \]
 
     故\(S(x)\)与\(C(x)\)都绝对收敛.
@@ -381,36 +381,36 @@
 \end{problem}
 
 \begin{solution}
-    先证明\(\{a_{n}\}\)有界时,  级数\(\sum_{n=1}^{\infty} \left(1 -
+    先证明\(\{a_{n}\}\)有界时， 级数\(\sum_{n=1}^{\infty} \left(1 -
     \frac{a_n}{a_{n+1}}\right)\) 收敛.
 
-    由\(\{a_{n}\}\) 是递增有界的正数数列知, \(\{a_{n}\}\) 收敛.
+    由\(\{a_{n}\}\) 是递增有界的正数数列知，\(\{a_{n}\}\) 收敛.
     \(\sum_{n=1}^{\infty} (a_{n+1} - a_{n})\)
     与\(\sum_{n=1}^{\infty} \left(1 -
-    \frac{a_n}{a_{n+1}}\right)\)均为正项级数. 由\(\sum_{n=1}^{\infty}
+    \frac{a_n}{a_{n+1}}\right)\)均为正项级数。由\(\sum_{n=1}^{\infty}
     (a_{n+1} - a_{n})\) 的部分和数列为\(U_{n} = a_{n+1} - a_{1}\),
-    且\(\{a_{n}\}\) 收敛, 故 \(\sum_{n=1}^{\infty} (a_{n+1} - a_{n})\) 收敛.
+    且\(\{a_{n}\}\) 收敛，故 \(\sum_{n=1}^{\infty} (a_{n+1} - a_{n})\) 收敛.
 
-    记\(u_{n} = a_{n+1} - a_{n}\), \(v_{n} = 1 -
-    \frac{a_{n}}{a_{n+1}}\), 则: \(\frac{v_{n}}{u_{n}} =
+    记\(u_{n} = a_{n+1} - a_{n}\)，\(v_{n} = 1 -
+    \frac{a_{n}}{a_{n+1}}\)，则: \(\frac{v_{n}}{u_{n}} =
     \frac{1}{a_{n+1}} > 0\) 有界,
     由比较判别法知级数\(\sum_{n=1}^{\infty} \left(1 -
     \frac{a_n}{a_{n+1}}\right)\) 收敛.
 
-    再证明\(\{a_{n}\}\)无界时, 级数\(\sum_{n=1}^{\infty} \left(1 -
+    再证明\(\{a_{n}\}\)无界时，级数\(\sum_{n=1}^{\infty} \left(1 -
     \frac{a_n}{a_{n+1}}\right)\) 发散.
 
     下证: \[
         \left(1 - \frac{a_{n}}{a_{n+1}}\right) + \left(1 -
         \frac{a_{n+1}}{a_{n+2}}\right) + \dots +
         \left(1 - \frac{a_{n+p}}{a_{n+p+1}}\right) \geq 1 -
-        \frac{a_{n}}{a_{n+p+1}}, \forall n, p \in \N
+        \frac{a_{n}}{a_{n+p+1}}，\forall n，p \in \N
     \]
 
     用数学归纳法证明:
 
-    当\(p = 1\) 时, 显然成立.
-    设当\(p = k\) 时成立, 则当\(p = k+1\) 时:
+    当\(p = 1\) 时，显然成立.
+    设当\(p = k\) 时成立，则当\(p = k+1\) 时:
     \begin{align*}
         &\mathrel{\phantom{=}} \left(1 - \frac{a_{n}}{a_{n+1}}\right)
         + \left(1 - \frac{a_{n+1}}{a_{n+2}}\right) + \dots + \left(1 -
@@ -426,9 +426,9 @@
     \end{align*}
     故命题得证.
 
-    \(\exists \varepsilon = \frac{1}{2}\), \(\forall N \in
-    \N\), 取\(n = N\), 由\(\{a_{n}\}\)无界知\(\exists p >
-    N\)使\(a_{n+p+1} > 2a_{n}\). 于是:
+    \(\exists \varepsilon = \frac{1}{2}\)，\(\forall N \in
+    \N\)，取\(n = N\)，由\(\{a_{n}\}\)无界知\(\exists p >
+    N\)使\(a_{n+p+1} > 2a_{n}\)。于是:
     \[
         \left| \left( 1 - \frac{a_{n}}{a_{n+1}} \right) + \left( 1 -
         \frac{a_{n+1}}{a_{n+2}} \right) + \dots + \left( 1 -
@@ -448,7 +448,7 @@
 \begin{solution}
     \begin{itemize}
         \item \(\sum_{n=1}^{\infty} \frac{1}{(\ln n)^{\ln n}}\) 收敛.
-            当\(n > \e^{\e^{2}}\), 则\(\ln \ln n > 2\), 有:
+            当\(n > \e^{\e^{2}}\)，则\(\ln \ln n > 2\)，有:
             \[
                 \frac{1}{(\ln n)^{\ln n}} = \frac{1}{\exp(\ln n
                 \ln\ln n)} < \frac{1}{\exp(2\ln n)} = \frac{1}{n^2}
@@ -456,13 +456,13 @@
             由比较判别法知级数收敛.
         \item \(\sum_{n=3}^{\infty} \frac{1}{(\ln n)^{\ln
             \ln n}}\) 发散.
-            易知\(\frac{\ln x}{x} < \frac{1}{\e}\), \(\forall x > 0\).
+            易知\(\frac{\ln x}{x} < \frac{1}{\e}\)，\(\forall x > 0\).
             则\[
                 \frac{(\ln\ln n)^{2}}{\ln n} = \left( \frac{2\ln
                 \sqrt{\ln n}}{\sqrt{\ln n}} \right)^{2} < \left(
                 \frac{2}{\e} \right)^{2} < 1
             \]
-            即\(\ln n > (\ln \ln n)^{2}\), 故\[
+            即\(\ln n > (\ln \ln n)^{2}\)，故\[
                 \frac{1}{(\ln n)^{\ln \ln n}} = \frac{1}{\exp(\ln\ln
                 n)^{2}} > \frac{1}{\exp \ln n} = \frac{1}{n}
             \]
@@ -470,7 +470,7 @@
         \item \(\sum_{n=3}^{\infty} \frac{1}{(\ln \ln
             n)^{\ln n}}\) 收敛.
             当\(n > \e^{\e^{\e^{2}}}\) 时,
-            \(\ln\ln\ln n > 2\), 于是: \[
+            \(\ln\ln\ln n > 2\)，于是: \[
                 \frac{1}{(\ln \ln n)^{\ln n}} = \frac{1}{\exp(\ln n
                 \ln\ln\ln n)} < \frac{1}{\exp(2\ln n)} = \frac{1}{n^2}
             \]

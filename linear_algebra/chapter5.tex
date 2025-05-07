@@ -48,19 +48,19 @@
     ,\lambda_{k+1}\) 的特征向量\(\xi_1,\dots ,\xi_{k+1}\) 也线性无关.
     设关系式
     \begin{equation}
-        a_1\xi_1 + a_2\xi_2 + \dots + a_{k+1}\xi_{k+1} = 0 \tag{1}
+        a_1\xi_1 + a_2\xi_2 + \dots + a_{k+1}\xi_{k+1} = 0 \label{1}
     \end{equation}
     两边同乘\(\lambda_{k+1}\) 有:
-    \[
+    \begin{equation}
         a_1\lambda_{k+1}\xi_1 + a_2\lambda_{k+1}\xi_2 +
-        \cdots + a_{k+1}\lambda_{k+1}\xi_{k+1} = 0 \tag{2}
-    \]
+        \cdots + a_{k+1}\lambda_{k+1}\xi_{k+1} = 0 \label{2}
+    \end{equation}
     式子两端同时施加变换\(\A\), 有:
-    \[
+    \begin{equation}
         a_1\lambda_1\xi_1 + a_2\lambda_1\xi_2 + \cdots +
-        a_{k+1}\lambda_1\xi_{k+1} = 0 \tag{3}
-    \]
-    (3) 减去 (2) 式, 得:
+        a_{k+1}\lambda_1\xi_{k+1} = 0 \label{3}
+    \end{equation}
+    式 \eqref{2} 减去式 \eqref{3}, 得:
     \[
         a_1(\lambda_1 - \lambda_{k+1})\xi_1 + a_2(\lambda_1
         - \lambda_{k+1})\xi_2 + \cdots +
@@ -77,7 +77,7 @@
 短短的几行证明, 不知蕴含了作者大一多少不解\UseVerb{cry}. 哪个证明更加符合直觉,
 想必是高下立判了吧\UseVerb{surprised}
 
-\(T\) 的不变子空间包括可交换的算子的值域与零空间, 其自身及其多项式的值域与子空间自然也是包含的.
+\(T\) 的不变子空间包括可交换的算子的值域与零空间, 其自身及其多项式的值域与子空间自然也包含在内.
 特别的, 自身零空间的子空间与包含值域的子空间也是不变子空间. 子空间的交与和也不变.
 % TODO:  Is that all the invariant subspaces?
 
@@ -95,7 +95,13 @@
 % 最小多项式的存在性（把整个的约化成小的, 然后小的必然存在）
 % 以上命题也可以直接Hamilton-Cayley定理来证明.
 
-% 最小多项式的神奇性质: 根是特征值（只有最小多项式满足）, 零化多项式必然整除, 求解方法,商算子和不变子空间上的算子
+最小多项式的神奇性质:
+\begin{enumerate}
+    \item 最小多项式的根是特征值
+    \item 最小多项式整除所有零化多项式
+    \item 商算子的最小多项式是原算子的最小多项式除以不变子空间的最小多项式?
+\end{enumerate}
+求解方法
 % （任给多项式可求最小多项式为多项式的矩阵）
 
 % 习题4: p(T) 的特征值a是p（lambda）
