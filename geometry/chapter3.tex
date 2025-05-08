@@ -47,12 +47,13 @@
     实际上这个定理并没有那么强. 这里的二元运算已被规定为函数复合, 该定理只告诉我们对于输出严格确定唯一输入的纯函数,
 应用时间与结果无关. 在现实生活中可以理解为三个模块按顺序叠加并不影响其功能}
 
-一个函数\(f: X \to Y\)实际上可以看作集合\(X \times Y\) 上的一个二元关系.
+一个函数\(f: X \to Y\)实际上可以看作集合\(X \times Y\) 上的一个子集\(F\).
 
 \begin{definition}
     称\(f: X\to Y\) 是一个函数, 如果：
 
-    对于任意\(x\in X\), 存在唯一的\(y\in Y\)使得二元关系\(x \circ_{f} y\) 成立.
+    对于任意\(x\in X\), 存在唯一的\(y\in Y\)使得二元关系\(x \circ_{f} y\)
+    成立, 即\((x,y)\in F\)
 \end{definition}
 
 两个函数相等实际上就是对于相同的自变量\(x\)对应相同的值\(y\).
@@ -89,7 +90,7 @@
     \end{align*}
 \end{proof}
 
-\section{一些概念}
+\subsection{交换图}
 
 \begin{definition}
     一个交换图是一个图, 其中所有具有相同起点和终点的有向路径都导致相同的结果.
@@ -101,30 +102,63 @@
             G_{2} \times G_{2} \arrow[rr, "*_{2}"]
             &  & G_{2}
         \end{tikzcd}
+        \caption{一个交换图的例子}
     \end{figure}
 \end{definition}
 
-等距变换群的半直积分解（射影几何的特例）
+\section{等距变换群与半直积}
 
-半直积：
-半直积是广泛存在的结构，考虑D2n分解为C2 Cn 以及证明，AutZn=Un
-半直积的定义
+\begin{definition}
+    给定任意两个群\(N\)和\(H\)以及群同态\(\phi: H \to \Aut{N}\)，我们在集合\(H
+    \times N\) 上定义二元运算\(\circ\)：
+    \begin{align*}
+        \circ : (H\times N)\times (H\times N) & \to H\times N \\
+        ((h_{1}, n_{1}), (h_{2}, n_{2})) & \mapsto
+        (h_{1}h_{2}, \phi(h_{1})(n_{2})n_{1})
+    \end{align*}
+    则\((H\times N, \circ )\) 构成一个群, 称为\(H\)和\(N\)的半直积,
+    记作\(H\ltimes N\)
+\end{definition}
+
+半直积是广泛存在的结构
+\begin{enumerate}
+    \item \(D_{2n}\cong C_{2}\ltimes C_{n}\) (注意到\(\Aut
+        C_{n}\cong U_{n}\)), 其中
+        \begin{align*}
+            \phi: C_{2} & \to \Aut{C_{n}} \\
+            b^{k} & \mapsto
+            \begin{cases}
+                f(a)  = a, & k=0 \\
+                f(a)  = a^{-1}, &k=1
+            \end{cases}
+        \end{align*}
+    \item \(O(n)\cong C_{2} \ltimes SO(n)\)
+        % TODO: How to prove this?
+\end{enumerate}
+
+于是我们可以验证
+\[
+    \Isom \R^{2} \cong O(2) \ltimes \R^{2}
+\]
 半直积形状为何如此
 半直积的几何意义
 
-等距变换的子群
+\section{\(\Isom \R^{2}\) 的一些子群}
+\begin{enumerate}
+    \item \(\langle R_{\theta} \rangle\cong \Z\)
+    \item \(\langle T_{\theta} \rangle\cong \Z\)
+    \item \(\langle T_{a,b} \rangle\cong \Z^{2}\)(\(a\), \(b\) 线性无关)
+\end{enumerate}
 
-\(\langle R_{\theta} \rangle\cong \Z\)
-\(\langle T_{\theta} \rangle\cong \Z\)
-\(\langle T_{a,b} \rangle\cong \Z^{2}\)(a b 线性无关)
-\(D_{2n}=C_{2}\ltimes C_{n}\)
-3.4 Group action
-
+\section{群作用}
 New notations, new toys!
 
-群作用的定义
-when studing groups, we always think of them as acting on some set.
+\begin{quote}
+    when studing groups, we always think of them as acting
+    on some set.
+\end{quote}
 
+群作用的定义
 抽象代数里指出所有群都同构于置换群的一个子群，为什么不介绍群作用呢？
 % SNCF Train Company?
 % R Tree?
