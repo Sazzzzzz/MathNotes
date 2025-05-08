@@ -4,3 +4,4 @@
 
 - `linear_algebra.pdf` : 线性代数学习笔记，参考 [*Linear Algebra Done Right*](https://linear.axler.net/) by Sheldon Axler
 - `real_analysis.pdf` : 实变函数学习笔记，参考程其襄*实变函数与泛函分析基础* 与南开大学*实变函数*教材
+- `geometry.pdf` : 几何学学习笔记，参考徐斌彬老师几何学讲义与M.A. Armstrong [*Groups and Symmetry*](https://superoles.wordpress.com/wp-content/uploads/2014/10/lluvia.pdf)
