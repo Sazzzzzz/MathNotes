@@ -89,16 +89,20 @@
     \end{align*}
 \end{proof}
 
-\begin{tikzcd}
-    G_{1} \times G_{1} \arrow[rr, "*_{1}"] \arrow[d,
-    "{(\varphi,\varphi)}"] &  & G_{1} \arrow[d, "\varphi"] \\
-    G_{2} \times G_{2} \arrow[rr, "*_{2}"]
-    &  & G_{2}
-\end{tikzcd}
+\section{一些概念}
 
-群、子群、群同态、群同构等概念我们早已熟悉.
-交换图： 为什么交换图可以表示可结合的结构？
-结合律如何证明？
+\begin{definition}
+    一个交换图是一个图, 其中所有具有相同起点和终点的有向路径都导致相同的结果.
+    \begin{figure}[H]
+        \centering
+        \begin{tikzcd}
+            G_{1} \times G_{1} \arrow[rr, "*_{1}"] \arrow[d,
+            "{(\varphi,\varphi)}"] &  & G_{1} \arrow[d, "\varphi"] \\
+            G_{2} \times G_{2} \arrow[rr, "*_{2}"]
+            &  & G_{2}
+        \end{tikzcd}
+    \end{figure}
+\end{definition}
 
 等距变换群的半直积分解（射影几何的特例）
 
