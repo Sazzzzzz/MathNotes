@@ -4,11 +4,11 @@
 
 \section{特征值}
 \begin{definition}
-    算子:从一个线性空间到自身的映射
+    算子：从一个线性空间到自身的映射
 \end{definition}
 
 算子在定义上已经具备了可逆的基础。如果线性映射是不同线性空间之间的同态，那算子就是自同态。
-算子比一般的线性映射有趣的地方在于: 算子可以求幂。
+算子比一般的线性映射有趣的地方在于： 算子可以求幂。
 
 预想研究算子的性质，一个很好的思路是把算子分解成一个个不变子空间上算子的组合。
 特征向量就是最简单的不变子空间——\textbf{一维不变子空间}里的元素。在这个子空间上，算子被简化为纯粹的拉伸与压缩。
@@ -17,7 +17,7 @@
 \]
 
 不同特征值的分解下产生的不变子空间相互``正交''\footnote{这里的正交仅指子空间构成直和}。
-以下比较\textit{Linear Algebra Done Right} 与\textit{高等代数}中证明方法的不同:
+以下比较\textit{Linear Algebra Done Right} 与\textit{高等代数}中证明方法的不同：
 
 \begin{theorem}
     设 \(T \in \L(V)\)那么分别对应于\(T\) 的不同特征值的特征向量构成的每个组都线性无关
@@ -50,17 +50,17 @@
     \begin{equation}
         a_1\xi_1 + a_2\xi_2 + \dots + a_{k+1}\xi_{k+1} = 0 \label{1}
     \end{equation}
-    两边同乘\(\lambda_{k+1}\) 有:
+    两边同乘\(\lambda_{k+1}\) 有：
     \begin{equation}
         a_1\lambda_{k+1}\xi_1 + a_2\lambda_{k+1}\xi_2 +
         \cdots + a_{k+1}\lambda_{k+1}\xi_{k+1} = 0 \label{2}
     \end{equation}
-    式子两端同时施加变换\(\A\)，有:
+    式子两端同时施加变换\(\A\)，有：
     \begin{equation}
         a_1\lambda_1\xi_1 + a_2\lambda_1\xi_2 + \cdots +
         a_{k+1}\lambda_1\xi_{k+1} = 0 \label{3}
     \end{equation}
-    式 \eqref{2} 减去式 \eqref{3}，得:
+    式 \eqref{2} 减去式 \eqref{3}，得：
     \[
         a_1(\lambda_1 - \lambda_{k+1})\xi_1 + a_2(\lambda_1
         - \lambda_{k+1})\xi_2 + \cdots +
@@ -79,9 +79,9 @@
 
 \(T\) 的不变子空间包括可交换的算子的值域与零空间，其自身及其多项式的值域与子空间自然也包含在内。特别的，
 自身零空间的子空间与包含值域的子空间也是不变子空间。子空间的交与和也不变。
-% TODO:  Is that all the invariant subspaces?
+% TODO：  Is that all the invariant subspaces?
 
-习题当中我们得以看到特征值更多的性质:
+习题当中我们得以看到特征值更多的性质：
 \begin{enumerate}
     \item \(T\) 与自身共轭的算子特征值相同，特征向量相差一个平移
     \item 对偶算子与原算子特征值相同，特征向量相差一个转置
@@ -95,7 +95,7 @@
 % 最小多项式的存在性（把整个的约化成小的，然后小的必然存在）
 % 以上命题也可以直接Hamilton-Cayley定理来证明。
 
-最小多项式的神奇性质:
+最小多项式的神奇性质：
 \begin{enumerate}
     \item 最小多项式的根是特征值
     \item 最小多项式整除所有零化多项式

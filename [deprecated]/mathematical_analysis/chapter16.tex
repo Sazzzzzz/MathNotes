@@ -1,7 +1,7 @@
 \chapter{一致收敛}
 \section{函数列的一致收敛性}
 \begin{problem}
-    判定下列各函数列在指定区间上的一致收敛性:
+    判定下列各函数列在指定区间上的一致收敛性：
     \begin{enumerate}
         \item \(f_n(x) = \sin \frac{x}{n}, \quad -\infty <
             x < +\infty\);
@@ -27,7 +27,7 @@
             由于\(f(x)=\lim_{n \to \infty} \sin \frac{x}{n} = 0\)，
             故\(f_{n}(x)\)逐点收敛到\(0\)。
 
-            但:
+            但：
             \[
                 \lim_{n \to \infty} \left\lVert f_{n}(x) -
                 f(x) \right\rVert
@@ -50,7 +50,7 @@
 
         \item 一致收敛。
             当\(x \in [0,1-\delta]\)，此时\(\lim_{n \to
-            \infty}f_{n}(x) = 0\)。且:
+            \infty}f_{n}(x) = 0\)。且：
             \[
                 \lim_{n \to \infty}\left\lVert f_{n}(x) - 0
                 \right\rVert
@@ -63,7 +63,7 @@
 
         \item 不一致收敛。
 
-            当\(x \in [1-\delta,1+\delta]\)，有:
+            当\(x \in [1-\delta,1+\delta]\)，有：
             \[
                 \frac{x^{n}}{1 + x^{n}} < \frac{(1+\delta)^{n}}{1+
                 (1+\delta)^{n}} \le \frac{1}{2}
@@ -73,7 +73,7 @@
 
             \(\forall x_1, x_2 \in [0, \frac{1}{2}]\) 且
             \(\left\vert x_1 - x_2
-            \right\vert < \delta\)，有:
+            \right\vert < \delta\)，有：
             \[
                 \left\vert g(x_1) - g(x_2) \right\vert
                 = \left\vert \frac{x_1 -
@@ -86,7 +86,7 @@
 
         \item 不一致收敛
 
-            \textbf{反证法}:
+            \textbf{反证法}：
             假设\(f_{n}(x)\)在\([1-\delta,1+\delta]\)上一致收敛，则
             \(g(f_n(x))=x^{n}\)在\([1-\delta,1+\delta]\)上一致收敛。
             由于\(g(f_n(x))\)在\([1-\delta,1+\delta]\)上一致收敛，
@@ -120,27 +120,27 @@
 \begin{solution}
     可知，\(f(x)\) 是连续函数。故\(\forall \varepsilon > 0\)，
     \(\exists \delta > 0\)
-    使得\(\forall x \in B_{\delta}(x_{0})\)，有:
+    使得\(\forall x \in B_{\delta}(x_{0})\)，有：
     \[
         \left| f(x)- f(x_{0}) \right| < \frac{\varepsilon}{2}
     \]
     由于\(\lim_{n \to \infty} x_{n}=x_{0}\) 对于上述的\(\delta\)，
-    存在\(N>0\)，使得:
+    存在\(N>0\)，使得：
     \[
         \left| x_{n} - x_{0} \right| < \delta, \quad \forall n > N
     \]
-    故 \(\forall \varepsilon > 0\), \(\exists N_1 > 0\)，使得:
+    故 \(\forall \varepsilon > 0\), \(\exists N_1 > 0\)，使得：
     \[
         \left| f(x_{n})- f(x_{0}) \right| <
         \frac{\varepsilon}{2}, \quad
         \forall n > N_1
     \]
-    同时\(f_{n}(x) \rightrightarrows f(x)\), 故\(\exists N_2 > 0\)，使得:
+    同时\(f_{n}(x) \rightrightarrows f(x)\), 故\(\exists N_2 > 0\)，使得：
     \[
         \left| f_{n}(x) - f(x) \right| < \frac{\varepsilon}{2}, \quad
         \forall n > N_2
     \]
-    综上: \(\forall \varepsilon > 0\)，取\(N = \max\{N_1, N_2\}\)，则:
+    综上： \(\forall \varepsilon > 0\)，取\(N = \max\{N_1, N_2\}\)，则：
     \[
         \left| f_{n}(x_{n}) - f(x_{0}) \right| \le \left|
         f_{n}(x_{n}) -
@@ -157,7 +157,7 @@
     \]
     在 \([0, 1]\) 上逐点收敛于 \(f(x)\)，求证：
     \begin{enumerate}
-        \item \(\{f_n(x)\}\) 在 \([0, 1]\) 上非一致收敛;
+        \item \(\{f_n(x)\}\) 在 \([0, 1]\) 上非一致收敛；
         \item \(\int_{0}^{1} f(x) \mathrm{d}x \neq \lim_{n \to \infty}
             \int_{0}^{1} f_n(x) \mathrm{d}x\)
     \end{enumerate}
@@ -169,7 +169,7 @@
     可知\(f_{n}'(x) = n \e^{-nx^{2}}(1-2nx)\)，求得\(f'\left(
     \frac{1}{2n} \right) = 0\)。故\(f_{n}(x)\)
     的最大值在\(\frac{1}{2n}\)处取得。
-    故:
+    故：
     \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
         = \lim_{n \to \infty} f_{n}(1/2n) = \lim_{n \to \infty}
@@ -204,12 +204,12 @@
 \begin{solution}
     可知，\(f(x) = \lim_{n \to \infty} nx(1-x)^n = 0\)，
     故\(f_{n}(x)\)逐点收敛到\(f(x) = 0\)。
-    由均值不等式知: \[
+    由均值不等式知： \[
         \left\lVert f_{n}(x) - f(x) \right\rVert =
         nx(1-x)^{n} \le \left( \frac{n}{n + 1} \right)^{n+1}
     \]
     在\(x = \frac{1}{2}\) 处取得最大值。
-    故: \[
+    故： \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - f(x) \right\rVert
         = \lim_{n \to \infty} nx(1-x)^{n} = \lim_{n \to \infty}
         \left( \frac{n}{n + 1} \right)^{n+1} = \frac{1}{\e} > 0
@@ -233,7 +233,7 @@
     问参数\(\alpha\) 分别取什么值时，函数列
     \[
         f_n(x) = n^\alpha x\e^{-n x}, \quad n = 1, 2, \dots
-    \] 在\([0,1]\) 上:
+    \] 在\([0,1]\) 上：
     \begin{itemize}
         \item 收敛
         \item 一致收敛
@@ -248,7 +248,7 @@
 \begin{solution}
     \begin{itemize}
         \item 注意到\(\e^{-nx}\)是\(x\) 的高阶无穷小，故\(\forall \alpha
-            \in \R\) 都有: \[
+            \in \R\) 都有： \[
                 \lim_{n \to \infty} n^{\alpha} x \e^{-n x} = 0
             \]
         \item 考虑\(f_{n}(x)\)的最大值，令\(f_{n}'(x) = n^{\alpha}
@@ -262,7 +262,7 @@
             \]
             故当且仅当\(\alpha <  1\) 时，\(f_{n}\) 一致收敛。
         \item 注意到\(\int_0^1 \left[ \lim_{n \to \infty} f_n(x) \right]
-            \mathrm{d}x = \int_0^1 0 \mathrm{d}x = 0\)，且有:
+            \mathrm{d}x = \int_0^1 0 \mathrm{d}x = 0\)，且有：
             \begin{align*}
                 & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \\
                 & = \lim_{n \to \infty} \int_{0}^{1} n^{\alpha} x
@@ -290,7 +290,7 @@
 \end{problem}
 
 \begin{solution}
-    由于\(\arctan x^{n}\)在 \(\R\)上有界，则:
+    由于\(\arctan x^{n}\)在 \(\R\)上有界，则：
     \[
         0 \le  \left\lVert f_{n}(x) - f(x) \right\rVert \le
         \frac{1}{n} \cdot \frac{\pi}{2}
@@ -298,13 +298,13 @@
     即\(\lim_{n \to \infty} \left\lVert f_{n} - f(x) \right\rVert =
     0\)，故函数列一致收敛于常函数\(0\)。
 
-    注意到:\(f_{n}'(x) = \frac{x^{n - 1}}{x^{2n} + 1}\)，有:
+    注意到：\(f_{n}'(x) = \frac{x^{n - 1}}{x^{2n} + 1}\)，有：
     \begin{align*}
         \lim_{n \to \infty} f_{n}(1) & = \frac{1}{2} \\
         \left. \left[ \lim_{n \to \infty} f_{n}(x) \right]'
         \right|_{x=1}                & = 0           \\
     \end{align*}
-    故: \[
+    故： \[
         \left. \left[ \lim_{n \to \infty} f_n(x) \right]'
         \right|_{x = 1}
         \neq \lim_{n \to \infty} f_n'(1).
@@ -344,8 +344,8 @@
     \]
     在 \((-\infty, +\infty)\) 上逐点收敛于 \(f(x)\)，求证：
     \begin{itemize}
-        \item \(\{f_n(x)\}\) 在 \((-\infty, +\infty)\) 上一致收敛;
-        \item \(\{f_n'(x)\}\) 在任何包含0的区间上都非一致收敛;
+        \item \(\{f_n(x)\}\) 在 \((-\infty, +\infty)\) 上一致收敛；
+        \item \(\{f_n'(x)\}\) 在任何包含0的区间上都非一致收敛；
         \item \(\lim_{n \to \infty} f_n'(x) = f'(x)\)。
     \end{itemize}
 \end{problem}
@@ -360,14 +360,14 @@
                 2n^{2}x^{2} - 1\right)
             \end{align*}
             故\(f_{n}(x)\)最大值在\(x = -\frac{\sqrt{2}}{2n}\) 处取到。
-            则: \[
+            则： \[
                 \lim_{n \to \infty} \left\lVert f_{n}'(x) - f(x)
                 \right\rVert = \lim_{n \to \infty} \left|
                 f'_{n}\left(\frac{\sqrt{2}}{2n}\right) \right| =
                 -2n\e^{-\frac{1}{2}} \to \infty
             \]
             故函数列不一致收敛
-        \item 可知:
+        \item 可知：
             \begin{align*}
                 f'(x)                         & = 0
                 \\
@@ -391,15 +391,15 @@
 \end{problem}
 
 \begin{solution}
-    首先证明: \(\forall x \in [a,b], \left\vert f_{n}(x) \right\vert \le
+    首先证明： \(\forall x \in [a,b], \left\vert f_{n}(x) \right\vert \le
     \frac{M(x-a)^{n}}{k!} \)
     % TODO: What's the right format for mathematical induction?
 
     当\(n=0\)时，由连续函数的性质可知，\(f_{0}(x)\)在\([a,b]\)上有最大值\(M\)。
     即\(f_{0}(x)\le M\)。
-    设当\(n=k\)时，\(\forall x \in [a,b]\)，有: \(\left\vert f_{k}(x)
+    设当\(n=k\)时，\(\forall x \in [a,b]\)，有： \(\left\vert f_{k}(x)
         \right\vert \le
-    \frac{M(x-a)^{k}}{k!}\)。则:
+    \frac{M(x-a)^{k}}{k!}\)。则：
     \[
         \left\vert f_{k+1}(x) \right\vert
         = \left\vert \int_{a}^{x} f_{k}(t) \mathrm{d}t \right\vert
@@ -409,7 +409,7 @@
     \]
     故原命题成立。
 
-    则:
+    则：
     \[
         \lim_{n \to \infty} \left\lVert f_{n}(x) - 0 \right\rVert
         =\lim_{n \to \infty} \sup_{x \in [a,b]} \left\vert f_{n}(x)
