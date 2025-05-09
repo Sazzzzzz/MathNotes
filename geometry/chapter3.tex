@@ -8,7 +8,7 @@
 我们早已熟悉结合律和交换律，并能轻松的找出满足其一而不满足其二的二元运算：
 
 \begin{description}
-    \item[满足交换律而不满足结合律：] \(a \otimes b \coloneq \frac{a+b}{2}\)
+    \item[满足交换律而不满足结合律：] \(a \otimes b \coloneqq \frac{a+b}{2}\)
     \item[满足结合律而不满足交换律：] 矩阵乘法
 \end{description}
 % TODO： Reference to
@@ -117,6 +117,7 @@
 \end{definition}
 
 半直积是广泛存在的结构
+% TODO： 半直积的几何意义
 \begin{enumerate}
     \item \(D_{2n}\cong C_{2}\ltimes C_{n}\) (注意到\(\Aut
         C_{n}\cong U_{n}\))，其中
@@ -149,24 +150,43 @@
 \section{群作用}
 New notations, new toys!
 
+抽象代数里曾指出所有群都同构于置换群的一个子群，也就是\textit{群作用}：
+
+\begin{definition}
+    设\(G\)是一个群，\(X\)是一个集合，\(G\)在\(X\)上的作用是一个映射
+    \begin{align*}
+        \Phi: G\times X & \to X \\
+        (g,x) & \mapsto g\cdot x
+    \end{align*}
+    使得对于任意\(g,h\in G\)，\(x\in X\)，都有
+    \begin{enumerate}
+        \item \(e\cdot x=x\)
+        \item \(g(h\cdot x)=(gh)\cdot x\)
+    \end{enumerate}
+    其中\(e\)是单位元。
+    记\(g\cdot x\)为\(g\)对\(x\)的作用。
+\end{definition}
+
 \begin{quote}
-    when studing groups, we always think of them as acting
+    when studying groups, we always think of them as acting
     on some set.
 \end{quote}
 
-群作用的定义
-抽象代数里指出所有群都同构于置换群的一个子群，为什么不介绍群作用呢？
 % SNCF Train Company?
 % R Tree?
-Orbit（是一个点集）（固定a看作用） and G-orbit decomposition
+
+\begin{description}
+    \item[轨道]  是一个点集。定义为\(\mathcal{O}_{a}\coloneqq \left\{ g\cdot a
+        \mid g\in G \right\}\)
+    \item[稳定子群] 是一个子群，定义为\(\Stab(a)\coloneqq \left\{ f \in G
+        \mid f(a)=a \right\}\)
+\end{description}
+
+不同元素的轨道对集合\(X\) 构成一个分划
 \[
     X=\bigsqcup_{i=1}^{N} \mathcal{O}_{i}
 \]
 
-Stabilizer（一个子群）（定义在群作用上）（固定a看作用）
-\[
-    \Stab(a)\coloneq \left\{ f \in G \mid f(a)=a \right\}
-\]
 
 Orbit-Stabilizer Theorem
 \[
@@ -178,4 +198,4 @@ Orbit-Stabilizer Theorem
     G= \bigsqcup_{b\in \mathcal{O}(a)} G_{a,b}
 \]
 
-\(A\cap B\) 是子群？
+% \(A\cap B\) 是子群？
