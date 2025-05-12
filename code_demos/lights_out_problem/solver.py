@@ -7,6 +7,9 @@ from pprint import pprint
 # TODO: Customize GF class
 # INFO: Core logic for linear algebra is to be implemented.
 
+# As for performance, the algorithm is pretty bad.
+# TODO: Optimize grid renew method to add the nth row of matrix A
+
 
 class Point(NamedTuple):
     x: int
