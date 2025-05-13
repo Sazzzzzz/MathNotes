@@ -74,7 +74,7 @@ class Solver:
         x = np.linalg.solve(self.A, c - b)
         return [self.canvas[i] for i in range(len(self.canvas)) if x[i] == 1]
 
-
-grid = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=bool)
-solver = Solver(grid)
-pprint(solver.solve([Point(0, 0)], []))
+if "__name__" == "__main__":
+    grid = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=bool)
+    solver = Solver(grid)
+    pprint(solver.solve([Point(0, 0)], []))

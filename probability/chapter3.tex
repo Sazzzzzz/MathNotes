@@ -1,3 +1,4 @@
+% !TeX root = main.tex
 \chapter{随机变量与分布函数}
 \section{随机变量及其分布
 }
@@ -18,10 +19,50 @@
 % 伯努利试验
 % 二项分布的简单介绍
 % 几何分布的无记忆性
+\paragraph{几何分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
+记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
+\[
+    \P{\zeta=k} = (1-p)^{k-1} p, \quad k=1,2,\ldots
+\]
+
 % 由几何分布推导帕斯卡分布
+\paragraph{帕斯卡分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
+次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从帕斯卡分布：
+\[
+    \P{\zeta=k} = \binom{k-1}{r-1} p^r
+    (1-p)^{k-r}, \quad k=r,r+1,\ldots
+\]
+
 % TODO：负二项分布？有什么用？
 考虑在一小时内把时间划分为\(n\) 份进行伯努利试验，并期望得到\(\lambda\)次试验结果。那么随着\(n
 \to \infty\)，得到结果次数\(k\) 服从的二项分布将逐渐逼近泊松分布。这就是泊松分布的意义。
+
+帕斯卡分布与几何分布有以下关系：若以\(\nu_{i}\) 记第\(i-1\) 次成功后第一次试验算起至第\(i\)
+次成功为止进行的的试验次数，则\(\nu_{i}\) 相互独立、服从几何分布，且：
+\[
+    \zeta = \nu_{1} + \nu_{2} + \cdots + \nu_{r}
+\]
+
+我们实际上可以从此直接推导出帕斯卡分布的概率分布：
+由\(\zeta = \nu_{1} + \nu_{2} + \cdots + \nu_{r}\) 有：
+\begin{align*}
+    \P{\zeta=k} &=
+    \sum_{\substack{i_{1}+i_{2}+\dots +i_{r}=k
+    \\ i_{1},i_{2},\ldots,i_{r}\geq 1}} \P{\nu_{1}=i_{1},
+    \nu_{2}=i_{2}, \ldots, \nu_{r}=i_{r}} \\
+    &=\sum_{\substack{i_{1}+i_{2}+\dots +i_{r}=k
+    \\ i_{1},i_{2},\ldots,i_{r}\geq 1}} P\left\{
+    \nu_{1}=i_{1}\right\} \P{ \nu_{2}=i_{2} }
+    \cdots \P{ \nu_{r}=i_{r} } \\
+    &= \sum_{\substack{i_{1}+i_{2}+\dots +i_{r}=k
+    \\ i_{1},i_{2},\ldots,i_{r}\geq 1}} p(1-p)^{i_{1}-1}
+    \cdot p(1-p)^{i_{2}-1} \cdots p(1-p)^{i_{r}-1} \\
+    &= \sum_{\substack{i_{1}+i_{2}+\dots +i_{r}=k
+    \\ i_{1},i_{2},\ldots,i_{r}\geq 1}} p^{r} (1-p)^{k-r} \\
+    &= \binom{k-1}{r-1} p^{r} (1-p)^{k-r}
+\end{align*}
+
+概率论就是这样，事情很容易变得（看起来）过分复杂\UseVerb{sad}。
 
 \subsection{连续型随机变量}
 % 伯努利试验推导泊松分布（直观+公式）
@@ -30,3 +71,33 @@
 % TODO: 正态分布切片还是正态分布？
 % TODO: P130计算机字长造成的误差是什么分布？不是对数分布？
 % TODO: P137当时间紧迫我们应该求稳还是冒险
+
+\paragraph{Erlang分布} Erlang分布是帕斯卡分布的连续型版本。若\(\xi(t)\)
+是参数为\(\lambda t\) 的泊松过程，以\(W_{t}\) 记第\(r\) 个跳跃发生的时刻。
+
+Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系类似，记\(\tau_{r}\) 是泊松过程第\(r\)
+个跳跃的发生间隔，则\(\tau_{r}\) 相互独立且满足指数分布，且：
+\[
+    W_{t} = \tau_{1} + \tau_{2} + \cdots + \tau_{r}
+\]
+
+同样的，我们可以从此式推导出Erlang分布的概率分布：
+\begin{align*}
+    \P{W_{r}<t} &= \P{\tau_{1}+\tau_{2}+\cdots+\tau_{r}<t} \\
+    &= \int_{\substack{x_{1}+x_{2}+\dots +x_{r}<t
+    \\ x_{i}>0}} p(x_{1}) p(x_{2}) \cdots p(x_{r})
+    \d{x}_{1} \d{x}_{2} \cdots \d{x}_{r} \\
+    &=\int_{0}^{t} \lambda e^{-\lambda x_{1}} \d{x_{1}}
+    \int_{0}^{t-x_{1}} \lambda e^{-\lambda x_{2}} \d{x_{2}} \cdots
+    \int_{0}^{t-x_{1}-\cdots-x_{r-1}} \lambda e^{-\lambda
+    x_{r}} \d{x_{r}} \\
+\end{align*}
+
+记：
+\begin{align*}
+    I_{1}(t) &= \int_{0}^{t} \lambda e^{-\lambda x}  \d{x}\\
+    I_{r+1}(t) &= \int_{0}^{t} I_{r}(t-x) \lambda e^{-\lambda x} \d{x}
+\end{align*}
+则：\(\P{W_{r}<t} = I_{r}(t)\)
+
+我们用Laplace变换来求解这个递推积分。

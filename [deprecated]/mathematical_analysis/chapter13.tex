@@ -3,10 +3,10 @@
 \begin{problem}
     计算下列第一型曲线积分
     \begin{itemize}
-        \item \(\displaystyle\oiint_{L}|y|\mathrm{d}s\), \(L\)
+        \item \(\displaystyle\oiint_{L}|y|\d{s}\), \(L\)
             为双扭线\((x^2 + y^2)^2 = a^2
             (x^2 - y^2)\), \((a > 0)\);
-        \item \(\int_{L} y^2 \mathrm{d}s\)，\(L\) 为旋轮线一拱
+        \item \(\int_{L} y^2 \d{s}\)，\(L\) 为旋轮线一拱
             \[
                 \begin{cases}
                     x = a(t - \sin t), \\
@@ -37,11 +37,11 @@
     则：
     \begin{align*}
         &\mathrel{\phantom{=}} \int_{L} \left| y \right|
-        \mathrm{d}s \\
+        \d{s} \\
         &= a^{2} \int \left| \sqrt{\cos2\theta}\sin\theta
         \right|\sqrt{\cos2\theta +
-        \frac{\sin^{2}2\theta}{\cos2\theta}} \mathrm{d}\theta \\
-        &= a^{2}\int \left| \sin\theta \right|  \mathrm{d}\theta \\
+        \frac{\sin^{2}2\theta}{\cos2\theta}} \d{\}theta \\
+        &= a^{2}\int \left| \sin\theta \right|  \d{\}theta \\
         &= 4a^{2}
     \end{align*}
     % TODO: Second problem missing
@@ -61,25 +61,25 @@
         \end{cases} 0\leq\theta\leq2\pi
     \]，于是：
     \begin{align*}
-        \int_{L} \rho \mathrm{d}s &= \int_{0}^{2\pi} \left| y \right|
-        \sqrt{y^{'2}+x^{'2}} \mathrm{d}\theta\\
+        \int_{L} \rho \d{s} &= \int_{0}^{2\pi} \left| y \right|
+        \sqrt{y^{'2}+x^{'2}} \d{\}theta\\
         &=\int_{0}^{2\pi} \left| b\sin\theta \right|
         \sqrt{a^{2}\sin^{2}\theta}+b^{2}\cos^{2}\theta
-        \mathrm{d}\theta \\
+        \d{\}theta \\
         &= 2b  \int_{0}^{\pi} \sqrt{a^{2}\left( 1-\cos^{2}\theta
-        \right) + b^{2}\cos^{2}\theta } \mathrm{d}(-\cos\theta) \\
+        \right) + b^{2}\cos^{2}\theta } \d{(}-\cos\theta) \\
         &= 2b \int_{-1}^{1} \sqrt{a^{2}+\left( b^{2}-a^{2}
-        \right)t^{2}} \mathrm{d}t\\
+        \right)t^{2}} \d{t}\\
         &= \frac{a^{2}b}{\sqrt{b^{2}-a^{2}}}
         \int_{0}^{\frac{\sqrt{b^{2}+a^{2}}}{a}}
-        \sqrt{1+t^{2}} \mathrm{d}t
+        \sqrt{1+t^{2}} \d{t}
     \end{align*}
     而\[
-        \int \sqrt{1+t^{2}} \mathrm{d}t = \frac{1}{2}t\sqrt{1+t^{2}} +
+        \int \sqrt{1+t^{2}} \d{t} = \frac{1}{2}t\sqrt{1+t^{2}} +
         \frac{1}{2}\ln\left( t+\sqrt{1+t^{2}} \right) + C
     \]
     故\[
-        \int_{L} \rho \, \mathrm{d}s =
+        \int_{L} \rho \, \d{s} =
         2b^{2}+\frac{2a^{2}b}{\sqrt{b^{2}-a^{2}}}\ln\left(
         \frac{b+\sqrt{b^{2}-a^{2}}}{a} \right)
     \]
@@ -88,10 +88,10 @@
 \begin{problem}
     计算下列第二型曲线积分：
     \begin{itemize}
-        \item \(\int_L (x^2 - 2xy) \mathrm{d}x + (y^2 -
+        \item \(\int_L (x^2 - 2xy) \d{x} + (y^2 -
             2xy) dy, \) L为 \(y =
             x^2\) 上从 \((1, 1)\) 到 \((-1, 1)\) 的有向曲线段；
-        \item \( \int_L (x^2 + y^2) \mathrm{d}x + (x^2 -
+        \item \( \int_L (x^2 + y^2) \d{x} + (x^2 -
             y^2) dy, \) L为以 \((1, 0), (2, 0), (2, 1),
             (1, 1)\) 为顶点的正方形周界的正向。
     \end{itemize}
@@ -100,7 +100,7 @@
 \begin{problem}
     设 \(f \in C^0(\R^1)\)，定向曲线L为光滑简单闭曲线，求证：
     \[
-        \int_L f(x^2 + y^2)(x \mathrm{d}x + y \mathrm{d}y) = 0
+        \int_L f(x^2 + y^2)(x \d{x} + y \d{y}) = 0
     \]
 \end{problem}
 

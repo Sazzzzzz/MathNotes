@@ -78,17 +78,17 @@
 \end{align*}
 
 \begin{align*}
-    \mathrm{d} xy
-    & =x\mathrm{d}y+y\mathrm{d}x                     \\
-    \mathrm{d} \left( \frac{y}{x} \right)
-    & =\frac{x\mathrm{d}y-y\mathrm{d}x}{x^{2}}       \\
-    \mathrm{d} \ln \left( \frac{y}{x} \right)
-    & =\frac{x\mathrm{d}y-y\mathrm{d}x}{xy}          \\
-    \mathrm{d} \arctan \left( \frac{y}{x} \right)
-    & =\frac{x\mathrm{d}y-y\mathrm{d}x}{x^{2}+y^{2}} \\
-    \mathrm{d} \ln \left| \frac{y - x}{y + x} \right|=\mathrm{d}
+    \d{ }xy
+    & =x\d{y}+y\d{x}                     \\
+    \d{ }\left( \frac{y}{x} \right)
+    & =\frac{x\d{y}-y\d{x}}{x^{2}}       \\
+    \d{ }\ln \left( \frac{y}{x} \right)
+    & =\frac{x\d{y}-y\d{x}}{xy}          \\
+    \d{ }\arctan \left( \frac{y}{x} \right)
+    & =\frac{x\d{y}-y\d{x}}{x^{2}+y^{2}} \\
+    \d{ }\ln \left| \frac{y - x}{y + x} \right|=\mathrm{d}
     \arctanh \left( \frac{y}{x} \right) &
-    =\frac{x\mathrm{d}y-y\mathrm{d}x}{x^{2}-y^{2}} \\
+    =\frac{x\d{y}-y\d{x}}{x^{2}-y^{2}} \\
 \end{align*}
 
 \[\arcsin x +\arccos x =\frac{\pi}{2} \]
@@ -98,9 +98,9 @@ x}}{N}\)只与\(x\)有关 \\
 y}}{M}\)只与\(y\)有关 \\
 
 \begin{align*}
-    \int \e^{ax} \sin bx \mathrm{d}x & =\frac{a\e^{ax} \sin bx -
+    \int \e^{ax} \sin bx \d{x} & =\frac{a\e^{ax} \sin bx -
     b\e^{ax}\cos bx}{a^{2}+b^{2}} \\
-    \int \e^{ax} \cos bx \mathrm{d}x & =\frac{a\e^{ax} \sin bx +
+    \int \e^{ax} \cos bx \d{x} & =\frac{a\e^{ax} \sin bx +
     b\e^{ax}\cos bx}{a^{2}+b^{2}} \\
 \end{align*}
 \end{document}
@@ -109,9 +109,9 @@ Fubini's theorem:
 
 https://en.wikipedia.org/wiki/Fubini%27s_theorem#Proofs
 \[
-    \int_{X\times Y}  f(x, y) \mathrm{d}x\mathrm{d}y = \int_{X} \left(
-    \int_{Y} f(x, y) \mathrm{d}y \right) \mathrm{d}x = \int_{Y} \left(
-    \int_{X} f(x, y) \mathrm{d}x \right) \mathrm{d}y
+    \int_{X\times Y}  f(x, y) \d{x}\d{y} = \int_{X} \left(
+    \int_{Y} f(x, y) \d{y} \right) \d{x} = \int_{Y} \left(
+    \int_{X} f(x, y) \d{x} \right) \d{y}
 \]
 
 Leibniz integral rule

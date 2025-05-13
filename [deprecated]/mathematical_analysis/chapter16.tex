@@ -158,8 +158,8 @@
     在 \([0, 1]\) 上逐点收敛于 \(f(x)\)，求证：
     \begin{enumerate}
         \item \(\{f_n(x)\}\) 在 \([0, 1]\) 上非一致收敛；
-        \item \(\int_{0}^{1} f(x) \mathrm{d}x \neq \lim_{n \to \infty}
-            \int_{0}^{1} f_n(x) \mathrm{d}x\)
+        \item \(\int_{0}^{1} f(x) \d{x} \neq \lim_{n \to \infty}
+        \int_{0}^{1} f_n(x) \d{x}\)
     \end{enumerate}
 \end{problem}
 
@@ -178,12 +178,12 @@
     故\(f_{n}(x)\)在\([0,1]\)上非一致收敛。
 
     \begin{align*}
-        & \int_{0}^{1} f(x) \mathrm{d}x = 0                       \\
-        & \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \mathrm{d}x =
+        & \int_{0}^{1} f(x) \d{x} = 0                       \\
+        & \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \d{x} =
         \lim_{n \to \infty} \frac{1}{2}\int_{0}^{1}
-        \e^{-nx^{2}} \mathrm{d}nx^{2} = \frac{1}{2}
+        \e^{-nx^{2}} \d{n}x^{2} = \frac{1}{2}
     \end{align*}
-    故\(\int_{0}^{1} f(x) \mathrm{d}x \neq \lim_{n \to
+    故\(\int_{0}^{1} f(x) \d{x} \neq \lim_{n \to
     \infty} \int_{0}^{1}\)
 
 \end{solution}
@@ -195,9 +195,9 @@
     \]
     在 \([0, 1]\) 上逐点收敛但非一致收敛，可是却有
     \[
-        \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x =
+        \lim_{n \to \infty} \int_0^1 f_n(x) \d{x} =
         \int_0^1 \left[
-        \lim_{n \to \infty} f_n(x) \right] \mathrm{d}x.
+        \lim_{n \to \infty} f_n(x) \right] \d{x}.
     \]
 \end{problem}
 
@@ -217,16 +217,16 @@
     故\(f_{n}(x)\)在\([0,1]\)上非一致收敛。
 
     \begin{align*}
-        & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x
-        = \lim_{n \to \infty} \int_0^1 nx(1-x)^n \mathrm{d}x
+        & \lim_{n \to \infty} \int_0^1 f_n(x) \d{x}
+        = \lim_{n \to \infty} \int_0^1 nx(1-x)^n \d{x}
         = \lim_{n \to \infty} \frac{n}{n+1} = 1
         \\
         & \int_0^1 \left[ \lim_{n \to \infty} f_n(x)
-        \right] \mathrm{d}x
-        = \int_0^1 0 \mathrm{d}x = 0
+        \right] \d{x}
+        = \int_0^1 0 \d{x} = 0
     \end{align*}
-    故\(\lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \neq \int_0^1
-    \left[\lim_{n \to \infty} f_n(x) \right] \mathrm{d}x\)。
+    故\(\lim_{n \to \infty} \int_0^1 f_n(x) \d{x} \neq \int_0^1
+    \left[\lim_{n \to \infty} f_n(x) \right] \d{x}\)。
 \end{solution}
 
 \begin{problem}
@@ -239,8 +239,8 @@
         \item 一致收敛
         \item 可以在积分号下取极限，即\[
                 \lim_{n \to \infty} \int_0^1 f_n(x)
-                \mathrm{d}x = \int_0^1
-                \left[ \lim_{n \to \infty} f_n(x) \right] \mathrm{d}x
+                \d{x} = \int_0^1
+                \left[ \lim_{n \to \infty} f_n(x) \right] \d{x}
             \]
     \end{itemize}
 \end{problem}
@@ -262,11 +262,11 @@
             \]
             故当且仅当\(\alpha <  1\) 时，\(f_{n}\) 一致收敛。
         \item 注意到\(\int_0^1 \left[ \lim_{n \to \infty} f_n(x) \right]
-            \mathrm{d}x = \int_0^1 0 \mathrm{d}x = 0\)，且有：
+            \d{x} = \int_0^1 0 \d{x} = 0\)，且有：
             \begin{align*}
-                & \lim_{n \to \infty} \int_0^1 f_n(x) \mathrm{d}x \\
+                & \lim_{n \to \infty} \int_0^1 f_n(x) \d{x} \\
                 & = \lim_{n \to \infty} \int_{0}^{1} n^{\alpha} x
-                \e^{-nx} \mathrm{d}x                       \\
+                \e^{-nx} \d{x}                       \\
                 & = \lim_{n \to \infty} -n^{\alpha - 1} \left(
                     \e^{-n} + \frac{1}{n}\e^{-n}
                 -\frac{1}{n} \right)                               \\
@@ -384,7 +384,7 @@
 \begin{problem}
     设 \(f_0(x)\) 在 \([a, b]\) 上连续，求证：函数列
     \begin{align*}
-        f_n(x) = \int_a^x f_{n-1}(t) \, \mathrm{d}t, \quad
+        f_n(x) = \int_a^x f_{n-1}(t) \, \d{t}, \quad
         n = 1, 2, \dots
     \end{align*}
     在 \([a, b]\) 上一致收敛于0。
@@ -402,9 +402,9 @@
     \frac{M(x-a)^{k}}{k!}\)。则：
     \[
         \left\vert f_{k+1}(x) \right\vert
-        = \left\vert \int_{a}^{x} f_{k}(t) \mathrm{d}t \right\vert
-        \le \int_{a}^{x} \left\vert f_{k}(t) \right\vert \mathrm{d}t
-        \le \int_{a}^{x} \frac{M(t-a)^{k}}{k!} \mathrm{d}t =
+        = \left\vert \int_{a}^{x} f_{k}(t) \d{t} \right\vert
+        \le \int_{a}^{x} \left\vert f_{k}(t) \right\vert \d{t}
+        \le \int_{a}^{x} \frac{M(t-a)^{k}}{k!} \d{t} =
         \frac{M(x-a)^{k+1}}{(k+1)!}
     \]
     故原命题成立。
