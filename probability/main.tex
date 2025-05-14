@@ -11,7 +11,12 @@
 
 % Define a custom command for probability notation
 \renewcommand{\P}[1]{P\left\{#1\right\}}
-\renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
+
+\renewcommand{\d}[1]{\operatorname{d}\!{#1}}
+% Laplace transform
+\renewcommand{\L}[1]{\mathcal{L}\left\{#1\right\}}
+% Inverse Laplace transform
+\newcommand{\invL}[1]{\mathcal{L}^{-1}\left\{#1\right\}}
 % \include{chapter0}
 % \include{chapter1}
 % \include{chapter2}

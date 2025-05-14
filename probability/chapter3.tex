@@ -84,20 +84,43 @@ Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系�
 同样的，我们可以从此式推导出Erlang分布的概率分布：
 \begin{align*}
     \P{W_{r}<t} &= \P{\tau_{1}+\tau_{2}+\cdots+\tau_{r}<t} \\
-    &= \int_{\substack{x_{1}+x_{2}+\dots +x_{r}<t
-    \\ x_{i}>0}} p(x_{1}) p(x_{2}) \cdots p(x_{r})
+    &= \int\limits_{\substack{x_{1}+x_{2}+\dots +x_{r}<t
+    \\ x_{i}>0, i=1,2,\ldots,r}} p(x_{1}) p(x_{2}) \cdots p(x_{r})
     \d{x}_{1} \d{x}_{2} \cdots \d{x}_{r} \\
-    &=\int_{0}^{t} \lambda e^{-\lambda x_{1}} \d{x_{1}}
-    \int_{0}^{t-x_{1}} \lambda e^{-\lambda x_{2}} \d{x_{2}} \cdots
-    \int_{0}^{t-x_{1}-\cdots-x_{r-1}} \lambda e^{-\lambda
+    &=\int_{0}^{t} \lambda \e^{-\lambda x_{1}} \d{x_{1}}
+    \int_{0}^{t-x_{1}} \lambda \e^{-\lambda x_{2}} \d{x_{2}} \cdots
+    \int_{0}^{t-x_{1}-\cdots-x_{r-1}} \lambda \e^{-\lambda
     x_{r}} \d{x_{r}} \\
 \end{align*}
 
 记：
 \begin{align*}
-    I_{1}(t) &= \int_{0}^{t} \lambda e^{-\lambda x}  \d{x}\\
-    I_{r+1}(t) &= \int_{0}^{t} I_{r}(t-x) \lambda e^{-\lambda x} \d{x}
-\end{align*}
+    I_{0}(t) &= 1\\
+    I_{r+1}(t) &= \int_{0}^{t} I_{r}(t-x) \lambda \e^{-\lambda x} \d{x}
+    \end{align*}
 则：\(\P{W_{r}<t} = I_{r}(t)\)
 
 我们用Laplace变换来求解这个递推积分。
+记\(g(x) = \lambda \e^{-\lambda x} \) 。
+注意到：
+\[
+    \L{I_{0}(t)} = \L{1} = \frac{1}{s} \\
+\]
+\begin{align*}
+    \L{I_{r+1}(t)} &= \L{(g * I_{r})(t)} \\
+    &= \L{g(t)} \cdot \L{I_{r}(t)} \\
+    &= \frac{\lambda}{(s+\lambda)} \L{I_{r}(t)}\\
+\end{align*}
+从而：\[
+    \L{I_{r}(t)} = \frac{\lambda^{r}}{s(s+\lambda)^{r}} \\
+\]
+Erlang分布的概率密度函数为：
+\begin{align*}
+    p(t) = I_{r}'(t) &= \invL{\L{I_{r}'(t)}} \\
+    &= \invL{s\L{I_{r}(t)} - I_{r}(0)} \\
+    &= \invL{\frac{\lambda^{r}}{(s+\lambda)^{r}}} \\
+    &= \frac{\lambda^{r}}{(r-1)!} \lambda \e^{-\lambda t} \\
+\end{align*}
+
+由上我们看到，独立随机变量的和的密度函数就是两随机变量密度函数的卷积。\footnote{其实如果我们足够耐心，
+下一节我们就能看到这一点\UseVerb{sad}}
