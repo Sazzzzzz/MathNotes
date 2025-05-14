@@ -44,7 +44,7 @@ else
 endif
 
 # Default project list
-PROJECTS = linear_algebra real_analysis geometry
+PROJECTS = linear_algebra real_analysis geometry probability
 
 # Output directory
 OUTPUT_DIR = build
