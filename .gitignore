@@ -6,3 +6,5 @@ test.*
 .DS_Store
 /test
 .release_date
+
+__pycache__/

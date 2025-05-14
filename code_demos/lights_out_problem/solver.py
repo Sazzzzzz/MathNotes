@@ -3,7 +3,6 @@ import numpy as np
 import galois
 from pprint import pprint
 
-# TODO: Map lights and grids to arrays of modification vectors
 # TODO: Customize GF class
 # INFO: Core logic for linear algebra is to be implemented.
 
@@ -74,7 +73,8 @@ class Solver:
         x = np.linalg.solve(self.A, c - b)
         return [self.canvas[i] for i in range(len(self.canvas)) if x[i] == 1]
 
-if "__name__" == "__main__":
+
+if __name__ == "__main__":
     grid = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]], dtype=bool)
     solver = Solver(grid)
     pprint(solver.solve([Point(0, 0)], []))

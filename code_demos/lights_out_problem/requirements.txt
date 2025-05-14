@@ -1,0 +1,3 @@
+galois
+PySide6
+numpy
