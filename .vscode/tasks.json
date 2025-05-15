@@ -4,7 +4,7 @@
         {
             "label": "Convert Image to PDF",
             "type": "shell",
-            "command": "parent_dir=$(dirname \"${fileDirname}\"); mkdir -p \"$parent_dir/compiled\" && magick \"${file}\" \"$parent_dir/compiled/${fileBasenameNoExtension}.pdf\"",
+            "command": "magick \"${file}\" \"${fileDirname}/${fileBasenameNoExtension}.pdf\"",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
