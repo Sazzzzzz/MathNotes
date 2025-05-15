@@ -2,63 +2,95 @@ import sys
 import numpy as np
 from PySide6.QtWidgets import (
     QApplication,
-    QFrame,
     QMainWindow,
     QWidget,
     QPushButton,
-    QGridLayout,
     QTableWidget,
-    QHeaderView,
+    QSizePolicy,
 )
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPainter, QColor
 from solver import Point, Solver
 
-# reference: https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTableWidget.html#more
-# reference: https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTableWidget.html#more
-# reference: https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QTableView.html#more
+
+class Button(QPushButton):
+    def __init__(self, row: int, col: int, parent=None):
+        super().__init__(parent)
+        self.row = row
+        self.col = col
+        self.setCheckable(True)
+        self.setStyleSheet("background: #222;")
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+
+    def paintEvent(self, event):
+        super().paintEvent(event)
+        if self.isChecked():
+            painter = QPainter(self)
+            painter.setBrush(QColor(255, 255, 0))
+            painter.drawRect(self.rect())
+
+    # TODO: Button in total has 4 states: Disabled, Checked, Unchecked, Hovered
+    # TODO: Use property and these states to avoid using paintEvent
+
+    @property
+    def position(self):
+        return Point(self.row, self.col)
 
 
-class LightGrid(QTableWidget):
-    def __init__(self, rows: int, cols: int):
-        super().__init__(rows, cols)
-        self.rows = rows
-        self.cols = cols
+class LightsOutWidget(QTableWidget):
+    def __init__(self, parent=None):
+        super().__init__(3, 3, parent)
+        self.grid: np.ndarray = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 0]], dtype=bool)
+        self.canvas: list[Point] = [Point(0, 0)]
+        self.is_idle = False
+        self.solver = Solver(self.grid)
+        self.draw_ui()
 
-        # Game board
-        self.board_widget = QTableWidget()
-        self.board_widget.setRowCount(self.rows)
-        self.board_widget.setColumnCount(self.cols)
-        self.board_widget.setStyleSheet(
-            """
-            QTableView::item { 
-                border-radius: 0px;
-                border: 1px solid #808080;
-            }
-        """
-        )
-
-        # Reduce spacing between cells
-        self.setHorizontalScrollMode(QTableWidget.ScrollMode.ScrollPerPixel)
-        self.setVerticalScrollMode(QTableWidget.ScrollMode.ScrollPerPixel)
-        self.horizontalHeader().setMinimumSectionSize(20)  # Smaller minimum size
-        self.verticalHeader().setMinimumSectionSize(20)  # Smaller minimum size
-
-        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        # self.horizontalHeader().hide()
-        # self.verticalHeader().hide()
+    def draw_ui(self):
+        self.horizontalHeader().hide()
+        self.verticalHeader().hide()
         self.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
-        self.cellClicked.connect(self.handle_left_click)
-        # Right-click handler
-        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.customContextMenuRequested.connect(self.handle_right_click)
+        # TODO: Sweep to turn on and off
+        self.setSelectionMode(QTableWidget.SelectionMode.NoSelection)
+        for r in range(self.rowCount()):
+            for c in range(self.columnCount()):
+                btn = Button(r, c)
+                btn.clicked.connect(self.toggle_handler)
+                self.setCellWidget(r, c, btn)
+                if not self.grid[r][c]:
+                    btn.setEnabled(False)
+                    btn.setStyleSheet("background: gray;")
 
-    def handle_left_click(self, row: int, col: int):
-        pass
+        # Make all cells square and expanding
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.update_square_cells()
 
-    def handle_right_click(self, pos):
-        pass
+    def toggle_handler(self):
+        assert isinstance(btn := self.sender(), Button)
+        if btn.isChecked():
+            btn.setStyleSheet("background: yellow;")
+        else:
+            btn.setStyleSheet("background: #222;")
+        print("This is button with coordinates: ", btn.row, btn.col)
+
+    # This may be eventually replaced with size change in the main window
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self.update_square_cells()
+
+    def update_square_cells(self):
+        # Make all cells square and fill the widget
+        w = self.viewport().width()
+        h = self.viewport().height()
+        rows = self.rowCount()
+        cols = self.columnCount()
+        if rows == 0 or cols == 0:
+            return None
+        cell_size = min(w // cols, h // rows)
+        for i in range(rows):
+            self.setRowHeight(i, cell_size)
+        for i in range(cols):
+            self.setColumnWidth(i, cell_size)
 
 
 class MainWindow(QMainWindow):
@@ -68,7 +100,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 400, 400)
 
         # for testing purposes
-        self.setCentralWidget(LightGrid(5, 5))
+        self.setCentralWidget(LightsOutWidget())
 
 
 if __name__ == "__main__":
