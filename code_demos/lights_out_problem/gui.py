@@ -1,5 +1,8 @@
-from __future__ import annotations
+from ast import Name
+from dataclasses import dataclass, field
 import sys
+from types import SimpleNamespace
+from typing import NamedTuple, OrderedDict
 import numpy as np
 from PySide6.QtWidgets import (
     QApplication,
@@ -24,6 +27,33 @@ stylesheet = """
         background: #555;
     }
 """
+
+
+class DefaultConfig(NamedTuple):
+    row: int
+    col: int
+    is_idle: bool
+    canvas: OrderedDict[Point, bool]
+
+
+default_state = DefaultConfig(
+    row=3,
+    col=3,
+    is_idle=False,
+    canvas=OrderedDict(
+        {
+            # Point(0, 0): False,
+            Point(0, 1): False,
+            Point(0, 2): False,
+            Point(1, 0): False,
+            Point(1, 1): False,
+            Point(1, 2): False,
+            Point(2, 0): False,
+            Point(2, 1): False,
+            Point(2, 2): True,
+        }
+    ),
+)
 
 
 class Light(QPushButton):
@@ -51,42 +81,77 @@ class Light(QPushButton):
 
 
 class LightsOutWidget(QTableWidget):
-    def __init__(self, parent=None):
-        self.grid: np.ndarray = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 0]], dtype=bool)
-        self.canvas: list[Point] = [Point(0, 0)]
-        self.is_idle = False
-        self.solver = Solver(self.grid)
+    def __init__(self, parent=None) -> None:
+        self._canvas: OrderedDict[Point, bool] = default_state.canvas
+        self.solver = Solver(self.canvas.keys())
+        self.is_idle: bool = default_state.is_idle
+        # Avoid conflict with row/col method
+        self.rows = default_state.row
+        self.cols = default_state.col
+
         super().__init__(parent)
         self.draw_ui()
 
+    @property
+    def canvas(self) -> OrderedDict[Point, bool]:
+        return self._canvas
+
+    @canvas.setter
+    def canvas(self, value: OrderedDict[Point, bool]) -> None:
+        self._canvas = value
+        self.solver.background = self._canvas.keys()
+        print(f"Set canvas to {value}")
+
     def draw_ui(self):
-        self.setRowCount(self.grid.shape[0])
-        self.setColumnCount(self.grid.shape[1])
+        self.setRowCount(self.rows)
+        self.setColumnCount(self.cols)
         self.horizontalHeader().hide()
         self.verticalHeader().hide()
         self.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         # TODO: Sweep to turn on and off
         self.setSelectionMode(QTableWidget.SelectionMode.NoSelection)
-        for r in range(self.rowCount()):
-            for c in range(self.columnCount()):
-                btn = Light(r, c)
+        for r in range(self.rows):
+            for c in range(self.cols):
+                btn = Light(r, c, self)
                 btn.clicked.connect(self.toggle_handler)
                 self.setCellWidget(r, c, btn)
-                if not self.grid[r][c]:
-                    btn.setEnabled(False)
                 if Point(r, c) in self.canvas:
-                    btn.setChecked(True)
+                    btn.setEnabled(True)
+                    if self.canvas[Point(r, c)]:
+                        btn.setChecked(True)
+                else:
+                    btn.setEnabled(False)
 
         # Make all cells square and expanding
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.update_square_cells()
 
+    def _nearby_lights_on_canvas(self, point: Point) -> list[Point]:
+        """Get the points around the clicked point"""
+        l = [
+            Point(point.x - 1, point.y),
+            Point(point.x + 1, point.y),
+            Point(point.x, point.y - 1),
+            Point(point.x, point.y + 1),
+        ]
+        return [point for point in l if point in self.canvas.keys()]
+
+    def _get_light(self, point: Point) -> Light:
+        return self.cellWidget(point.x, point.y)  # type: ignore
+
     def toggle_handler(self):
         assert isinstance(btn := self.sender(), Light)
         if self.is_idle:
+            self.canvas[btn.position] = btn.isChecked()
             return None
         # Change the state of the buttons around the clicked button
-        print("This is button with coordinates: ", btn.row, btn.col)
+        nearby_lights = self._nearby_lights_on_canvas(btn.position)
+        for point in nearby_lights:
+            if point in self.canvas:
+                near_btn = self._get_light(point)
+                near_btn.setChecked(not near_btn.isChecked())
+                self.canvas[point] = not self.canvas[point]
+        return None
 
     # Resize logic
     # This may be eventually replaced with size change in the main window
