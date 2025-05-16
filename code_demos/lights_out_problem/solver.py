@@ -1,7 +1,8 @@
-from typing import NamedTuple
+from typing import Iterable, NamedTuple
 import numpy as np
 import galois
 from pprint import pprint
+from collections import OrderedDict
 
 # TODO: Customize GF class
 # INFO: Core logic for linear algebra is to be implemented.
@@ -23,8 +24,7 @@ GF = galois.GF(2)
 
 
 class Solver:
-    def __init__(self, grid: np.ndarray):
-        self._grid = grid
+    def __init__(self, canvas: OrderedDict[Point, bool]):
         self._canvas = tuple(
             Point(x, y)
             for x in range(grid.shape[0])
@@ -45,10 +45,6 @@ class Solver:
     @property
     def canvas(self):
         return self._canvas
-
-    @property
-    def grid(self):
-        return self._grid
 
     @grid.setter
     def grid(self, grid: np.ndarray):
