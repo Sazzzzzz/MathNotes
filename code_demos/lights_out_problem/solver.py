@@ -67,4 +67,4 @@ if __name__ == "__main__":
             Point(2, 2),
         ]
     )
-    pprint(solver.solve([Point(0, 0)], []))
+    pprint(solver.solve([Point(2, 1), Point(1, 2)], []))
