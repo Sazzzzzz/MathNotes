@@ -118,7 +118,7 @@ class Light(QPushButton):
             painter.drawEllipse(circle_rect)
 
 
-class LightsOutWidget(QTableWidget):
+class LightTable(QTableWidget):
     def __init__(self, parent=None) -> None:
         self._canvas: OrderedDict[Point, bool] = default_state.canvas
         self.solver = Solver(self.canvas.keys())
@@ -247,7 +247,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 400, 400)
 
         toolbar = self.addToolBar("Toolbar")
-        self.main = LightsOutWidget()
+        self.main = LightTable()
 
         idle_mode_action = QAction("Idle Mode", self)
         idle_mode_action.setCheckable(True)
