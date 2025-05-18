@@ -1,31 +1,31 @@
+% Packages and their settings
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}  % 提供更专业的表格线条
 \usepackage{array}     % 增强的表格功能
+% Underline and strikethrough
 \usepackage[normalem]{ulem}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[many]{tcolorbox}
 \usepackage{extarrows}
+\usepackage{derivative}
 \usepackage{tikz-cd}
+% Make sure all math formulas are displayed in displaystyle
 \usepackage{breqn}
-% Use verb inside other environments
-\usepackage{fancyvrb}
-\everymath{\displaystyle}
 % Some may argue that the use of displaystyle in inline formulas may
 % break line spacing and make the document look ugly. However, I
 % prefer to follow the choice of the textbook setting
-\usepackage{hyperref}
+\everymath{\displaystyle}
+% For \mathscr
 \usepackage{mathrsfs}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{tikz}
+% For bold math symbols
+\usepackage{bm}
 \usepackage{mathtools} % For \coloneqq
-
-\AtBeginDocument{%
-    \renewcommand\Re{\operatorname{Re}}
-    \renewcommand\Im{\operatorname{Im}}
-}
-
+\usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -33,28 +33,9 @@
     urlcolor=cyan,
     pdftitle={Title},
 }
-\theoremstyle{plain}
-\theoremstyle{definition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{problem}{Problem}[chapter]
-\renewcommand{\i}{\mathrm{i}}
-\newcommand{\e}{\mathrm{e}}
-\renewcommand{\d}[1]{\operatorname{d}\!{#1}}
-
-\newcommand{\R}{\mathbb{R}} % Real
-\newcommand{\C}{\mathbb{C}} % Complex
-\newcommand{\Z}{\mathbb{Z}} % Integer, from Zahlen, by David Hilbert
-\newcommand{\Q}{\mathbb{Q}} % Rational, from Quotient
-\newcommand{\N}{\mathbb{N}} % Natural, from Naturals
-
-\newcommand{\abs}[1]{\left|#1\right|} % Absolute value
-% TODO: Consider using `\R' for `\Rq`
-% TODO: Still configurable
-% \setlength{\parskip}{5pt}
-
-% TODO: Modify the `proof' environment
-
+% Use verb inside other environments
+\usepackage{fancyvrb}
+\VerbatimFootnotes
 \SaveVerb{smile}|:-)|
 \SaveVerb{laugh}|:-D|
 \SaveVerb{wink}|;-)|
@@ -66,15 +47,37 @@
 \SaveVerb{kiss}|:-*|
 \SaveVerb{surprised}|:-o|
 \SaveVerb{grin}|:-]|
-% There is a big conflict between Chinese punctuation and
-% English punctuation
-% If we use Chinese punctuation only, the formatter won't
-% work recognize the break
-% If we use Chinese punctuation with space behind, the
-% source code will be ugly
-% If we use English punctuation, the output will be ugly
 % \setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
+
+% Custom commands
+\AtBeginDocument{%
+\renewcommand\Re{\operatorname{Re}}
+\renewcommand\Im{\operatorname{Im}}
+}
+\renewcommand{\i}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\renewcommand{\d}{\odif}
+
+\newcommand{\R}{\mathbb{R}} % Real
+\newcommand{\C}{\mathbb{C}} % Complex
+\newcommand{\Z}{\mathbb{Z}} % Integer, from Zahlen, by David Hilbert
+\newcommand{\Q}{\mathbb{Q}} % Rational, from Quotient
+\newcommand{\N}{\mathbb{N}} % Natural, from Naturals
+
+\newcommand{\abs}[1]{\left|#1\right|} % Absolute value
+
 \newcommand\hl{\bgroup\markoverwith{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.5ex}}}\ULon}
+
+\newfontfamily\DancingScript{Dancing Script OT}
+\newcommand{\Caffein}{\DancingScript{Caffein3}}
+% New environments
+% TODO: Modify the `proof' environment
+\theoremstyle{plain}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+
 \newtcolorbox{refbox}[1][]{%
 enhanced,                   % Use enhanced features
 boxrule=-1pt,                % No border frame for the main box
@@ -91,20 +94,11 @@ breakable,                  % Allow the box to break
 % across pages if needed
 #1                          % Pass additional
 }
-
 \renewenvironment{quote}
 {
 \begin{refbox}}
 {
 \end{refbox}}
 
-\newfontfamily\DancingScript{Dancing Script OT}
-\newcommand{\Caffein}{\DancingScript{Caffein3}}
-
-\usepackage{tikz}
+% Extra Information
 % INFO: Use \mathclap and \substack to create multiline
-% under math operators
-
-% For bold math symbols
-\usepackage{bm}
-% For derivatives

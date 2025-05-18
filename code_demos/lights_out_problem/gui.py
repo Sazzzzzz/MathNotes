@@ -247,18 +247,22 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 400, 400)
 
         toolbar = self.addToolBar("Toolbar")
+        toolbar.setMovable(False)
         self.main = LightTable()
 
         idle_mode_action = QAction("Idle Mode", self)
         idle_mode_action.setCheckable(True)
+        idle_mode_action.setShortcut("i")
         idle_mode_action.triggered.connect(self.toggle_idle_mode)
 
         edit_mode_action = QAction("Edit Mode", self)
         edit_mode_action.setCheckable(True)
+        edit_mode_action.setShortcut("e")
         edit_mode_action.triggered.connect(self.toggle_edit_mode)
 
         solution_highlight_action = QAction("Highlight Solution", self)  # Renamed text
         solution_highlight_action.setCheckable(True)
+        solution_highlight_action.setShortcut("s")
         solution_highlight_action.setChecked(
             self.main.solution_highlight_active
         )  # Sync with initial state
