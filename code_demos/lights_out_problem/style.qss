@@ -1,0 +1,17 @@
+QPushButton {
+    background: #222;
+    border: 1px solid #444; /* Add a border for better definition */
+}
+QPushButton:disabled {
+    background: #555;
+    border: 1px solid #333; /* Darker gray border */
+}
+QPushButton:checked[edit="false"] {
+    background: yellow;
+    border: 3px solid #660;
+}
+
+QPushButton:checked[edit="true"] {
+    background: #FF6347;
+    border: 3px solid #660;
+}

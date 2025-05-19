@@ -24,7 +24,7 @@ GF = galois.GF(2)
 
 
 class Solver:
-    def __init__(self, background: Iterable[Point]):
+    def __init__(self, /, background: Iterable[Point]):
         self.background = background
 
     @property

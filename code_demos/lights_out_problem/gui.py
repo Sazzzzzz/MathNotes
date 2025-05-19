@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from typing import NamedTuple, OrderedDict, cast
 from PySide6.QtWidgets import (
     QApplication,
@@ -12,41 +13,25 @@ from PySide6.QtGui import QPainter, QColor, QAction
 from solver import Point, Solver
 from pprint import pprint
 
-stylesheet = """
-    QPushButton {
-        background: #222;
-        border: 1px solid #444; /* Add a border for better definition */
-        color: white; /* Ensure text is visible */
-    }
-    QPushButton:checked {
-        background: yellow;
-        border: 3px solid #660; /* Darker yellow border */
-        color: black; /* Ensure text is visible */
-    }
-    QPushButton:disabled {
-        background: #555;
-        border: 1px solid #333; /* Darker gray border */
-        color: #aaa; /* Lighter text for disabled */
-    }
-"""
 
-
-class DefaultConfig(NamedTuple):
+class Config(NamedTuple):
     row: int
     col: int
     is_idle: bool
-    solution_highlight_active: bool  # Renamed from is_solution_hovered
+    highlight_active: bool
+    is_edit_mode: bool
     canvas: OrderedDict[Point, bool]
 
 
-default_state = DefaultConfig(
+default_state = Config(
     row=3,
     col=3,
     is_idle=False,
-    solution_highlight_active=False,  # Renamed and set to False by default
+    highlight_active=False,
+    is_edit_mode=True,
     canvas=OrderedDict(
         {
-            Point(0, 0): False,
+            # Point(0, 0): False,
             Point(0, 1): False,
             Point(0, 2): False,
             Point(1, 0): False,
@@ -69,27 +54,48 @@ class Light(QPushButton):
         row: int,
         col: int,
         parent=None,
+        highlight: bool = False,
+        # Edit mode boolean
+        edit: bool = False,
     ):
         super().__init__(parent)
         self.row = row
         self.col = col
+        self.highlight = highlight
+        self.edit = edit
         self.setCheckable(True)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.setProperty("solution_highlight", False)  # Initialize dynamic property
 
+    # Properties here only responsible for the visual aspect of the button
     @property
     def position(self):
         return Point(self.row, self.col)
 
-    def setSolutionHighlight(self, highlight: bool) -> None:
-        if self.property("solution_highlight") != highlight:
-            self.setProperty("solution_highlight", highlight)
-            self.update()  # Trigger a repaint
+    @property
+    def highlight(self):
+        return self.property("highlight")
+
+    @highlight.setter
+    def highlight(self, value: bool):
+        if value != self.highlight:
+            self.setProperty("highlight", value)
+            self.update()
+
+    @property
+    def edit(self):
+        return self.property("edit")
+
+    @edit.setter
+    def edit(self, value: bool):
+        if value == self.edit:
+            return None
+        self.setProperty("edit", value)
+        self.update()
 
     def paintEvent(self, event):
         super().paintEvent(event)  # Draw the button as usual
 
-        if self.property("solution_highlight"):
+        if self.highlight:
             painter = QPainter(self)
             painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
@@ -119,28 +125,43 @@ class Light(QPushButton):
 
 
 class LightTable(QTableWidget):
-    def __init__(self, parent=None) -> None:
-        self._canvas: OrderedDict[Point, bool] = default_state.canvas
-        self.solver = Solver(self.canvas.keys())
-        self.is_idle: bool = default_state.is_idle
-        self.solution_highlight_active: bool = (
-            default_state.solution_highlight_active
-        )  #
-        # Avoid conflict with row/col method
-        self.rows = default_state.row
-        self.cols = default_state.col
-
+    def __init__(self, state: Config, parent=None) -> None:
         super().__init__(parent)
+        # Avoid conflict with row/col method
+        self.rows = state.row
+        self.cols = state.col
+        self.canvas: OrderedDict[Point, bool] = state.canvas
+        self.solver = Solver(self.canvas.keys())
         self.draw_ui()
+        self.is_idle: bool = state.is_idle
+        self.highlight_active = state.highlight_active
+        self.is_edit_mode = state.is_edit_mode
+
+    # properties
+    @property
+    def highlight_active(self) -> bool:
+        return self._highlight_active
+
+    # Allows for updating highlight status when highlight_active is set
+    @highlight_active.setter
+    def highlight_active(self, value: bool) -> None:
+        self._highlight_active = value
+        if value:
+            self.update_solution_highlights()
+        else:
+            self.clear_solution_highlights()
 
     @property
-    def canvas(self) -> OrderedDict[Point, bool]:
-        return self._canvas
+    def is_edit_mode(self) -> bool:
+        return self._is_edit_mode
 
-    @canvas.setter
-    def canvas(self, value: OrderedDict[Point, bool]) -> None:
-        self._canvas = value
-        self.solver.background = self._canvas.keys()
+    @is_edit_mode.setter
+    def is_edit_mode(self, value: bool) -> None:
+        self._is_edit_mode = value
+        if value:
+            self.enter_edit_mode()
+        else:
+            self.exit_edit_mode()
 
     def draw_ui(self):
         self.setRowCount(self.rows)
@@ -166,6 +187,78 @@ class LightTable(QTableWidget):
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.update_square_cells()
 
+    def toggle_handler(self):
+        light = cast(Light, self.sender())
+        if self.is_edit_mode:
+            self.edit_mode_handler(light)
+            return None
+
+        if self.is_idle:
+            self.idle_mode_handler(light)
+        else:
+            self.game_mode_handler(light)
+
+        return None
+
+    def game_mode_handler(self, light: Light):
+        nearby_lights = self._nearby_lights_on_canvas(light.position)
+        self.canvas[light.position] = light.isChecked()
+        for point in nearby_lights:
+            near_light = self.get_light(point)
+            near_light.setChecked(not near_light.isChecked())
+            self.canvas[point] = near_light.isChecked()
+        if self.highlight_active:
+            self.update_solution_highlights()
+
+    def idle_mode_handler(self, light: Light):
+        self.canvas[light.position] = light.isChecked()
+        if self.highlight_active:
+            self.update_solution_highlights()
+
+    def edit_mode_handler(self, light: Light):
+        if light.isChecked():
+            self.canvas[light.position] = False
+        else:
+            del self.canvas[light.position]
+
+    def clear_solution_highlights(self):
+        for point in self.canvas:
+            light = self.get_light(point)
+            light.highlight = False
+
+    def update_solution_highlights(self):
+        solution = self.solve()
+        for point in self.canvas:
+            light = self.get_light(point)
+            light.highlight = True if point in solution else False
+
+    def enter_edit_mode(self):
+        for r in range(self.rows):
+            for c in range(self.cols):
+                light = self.get_light(Point(r, c))
+                light.edit = True
+                light.setEnabled(True)
+                if Point(r, c) in self.canvas:
+                    light.setChecked(True)
+
+    def exit_edit_mode(self):
+        # Sync Solver background with the current state
+        self.solver.background = self.canvas
+
+        for r in range(self.rows):
+            for c in range(self.cols):
+                light = self.get_light(Point(r, c))
+                light.edit = False
+                if Point(r, c) in self.canvas:
+                    light.setEnabled(True)
+                else:
+                    light.setEnabled(False)
+
+    # Helper methods
+    def solve(self):
+        current = [point for point in self.canvas if self.canvas[point]]
+        return self.solver.solve(current, [])
+
     def _nearby_lights_on_canvas(self, point: Point) -> list[Point]:
         """Get the points around the clicked point"""
         l = [
@@ -176,48 +269,9 @@ class LightTable(QTableWidget):
         ]
         return [point for point in l if point in self.canvas.keys()]
 
-    def _get_light(self, point: Point) -> Light:
-        assert isinstance(light := self.cellWidget(point.x, point.y), Light)
+    def get_light(self, point: Point) -> Light:
+        light = cast(Light, self.cellWidget(point.x, point.y))
         return light
-
-    def toggle_handler(self):
-        assert isinstance(light := self.sender(), Light)
-        # idle mode handler
-        if self.is_idle:
-            self.canvas[light.position] = light.isChecked()
-            return None
-        # Game mode handler
-        nearby_lights = self._nearby_lights_on_canvas(light.position)
-        self.canvas[light.position] = light.isChecked()
-        for point in nearby_lights:
-            near_light = self._get_light(point)
-            near_light.setChecked(not near_light.isChecked())
-            self.canvas[point] = near_light.isChecked()
-
-        # Solution highlight handler
-        if self.solution_highlight_active:
-            self.show_solution_highlights()
-
-        return None
-
-    def solve(self):
-        current = [point for point in self.canvas if self.canvas[point]]
-        return self.solver.solve(current, [])
-
-    def clear_solution_highlights(self):
-        for point in self.canvas:
-            light = self._get_light(point)
-            light.setSolutionHighlight(False)
-
-    def show_solution_highlights(self):
-        self.clear_solution_highlights()
-        if not self.solution_highlight_active:
-            return None
-
-        solution_steps = self.solve()
-
-        for point in solution_steps:
-            self._get_light(point).setSolutionHighlight(True)
 
     # Resize logic
     # This may be eventually replaced with size change in the main window
@@ -247,28 +301,28 @@ class MainWindow(QMainWindow):
         self.setGeometry(100, 100, 400, 400)
 
         toolbar = self.addToolBar("Toolbar")
-        toolbar.setMovable(False)
-        self.main = LightTable()
+        toolbar.setContextMenuPolicy(Qt.ContextMenuPolicy.PreventContextMenu)
+        toolbar.setMovable(True)
+        self.main = LightTable(default_state, self)
 
         idle_mode_action = QAction("Idle Mode", self)
         idle_mode_action.setCheckable(True)
         idle_mode_action.setShortcut("i")
         idle_mode_action.triggered.connect(self.toggle_idle_mode)
+        idle_mode_action.setChecked(default_state.is_idle)
 
         edit_mode_action = QAction("Edit Mode", self)
         edit_mode_action.setCheckable(True)
         edit_mode_action.setShortcut("e")
         edit_mode_action.triggered.connect(self.toggle_edit_mode)
+        edit_mode_action.setChecked(default_state.is_edit_mode)
 
         solution_highlight_action = QAction("Highlight Solution", self)  # Renamed text
         solution_highlight_action.setCheckable(True)
         solution_highlight_action.setShortcut("s")
-        solution_highlight_action.setChecked(
-            self.main.solution_highlight_active
-        )  # Sync with initial state
-        solution_highlight_action.triggered.connect(
-            self.toggle_solution_highlight
-        )  # Renamed method
+        solution_highlight_action.setChecked(self.main.highlight_active)
+        solution_highlight_action.triggered.connect(self.toggle_solution_highlight)
+        solution_highlight_action.setChecked(default_state.highlight_active)
 
         toolbar.addAction(idle_mode_action)
         toolbar.addAction(edit_mode_action)
@@ -279,27 +333,29 @@ class MainWindow(QMainWindow):
     def toggle_idle_mode(self):
         action = cast(QAction, self.sender())
         self.main.is_idle = action.isChecked()
-        # When exiting idle mode, if highlights are active, refresh them
-        if not self.main.is_idle and self.main.solution_highlight_active:
-            self.main.show_solution_highlights()
 
     def toggle_edit_mode(self):
-        pass
+        action = cast(QAction, self.sender())
+        self.main.is_edit_mode = action.isChecked()
 
     def toggle_solution_highlight(self):
         action = cast(QAction, self.sender())
-        self.main.solution_highlight_active = action.isChecked()
-        if self.main.solution_highlight_active:
-            self.main.show_solution_highlights()
+        self.main.highlight_active = action.isChecked()
+        if self.main.highlight_active:
+            self.main.update_solution_highlights()
         else:
             self.main.clear_solution_highlights()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setStyleSheet(stylesheet)  # Apply stylesheet to the entire application
+    stylesheet_path = Path(__file__).resolve().parent / "style.qss"
+    with open(stylesheet_path, "r") as f:
+        stylesheet = f.read()
+        app.setStyleSheet(stylesheet)  # Apply stylesheet to the entire application
+
     window = MainWindow()
     window.show()
 
     app.exec()
-# TODO： Support Ctrl+Z to undo
+# TODO: Support Ctrl+Z to undo
