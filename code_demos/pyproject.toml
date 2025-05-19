@@ -1,0 +1,11 @@
+[project]
+name = "code-demos"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "galois>=0.4.6",
+    "numpy>=2.2.6",
+    "pyside6>=6.9.0",
+]
