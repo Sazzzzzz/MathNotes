@@ -1,18 +1,13 @@
 % This is a mathematical formula memo
 \documentclass{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{geometry}
+\input{../header.tex}
 \usepackage{ctex}
 
 \setlength{\parindent}{0pt}
-\geometry{a4paper,scale=0.8}
 
 \DeclareMathOperator{\arccosh}{arccosh}
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\arctanh}{arctanh}
-\input{../header.tex}
 \begin{document}
 
 \begin{alignat*}{3}
@@ -78,24 +73,22 @@
 \end{align*}
 
 \begin{align*}
-    \d{ }xy
+    \d{xy}
     & =x\d{y}+y\d{x}                     \\
-    \d{ }\left( \frac{y}{x} \right)
+    \d{\left( \frac{y}{x} \right)}
     & =\frac{x\d{y}-y\d{x}}{x^{2}}       \\
-    \d{ }\ln \left( \frac{y}{x} \right)
+    \d{\ln \left( \frac{y}{x} \right)}
     & =\frac{x\d{y}-y\d{x}}{xy}          \\
-    \d{ }\arctan \left( \frac{y}{x} \right)
+    \d{\arctan \left( \frac{y}{x} \right)}
     & =\frac{x\d{y}-y\d{x}}{x^{2}+y^{2}} \\
-    \d{ }\ln \left| \frac{y - x}{y + x} \right|=\mathrm{d}
-    \arctanh \left( \frac{y}{x} \right) &
+    \d{\ln \left| \frac{y - x}{y + x} \right|=\mathrm{d}
+    \arctanh \left( \frac{y}{x} \right)} &
     =\frac{x\d{y}-y\d{x}}{x^{2}-y^{2}} \\
 \end{align*}
 
 \[\arcsin x +\arccos x =\frac{\pi}{2} \]
-\(\dfrac{\dfrac{\partial M}{\partial y} - \dfrac{\partial N}{\partial
-x}}{N}\)只与\(x\)有关 \\
-\(\dfrac{\dfrac{\partial N}{\partial x} - \dfrac{\partial M}{\partial
-y}}{M}\)只与\(y\)有关 \\
+\(\dfrac{\pdv{M}{y} - \pdv{N}{x}}{N}\)只与\(x\)有关 \\
+\(\dfrac{\pdv{N}{x} - \pdv{M}{y}}{M}\)只与\(y\)有关 \\
 
 \begin{align*}
     \int \e^{ax} \sin bx \d{x} & =\frac{a\e^{ax} \sin bx -
@@ -103,26 +96,16 @@ y}}{M}\)只与\(y\)有关 \\
     \int \e^{ax} \cos bx \d{x} & =\frac{a\e^{ax} \sin bx +
     b\e^{ax}\cos bx}{a^{2}+b^{2}} \\
 \end{align*}
-\end{document}
 
 Fubini's theorem:
 
-https://en.wikipedia.org/wiki/Fubini%27s_theorem#Proofs
+% https://en.wikipedia.org/wiki/Fubini%27s_theorem#Proofs
 \[
     \int_{X\times Y}  f(x, y) \d{x}\d{y} = \int_{X} \left(
-    \int_{Y} f(x, y) \d{y} \right) \d{x} = \int_{Y} \left(
+        \int_{Y} f(x, y) \d{y} \right) \d{x} = \int_{Y} \left(
     \int_{X} f(x, y) \d{x} \right) \d{y}
 \]
 
-Leibniz integral rule
-
-\begin{aligned}{
-    \frac {d}{dx}}\left(\int
-    _{a(x)}^{b(x)}f(x,t)\,dt\right)\\=f{\big
-    (}x,b(x){\big )}\cdot {\frac
-    {d}{dx}}b(x)-f{\big (}x,a(x){\big )}\cdot
-    {\frac {d}{dx}}a(x)+\int _{a(x)}^{b(x)}{\frac
-    {\partial }{\partial x}}f(x,t)\,dt
-\end{aligned}
-
-%https://en.wikipedia.org/wiki/Leibniz_integral_rule#Proofs
+% Leibniz integral rule
+% https://en.wikipedia.org/wiki/Leibniz_integral_rule#Proofs
+\end{document}

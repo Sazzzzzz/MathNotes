@@ -46,7 +46,7 @@ default_state = DefaultConfig(
     solution_highlight_active=False,  # Renamed and set to False by default
     canvas=OrderedDict(
         {
-            # Point(0, 0): False,
+            Point(0, 0): False,
             Point(0, 1): False,
             Point(0, 2): False,
             Point(1, 0): False,
@@ -302,3 +302,4 @@ if __name__ == "__main__":
     window.show()
 
     app.exec()
+# TODO： Support Ctrl+Z to undo
