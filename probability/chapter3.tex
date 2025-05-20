@@ -84,7 +84,7 @@ Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系�
 同样的，我们可以从此式推导出Erlang分布的概率分布：
 \begin{align*}
     \P{W_{r}<t} &= \P{\tau_{1}+\tau_{2}+\cdots+\tau_{r}<t} \\
-    &= \int\limits_{\substack{x_{1}+x_{2}+\dots +x_{r}<t
+    &= \idotsint\limits_{\substack{x_{1}+x_{2}+\dots +x_{r}<t
     \\ x_{i}>0, i=1,2,\ldots,r}} p(x_{1}) p(x_{2}) \cdots p(x_{r})
     \d{x}_{1} \d{x}_{2} \cdots \d{x}_{r} \\
     &=\int_{0}^{t} \lambda \e^{-\lambda x_{1}} \d{x_{1}}
@@ -179,3 +179,109 @@ Erlang分布的概率密度函数为：
 % TODO: Fix the graph
 更多对数正态分布的应用可见
 \href{https://en.wikipedia.org/wiki/Log-normal_distribution#Occurrence_and_applications}{Wikipedia}
+
+\paragraph{\(\chi^{2}\) 分布}
+% TODO: Add the definition of Chi-square distribution
+如果独立随机变量\(\xi_{1}, \dots ,\xi_{n}\) 服从标准正态分布\(N(0,1)\)，
+则随机变量\(\eta = \xi_{1}^{2} + \xi_{2}^{2} + \cdots +
+\xi_{n}^{2}\) 服从\(\chi^{2}\) 分布，其概率密度函数为：
+\[
+    p(x) = \frac{1}{2^{n/2} \Gamma(\frac{n}{2})} x^{\frac{n}{2}-1}
+    \e^{-\frac{x}{2}}, \quad x>0
+\]
+
+接下来我们用两种方法推导\(\chi^{2}\) 分布的概率密度函数：
+\paragraph{方法一：}
+已知标准正态分布的概率密度函数：\[
+    p(x) = \frac{1}{\sqrt{2\pi}} \e^{-\frac{x^{2}}{2}}
+\]
+\begin{align*}
+    \P{\eta<y} &= \P{\xi_{1}^{2} + \xi_{2}^{2} + \cdots +
+    \xi_{n}^{2} > y} \\
+    &= \idotsint\limits_{x_{1}^{2} + x_{2}^{2} + \cdots +
+    x_{n}^{2} > y} p(x_{1}) p(x_{2}) \cdots p(x_{n}) \d{x}_{1}
+    \d{x}_{2} \cdots \d{x}_{n} \\
+    &= \frac{1}{\sqrt{2\pi}^{n}}
+    \idotsint\limits_{x_{1}^{2} + x_{2}^{2} + \cdots + x_{n}^{2} > y}
+    \e^{-\frac{x_{1}^{2}+ x_{2}^{2} +\dots + x_{n}^{2}}{2}}
+    \d{x}_{1} \d{x}_{2} \cdots \d{x}_{n} \\
+\end{align*}
+
+作极坐标变换：
+% TODO: Fix the position of ellipses
+\[
+    \begin{cases}
+        x_{1} = r \cos \theta_{1} \\
+        x_{2} = r \sin \theta_{1} \cos \theta_{2} \\
+        \vdots\\
+        x_{n-1} = r \sin \theta_{1} \sin \theta_{2} \cdots
+        \sin\theta_{n-2} \cos\theta_{n-1}\\
+        x_{n} = r \sin\theta_{1} \sin\theta_{2} \cdots
+        \sin\theta_{n-2} \sin\theta_{n-1}\\
+    \end{cases}
+\]
+Jacobi行列式为：
+\[
+    \frac{D(x_{1},\dots ,x_{n})}{D(r,\theta_{1},\dots,
+    \theta_{n-1})} = r^{n-1} \sin^{n-2} \theta_{1}
+    \sin^{n-3} \theta_{2} \cdots \sin\theta_{n-2}
+\]
+从而：
+\[
+    \P{\eta<y} = \frac{2\pi}{\sqrt{2\pi}^{n}}
+    \int_{0}^{y} r^{n-1} \e^{-\frac{r^{2}}{2}} \d{r}
+    \int_{0}^{\pi} \sin^{n-2} \theta_{1} \d{\theta_{1}} \dots
+    \int_{0}^{\pi} \sin\theta_{n-2} \d{\theta_{n-2}}
+\]
+其中：
+\begin{align*}
+    &\placeholder{=}\int_{0}^{\pi} \sin^{n-2} \theta_{1}
+    \d{\theta_{1}} \dots
+    \int_{0}^{\pi} \sin\theta_{n-2} \d{\theta_{n-2}}\\
+    &= \betafunc{\frac{1}{2}}{\frac{n-1}{2}}
+    \betafunc{\frac{1}{2}}{\frac{n-2}{2}} \cdots
+    \betafunc{\frac{1}{2}}{\frac{1}{2}}\\
+    &=
+    \frac{\gammfunc{\dfrac{1}{2}}
+    \cancel{\gammfunc{\frac{n-1}{2}}}}{\gammfunc{\dfrac{n}{2}}} \cdot
+    \frac{\gammfunc{\dfrac{1}{2}}
+    \cancel{\gammfunc{\frac{n-2}{2}}}}{\cancel{\gammfunc{\dfrac{n-1}{2}}}}
+    \cdots
+    \frac{\gammfunc{\dfrac{1}{2}}
+    \cancel{\gammfunc{\frac{1}{2}}}}{\cancel{\gammfunc{\dfrac{1}{2}}}}\\
+    &= \frac{\sqrt{\pi}^{n-1} }{\gammfunc{\dfrac{n}{2}}}
+\end{align*}
+于是概率密度函数为：
+\begin{align*}
+    p(y) &= \frac{2\pi}{\sqrt{2\pi}^{n}} r^{n-1} \e^{-\frac{r^{2}}{2}}
+    \cdot \frac{\sqrt{\pi}^{n-1} }{\gammfunc{\dfrac{n}{2}}}\\
+    &= \frac{1}{2^{n/2} \gammfunc{\dfrac{n}{2}}}
+    y^{\frac{n}{2}-1} \e^{-\frac{y}{2}}, \quad y>0
+\end{align*}
+
+% TODO: Deduction of Chi-square distribution
+% TODO: Add the relationship Chi-square distribution and
+% Chi-Square Test
+\begin{lstlisting}[language=Mathematica]
+set = {0.1, 0.05, 0.01, 0.005, 0.001}
+result =
+ Table[Round[InverseCDF[ChiSquareDistribution[1], 1 - x], 0.001], {x,
+   set}]
+Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
+  Prepend[result, HoldForm[Subscript[x, \[Alpha]]] // DisplayForm]},
+  Frame -> All]
+\end{lstlisting}
+
+% TODO: Mimic the table in the book
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \(\alpha\) & 0.1   & 0.05  & 0.01  & 0.005 & 0.001  \\
+        \hline
+        \(x_{\alpha}\) & 2.706 & 3.841 & 6.635 & 7.879 & 10.828 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\(\)

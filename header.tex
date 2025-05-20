@@ -48,7 +48,24 @@
 \SaveVerb{surprised}|:-o|
 \SaveVerb{grin}|:-]|
 % \setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
-
+% For cancel line
+\usepackage{cancel}
+% For code highlighting
+\usepackage{listings}
+\newfontfamily{\Cascadia}{Cascadia Code}
+\lstset{language=Mathematica}
+\lstset{basicstyle={\Cascadia\footnotesize},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    captionpos={t},
+    frame={lines},
+    rulecolor=\color{black},
+    framerule=0.5pt,
+    columns=flexible,
+    tabsize=4
+}
 % Custom commands
 \AtBeginDocument{%
 \renewcommand\Re{\operatorname{Re}}
@@ -65,6 +82,8 @@
 \newcommand{\N}{\mathbb{N}} % Natural, from Naturals
 
 \newcommand{\abs}[1]{\left|#1\right|} % Absolute value
+
+\newcommand{\placeholder}[1]{\mathrel{\phantom{#1}}} % Placeholder
 
 \newcommand\hl{\bgroup\markoverwith{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.5ex}}}\ULon}
 
@@ -95,10 +114,11 @@ breakable,                  % Allow the box to break
 #1                          % Pass additional
 }
 \renewenvironment{quote}
-{
+{%
 \begin{refbox}}
 {
 \end{refbox}}
 
 % Extra Information
 % INFO: Use \mathclap and \substack to create multiline
+
