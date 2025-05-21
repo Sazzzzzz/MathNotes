@@ -1,9 +1,10 @@
 % !TeX root = main.tex
 \chapter{随机变量与分布函数}
-\section{随机变量及其分布
-}
+\section{随机变量及其分布}
 随机变量是一个事件到实数（轴上的Borel集）的映射，目的在于数值化样本点。之所以掷骰子点数的期望看起来不自然，
-是因为他依赖于随机变量对事件的映射。随机变量还允许我们对变量进行数学运算。\[
+就是因为他依赖于随机变量对事件的映射。
+
+随机变量还允许我们对变量进行数学运算。\[
     \xi \sim N(0,1) \iff \xi+1 \sim N(1,1)
 \]
 
@@ -13,19 +14,20 @@
 概率密度函数是分布函数的导数。二者都把概率刻画成一定的直观测度，但截然不同。不可能通过趋于无穷的分布列逼近概率密度函数，
 因为此时分布列必然所有元素都趋于0。但分布函数是可以由离散向连续逼近的。
 
+% TODO: 密度函数的基本性质和分布函数的基本性质，权当参考
 % TODO: 增加二项分布逼近超几何分布
+以下介绍离散与连续相对应的总共六种分布：
 
 \subsection{离散型随机变量}
 % 伯努利试验
-% 二项分布的简单介绍
-% 几何分布的无记忆性
+% 二项分布、超几何分布的简单介绍
 \paragraph{几何分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
 记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
 \[
     \P{\zeta=k} = (1-p)^{k-1} p, \quad k=1,2,\ldots
 \]
+% 几何分布的无记忆性
 
-% 由几何分布推导帕斯卡分布
 \paragraph{帕斯卡分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
 次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从帕斯卡分布：
 \[
@@ -130,13 +132,12 @@ Erlang分布的概率密度函数为：
 % 随机向量分布函数定义
 % 随机向量计算区域概率和非负性说明
 % 病态随机向量
+\subsection{条件分布与边际分布}
 联合分布不能由边际分布唯一确定
-\subsection{条件分布}
 \[
     p(y\mid x)=\frac{p(x,y)}{p(x)} \\
 \]
-二元正态分布的条件分布、边际分布都是正态分布。
-% 正态分布标准分解
+
 \subsection{随机变量的独立性}
 随机变量的独立性为我们提供了拆括号的可行性：
 \begin{align*}
@@ -151,13 +152,20 @@ Erlang分布的概率密度函数为：
     p(x_{1},x_{2},\ldots,x_{n}) &= p(x_{1}) \cdot p(x_{2})
     \cdots p(x_{n}) \quad (a. e.)
 \end{align*}
-二元正态分布两变量相互独立当且仅当\(\rho=0\)
 
-两组具有相同分布的随机变量可以是相互独立的，也可以不是相互独立的。
+两组具有相同分布的随机变量可以是相互独立的，也可以不是相互独立的（摸球问题）。
+无穷多个随机变量独立当且仅当其两两独立。
 % TODO: Add a.e. support
-% TODO: Add deduction of Normal distribution
 
 \section{随机变量的函数及其分布}
+\subsection{随机变量的函数}
+% TODO: 单个随机变量的变换公式
+% TODO: 随机变量存在定理
+\subsection{随机向量的函数}
+% TODO: 和与商与极差etc
+% TODO: 换元定理
+
+以下介绍一些有趣的分布：
 
 \paragraph{对数正态分布}
 % TODO: The relationship Chi-square distribution and Chi-Square Test
@@ -284,4 +292,14 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
     \end{tabular}
 \end{table}
 
-\(\)
+% TODO: F distribution
+% TODO: t distribution
+% TODO: Cauchy distribution
+
+% 正态分布的性质
+% TODO: 正态分布的导出
+二元正态分布的条件分布、边际分布都是正态分布。
+二元正态分布两变量相互独立当且仅当\(\rho=0\)
+
+% TODO: Add deduction of Normal distribution
+% TODO: 正态分布变量的生成

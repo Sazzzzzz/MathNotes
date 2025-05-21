@@ -1,6 +1,7 @@
 import sys
+from itertools import product
 from pathlib import Path
-from typing import NamedTuple, OrderedDict, cast
+from typing import OrderedDict, cast
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -10,39 +11,9 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QSize, QRect
 from PySide6.QtGui import QPainter, QColor, QAction
-from solver import Point, Solver
+from utils import Point, Solver, Config
 from pprint import pprint
 
-
-class Config(NamedTuple):
-    row: int
-    col: int
-    is_idle: bool
-    highlight_active: bool
-    is_edit_mode: bool
-    canvas: OrderedDict[Point, bool]
-
-
-default_state = Config(
-    row=3,
-    col=3,
-    is_idle=False,
-    highlight_active=False,
-    is_edit_mode=True,
-    canvas=OrderedDict(
-        {
-            # Point(0, 0): False,
-            Point(0, 1): False,
-            Point(0, 2): False,
-            Point(1, 0): False,
-            Point(1, 1): False,
-            Point(1, 2): False,
-            Point(2, 0): False,
-            Point(2, 1): False,
-            Point(2, 2): True,
-        }
-    ),
-)
 
 # TODO: Why it uses a property in Qt?
 
@@ -133,6 +104,7 @@ class LightTable(QTableWidget):
         self.canvas: OrderedDict[Point, bool] = state.canvas
         self.solver = Solver(self.canvas.keys())
         self.draw_ui()
+        self._temp_canvas = {}
         self.is_idle: bool = state.is_idle
         self.highlight_active = state.highlight_active
         self.is_edit_mode = state.is_edit_mode
@@ -171,17 +143,16 @@ class LightTable(QTableWidget):
         self.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         # TODO: Sweep to turn on and off
         self.setSelectionMode(QTableWidget.SelectionMode.NoSelection)
-        for r in range(self.rows):
-            for c in range(self.cols):
-                light = Light(r, c, self)
-                light.clicked.connect(self.toggle_handler)
-                self.setCellWidget(r, c, light)
-                if Point(r, c) in self.canvas:
-                    light.setEnabled(True)
-                    if self.canvas[Point(r, c)]:
-                        light.setChecked(True)
-                else:
-                    light.setEnabled(False)
+        for r, c in product(range(self.rows), range(self.cols)):
+            light = Light(r, c, self)
+            light.clicked.connect(self.toggle_handler)
+            self.setCellWidget(r, c, light)
+            if Point(r, c) in self.canvas:
+                light.setEnabled(True)
+                if self.canvas[Point(r, c)]:
+                    light.setChecked(True)
+            else:
+                light.setEnabled(False)
 
         # Make all cells square and expanding
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -233,26 +204,28 @@ class LightTable(QTableWidget):
             light.highlight = True if point in solution else False
 
     def enter_edit_mode(self):
-        for r in range(self.rows):
-            for c in range(self.cols):
-                light = self.get_light(Point(r, c))
-                light.edit = True
-                light.setEnabled(True)
-                if Point(r, c) in self.canvas:
-                    light.setChecked(True)
+        self._temp_canvas = self.canvas.copy()
+        for r, c in product(range(self.rows), range(self.cols)):
+            light = self.get_light(Point(r, c))
+            light.edit = True
+            light.setEnabled(True)
+            if Point(r, c) in self.canvas:
+                light.setChecked(True)
 
     def exit_edit_mode(self):
         # Sync Solver background with the current state
         self.solver.background = self.canvas
-
-        for r in range(self.rows):
-            for c in range(self.cols):
-                light = self.get_light(Point(r, c))
-                light.edit = False
-                if Point(r, c) in self.canvas:
-                    light.setEnabled(True)
+        for r, c in product(range(self.rows), range(self.cols)):
+            light = self.get_light(Point(r, c))
+            light.edit = False
+            if Point(r, c) in self.canvas:
+                light.setEnabled(True)
+                if self._temp_canvas.get(Point(r, c)):
+                    light.setChecked(True)
                 else:
-                    light.setEnabled(False)
+                    light.setChecked(False)
+            else:
+                light.setEnabled(False)
 
     # Helper methods
     def solve(self):
@@ -270,7 +243,8 @@ class LightTable(QTableWidget):
         return [point for point in l if point in self.canvas.keys()]
 
     def get_light(self, point: Point) -> Light:
-        light = cast(Light, self.cellWidget(point.x, point.y))
+        light = self.cellWidget(point.x, point.y)
+        assert isinstance(light, Light)
         return light
 
     # Resize logic
@@ -295,15 +269,16 @@ class LightTable(QTableWidget):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, config: Config):
         super().__init__()
         self.setWindowTitle("Lights Out Solver")
         self.setGeometry(100, 100, 400, 400)
 
         toolbar = self.addToolBar("Toolbar")
+        statusBar = self.statusBar()
         toolbar.setContextMenuPolicy(Qt.ContextMenuPolicy.PreventContextMenu)
         toolbar.setMovable(True)
-        self.main = LightTable(default_state, self)
+        self.main = LightTable(config, self)
 
         idle_mode_action = QAction("Idle Mode", self)
         idle_mode_action.setCheckable(True)
@@ -348,13 +323,16 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+
+    current_dir = Path(__file__).resolve().parent
+    default_state = Config.load(current_dir / "config.json")
     app = QApplication(sys.argv)
-    stylesheet_path = Path(__file__).resolve().parent / "style.qss"
+    stylesheet_path = current_dir / "style.qss"
     with open(stylesheet_path, "r") as f:
         stylesheet = f.read()
         app.setStyleSheet(stylesheet)  # Apply stylesheet to the entire application
 
-    window = MainWindow()
+    window = MainWindow(default_state)
     window.show()
 
     app.exec()

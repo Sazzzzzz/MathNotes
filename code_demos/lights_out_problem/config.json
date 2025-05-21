@@ -1,0 +1,49 @@
+{
+    "row": 3,
+    "col": 3,
+    "is_idle": false,
+    "highlight_active": false,
+    "is_edit_mode": false,
+    "canvas": [
+        [
+            0,
+            1,
+            false
+        ],
+        [
+            0,
+            2,
+            false
+        ],
+        [
+            1,
+            0,
+            false
+        ],
+        [
+            1,
+            1,
+            false
+        ],
+        [
+            1,
+            2,
+            false
+        ],
+        [
+            2,
+            0,
+            false
+        ],
+        [
+            2,
+            1,
+            false
+        ],
+        [
+            2,
+            2,
+            true
+        ]
+    ]
+}
