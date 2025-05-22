@@ -9,13 +9,16 @@ from PySide6.QtWidgets import (
     QTableWidget,
     QSizePolicy,
 )
-from PySide6.QtCore import Qt, QSize, QRect
+from PySide6.QtCore import Qt, QSize, QRect, Signal
 from PySide6.QtGui import QPainter, QColor, QAction
 from utils import Point, Solver, Config
 from pprint import pprint
 
 
-# TODO: Why it uses a property in Qt?
+# INFO: This GUI relies on heavy use of Qt's dynamic properties to manage the state of the buttons.
+# INFO: This may cause issues with reasons can be found in
+# https://stackoverflow.com/questions/73265462/pyside6-qlabel-padding-not-applied-when-unpolish-polished
+# INFO: But since the program only uses this for changing the color of the button, it should be fine
 
 
 class Light(QPushButton):
@@ -63,9 +66,19 @@ class Light(QPushButton):
         self.setProperty("edit", value)
         self.update()
 
+    # This property is only valid when in edit mode for storing the state of the button
+    @property
+    def _temp_state(self):
+        return self.property("state")
+
+    @_temp_state.setter
+    def _temp_state(self, value: bool):
+        self.setProperty("state", value)
+
     def paintEvent(self, event):
         super().paintEvent(event)  # Draw the button as usual
-
+        self.style().unpolish(self)
+        self.style().polish(self)
         if self.highlight:
             painter = QPainter(self)
             painter.setRenderHint(QPainter.RenderHint.Antialiasing)
@@ -96,6 +109,8 @@ class Light(QPushButton):
 
 
 class LightTable(QTableWidget):
+    statusbarUpdate = Signal(str)
+
     def __init__(self, state: Config, parent=None) -> None:
         super().__init__(parent)
         # Avoid conflict with row/col method
@@ -104,10 +119,12 @@ class LightTable(QTableWidget):
         self.canvas: OrderedDict[Point, bool] = state.canvas
         self.solver = Solver(self.canvas.keys())
         self.draw_ui()
-        self._temp_canvas = {}
         self.is_idle: bool = state.is_idle
         self.highlight_active = state.highlight_active
-        self.is_edit_mode = state.is_edit_mode
+        # Initialize is_edit_mode manually not with property
+        self._is_edit_mode = state.is_edit_mode
+        if self._is_edit_mode:
+            self.enter_edit_mode()
 
     # properties
     @property
@@ -204,13 +221,17 @@ class LightTable(QTableWidget):
             light.highlight = True if point in solution else False
 
     def enter_edit_mode(self):
-        self._temp_canvas = self.canvas.copy()
         for r, c in product(range(self.rows), range(self.cols)):
             light = self.get_light(Point(r, c))
             light.edit = True
             light.setEnabled(True)
+            # store current state of the light
+            light._temp_state = True if self.canvas.get(Point(r, c)) else False
             if Point(r, c) in self.canvas:
                 light.setChecked(True)
+            else:
+                light.setChecked(False)
+        self.statusbarUpdate.emit("Editing Canvas ...")
 
     def exit_edit_mode(self):
         # Sync Solver background with the current state
@@ -220,12 +241,15 @@ class LightTable(QTableWidget):
             light.edit = False
             if Point(r, c) in self.canvas:
                 light.setEnabled(True)
-                if self._temp_canvas.get(Point(r, c)):
-                    light.setChecked(True)
-                else:
-                    light.setChecked(False)
+                light.setChecked(light._temp_state)
             else:
                 light.setEnabled(False)
+        if self.solver.rank == self.canvas.__len__():
+            self.statusbarUpdate.emit("Every light status is reachable.")
+        else:
+            self.statusbarUpdate.emit(
+                f"Current Matrix Rank: {self.solver.rank}, some status unreachable."
+            )
 
     # Helper methods
     def solve(self):
@@ -269,16 +293,20 @@ class LightTable(QTableWidget):
 
 
 class MainWindow(QMainWindow):
+    statusbarUpdate = Signal(str)
+
     def __init__(self, config: Config):
         super().__init__()
         self.setWindowTitle("Lights Out Solver")
         self.setGeometry(100, 100, 400, 400)
 
         toolbar = self.addToolBar("Toolbar")
-        statusBar = self.statusBar()
         toolbar.setContextMenuPolicy(Qt.ContextMenuPolicy.PreventContextMenu)
         toolbar.setMovable(True)
         self.main = LightTable(config, self)
+
+        statusbar = self.statusBar()
+        self.main.statusbarUpdate.connect(statusbar.showMessage)
 
         idle_mode_action = QAction("Idle Mode", self)
         idle_mode_action.setCheckable(True)
