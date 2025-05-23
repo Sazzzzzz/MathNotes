@@ -14,21 +14,21 @@
 概率密度函数是分布函数的导数。二者都把概率刻画成一定的直观测度，但截然不同。不可能通过趋于无穷的分布列逼近概率密度函数，
 因为此时分布列必然所有元素都趋于0。但分布函数是可以由离散向连续逼近的。
 
-% TODO: 密度函数的基本性质和分布函数的基本性质，权当参考
+% TODO: 密度函数的基本性质和分布函数的基本性质与判定，权当参考
 % TODO: 增加二项分布逼近超几何分布
 以下介绍离散与连续相对应的总共六种分布：
 
 \subsection{离散型随机变量}
 % 伯努利试验
 % 二项分布、超几何分布的简单介绍
-\paragraph{几何分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
+\subsubsection{几何分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
 记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
 \[
     \P{\zeta=k} = (1-p)^{k-1} p, \quad k=1,2,\ldots
 \]
 % 几何分布的无记忆性
 
-\paragraph{帕斯卡分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
+\subsubsection{帕斯卡分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
 次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从帕斯卡分布：
 \[
     \P{\zeta=k} = \binom{k-1}{r-1} p^r
@@ -74,7 +74,7 @@
 考虑在一小时内把时间划分为\(n\) 份进行伯努利试验，并期望得到\(\lambda\)次试验结果。那么随着\(n
 \to \infty\)，得到结果次数\(k\) 服从的二项分布将逐渐逼近泊松分布。这就是泊松分布的意义。
 
-\paragraph{Erlang分布} Erlang分布是帕斯卡分布的连续型版本。若\(\xi(t)\)
+\subsubsection{Erlang分布} Erlang分布是帕斯卡分布的连续型版本。若\(\xi(t)\)
 是参数为\(\lambda t\) 的泊松过程，以\(W_{t}\) 记第\(r\) 个跳跃发生的时刻。
 
 Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系类似，记\(\tau_{r}\) 是泊松过程第\(r\)
@@ -129,7 +129,7 @@ Erlang分布的概率密度函数为：
 
 \section{随机向量、随机变量的独立性}
 \subsection{随机向量及其分布}
-% 随机向量分布函数定义
+% 随机向量分布函数定义与判定
 % 随机向量计算区域概率和非负性说明
 % 病态随机向量
 \subsection{条件分布与边际分布}
@@ -154,26 +154,27 @@ Erlang分布的概率密度函数为：
 \end{align*}
 
 两组具有相同分布的随机变量可以是相互独立的，也可以不是相互独立的（摸球问题）。
-无穷多个随机变量独立当且仅当其两两独立。
+无穷多个随机变量独立当且仅当其两两独立。但两两独立的有限个随机变量不一定相互独立。（P180：习题21）
 % TODO: Add a.e. support
 
 \section{随机变量的函数及其分布}
 \subsection{随机变量的函数}
 % TODO: 单个随机变量的变换公式
-% TODO: 随机变量存在定理
+% TODO: 随机变量存在定理（分段相加时要小心，比如\xi^{-1}变换时不严格递增，也不能粗鲁的分成两段）
 \subsection{随机向量的函数}
 % TODO: 和与商与极差etc
-% TODO: 换元定理
+% TODO: 换元定理（问题：如果不是可逆变换，可以分段相加吗？）
 
 以下介绍一些有趣的分布：
 
-\paragraph{对数正态分布}
+\subsubsection{对数正态分布}
 % TODO: The relationship Chi-square distribution and Chi-Square Test
 若\(\xi\sim N(\mu,\sigma^{2})\), 则\(\eta=\e^{\xi} \) 服从对数正态分布：
 \[
     q(y) = \frac{1}{\sqrt{2\pi}\sigma y}
     \e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}},\quad y>0
 \]
+
 对数正态分布在对自然现象的描述中非常重要。许多自然增长过程是由许多小的百分比变化累积驱动的，
 这些变化在以对数尺度为基准时是可加的。在适当的正则条件下，这些累积变化的结果分布将越来越接近对数正态分布。
 例如，矿物中稀有元素的浓度符合对数正态分布。以下是地壳中元素浓度的\textbf{对数}分布图，近似满足正态分布。
@@ -188,13 +189,13 @@ Erlang分布的概率密度函数为：
 更多对数正态分布的应用可见
 \href{https://en.wikipedia.org/wiki/Log-normal_distribution#Occurrence_and_applications}{Wikipedia}
 
-\paragraph{\(\chi^{2}\) 分布}
+\subsubsection{\(\chi^{2}\) 分布}
 % TODO: Add the definition of Chi-square distribution
 如果独立随机变量\(\xi_{1}, \dots ,\xi_{n}\) 服从标准正态分布\(N(0,1)\)，
 则随机变量\(\eta = \xi_{1}^{2} + \xi_{2}^{2} + \cdots +
 \xi_{n}^{2}\) 服从\(\chi^{2}\) 分布，其概率密度函数为：
 \[
-    p(x) = \frac{1}{2^{n/2} \Gamma(\frac{n}{2})} x^{\frac{n}{2}-1}
+    p(x) = \frac{1}{2^{n/2} \gammfunc{\frac{n}{2}}} x^{\frac{n}{2}-1}
     \e^{-\frac{x}{2}}, \quad x>0
 \]
 
@@ -238,7 +239,7 @@ Jacobi行列式为：
 \[
     \P{\eta<y} = \frac{2\pi}{\sqrt{2\pi}^{n}}
     \int_{0}^{y} r^{n-1} \e^{-\frac{r^{2}}{2}} \d{r}
-    \int_{0}^{\pi} \sin^{n-2} \theta_{1} \d{\theta_{1}} \dots
+    \int_{0}^{\pi} \sin^{n-2} \theta_{1} \d{\theta_{1}} \cdots
     \int_{0}^{\pi} \sin\theta_{n-2} \d{\theta_{n-2}}
 \]
 其中：
@@ -267,6 +268,41 @@ Jacobi行列式为：
     y^{\frac{n}{2}-1} \e^{-\frac{y}{2}}, \quad y>0
 \end{align*}
 
+实际上，如果注意到积分\(C_{n}=\int_{0}^{\pi} \sin^{n-2} \theta_{1}
+    \d{\theta_{1}} \cdots
+\int_{0}^{\pi} \sin\theta_{n-2} \d{\theta_{n-2}}\)
+只作为系数出现, 则有\[
+    F(y)=\P{\eta<y} = C_{n} \int_{0}^{y} r^{n-1}
+    \e^{-\frac{r^{2}}{2}} \d{r}
+\]
+\[
+    F(+\infty) = C_{n} \int_{0}^{+\infty} r^{n-1}
+    \e^{-\frac{r^{2}}{2}} \d{r} = C_{n} \cdot \sqrt{2}^{n}
+    \gammfunc{\frac{n}{2}} = 1
+\]
+故：
+\begin{align*}
+    C_{n} &= \frac{1}{\sqrt{2}^{n} \gammfunc{\frac{n}{2}}}\\
+    p(y) &= \frac{1}{2^{n/2} \gammfunc{\frac{n}{2}}} y^{\frac{n}{2}-1}
+    \e^{-\frac{y}{2}}
+\end{align*}
+
+\paragraph{方法二：} 记\(\eta_{i}=\xi_{i}\), 则\(\eta_{i}\)
+的分布密度函数为\(q(x)= \frac{1}{\sqrt{2\pi y}}\e^{-\frac{y}{2}}\).
+从而\(\L{p(x)}=\frac{1}{\sqrt{2s+1}}\)
+
+\(\eta=\xi_{1}^{2}+ \dots +\xi_{n}^{2} = \eta_{1} +
+\dots \eta_{n}\), 记\(\eta\) 的分布密度函数为\(p(x)\)，则：
+\[
+    \L{p(x)} = \L{\underbrace{p(x) * p(x) * \dots *
+    p(x)}_{n \text{个}}} =
+    \L{p(x)}^{n} = \frac{1}{(2s+1)^{n/2}}
+\]
+故
+\[p(x) = \invL{\frac{1}{(2s+1)^{\frac{n}{2}}}}=
+    \frac{1}{2^{n/2} \gammfunc{\dfrac{n}{2}}}
+x^{\frac{n}{2}-1} \e^{-\frac{x}{2}}\]
+
 % TODO: Deduction of Chi-square distribution
 % TODO: Add the relationship Chi-square distribution and
 % Chi-Square Test
@@ -279,7 +315,6 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
   Prepend[result, HoldForm[Subscript[x, \[Alpha]]] // DisplayForm]},
   Frame -> All]
 \end{lstlisting}
-
 % TODO: Mimic the table in the book
 \begin{table}[H]
     \centering

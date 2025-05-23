@@ -108,6 +108,9 @@ class Light(QPushButton):
             painter.drawEllipse(circle_rect)
 
 
+# TODO: Add timeout for message
+# TODO: Add hover for all QActions
+# TODO: Add icon for status bar
 class LightTable(QTableWidget):
     statusbarUpdate = Signal(str)
 
