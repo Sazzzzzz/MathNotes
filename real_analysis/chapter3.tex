@@ -16,7 +16,7 @@
 本章的任务在于严谨化长度的定义。我们早知道点本身是没有长度的，但线段作为点的集合，其长度却有意义。
 我们将像定义实数作为有理数的极限、集合的内部与闭包一样公理化地定义长度。这就是测度论的任务。
 
-\begin{definition}
+\begin{definition}{}{}
     勒贝格测度公理： 对于实数直线上的一部分集合族 \(\mathscr{M}\)，使得每个\(E \in
     \mathscr{M}\) 都对应实数 \(m(E)\) 满足：
     \begin{description}
@@ -33,7 +33,7 @@
 \section{外测度}
 \subsection{为什么如此定义外测度}
 
-\begin{definition}
+\begin{definition}{}{}
     \[
         \m E=\inf_{E\subset \bigcup_{i=1}^{\infty} I_{i}}
         \sum_{i=1}^{\infty} \abs{I_{i}}
@@ -76,7 +76,7 @@
 这是不可能的。
 
 \subsection{让不可测的阴霾遍布集合的每个角落}
-\begin{theorem}
+\begin{theorem}{}{}
     对于任意的可测集\(E\) 使得\(m(E)>0\)，都存在不可测集\(A\) 使得\(A \subseteq E\)。
 \end{theorem}
 
@@ -118,7 +118,7 @@
 
 \section{Lebesgue测度}
 Lebesgue测度的Carathéodory定义：
-\begin{definition}
+\begin{definition}{}{}
     若对于任意的集合\(A\)，有
     \[
         \m(A)=\m(A\cap E)+\m(A\cap E^{c})
@@ -169,7 +169,7 @@ Lebesgue测度的Carathéodory定义：
 
 测度在高维上的推广其实大差不差，唯一有趣的可能在于
 
-\begin{theorem}
+\begin{theorem}{}{}
     若集合\(A\)，\(B\) 可测且\(A\subset \R^{p}\)，\(B \subset \R^{q} \)，则\[
         m(A\times B)=mA \cdot mB
     \]

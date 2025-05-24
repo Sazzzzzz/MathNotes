@@ -41,7 +41,7 @@
 读者可以参见复变函数的教材.}
 
 在本书中，复数被定义为满足复数乘法和加法关系的二元数组。\(\i^{2}=-1\)则更是结论而不是定义了。
-\begin{definition}
+\begin{definition}{复数}
     一个复数是一个有序对\((a,b)\) ，其中\(a,b\in\R\) ，
     不过我们会把这写成\(a+b\i\)
     全体复数所构成的集合用\(\C\) 表示：
@@ -56,7 +56,7 @@
 
 % TODO: Add reference
 抽象代数中我们与域第一次见面时，域的定义是这样一个诘屈聱牙的形式：
-\begin{definition}
+\begin{definition}{域（抽象版）}
     无零因子的的交换幺环称为\emph{整环}； 若一个幺环\(R\) 满足条件 \(R^{*}=U\)，
     即\(R^{*}\) 对于乘法构成群，则称\(R\)为\emph{除环}。交换的除环称为\emph{域}。
 \end{definition}
@@ -66,7 +66,7 @@
     \includegraphics[width=0.9\textwidth]{resources/Jesse.pdf}
 \end{figure}
 事实上域的定义没有那么复杂，上面域的定义完全可以化简为以下通俗易懂且好记的等价形式：
-\begin{definition}
+\begin{definition}{域（直观版）}
     设\(F\) 是一个集合，其中定义了加法\((+)\) 和乘法\((\cdot)\) 两种运算，满足以下条件：
     \begin{itemize}
         \item \((F, +)\) 构成一个交换群
@@ -81,10 +81,12 @@
 
 事实上我们可以从定义出发，证明若乘法在\(F\)上构成群，则\(F\)最多只包含零元素。这样的域是平凡的。
 
-\begin{theorem}
+\begin{theorem}{域的乘法只能在\(F^{*}\)上构成群}
     若集合\((F, + ,\cdot)\)且\((F,\cdot)\)构成群，则\(F\)只能包含零元素。
     \footnote{这是抽象代数中一道关于域的课后习题，见}
 \end{theorem}
+
+
 \begin{proof}
     % TODO: Add reference
     先证明\(0 \cdot a=0\), \(\forall a \in F\)。
@@ -112,7 +114,7 @@
 \subsection{2023四省联考数学16题深度解析}
 
 % TODO:  Add fig
-\begin{problem}
+\begin{problem}{2023四省联考}
     右图为一个开关阵列，每个开关只有“开”和“关两种状态，按其中一个开关1次，
     将导致自身和所有相邻的开关改变状态.例如,按\((2,2)\)将导致\((1,2)\)，\((2,1)\)，
     \((2,2)\)，\((2,3)\),\((3,2)\)改变状态，如果要求只改变\((1,1)\)的状态，求需按开关的最少次数。
@@ -214,7 +216,7 @@ T_{9})\) 称作状态转移矩阵，\(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}
 这事实上证明了\(R^{n}\)
 是一个向量空间。
 同理，\(\R^{\R}\)等一系列奇形怪状的向量空间也能被定义出来。
-\begin{definition}
+\begin{definition}{向量空间}
     设\(V\) 是一个集合，其中定义了加法\((+)\) 和数乘\((\cdot)\) 两种运算，满足以下条件：
     \begin{itemize}
         \item \((V, +)\) 构成一个交换群
@@ -231,8 +233,7 @@ T_{9})\) 称作状态转移矩阵，\(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}
         \text{或} v=0\)
 \end{itemize}
 
-实向量空间的复化：
-\begin{definition}
+\begin{definition}{实向量空间的复化}
     设 \(V\) 是实向量空间．
     \begin{itemize}
         \item \(V\) 的\emph{复化（complexification）}记为
@@ -257,7 +258,7 @@ T_{9})\) 称作状态转移矩阵，\(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}
 
 \section{子空间}
 子空间的判定法则和环与子环的判定方法颇为相似：
-\begin{theorem}[子空间的条件]
+\begin{theorem}{子空间的条件}
     当且仅当 \(V\) 的子集 \(U\) 满足以下三个条件时，\(U\) 是 \(V\) 的子空间．
     \begin{enumerate}
         \item 加法恒等元（additive identity）：\(0 \in U\)。
@@ -265,7 +266,7 @@ T_{9})\) 称作状态转移矩阵，\(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}
             意味着 \(u + w \in U\) 。
         \item 对于标量乘法封闭（closed under scalar
             multiplication）：\(a \in F\)  且 \(u \in U\) 意味着
-            \(au \in U\)．
+            \(au \in U\)。
     \end{enumerate}
     % TODO: Add subring theorem in parallel
 \end{theorem}
