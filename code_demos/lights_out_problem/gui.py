@@ -114,18 +114,18 @@ class Light(QPushButton):
 class LightTable(QTableWidget):
     statusbarUpdate = Signal(str)
 
-    def __init__(self, state: Config, parent=None) -> None:
+    def __init__(self, config: Config, parent=None) -> None:
         super().__init__(parent)
         # Avoid conflict with row/col method
-        self.rows = state.row
-        self.cols = state.col
-        self.canvas: OrderedDict[Point, bool] = state.canvas
-        self.solver = Solver(self.canvas.keys())
+        self.rows = config.row
+        self.cols = config.col
+        self.canvas: OrderedDict[Point, bool] = config.canvas
+        self.solver = Solver(self.canvas.keys(), method="Python")
         self.draw_ui()
-        self.is_idle: bool = state.is_idle
-        self.highlight_active = state.highlight_active
+        self.is_idle: bool = config.is_idle
+        self.highlight_active = config.highlight_active
         # Initialize is_edit_mode manually not with property
-        self._is_edit_mode = state.is_edit_mode
+        self._is_edit_mode = config.is_edit_mode
         if self._is_edit_mode:
             self.enter_edit_mode()
 
@@ -317,20 +317,20 @@ class MainWindow(QMainWindow):
         idle_mode_action.setCheckable(True)
         idle_mode_action.setShortcut("i")
         idle_mode_action.triggered.connect(self.toggle_idle_mode)
-        idle_mode_action.setChecked(default_state.is_idle)
+        idle_mode_action.setChecked(config.is_idle)
 
         edit_mode_action = QAction("Edit Mode", self)
         edit_mode_action.setCheckable(True)
         edit_mode_action.setShortcut("e")
         edit_mode_action.triggered.connect(self.toggle_edit_mode)
-        edit_mode_action.setChecked(default_state.is_edit_mode)
+        edit_mode_action.setChecked(config.is_edit_mode)
 
         solution_highlight_action = QAction("Highlight Solution", self)  # Renamed text
         solution_highlight_action.setCheckable(True)
         solution_highlight_action.setShortcut("s")
         solution_highlight_action.setChecked(self.main.highlight_active)
         solution_highlight_action.triggered.connect(self.toggle_solution_highlight)
-        solution_highlight_action.setChecked(default_state.highlight_active)
+        solution_highlight_action.setChecked(config.highlight_active)
 
         toolbar.addAction(idle_mode_action)
         toolbar.addAction(edit_mode_action)

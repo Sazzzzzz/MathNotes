@@ -37,6 +37,7 @@ class Config(NamedTuple):
     is_idle: bool
     highlight_active: bool
     is_edit_mode: bool
+    method: Literal["Python", "Mathematica"]
     canvas: OrderedDict[Point, bool]
 
     @classmethod
@@ -49,6 +50,7 @@ class Config(NamedTuple):
             data["is_idle"],
             data["highlight_active"],
             data["is_edit_mode"],
+            data["method"],
             OrderedDict(
                 {Point(entry[0], entry[1]): entry[2] for entry in data["canvas"]}
             ),
@@ -70,6 +72,7 @@ class Config(NamedTuple):
                 "is_idle": self.is_idle,
                 "highlight_active": self.highlight_active,
                 "is_edit_mode": self.is_edit_mode,
+                "method": self.method,
                 "canvas": tuple(
                     [point.x, point.y, value] for point, value in self.canvas.items()
                 ),
@@ -110,7 +113,7 @@ class MathematicaSolverStrategy(SolverStrategy):
 
     def solve(self, current: Vector, expect: Vector) -> Vector:
         # Implement Mathematica-specific logic here
-        pass
+        return []
 
 
 class PythonSolverStrategy(SolverStrategy):

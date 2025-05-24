@@ -4,6 +4,7 @@
     "is_idle": false,
     "highlight_active": false,
     "is_edit_mode": false,
+    "method": "Python",
     "canvas": [
         [
             0,
