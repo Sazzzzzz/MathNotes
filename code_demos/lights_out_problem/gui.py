@@ -247,7 +247,9 @@ class LightTable(QTableWidget):
                 light.setChecked(light._temp_state)
             else:
                 light.setEnabled(False)
-        if self.solver.rank == self.canvas.__len__():
+        if self.solver.is_empty:
+            self.statusbarUpdate.emit("No lights on the canvas.")
+        elif self.solver.is_full_rank:
             self.statusbarUpdate.emit("Every light status is reachable.")
         else:
             self.statusbarUpdate.emit(

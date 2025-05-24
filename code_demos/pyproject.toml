@@ -8,4 +8,7 @@ dependencies = [
     "galois>=0.4.6",
     "numpy>=2.2.6",
     "pyside6>=6.9.0",
+    "scipy>=1.15.3",
+    "sympy>=1.14.0",
+    "wolframclient>=1.4.0",
 ]

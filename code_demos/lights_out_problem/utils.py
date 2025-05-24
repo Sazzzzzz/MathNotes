@@ -3,13 +3,22 @@ Module for the Lights Out problem solver.
 This module provides Solver, Config, and Point class.
 """
 
-from typing import Iterable, NamedTuple, overload
+# This module involves linear algebra over finite fields.
+# Finding packages suitable for this task is not easy, however, Mathematica handles this well.
+# I guess the most silly thing about me is to find symbolic computation in Python,
+# and numerical computation in Mathematica :(
+
+from typing import Iterable, List, Literal, NamedTuple, TypeAlias, overload
 from pathlib import Path
 import numpy as np
 import galois
 import json
 from pprint import pprint
 from collections import OrderedDict
+from sympy import Array
+from wolframclient.evaluation import WolframLanguageSession
+from abc import ABC, abstractmethod
+from wolframclient.language import wl, wlexpr
 
 # TODO: Customize GF class
 # INFO: Core logic for linear algebra is to be implemented.
@@ -68,20 +77,75 @@ class Config(NamedTuple):
             json.dump(data, f, indent=4)
 
 
-def distance(point1: Point, point2: Point) -> int:
-    return abs(point1.x - point2.x) + abs(point1.y - point2.y)
-
-
 GF = galois.GF(2)
+Matrix: TypeAlias = List[List[bool]]
+Vector: TypeAlias = List[bool]
 
 
-class Solver:
-    def __init__(self, /, background: Iterable[Point]):
-        self.background = background
+class SolverStrategy(ABC):
+    rank: int
+
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def solve(self, current: Vector, expect: Vector) -> Vector:
+        """Solve equation Ax+b=c in GF(2)"""
+        pass
+
+
+class MathematicaSolverStrategy(SolverStrategy):
+    def __init__(self):
+        self.session: WolframLanguageSession = WolframLanguageSession()
 
     @property
     def A(self):
         return self._A
+
+    @A.setter
+    def A(self, value: Matrix):
+        self._A = value
+        self.rank = self.session.evaluate(wl.MatrixRank(self.A))
+
+    def solve(self, current: Vector, expect: Vector) -> Vector:
+        # Implement Mathematica-specific logic here
+        pass
+
+
+class PythonSolverStrategy(SolverStrategy):
+    def __init__(self):
+        super().__init__()
+
+    @property
+    def A(self):
+        return self._A
+
+    @A.setter
+    def A(self, value: Matrix):
+        self._A = GF(value)
+        self.rank = np.linalg.matrix_rank(self.A)
+
+    def solve(self, current: Vector, expect: Vector) -> Vector:
+        b = GF(current)
+        c = GF(expect)
+        x = np.linalg.solve(self.A, c - b)
+        return list(x)
+
+
+class Solver:
+    def __init__(
+        self,
+        background: Iterable[Point],
+        method: Literal["Python", "Mathematica"] = "Python",
+    ):
+        if method == "Mathematica":
+            self.strategy = MathematicaSolverStrategy()
+        elif method == "Python":
+            self.strategy = PythonSolverStrategy()
+        else:
+            raise ValueError("Invalid method. Choose 'Python' or 'Mathematica'.")
+        self.background = background
 
     @property
     def background(self):
@@ -90,20 +154,34 @@ class Solver:
     @background.setter
     def background(self, value: Iterable[Point]):
         self._background: tuple[Point, ...] = tuple(value)
-        self._A = GF(
+        # INFO: Actually the code here only gives a transpose of the matrix A
+        # But it doesn't matter since A is symmetric
+        self.A = [
             [
-                [1 if distance(point, other) <= 1 else 0 for other in self.background]
-                for point in self.background
+                True if self.distance(point, other) <= 1 else False
+                for other in self.background
             ]
-        ).transpose()
-        self.rank = np.linalg.matrix_rank(self.A)
+            for point in self.background
+        ]
+        self.strategy.A = self.A
+
+        self.rank = self.strategy.rank
+        self.is_full_rank: bool = True if self.rank == len(self.background) else False
+        self.is_empty: bool = True if self.rank == 0 else False
+
+        if not self.is_full_rank:
+            pass
+
+    @staticmethod
+    def distance(point1: Point, point2: Point) -> int:
+        return abs(point1.x - point2.x) + abs(point1.y - point2.y)
 
     def solve(self, current: list[Point], expect: list[Point]) -> list[Point]:
         """Solve equation Ax+b=c in GF(2)"""
-        b = GF([1 if point in current else 0 for point in self.background])
-        c = GF([1 if point in expect else 0 for point in self.background])
-        x = np.linalg.solve(self.A, c - b)
-        return [self.background[i] for i in range(len(self.background)) if x[i] == 1]
+        b: Vector = [True if point in current else False for point in self.background]
+        c: Vector = [True if point in expect else False for point in self.background]
+        result: Vector = self.strategy.solve(b, c)
+        return [self.background[i] for i, r in enumerate(result) if r]
 
 
 if __name__ == "__main__":
@@ -118,6 +196,7 @@ if __name__ == "__main__":
             Point(2, 0),
             Point(2, 1),
             Point(2, 2),
-        ]
+        ],
+        method="Python",
     )
-    pprint(solver.solve([Point(2, 1), Point(1, 2)], []))
+    pprint(solver.solve([Point(2, 2)], []))
