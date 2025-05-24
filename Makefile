@@ -12,9 +12,15 @@ WHITE = \033[1;37m
 RESET = \033[0m
 
 # Function to print colored messages
+ifeq ($(OS),Windows_NT)
+define colorecho
+@echo $(2)
+endef
+else
 define colorecho
 @printf "$(1)$(2)$(RESET)\n"
 endef
+endif
 
 # Detect OS
 ifeq ($(OS),Windows_NT)
