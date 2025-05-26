@@ -21,7 +21,6 @@ from abc import ABC, abstractmethod
 from wolframclient.language import wl, wlexpr
 
 # TODO: Customize GF class
-# INFO: Core logic for linear algebra is to be implemented.
 
 
 # As for performance, the algorithm is pretty bad.
@@ -157,8 +156,8 @@ class Solver:
     @background.setter
     def background(self, value: Iterable[Point]):
         self._background: tuple[Point, ...] = tuple(value)
-        # INFO: Actually the code here only gives a transpose of the matrix A
-        # But it doesn't matter since A is symmetric
+        # * Actually the code here only gives a transpose of the matrix A
+        # * But it doesn't matter since A is symmetric
         self.A = [
             [
                 True if self.distance(point, other) <= 1 else False

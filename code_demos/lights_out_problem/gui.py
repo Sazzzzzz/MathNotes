@@ -40,7 +40,7 @@ class Light(QPushButton):
         self.setCheckable(True)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-    # Properties here only responsible for the visual aspect of the button
+    # INFO: Properties here only responsible for the visual aspect of the button
     @property
     def position(self):
         return Point(self.row, self.col)
@@ -66,7 +66,7 @@ class Light(QPushButton):
         self.setProperty("edit", value)
         self.update()
 
-    # This property is only valid when in edit mode for storing the state of the button
+    # NOTE: This property is only valid when in edit mode for storing the state of the button
     @property
     def _temp_state(self):
         return self.property("state")
