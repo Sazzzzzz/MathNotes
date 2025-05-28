@@ -2,22 +2,21 @@ import sys
 from itertools import product
 from pathlib import Path
 from typing import OrderedDict, cast
+
+from PySide6.QtCore import QRect, Qt, Signal
+from PySide6.QtGui import QAction, QColor, QPainter
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
     QPushButton,
-    QTableWidget,
     QSizePolicy,
+    QTableWidget,
 )
-from PySide6.QtCore import Qt, QSize, QRect, Signal
-from PySide6.QtGui import QPainter, QColor, QAction
-from utils import Point, Solver, Config
-from pprint import pprint
-
+from utils import Config, Point, Solver
 
 # INFO: This GUI relies on heavy use of Qt's dynamic properties to manage the state of the buttons.
 # INFO: This may cause issues with reasons can be found in
-# https://stackoverflow.com/questions/73265462/pyside6-qlabel-padding-not-applied-when-unpolish-polished
+# INFO: https://stackoverflow.com/questions/73265462/pyside6-qlabel-padding-not-applied-when-unpolish-polished
 # INFO: But since the program only uses this for changing the color of the button, it should be fine
 
 
@@ -263,13 +262,13 @@ class LightTable(QTableWidget):
 
     def _nearby_lights_on_canvas(self, point: Point) -> list[Point]:
         """Get the points around the clicked point"""
-        l = [
+        neighbors = [
             Point(point.x - 1, point.y),
             Point(point.x + 1, point.y),
             Point(point.x, point.y - 1),
             Point(point.x, point.y + 1),
         ]
-        return [point for point in l if point in self.canvas.keys()]
+        return [point for point in neighbors if point in self.canvas.keys()]
 
     def get_light(self, point: Point) -> Light:
         light = self.cellWidget(point.x, point.y)

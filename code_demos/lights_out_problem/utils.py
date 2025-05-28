@@ -8,17 +8,18 @@ This module provides Solver, Config, and Point class.
 # I guess the most silly thing about me is to find symbolic computation in Python,
 # and numerical computation in Mathematica :(
 
-from typing import Iterable, List, Literal, NamedTuple, TypeAlias, overload
-from pathlib import Path
-import numpy as np
-import galois
 import json
-from pprint import pprint
-from collections import OrderedDict
-from sympy import Array
-from wolframclient.evaluation import WolframLanguageSession
 from abc import ABC, abstractmethod
-from wolframclient.language import wl, wlexpr
+from collections import OrderedDict
+from functools import cached_property
+from pathlib import Path
+from pprint import pprint
+from typing import Callable, Iterable, List, Literal, NamedTuple, TypeAlias, overload
+
+import galois
+import numpy as np
+from wolframclient.evaluation import WolframLanguageSession
+from wolframclient.language import Global, wlexpr
 
 # TODO: Customize GF class
 
@@ -79,13 +80,16 @@ class Config(NamedTuple):
             json.dump(data, f, indent=4)
 
 
-GF = galois.GF(2)
-Matrix: TypeAlias = List[List[bool]]
-Vector: TypeAlias = List[bool]
+Matrix: TypeAlias = List[List[int]]
+Vector: TypeAlias = List[int]
 
 
 class SolverStrategy(ABC):
+    """Abstract base class for solver strategies.
+    Only handles logic of linear algebra over GF(2)."""
+
     rank: int
+    is_full_rank: bool
 
     @abstractmethod
     def __init__(self):
@@ -101,11 +105,33 @@ class SolverStrategy(ABC):
         pass
 
 
-# INFO: Here contexts are involved. But using with block is not suitable at all.
-# INFO: Here we collect garbage by custom `close` method.
+# INFO: Here contexts are involved. But using with block is not suitable.
+# INFO: Thus we collect garbage by custom `close` method.
+
+
+# INFO: The conversion of objects between Wolfram Language and Python is not easy.
+# INFO: We avoid customizing encoder and decoder for Wolfram Language objects,
+# INFO: instead we pass in Matrix and Vector objects directly, and adapt functional programming inside mathematica
+# INFO: to avoid any side effects of assigning variables in Wolfram Language.
 class MathematicaSolverStrategy(SolverStrategy):
+
+    command = """F = FiniteField[2, 1];
+encode[A_] := Map[F, A, {-1}];
+decode[x_] := Map[#["Index"] &, x, {-1}];
+rank = MatrixRank@*encode;
+linearSolve[A_, b_, c_] := decode[LinearSolve[encode[A], encode[c] - encode[b]]];"""
+
     def __init__(self):
         self.session: WolframLanguageSession = WolframLanguageSession()
+        self.session.evaluate(wlexpr(self.command))
+
+    @cached_property
+    def get_rank(self) -> Callable[[Matrix], int]:
+        return self.session.function(Global.rank)
+
+    @cached_property
+    def linear_solve(self) -> Callable[[Matrix, Vector, Vector], Vector]:
+        return self.session.function(Global.linearSolve)
 
     @property
     def A(self):
@@ -114,17 +140,22 @@ class MathematicaSolverStrategy(SolverStrategy):
     @A.setter
     def A(self, value: Matrix):
         self._A = value
-        self.rank = self.session.evaluate(wl.MatrixRank(self.A))
+        self.rank = self.get_rank(self.A)
+        self.is_full_rank: bool = True if self.rank == len(self.A) else False
 
     def solve(self, current: Vector, expect: Vector) -> Vector:
-        # Implement Mathematica-specific logic here
-        return []
+        if self.is_full_rank:
+            return self.linear_solve(self.A, current, expect)
+        else:
+            return []
 
     def close(self) -> None:
         self.session.terminate()
 
 
 class PythonSolverStrategy(SolverStrategy):
+    GF = galois.GF(2)
+
     def __init__(self):
         super().__init__()
 
@@ -134,12 +165,13 @@ class PythonSolverStrategy(SolverStrategy):
 
     @A.setter
     def A(self, value: Matrix):
-        self._A = GF(value)
+        self._A = self.GF(value)
         self.rank = np.linalg.matrix_rank(self.A)
+        self.is_full_rank = True if self.rank == len(self.A) else False
 
     def solve(self, current: Vector, expect: Vector) -> Vector:
-        b = GF(current)
-        c = GF(expect)
+        b = self.GF(current)
+        c = self.GF(expect)
         x = np.linalg.solve(self.A, c - b)
         return list(x)
 
@@ -168,19 +200,15 @@ class Solver:
     @background.setter
     def background(self, value: Iterable[Point]):
         self._background: tuple[Point, ...] = tuple(value)
-        # * Actually the code here only gives a transpose of the matrix A
-        # * But it doesn't matter since A is symmetric
-        self.A = [
-            [
-                True if self.distance(point, other) <= 1 else False
-                for other in self.background
-            ]
+        # INFO: Actually the code here only gives a transpose of the matrix A
+        # INFO: But it doesn't matter since A is symmetric
+        self.strategy.A = [
+            [1 if self.distance(point, other) <= 1 else 0 for other in self.background]
             for point in self.background
         ]
-        self.strategy.A = self.A
 
         self.rank = self.strategy.rank
-        self.is_full_rank: bool = True if self.rank == len(self.background) else False
+        self.is_full_rank = self.strategy.is_full_rank
         self.is_empty: bool = True if self.rank == 0 else False
 
         if not self.is_full_rank:
@@ -192,10 +220,10 @@ class Solver:
 
     def solve(self, current: list[Point], expect: list[Point]) -> list[Point]:
         """Solve equation Ax+b=c in GF(2)"""
-        b: Vector = [True if point in current else False for point in self.background]
-        c: Vector = [True if point in expect else False for point in self.background]
+        b: Vector = [1 if point in current else 0 for point in self.background]
+        c: Vector = [1 if point in expect else 0 for point in self.background]
         result: Vector = self.strategy.solve(b, c)
-        return [self.background[i] for i, r in enumerate(result) if r]
+        return [self.background[i] for i, r in enumerate(result) if r == 1]
 
     def close(self) -> None:
         self.strategy.close()
@@ -214,6 +242,7 @@ if __name__ == "__main__":
             Point(2, 1),
             Point(2, 2),
         ],
-        method="Python",
+        method="Mathematica",
     )
     pprint(solver.solve([Point(2, 2)], []))
+    solver.close()
