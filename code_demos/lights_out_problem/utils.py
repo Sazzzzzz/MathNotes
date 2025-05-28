@@ -96,7 +96,13 @@ class SolverStrategy(ABC):
         """Solve equation Ax+b=c in GF(2)"""
         pass
 
+    @abstractmethod
+    def close(self) -> None:
+        pass
 
+
+# INFO: Here contexts are involved. But using with block is not suitable at all.
+# INFO: Here we collect garbage by custom `close` method.
 class MathematicaSolverStrategy(SolverStrategy):
     def __init__(self):
         self.session: WolframLanguageSession = WolframLanguageSession()
@@ -113,6 +119,9 @@ class MathematicaSolverStrategy(SolverStrategy):
     def solve(self, current: Vector, expect: Vector) -> Vector:
         # Implement Mathematica-specific logic here
         return []
+
+    def close(self) -> None:
+        self.session.terminate()
 
 
 class PythonSolverStrategy(SolverStrategy):
@@ -133,6 +142,9 @@ class PythonSolverStrategy(SolverStrategy):
         c = GF(expect)
         x = np.linalg.solve(self.A, c - b)
         return list(x)
+
+    def close(self) -> None:
+        return None
 
 
 class Solver:
@@ -184,6 +196,9 @@ class Solver:
         c: Vector = [True if point in expect else False for point in self.background]
         result: Vector = self.strategy.solve(b, c)
         return [self.background[i] for i, r in enumerate(result) if r]
+
+    def close(self) -> None:
+        self.strategy.close()
 
 
 if __name__ == "__main__":

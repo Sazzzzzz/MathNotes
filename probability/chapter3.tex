@@ -20,7 +20,7 @@
 
 \subsection{离散型随机变量}
 % 伯努利试验
-% 二项分布、超几何分布的简单介绍
+% 二项分布、超几何分布的简单介绍（严谨化 P181 25）
 \subsubsection{几何分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
 记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
 \[
@@ -66,8 +66,9 @@
 
 \subsection{连续型随机变量}
 % 伯努利试验推导泊松分布（直观+公式）
-% 指数分布的直观推导与无记忆性
+% 指数分布的直观推导与无记忆性 指数分布最小值也是指数分布
 % Erlang分布的推导和指数分布的推导过来
+% Erlang分布严谨化对比 习题8
 % TODO: 正态分布切片还是正态分布？
 % TODO: P130计算机字长造成的误差是什么分布？不是对数分布？
 % TODO: P137当时间紧迫我们应该求稳还是冒险
@@ -130,7 +131,7 @@ Erlang分布的概率密度函数为：
 \section{随机向量、随机变量的独立性}
 \subsection{随机向量及其分布}
 % 随机向量分布函数定义与判定
-% 随机向量计算区域概率和非负性说明
+% 随机向量计算区域概率和非负性说明习题12
 % 病态随机向量
 \subsection{条件分布与边际分布}
 联合分布不能由边际分布唯一确定
@@ -155,6 +156,8 @@ Erlang分布的概率密度函数为：
 
 两组具有相同分布的随机变量可以是相互独立的，也可以不是相互独立的（摸球问题）。
 无穷多个随机变量独立当且仅当其两两独立。但两两独立的有限个随机变量不一定相互独立。（P180：习题21）
+
+两随机变量相互独立则其函数也相互独立。但两变量函数相互独立不一定两变量相互独立。（P180 22）
 % TODO: Add a.e. support
 
 \section{随机变量的函数及其分布}
@@ -162,8 +165,8 @@ Erlang分布的概率密度函数为：
 % TODO: 单个随机变量的变换公式
 % TODO: 随机变量存在定理（分段相加时要小心，比如\xi^{-1}变换时不严格递增，也不能粗鲁的分成两段）
 \subsection{随机向量的函数}
-% TODO: 和与商与极差etc
-% TODO: 换元定理（问题：如果不是可逆变换，可以分段相加吗？）
+% TODO: 和与商与极差etc P183 46
+% TODO: 换元定理（如果不是可逆变换也要像一元一样可以分段相加吗？）
 
 以下介绍一些有趣的分布：
 
@@ -303,9 +306,14 @@ Jacobi行列式为：
     \frac{1}{2^{n/2} \gammfunc{\dfrac{n}{2}}}
 x^{\frac{n}{2}-1} \e^{-\frac{x}{2}}\]
 
-% TODO: Deduction of Chi-square distribution
-% TODO: Add the relationship Chi-square distribution and
-% Chi-Square Test
+\paragraph{\(\chi^{2}\) 检测与\(\chi^{2}\) 分布的关系}
+
+高中选择性必修2时我们就研究过如何列联表判断二元分类变量是否独立。若两变量独立，我们估计真值与期望差值的绝对值
+大小不会很大，并以他们\textbf{标准化后的平方和}作为判断标准。
+实际上这就是自由度为\(1\)的\(\chi^{2}\) 分布\UseVerb{smile}
+
+在Mathematica中输入以下代码，立刻就能得到课本上给出的\(5\)个常用的小概率值和相应的临界值！
+% https://basic.smartedu.cn/tchMaterial/detail?contentType=assets_document&contentId=ffaba6c3-497d-47b0-b91a-784f43625507&catalogType=tchMaterial&subCatalog=tchMaterial
 \begin{lstlisting}[language=Mathematica]
 set = {0.1, 0.05, 0.01, 0.005, 0.001}
 result =
@@ -327,14 +335,68 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
     \end{tabular}
 \end{table}
 
+更一般的，对于\(M \times N\) 类型的联表，作\[
+    \chi^{2}= \sum_{m=1}^{M} \sum_{n=1}^{N} \frac{(O_{mn} -
+    E_{mn})^{2}}{E_{mn}}
+\]
+那么\(\chi^{2}\) 服从自由度为\((M-1)(N-1)\) 的\(\chi^{2}\) 分布。
+
+\begin{quote}
+    可是为什么自由度是\((M-1)(N-1)\) 呢？
+\end{quote}
+
+这里给出一个粗浅的解释，自由度的定义参考
+\href{https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)#Example}{维基百科}。
+
+在\(M \times N\) 的联表中，本身应当有\(MN\) 个自由变量。但是边界分布是已知的，每一列的和，
+每一行的和是已知的。但这只会把自由度降低\(M+N-1\)。
+因为列边界分布的总和与行边界分布的总和都等于整个表格中所有元素的总和。因此，\(\chi^{2}\)
+满足自由度为\(MN-M-N+1 = (M-1)(N-1)\) 的\(\chi^{2}\)分布。
+
+% TODO: Relation between Chi-square and p value
 % TODO: F distribution
 % TODO: t distribution
-% TODO: Cauchy distribution
+% TODO: Cauchy distribution P182 32 是两正态的比
+% Laplace分布 Maxwell分布
 
+\subsection{正态分布}
 % 正态分布的性质
-% TODO: 正态分布的导出
+
+\subsubsection{正态分布的导出}
+% 正态分布在等概率椭圆内的积分
 二元正态分布的条件分布、边际分布都是正态分布。
 二元正态分布两变量相互独立当且仅当\(\rho=0\)
 
 % TODO: Add deduction of Normal distribution
 % TODO: 正态分布变量的生成
+
+\subsection{二元正态分布在椭圆内的积分}
+
+\subsubsection{等概率椭圆内的积分}
+
+\begin{problem}{二元正态分布在等概率椭圆内的积分}
+    设\(X\)服从二元标准正态分布，求其在椭圆\(\frac{x^{2}}{a^{2}} +
+    \frac{y^{2}}{b^{2}} \leq 1\)内的积分。
+\end{problem}
+
+\paragraph{一般情况下的积分}
+不失一般性，考虑二元标准正态分布在椭圆\(\frac{x^{2}}{a^{2}} +
+\frac{y^{2}}{b^{2}} =\lambda^{2}\) 内的积分：
+\begin{align*}
+    &\placeholder{=} \int\limits_{\frac{x^{2}}{a^{2}} +
+        \frac{y^{2}}{b^{2}} \leq
+    \lambda^{2}} \frac{1}{2\pi} \e^{-\frac{1}{2}\left(
+    x^{2}+y^{2} \right)}  \d{x} \d{y}\\
+    &= \frac{1}{2\pi} \int_{0}^{2\pi} \d{\theta}
+    \int_{0}^{\frac{a^{2}b^{2}}{b^{2}\cos^{2}\theta
+    \sin^{2}\theta}} \e^{-\frac{r^{2}}{2}} r\d{r} \\
+    &= 1- \frac{2}{\pi} \int_{0}^{\frac{\pi}{2}}
+    \e^{-\frac{1}{2} \cdot
+    \frac{b^{2}}{1-e^{2}\cos^{2}\theta}} \d{\theta}\\
+    & \cdots \cdots
+\end{align*}
+\footnote{另一种思路是考虑二元正态分布的分布函数为\(F(x,y) = \frac{1}{4}
+        \left(1- \erf(-\frac{x}{\sqrt{2}}) \right)\left( 1-
+\erf(-\frac{y}{\sqrt{2}}) \right) \)，利用积分与边界的性质计算}
+
+\texttt{其实我也还没算出来\UseVerb{naughty}}

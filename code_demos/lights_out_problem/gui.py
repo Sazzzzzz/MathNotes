@@ -296,6 +296,10 @@ class LightTable(QTableWidget):
         for i in range(cols):
             self.setColumnWidth(i, cell_size)
 
+    def close(self):
+        self.solver.close()
+        return super().close()
+
 
 class MainWindow(QMainWindow):
     statusbarUpdate = Signal(str)

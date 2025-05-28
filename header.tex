@@ -38,7 +38,7 @@
 \usepackage{bm}
 \usepackage{mathtools} % For \coloneqq
 \usepackage{hyperref}
-\hypersetup{
+\hypersetup{%
  colorlinks=true, linkcolor=mydoccolor!80, urlcolor=mydoccolor!80,
  citecolor=mydefinitfr!80!black,
  bookmarksnumbered=true,
@@ -58,6 +58,7 @@
 \SaveVerb{kiss}|:-*|
 \SaveVerb{surprised}|:-o|
 \SaveVerb{grin}|:-]|
+\SaveVerb{naughty}|:P|
 % \setCJKmainfont[BoldFont=SimHei,ItalicFont=FangSong,BoldItalicFont=LiSu]{SimSun}
 % For cancel line
 \usepackage{cancel}
@@ -85,14 +86,14 @@
 % PAGE SETUP
 %================================
 
-\renewcommand{\thesection}{\chinese{section}、\hspace{-1em}}
+\renewcommand{\thesection}{\textbf{\chinese{section}}、\hspace{-1em}}
 \renewcommand{\thesubsection}{\arabic{subsection}.\hspace{-0.3em}}
 \renewcommand{\thesubsubsection}{\arabic{subsubsection}}
-
-\ctexset{section={ format={\Large\raggedright\bfseries}}}
+\catcode`\。=\active\newcommand{。}{．}
+\ctexset{section={format={\Large\raggedright\bfseries}}}
 %================================
 % MATH COMMANDS
-%================================
+%==========================\hl{}===
 \AtBeginDocument{%
 \renewcommand\Re{\operatorname{Re}}
 \renewcommand\Im{\operatorname{Im}}

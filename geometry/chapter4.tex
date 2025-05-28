@@ -1,0 +1,26 @@
+% !TeX root = main.tex
+\chapter{\(n\)维空间的欧式几何}
+\section{Finite Subgroups in \(\Isom \R^n\)}
+
+\begin{theorem}{有限子群必有不动点}
+    所有\(\Isom \R^{n}\) 的有限子群\(G\)都有不动点。
+\end{theorem}
+
+\begin{proof}
+    记：
+    \begin{align*}
+        \mathcal{O}(x) &= G(x) = \left\{ f(x) \mid f \in G \right\} \\
+        b &=\frac{1}{\abs{G}} \sum_{f \in G} f(x)
+    \end{align*}
+    则对于任意的\(g(x) = Bx + c \in G\)，有
+    \begin{align*}
+        g(b) &= g\left(\frac{1}{\abs{G}} \sum_{f \in G} f(x)\right) \\
+        &= \frac{1}{\abs{G}} \sum_{f \in G} A(f(x)) + c \\
+        &= \frac{1}{\abs{G}} \sum_{f \in G} g \circ f(x) \\
+        &= \frac{1}{\abs{G}} \sum_{h \in G} h(x) \\
+        &= b
+    \end{align*}
+\end{proof}
+
+抽象代数里这样求平均值的操作还有
+\href{https://math.stackexchange.com/questions/804802/uses-of-averaging-an-operator-over-the-elements-of-a-finite-group}{很多}。

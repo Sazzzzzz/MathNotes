@@ -6,10 +6,6 @@
             "type": "shell",
             "command": "magick \"${file}\" \"${fileDirname}/${fileBasenameNoExtension}.pdf\"",
             "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "presentation": {
                 "reveal": "silent",
                 "panel": "shared",
