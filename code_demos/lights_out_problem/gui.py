@@ -256,9 +256,23 @@ class LightTable(QTableWidget):
                 f"Current Matrix Rank: {self.solver.rank}, some status unreachable."
             )
 
-    def solve(self):
+    def solve(self) -> list[Point]:
         current = [point for point in self.canvas if self.canvas[point]]
-        return self.solver.solve(current, [])
+        code, result = self.solver.solve(current, [])
+        length = len(result)
+        if code == Solver.Result.EMPTY_CANVAS:
+            self.statusbarUpdate.emit("No solution for empty canvas.")
+        elif code == Solver.Result.EMPTY_SOLUTION:
+            self.statusbarUpdate.emit("Problem solved")
+        elif code == Solver.Result.FULL_RANK_SOLVED:
+            self.statusbarUpdate.emit(f"Unique solution found with {length} moves.")
+        elif code == Solver.Result.INCOMPLETE_RANK_SOLVED:
+            self.statusbarUpdate.emit(
+                f"Multiple solutions found, best solution with {length} moves."
+            )
+        elif code == Solver.Result.INCOMPLETE_RANK_UNSOLVED:
+            self.statusbarUpdate.emit("No solution found for non-full rank canvas")
+        return result
 
     def _get_nearby_lights(self, point: Point) -> set[Point]:
         """Get the points around the clicked point"""

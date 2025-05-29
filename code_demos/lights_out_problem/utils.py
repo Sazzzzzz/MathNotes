@@ -8,6 +8,7 @@ This module provides Solver, Config, and Point class.
 # I guess the most silly thing about me is to find symbolic computation in Python,
 # and numerical computation in Mathematica :(
 
+import enum
 import json
 from abc import ABC, abstractmethod
 from collections import OrderedDict
@@ -26,7 +27,6 @@ from typing import (
 
 import galois
 import numpy as np
-from sympy import li
 from wolframclient.evaluation import WolframLanguageSession
 from wolframclient.language import Global, wlexpr
 
@@ -87,20 +87,32 @@ Matrix: TypeAlias = List[List[int]]
 Vector: TypeAlias = List[int]
 
 
+class NoSolutionError(Exception):
+    """Exception raised when no solution is found."""
+
+    def __init__(self, message: str = "No solution found."):
+        super().__init__(message)
+        self.message = message
+
+
 class SolverStrategy(ABC):
     """Abstract base class for solver strategies.
     Only handles logic of linear algebra over GF(2)."""
 
     rank: int
     is_full_rank: bool
+    A: property
 
     @abstractmethod
     def __init__(self):
         pass
 
     @abstractmethod
-    def solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
-        """Solve equation Ax+b=c in GF(2)"""
+    def full_rank_solve(self, current: Vector, expect: Vector) -> Vector:
+        pass
+
+    @abstractmethod
+    def non_full_rank_solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
         pass
 
     @abstractmethod
@@ -117,7 +129,7 @@ class SolverStrategy(ABC):
 # INFO: instead we pass in Matrix and Vector objects directly, and adapt functional programming inside mathematica
 # INFO: to avoid any side effects of assigning variables in Wolfram Language.
 class MathematicaSolverStrategy(SolverStrategy):
-
+    # NOTE: You can't really create `LinearSolve[A]` even for a full rank matrix A
     command = """F = FiniteField[2, 1];
 encode[A_] := Map[F, A, {-1}];
 decode[x_] := Map[#["Index"] &, x, {-1}];
@@ -146,6 +158,12 @@ minimalSolve[Araw_, braw_, craw_] := Module[
     def minimal_solve(self) -> Callable[[Matrix, Vector, Vector], tuple[Vector]]:
         return self.session.function(Global.minimalSolve)
 
+    def full_rank_solve(self, current: Vector, expect: Vector) -> Vector:
+        return self.linear_solve(self.A, current, expect)
+
+    def non_full_rank_solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
+        return self.minimal_solve(self.A, current, expect)
+
     @property
     def A(self):
         return self._A
@@ -155,13 +173,6 @@ minimalSolve[Araw_, braw_, craw_] := Module[
         self._A = value
         self.rank = self.get_rank(self.A)
         self.is_full_rank: bool = True if self.rank == len(self.A) else False
-
-    # TODO: Return the solution most likely to current solution when multiple solutions exist
-    def solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
-        if self.is_full_rank:
-            return (self.linear_solve(self.A, current, expect),)
-        else:
-            return self.minimal_solve(self.A, current, expect)
 
     def close(self) -> None:
         self.session.terminate()
@@ -183,17 +194,27 @@ class PythonSolverStrategy(SolverStrategy):
         self.rank = np.linalg.matrix_rank(self.A)
         self.is_full_rank = True if self.rank == len(self.A) else False
 
-    def solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
+    def full_rank_solve(self, current: Vector, expect: Vector) -> Vector:
         b = self.GF(current)
         c = self.GF(expect)
         x = np.linalg.solve(self.A, c - b)
-        return (list(x),)
+        return list(x)
+
+    def non_full_rank_solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
+        return tuple()
 
     def close(self) -> None:
         return None
 
 
 class Solver:
+    class Result(enum.Enum):
+        EMPTY_CANVAS = 0x0
+        EMPTY_SOLUTION = 0x1
+        FULL_RANK_SOLVED = 0x2
+        INCOMPLETE_RANK_SOLVED = 0x3
+        INCOMPLETE_RANK_UNSOLVED = 0x4
+
     def __init__(
         self,
         background: Iterable[Point],
@@ -224,7 +245,7 @@ class Solver:
 
         self.rank = self.strategy.rank
         self.is_full_rank = self.strategy.is_full_rank
-        self.is_empty: bool = True if self.rank == 0 else False
+        self.is_empty: bool = True if self._background == () else False
 
     @staticmethod
     def distance(point1: Point, point2: Point) -> int:
@@ -234,17 +255,33 @@ class Solver:
     def difference(solution1: Vector, solution2: Vector) -> int:
         return sum(1 for a, b in zip(solution1, solution2) if a != b)
 
-    def solve(self, current: list[Point], expect: list[Point]) -> list[Point]:
+    def solve(
+        self, current: list[Point], expect: list[Point]
+    ) -> tuple[Result, list[Point]]:
         """Solve equation Ax+b=c in GF(2)"""
+        if self.is_empty:
+            return (self.Result.EMPTY_CANVAS, [])
         b: Vector = [1 if point in current else 0 for point in self.background]
         c: Vector = [1 if point in expect else 0 for point in self.background]
-        results = self.strategy.solve(b, c)
-        result = min(
-            results,
-            key=lambda x: self.difference(x, self.prev_vec),
-        )
+        if self.is_full_rank:
+            code = self.Result.FULL_RANK_SOLVED
+            result = self.strategy.full_rank_solve(b, c)
+        else:
+            try:
+                results = self.strategy.non_full_rank_solve(b, c)
+                code = self.Result.INCOMPLETE_RANK_SOLVED
+            except NoSolutionError:
+                results = tuple()
+                code = self.Result.INCOMPLETE_RANK_UNSOLVED
+            result = min(
+                results,
+                key=lambda x: self.difference(x, self.prev_vec),
+            )
         self.prev_vec = result
-        return [self.background[i] for i, r in enumerate(result) if r == 1]
+        points = [self.background[i] for i, r in enumerate(result) if r == 1]
+        if not points:
+            code = self.Result.EMPTY_SOLUTION
+        return (code, points)
 
     def close(self) -> None:
         self.strategy.close()
