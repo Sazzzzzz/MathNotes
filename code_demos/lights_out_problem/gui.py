@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QTableWidget,
 )
-from utils import Config, Point, Solver
+from utils import Config, Point, Solver, load_config, save_config
 
 # INFO: This GUI relies on heavy use of Qt's dynamic properties to manage the state of the buttons.
 # INFO: This may cause issues with reasons can be found in
@@ -116,15 +116,15 @@ class LightTable(QTableWidget):
     def __init__(self, config: Config, parent=None) -> None:
         super().__init__(parent)
         # Avoid conflict with row/col method
-        self.rows = config.row
-        self.cols = config.col
-        self.canvas: OrderedDict[Point, bool] = config.canvas
-        self.solver = Solver(self.canvas.keys(), method="Python")
+        self.rows = config["row"]
+        self.cols = config["col"]
+        self.canvas: OrderedDict[Point, bool] = config["canvas"]
+        self.solver = Solver(self.canvas.keys(), method=config["method"])
         self.draw_ui()
-        self.is_idle: bool = config.is_idle
-        self.highlight_active = config.highlight_active
+        self.is_idle: bool = config["is_idle"]
+        self.highlight_active = config["highlight_active"]
         # Initialize is_edit_mode manually not with property
-        self._is_edit_mode = config.is_edit_mode
+        self._is_edit_mode = config["is_edit_mode"]
         if self._is_edit_mode:
             self.enter_edit_mode()
 
@@ -191,7 +191,7 @@ class LightTable(QTableWidget):
         return None
 
     def game_mode_handler(self, light: Light):
-        nearby_lights = self._nearby_lights_on_canvas(light.position)
+        nearby_lights = self._get_nearby_lights(light.position)
         self.canvas[light.position] = light.isChecked()
         for point in nearby_lights:
             near_light = self.get_light(point)
@@ -212,15 +212,16 @@ class LightTable(QTableWidget):
             del self.canvas[light.position]
 
     def clear_solution_highlights(self):
+        self.solution = []
         for point in self.canvas:
             light = self.get_light(point)
             light.highlight = False
 
     def update_solution_highlights(self):
-        solution = self.solve()
+        self.solution = self.solve()
         for point in self.canvas:
             light = self.get_light(point)
-            light.highlight = True if point in solution else False
+            light.highlight = True if point in self.solution else False
 
     def enter_edit_mode(self):
         for r, c in product(range(self.rows), range(self.cols)):
@@ -255,20 +256,21 @@ class LightTable(QTableWidget):
                 f"Current Matrix Rank: {self.solver.rank}, some status unreachable."
             )
 
-    # Helper methods
     def solve(self):
         current = [point for point in self.canvas if self.canvas[point]]
         return self.solver.solve(current, [])
 
-    def _nearby_lights_on_canvas(self, point: Point) -> list[Point]:
+    def _get_nearby_lights(self, point: Point) -> set[Point]:
         """Get the points around the clicked point"""
-        neighbors = [
-            Point(point.x - 1, point.y),
-            Point(point.x + 1, point.y),
-            Point(point.x, point.y - 1),
-            Point(point.x, point.y + 1),
-        ]
-        return [point for point in neighbors if point in self.canvas.keys()]
+        neighbors = set(
+            (
+                Point(point.x - 1, point.y),
+                Point(point.x + 1, point.y),
+                Point(point.x, point.y - 1),
+                Point(point.x, point.y + 1),
+            )
+        )
+        return set.intersection(neighbors, self.canvas.keys())
 
     def get_light(self, point: Point) -> Light:
         light = self.cellWidget(point.x, point.y)
@@ -295,9 +297,8 @@ class LightTable(QTableWidget):
         for i in range(cols):
             self.setColumnWidth(i, cell_size)
 
-    def close(self):
+    def _clean_up(self):
         self.solver.close()
-        return super().close()
 
 
 class MainWindow(QMainWindow):
@@ -320,20 +321,20 @@ class MainWindow(QMainWindow):
         idle_mode_action.setCheckable(True)
         idle_mode_action.setShortcut("i")
         idle_mode_action.triggered.connect(self.toggle_idle_mode)
-        idle_mode_action.setChecked(config.is_idle)
+        idle_mode_action.setChecked(config["is_idle"])
 
         edit_mode_action = QAction("Edit Mode", self)
         edit_mode_action.setCheckable(True)
         edit_mode_action.setShortcut("e")
         edit_mode_action.triggered.connect(self.toggle_edit_mode)
-        edit_mode_action.setChecked(config.is_edit_mode)
+        edit_mode_action.setChecked(config["is_edit_mode"])
 
         solution_highlight_action = QAction("Highlight Solution", self)  # Renamed text
         solution_highlight_action.setCheckable(True)
         solution_highlight_action.setShortcut("s")
         solution_highlight_action.setChecked(self.main.highlight_active)
         solution_highlight_action.triggered.connect(self.toggle_solution_highlight)
-        solution_highlight_action.setChecked(config.highlight_active)
+        solution_highlight_action.setChecked(config["highlight_active"])
 
         toolbar.addAction(idle_mode_action)
         toolbar.addAction(edit_mode_action)
@@ -357,11 +358,15 @@ class MainWindow(QMainWindow):
         else:
             self.main.clear_solution_highlights()
 
+    def closeEvent(self, event):
+        self.main._clean_up()
+        super().closeEvent(event)
+
 
 if __name__ == "__main__":
 
     current_dir = Path(__file__).resolve().parent
-    default_state = Config.load(current_dir / "config.json")
+    default_state = load_config(current_dir / "config.json")
     app = QApplication(sys.argv)
     stylesheet_path = current_dir / "style.qss"
     with open(stylesheet_path, "r") as f:

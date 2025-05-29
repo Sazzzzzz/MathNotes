@@ -14,10 +14,19 @@ from collections import OrderedDict
 from functools import cached_property
 from pathlib import Path
 from pprint import pprint
-from typing import Callable, Iterable, List, Literal, NamedTuple, TypeAlias, overload
+from typing import (
+    Callable,
+    Iterable,
+    List,
+    Literal,
+    NamedTuple,
+    TypeAlias,
+    TypedDict,
+)
 
 import galois
 import numpy as np
+from sympy import li
 from wolframclient.evaluation import WolframLanguageSession
 from wolframclient.language import Global, wlexpr
 
@@ -31,7 +40,7 @@ class Point(NamedTuple):
     y: int
 
 
-class Config(NamedTuple):
+class Config(TypedDict):
     row: int
     col: int
     is_idle: bool
@@ -40,44 +49,38 @@ class Config(NamedTuple):
     method: Literal["Python", "Mathematica"]
     canvas: OrderedDict[Point, bool]
 
-    @classmethod
-    def load(cls, path: Path) -> "Config":
-        with open(path, "r") as f:
-            data = json.load(f)
-        config = cls(
-            data["row"],
-            data["col"],
-            data["is_idle"],
-            data["highlight_active"],
-            data["is_edit_mode"],
-            data["method"],
-            OrderedDict(
-                {Point(entry[0], entry[1]): entry[2] for entry in data["canvas"]}
+
+def load_config(path: Path) -> Config:
+    with open(path, "r") as f:
+        data = json.load(f)
+    config = Config(
+        row=data["row"],
+        col=data["col"],
+        is_idle=data["is_idle"],
+        highlight_active=data["highlight_active"],
+        is_edit_mode=data["is_edit_mode"],
+        method=data["method"],
+        canvas=OrderedDict(
+            {Point(entry[0], entry[1]): entry[2] for entry in data["canvas"]}
+        ),
+    )
+    return config
+
+
+def save_config(config: Config, path: Path) -> None:
+    with open(path, "w") as f:
+        data = {
+            "row": config["row"],
+            "col": config["col"],
+            "is_idle": config["is_idle"],
+            "highlight_active": config["highlight_active"],
+            "is_edit_mode": config["is_edit_mode"],
+            "method": config["method"],
+            "canvas": tuple(
+                [point.x, point.y, value] for point, value in config["canvas"].items()
             ),
-        )
-        return config
-
-    @overload
-    def save(self, path: Path): ...
-    @overload
-    def save(self, path: str): ...
-
-    def save(self, path):
-        if isinstance(path, str):
-            path = Path(path)
-        with open(path, "w") as f:
-            data = {
-                "row": self.row,
-                "col": self.col,
-                "is_idle": self.is_idle,
-                "highlight_active": self.highlight_active,
-                "is_edit_mode": self.is_edit_mode,
-                "method": self.method,
-                "canvas": tuple(
-                    [point.x, point.y, value] for point, value in self.canvas.items()
-                ),
-            }
-            json.dump(data, f, indent=4)
+        }
+        json.dump(data, f, indent=4)
 
 
 Matrix: TypeAlias = List[List[int]]
@@ -96,7 +99,7 @@ class SolverStrategy(ABC):
         pass
 
     @abstractmethod
-    def solve(self, current: Vector, expect: Vector) -> Vector:
+    def solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
         """Solve equation Ax+b=c in GF(2)"""
         pass
 
@@ -118,8 +121,14 @@ class MathematicaSolverStrategy(SolverStrategy):
     command = """F = FiniteField[2, 1];
 encode[A_] := Map[F, A, {-1}];
 decode[x_] := Map[#["Index"] &, x, {-1}];
-rank = MatrixRank@*encode;
-linearSolve[A_, b_, c_] := decode[LinearSolve[encode[A], encode[c] - encode[b]]];"""
+rank[A_] := MatrixRank[encode[A]];
+linearSolve[A_, b_, c_] := decode[LinearSolve[encode[A], encode[c] - encode[b]]];
+minimalSolve[Araw_, braw_, craw_] := Module[
+   {A = encode[Araw], b = encode[braw], c = encode[craw]},
+   MinimalBy[
+    Map[decode[Plus[LinearSolve[A, c - b], #]] &,
+     Plus @@@ Subsets[NullSpace[A]]],
+    Total]];"""
 
     def __init__(self):
         self.session: WolframLanguageSession = WolframLanguageSession()
@@ -133,6 +142,10 @@ linearSolve[A_, b_, c_] := decode[LinearSolve[encode[A], encode[c] - encode[b]]]
     def linear_solve(self) -> Callable[[Matrix, Vector, Vector], Vector]:
         return self.session.function(Global.linearSolve)
 
+    @cached_property
+    def minimal_solve(self) -> Callable[[Matrix, Vector, Vector], tuple[Vector]]:
+        return self.session.function(Global.minimalSolve)
+
     @property
     def A(self):
         return self._A
@@ -143,11 +156,12 @@ linearSolve[A_, b_, c_] := decode[LinearSolve[encode[A], encode[c] - encode[b]]]
         self.rank = self.get_rank(self.A)
         self.is_full_rank: bool = True if self.rank == len(self.A) else False
 
-    def solve(self, current: Vector, expect: Vector) -> Vector:
+    # TODO: Return the solution most likely to current solution when multiple solutions exist
+    def solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
         if self.is_full_rank:
-            return self.linear_solve(self.A, current, expect)
+            return (self.linear_solve(self.A, current, expect),)
         else:
-            return []
+            return self.minimal_solve(self.A, current, expect)
 
     def close(self) -> None:
         self.session.terminate()
@@ -169,11 +183,11 @@ class PythonSolverStrategy(SolverStrategy):
         self.rank = np.linalg.matrix_rank(self.A)
         self.is_full_rank = True if self.rank == len(self.A) else False
 
-    def solve(self, current: Vector, expect: Vector) -> Vector:
+    def solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
         b = self.GF(current)
         c = self.GF(expect)
         x = np.linalg.solve(self.A, c - b)
-        return list(x)
+        return (list(x),)
 
     def close(self) -> None:
         return None
@@ -202,6 +216,7 @@ class Solver:
         self._background: tuple[Point, ...] = tuple(value)
         # INFO: Actually the code here only gives a transpose of the matrix A
         # INFO: But it doesn't matter since A is symmetric
+        self.prev_vec: Vector = []
         self.strategy.A = [
             [1 if self.distance(point, other) <= 1 else 0 for other in self.background]
             for point in self.background
@@ -211,18 +226,24 @@ class Solver:
         self.is_full_rank = self.strategy.is_full_rank
         self.is_empty: bool = True if self.rank == 0 else False
 
-        if not self.is_full_rank:
-            pass
-
     @staticmethod
     def distance(point1: Point, point2: Point) -> int:
         return abs(point1.x - point2.x) + abs(point1.y - point2.y)
+
+    @staticmethod
+    def difference(solution1: Vector, solution2: Vector) -> int:
+        return sum(1 for a, b in zip(solution1, solution2) if a != b)
 
     def solve(self, current: list[Point], expect: list[Point]) -> list[Point]:
         """Solve equation Ax+b=c in GF(2)"""
         b: Vector = [1 if point in current else 0 for point in self.background]
         c: Vector = [1 if point in expect else 0 for point in self.background]
-        result: Vector = self.strategy.solve(b, c)
+        results = self.strategy.solve(b, c)
+        result = min(
+            results,
+            key=lambda x: self.difference(x, self.prev_vec),
+        )
+        self.prev_vec = result
         return [self.background[i] for i, r in enumerate(result) if r == 1]
 
     def close(self) -> None:
