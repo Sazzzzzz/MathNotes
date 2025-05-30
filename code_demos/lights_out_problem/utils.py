@@ -9,12 +9,15 @@ This module provides Solver, Config, and Point class.
 # and numerical computation in Mathematica :(
 
 import enum
+from itertools import chain, combinations
 import json
 from abc import ABC, abstractmethod
 from collections import OrderedDict
-from functools import cached_property
+from functools import cached_property, reduce
+from math import e
 from pathlib import Path
 from pprint import pprint
+import stat
 from typing import (
     Callable,
     Iterable,
@@ -27,6 +30,7 @@ from typing import (
 
 import galois
 import numpy as np
+from numpy.typing import ArrayLike
 from wolframclient.evaluation import WolframLanguageSession
 from wolframclient.language import Global, wlexpr
 
@@ -112,7 +116,9 @@ class SolverStrategy(ABC):
         pass
 
     @abstractmethod
-    def non_full_rank_solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
+    def non_full_rank_solve(
+        self, current: Vector, expect: Vector
+    ) -> tuple[Vector, ...]:
         pass
 
     @abstractmethod
@@ -161,7 +167,9 @@ minimalSolve[Araw_, braw_, craw_] := Module[
     def full_rank_solve(self, current: Vector, expect: Vector) -> Vector:
         return self.linear_solve(self.A, current, expect)
 
-    def non_full_rank_solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
+    def non_full_rank_solve(
+        self, current: Vector, expect: Vector
+    ) -> tuple[Vector, ...]:
         return self.minimal_solve(self.A, current, expect)
 
     @property
@@ -184,6 +192,10 @@ class PythonSolverStrategy(SolverStrategy):
     def __init__(self):
         super().__init__()
 
+    @staticmethod
+    def GF2list(array) -> List[int]:
+        return [int(x) for x in array]
+
     @property
     def A(self):
         return self._A
@@ -193,16 +205,67 @@ class PythonSolverStrategy(SolverStrategy):
         self._A = self.GF(value)
         self.rank = np.linalg.matrix_rank(self.A)
         self.is_full_rank = True if self.rank == len(self.A) else False
+        if not self.is_full_rank:
+            self.null_space = self.A.null_space()
+            # I have a sense that the following code is not easy to understand
+            # INFO: The code below generates all combinations of null space vectors
+            self.null_space_vecs: List[galois.FieldArray] = list(
+                map(
+                    lambda comb: reduce(lambda x, y: x + y, comb),
+                    chain.from_iterable(
+                        combinations(self.null_space, r)
+                        for r in range(1, len(self.null_space) + 1)
+                    ),
+                )
+            )
+            self.null_space_vecs.append(self.GF.Zeros(len(self.A[0])))
 
     def full_rank_solve(self, current: Vector, expect: Vector) -> Vector:
         b = self.GF(current)
         c = self.GF(expect)
         x = np.linalg.solve(self.A, c - b)
-        return list(x)
+        return self.GF2list(x)
 
-    def non_full_rank_solve(self, current: Vector, expect: Vector) -> tuple[Vector]:
-        return tuple()
+    # It is until I have basically completed mathematica version of `non_full_rank_solve`,
+    # despite hours of hard work with `wolframclient` package,
+    # that I started to search `null_space` in galois package,
+    # and found that it is already implemented :'(.
+    # what a life!
+    def non_full_rank_solve(
+        self, current: Vector, expect: Vector
+    ) -> tuple[Vector, ...]:
+        b = self.GF(current) - self.GF(expect)
+        A_augmented = np.column_stack([self.A, b])
+        reduced = self.GF(A_augmented).row_reduce()
+        major_row_index: list[int] = []
+        for i, row in enumerate(reduced):
+            if i >= self.rank:
+                if any(row):
+                    raise NoSolutionError("No solution found.")
+            for j, value in enumerate(row):
+                if value:
+                    major_row_index.append(j)
+                    break
+        specific_solution = self.GF.Zeros(len(self.A[0]))
+        specific_solution[major_row_index] = reduced[:, -1][major_row_index]
 
+        solution_space = tuple(specific_solution + vec for vec in self.null_space_vecs)
+        minimal_steps = tuple(map(lambda x: sum(self.GF2list(x)), solution_space))
+        minimal_step = min(minimal_steps)
+        minimal_solutions = tuple(
+            map(
+                self.GF2list,
+                (
+                    solution
+                    for solution, step in zip(solution_space, minimal_steps)
+                    if step == minimal_step
+                ),
+            )
+        )
+        return minimal_solutions
+
+    # In my defense, the general way to get null space with Python is to use `scipy.linalg.null_space`,
+    # which is not suitable for finite fields (which also took me a great deal of time to realize).
     def close(self) -> None:
         return None
 
@@ -253,7 +316,7 @@ class Solver:
 
     @staticmethod
     def difference(solution1: Vector, solution2: Vector) -> int:
-        return sum(1 for a, b in zip(solution1, solution2) if a != b)
+        return sum(a ^ b for a, b in zip(solution1, solution2))
 
     def solve(
         self, current: list[Point], expect: list[Point]
@@ -271,12 +334,14 @@ class Solver:
                 results = self.strategy.non_full_rank_solve(b, c)
                 code = self.Result.INCOMPLETE_RANK_SOLVED
             except NoSolutionError:
-                results = tuple()
-                code = self.Result.INCOMPLETE_RANK_UNSOLVED
-            result = min(
-                results,
-                key=lambda x: self.difference(x, self.prev_vec),
-            )
+                return self.Result.INCOMPLETE_RANK_UNSOLVED, []
+            if results != ():
+                result = min(
+                    results,
+                    key=lambda x: self.difference(x, self.prev_vec),
+                )
+            else:
+                result = []
         self.prev_vec = result
         points = [self.background[i] for i, r in enumerate(result) if r == 1]
         if not points:
@@ -300,7 +365,7 @@ if __name__ == "__main__":
             Point(2, 1),
             Point(2, 2),
         ],
-        method="Mathematica",
+        method="Python",
     )
     pprint(solver.solve([Point(2, 2)], []))
     solver.close()
