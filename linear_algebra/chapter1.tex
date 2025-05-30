@@ -54,11 +54,11 @@
 
 \subsection{域是什么？}
 
-% TODO: Add reference
 抽象代数中我们与域第一次见面时，域的定义是这样一个诘屈聱牙的形式：
 \begin{definition}{域（抽象版）}
     无零因子的的交换幺环称为\emph{整环}； 若一个幺环\(R\) 满足条件 \(R^{*}=U\)，
     即\(R^{*}\) 对于乘法构成群，则称\(R\)为\emph{除环}。交换的除环称为\emph{域}。
+    \footcite[定义~2.2.20]{抽象代数}
 \end{definition}
 
 \begin{figure}[H]
@@ -83,12 +83,10 @@
 
 \begin{theorem}{域的乘法只能在\(F^{*}\)上构成群}
     若集合\((F, + ,\cdot)\)且\((F,\cdot)\)构成群，则\(F\)只能包含零元素。
-    \footnote{这是抽象代数中一道关于域的课后习题，见}
+    \footnote{这实际上是抽象代数中一道关于域的课后习题}
 \end{theorem}
 
-
 \begin{proof}
-    % TODO: Add reference
     先证明\(0 \cdot a=0\), \(\forall a \in F\)。
     \begin{align*}
         0 \cdot a &= (0+0) \cdot a\\
@@ -106,7 +104,6 @@
 \begin{itemize}
     \item \emph{代数闭域}：一个域\(F\) 被称作代数闭域，当且仅当任何系数属于\(F\)
         且次数大于零的单变量多项式在\(F\) 里至少有一个根。\footnote{性质可见维基百科}
-        % TODO: Add reference
     \item \emph{数域}：元素全是数的域。
 \end{itemize}
 实际上，非数域上的线性代数也非常精彩，下面给出一个例子：
@@ -201,7 +198,7 @@ T_{9})\) 称作状态转移矩阵，\(x=(x_{1}, x_{2}, \dots, x_{9})^{\mathrm{T}
     线性映射在数学中普遍存在，然而，他们并不如有些人想象的那样无处不在。
     当这些人错误的写出\(\cos(x+y)\) 等于\(\cos x+\cos y\) 和\(\cos 2x\)
     等于 \(2\cos x\) 时，似乎连\(\cos\)
-    都能看成从\(\R\)到\(\R\)的线性映射。
+    都能看成从\(\R\)到\(\R\)的线性映射。\footcite[p.~46]{LADR}
 \end{quote}
 如果我们定义：
 \[

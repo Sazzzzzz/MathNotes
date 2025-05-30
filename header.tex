@@ -13,6 +13,7 @@
 \usepackage{booktabs}  % 提供更专业的表格线条
 % Provide support for minipage used in definition environment
 \usepackage{varwidth}
+\usepackage[backend=biber,style=authortitle]{biblatex}
 \usepackage{array}     % 增强的表格功能
 % Underline and strikethrough
 \usepackage[normalem]{ulem}
@@ -40,10 +41,11 @@
 \usepackage{hyperref}
 \hypersetup{%
  colorlinks=true, linkcolor=mydoccolor!80, urlcolor=mydoccolor!80,
- citecolor=mydefinitfr!80!black,
+ citecolor=mycitecolor!80!black,
  bookmarksnumbered=true,
  bookmarksopen=true
 }
+\usepackage{cleveref}
 % Use verb inside other environments
 \usepackage{fancyvrb}
 \VerbatimFootnotes
@@ -112,6 +114,19 @@
 
 \newcommand{\placeholder}[1]{\mathrel{\phantom{#1}}} % Placeholder
 
+\crefname{equation}{式}{式}
+\Crefname{equation}{式}{式}
+\crefname{theorem}{定理}{定理}
+\Crefname{theorem}{定理}{定理}
+\crefname{definition}{定义}{定义}
+\Crefname{definition}{定义}{定义}
+\crefname{problem}{问题}{问题}
+\Crefname{problem}{问题}{问题}
+\crefname{claim}{断言}{断言}
+\Crefname{claim}{断言}{断言}
+\crefname{note}{注}{注}
+\Crefname{note}{注}{注}
+
 %================================
 % DOCUMENT SETUP
 %================================
@@ -134,7 +149,7 @@
 \definecolor{mydefinitioncolor}{RGB}{169, 14, 69}
 % CMYK 10 20 30 30
 \definecolor{myquotecolor}{RGB}{161,143,125}
-
+\definecolor{mycitecolor}{RGB}{0, 102, 204}
 % 配色设计原理 P27
 \definecolor{myproblemcolor}{RGB}{255,128,0}
 
@@ -349,7 +364,7 @@ within=chapter]{Definition}{Definition}{enhanced,
     ,separator sign none
     ,segmentation style={solid, mynotecolor!85!black}
 }
-{th}
+{note}
 %================================
 % QUOTE BOX
 %================================

@@ -24,7 +24,7 @@
 \end{theorem}
 
 \begin{proof}
-    （\textit{Linear Algebra Done Right}）
+    （\cite[p.~114]{LADR}）
     假设欲证结论不成立。那么存在最小的正整数 \(m\)， 使得\(T\)
     对应于其互异特征值\(\lambda_1, \dots ,\lambda_{m}\)
     的特征向量 \(v_1, \dots, v_m\)构成线性相关向量组。
@@ -42,7 +42,7 @@
 \end{proof}
 
 \begin{proof}
-    （\textit{高等代数}）
+    （\cite[p.~204 定理~8]{高等代数}）
     对特征值的个数做数学归纳法。由于特征向量是不为零的。单个特征向量显然线性无关。先设属于\(k\)
     个不同特征值的特征向量线性无关，我们证明属于\(k+1\) 个不同特征值\(\lambda_1,\dots
     ,\lambda_{k+1}\) 的特征向量\(\xi_1,\dots, \xi_{k+1}\) 也线性无关。
@@ -53,14 +53,14 @@
     两边同乘\(\lambda_{k+1}\) 有：
     \begin{equation}
         a_1\lambda_{k+1}\xi_1 + a_2\lambda_{k+1}\xi_2 +
-        \cdots + a_{k+1}\lambda_{k+1}\xi_{k+1} = 0 \label{2}
+        \cdots + a_{k+1}\lambda_{k+1}\xi_{k+1} = 0 \label{eq:2}
     \end{equation}
     式子两端同时施加变换\(\A\)，有：
     \begin{equation}
         a_1\lambda_1\xi_1 + a_2\lambda_1\xi_2 + \cdots +
-        a_{k+1}\lambda_1\xi_{k+1} = 0 \label{3}
+        a_{k+1}\lambda_1\xi_{k+1} = 0 \label{eq:3}
     \end{equation}
-    式 \eqref{2} 减去式 \eqref{3}，得：
+    \cref{eq:2} 减去 \cref{eq:3}，得：
     \[
         a_1(\lambda_1 - \lambda_{k+1})\xi_1 + a_2(\lambda_1
         - \lambda_{k+1})\xi_2 + \cdots +
