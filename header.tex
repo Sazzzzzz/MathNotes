@@ -324,7 +324,7 @@ within=chapter]{Definition}{Definition}{enhanced,
 %================================
 % CLAIM BOX
 %================================
-\newtcbtheorem[number within=chapter]{claim}{Claim}
+\newtcbtheorem[number within=chapter]{Claim}{Claim}
 {%
     enhanced
     ,breakable
@@ -343,11 +343,17 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 {claim}
 
+\newenvironment{claim}[2][]{%
+    \begin{Claim}{#2}{#1}%
+    }{%
+    \end{Claim}%
+}
+
 %================================
 % NOTE BOX
 %================================
 
-\newtcbtheorem[number within=chapter]{note}{Note}
+\newtcbtheorem[number within=chapter]{Note}{Note}
 {%
     enhanced
     ,breakable
@@ -365,6 +371,12 @@ within=chapter]{Definition}{Definition}{enhanced,
     ,segmentation style={solid, mynotecolor!85!black}
 }
 {note}
+
+\newenvironment{note}[2][]{%
+    \begin{Note}{#2}{#1}%
+    }{%
+    \end{Note}%
+}
 %================================
 % QUOTE BOX
 %================================

@@ -1,0 +1,58 @@
+% !TeX root = main.tex
+
+\chapter{Gamma 函数与Beta 函数}
+
+\section{Gamma 函数}
+\[
+    \Gamma(x) = \int_0^\infty t^{x-1} e^{-t} dt
+\]
+\[
+    \Gamma(n) = (n-1)\Gamma(n-1)
+\]
+\[
+    \Gamma^{(n)}(x) = \int_0^\infty t^{x-1} e^{-t} \ln^n t \, dt
+\]
+倍元公式
+\[
+    \Gamma(2s) = 2^{2s-1} \sqrt{\pi}
+    \frac{\Gamma(s)}{\Gamma(s+\frac{1}{2})}
+\]
+余元公式
+\[
+    \betafunc(s, 1-s) = \frac{\pi}{\sin(\pi s)} = \Gamma(s)
+    \Gamma(1-s)
+\]
+\section{Beta 函数}
+
+\[
+    \betafunc(x, y) = \int_0^1 t^{x-1} (1-t)^{y-1} dt
+\]
+\[
+    \betafunc(x, y) = \frac{\Gamma(x) \Gamma(y)}{\Gamma(x+y)}
+\]
+（化圆为方）
+\[
+    \betafunc(p ,q+1) = \frac{q}{p+q} \betafunc(p,q) \quad
+    \betafunc(p+1, q) = \frac{p}{p+q} \betafunc(p,q)
+\]
+（递推求解）
+\subsection{可求解的积分}
+\[
+    \int_{0}^{+\infty} x^{a-1} \e^{-x^{b}} \d{x} =
+    \frac{1}{a} \Gamma\left( \frac{a}{b} +1 \right) = \frac{1}{b}
+    \Gamma\left(\frac{a}{b}\right)
+\]
+\[
+    \int_{0}^{\frac{\pi}{2}} \sin^{m} x \cos^{n} x \d{x} =
+    \frac{1}{2} \betafunc\left(\frac{m+1}{2}, \frac{n+1}{2}\right)
+\]
+\[
+    \int_{0}^{\infty} \sinh^{m} x \cosh^{n} x \d{x} =
+    \frac{1}{2} \betafunc\left(\frac{m+1}{2}, -\frac{m+n}{2}\right)
+\]
+\[
+    \int_{0}^{+\infty } \frac{x^{p-1}}{(1+x)^{p+q}} \d{x} =
+    \betafunc(p, q)
+\]
+% TODO: 用\(t/t+1\)对beta函数进行变换
+% TODO: 用t^alpha对beta函数进行变换

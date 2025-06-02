@@ -308,7 +308,9 @@ x^{\frac{n}{2}-1} \e^{-\frac{x}{2}}\]
 
 \paragraph{\(\chi^{2}\) 检测与\(\chi^{2}\) 分布的关系}
 
-高中选择性必修2时我们就研究过如何列联表判断二元分类变量是否独立。若两变量独立，我们估计真值与期望差值的绝对值
+\href{https://basic.smartedu.cn/tchMaterial/detail?contentType=assets_document&contentId=ffaba6c3-497d-47b0-b91a-784f43625507&catalogType=tchMaterial&subCatalog=tchMaterial}{高中选择性必修三}
+时我们就研究过如何列联表判断二元分类变量是否独立。若两变量独立，
+我们估计真值与期望差值的绝对值
 大小不会很大，并以他们\textbf{标准化后的平方和}作为判断标准。
 实际上这就是自由度为\(1\)的\(\chi^{2}\) 分布\UseVerb{smile}
 
@@ -368,16 +370,84 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
 二元正态分布两变量相互独立当且仅当\(\rho=0\)
 
 % TODO: Add deduction of Normal distribution
-% TODO: 正态分布变量的生成
+\subsection{正态分布变量的生成}
+\begin{claim}{}
+    对于两个相互独立的标准正态分布随机变量\((\xi, \eta)\)，
+    记\(r=\sqrt{\xi^{2}+\eta^{2}}\), \(\theta =
+    \tan^{-1}\left( \frac{\eta}{\xi} \right)\),
+    则\(r\)服从\textbf{Rayleigh分布}，
+    \(\theta\)服从均匀分布\(U(0,2\pi)\)。
+\end{claim}
+
+\begin{definition}{Rayleigh分布}
+    称\(\xi\) 服从Rayleigh分布，若其概率密度函数为：
+    \[
+        R(r) = r\e^{-\frac{r^{2}}{2}}, \quad r>0
+    \]
+\end{definition}
+
+\begin{theorem}{Box-Muller变换}
+    设\(U_{1}, U_{2}\) 是独立的标准正态分布随机变量，则：
+    \begin{align*}
+        \xi &= \sqrt{-2\ln U_{1}} \cos(2\pi U_{2})\\
+        \eta &= \sqrt{-2\ln U_{1}} \sin(2\pi U_{2})
+    \end{align*}
+    则\(\xi, \eta\) 相互独立且服从标准正态分布。
+\end{theorem}
+
+\begin{proof}
+    记\(V=\sqrt{-2 \ln U_{1}}\)，有\(U_{1}=
+    \e^{-\frac{V^{2}}{2}}\)，则\(V\) 的概率密度函数为：
+    \[
+        p(v) = \abs{\left(\e^{-\frac{x^{2}}{2}} \right)'} =
+        \e^{-\frac{v^{2}}{2}} v, \quad v>0
+    \]
+    故\(V\) 服从Rayleigh分布。从而\(\xi,\eta\) 服从标准正态分布。
+\end{proof}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{resources/box_muller_transform.pdf}
+    \caption{Box-Muller变换生成的随机变量与标准正态分布}
+\end{figure}
 
 \subsection{二元正态分布在椭圆内的积分}
 
 \subsubsection{等概率椭圆内的积分}
 
 \begin{problem}{二元正态分布在等概率椭圆内的积分}
-    设\(X\)服从二元标准正态分布，求其在椭圆\(\frac{x^{2}}{a^{2}} +
-    \frac{y^{2}}{b^{2}} \leq 1\)内的积分。
+    若\((\xi,\eta)\) 服从二元正态分布，参数为\(\mu_{1}\)，\(\mu_{2}\)，
+    \(\sigma_{1}^{2}\)，\(\sigma_{2}^{2}\)，\(\rho\)，
+    记椭圆\(D(\lambda)\):\[
+        \frac{(x-\mu_{1})^{2}}{\sigma_{1}^{2}} +
+        \frac{(y-\mu_{2})^{2}}{\sigma_{2}^{2}} \leq \lambda^{2}
+    \]
+    求\(\P{(\xi,\eta) \in D(\lambda)}\)。
 \end{problem}
+
+\begin{proof}
+    记：
+    \begin{equation}
+        \begin{cases}
+            u = \frac{x}{\sigma_{1}} - \frac{\rho y}{\sigma_{2}}\\
+            v = \frac{y\sqrt{1-\rho^{2}}}{\sigma_{2}}
+        \end{cases}
+    \end{equation}
+    则：
+    \begin{align*}
+        \P{(\xi,\eta) \in D(\lambda)} &=
+        \iint\limits_{(x,y) \in D(\lambda)}
+        p(x,y) \d{x} \d{y}\\
+        &= \frac{1}{2\pi(1-\rho^{2})} \iint\limits_{u^{2} +
+        v^{2} \leq \lambda^{2}}
+        \e^{-\frac{1}{2(1-\rho^{2})}\left(u^{2} +
+        v^{2}\right)} \d{u} \d{v}\\
+        &= \frac{1}{2\pi(1-\rho^{2})} \int_{0}^{2\pi} \d{\theta}
+        \int_{0}^{\lambda} \e^{-\frac{r^{2}}{2(1-\rho^{2})}} r \d{r}\\
+        &= 1- \e^{-\frac{\lambda^{2}}{2(1-\rho^{2})}}
+    \end{align*}
+\end{proof}
+
+这可以看作是一种瑞利分布的推广。
 
 \paragraph{一般情况下的积分}
 不失一般性，考虑二元标准正态分布在椭圆\(\frac{x^{2}}{a^{2}} +
