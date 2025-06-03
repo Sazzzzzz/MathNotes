@@ -141,18 +141,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{myclaimcolor}{RGB}{56, 140, 70}
 \definecolor{mynoteolor}{RGB}{56, 140, 70}
-
-% 配色设计原理 P27
-% CMYK 90 65 10 45
-\definecolor{mytheoremcolor}{RGB}{16,59,154}
-% CMYK 0 100 65 40
-\definecolor{mydefinitioncolor}{RGB}{169, 14, 69}
-% CMYK 10 20 30 30
+\definecolor{mytheoremcolor}{RGB}{0,102,204}
+\definecolor{mydefinitioncolor}{RGB}{235, 105,12}
 \definecolor{myquotecolor}{RGB}{161,143,125}
 \definecolor{mycitecolor}{RGB}{0, 102, 204}
-% 配色设计原理 P27
 \definecolor{myproblemcolor}{RGB}{255,128,0}
-
 \definecolor{mydoccolor}{RGB}{141,64,13}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -229,7 +222,7 @@
 \makeatletter
 \newtcbtheorem[number within=chapter]{Theorem}{Theorem}{enhanced,
     breakable,
-    colback=mytheoremcolor!5,
+    colback=mytheoremcolor!8,
     colframe=mytheoremcolor,
     attach boxed title to top left={yshift*=-\tcboxedtitleheight},
     fonttitle=\bfseries,
@@ -265,7 +258,7 @@
 \newtcbtheorem[number
 within=chapter]{Definition}{Definition}{enhanced,
     breakable,
-    colback=mydefinitioncolor!5,
+    colback=mydefinitioncolor!8,
     colframe=mydefinitioncolor,
     attach boxed title to top left={yshift*=-\tcboxedtitleheight},
     fonttitle=\bfseries,
