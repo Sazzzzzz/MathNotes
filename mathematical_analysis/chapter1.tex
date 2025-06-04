@@ -1,8 +1,8 @@
 % !TeX root = main.tex
+\chapter{Miscs}
+\section{Gamma 函数与Beta 函数}
 
-\chapter{Gamma 函数与Beta 函数}
-
-\section{Gamma 函数}
+\subsection{Gamma 函数}
 \[
     \Gamma(x) = \int_0^\infty t^{x-1} e^{-t} dt
 \]
@@ -22,7 +22,7 @@
     \betafunc(s, 1-s) = \frac{\pi}{\sin(\pi s)} = \Gamma(s)
     \Gamma(1-s)
 \]
-\section{Beta 函数}
+\subsection{Beta 函数}
 
 \[
     \betafunc(x, y) = \int_0^1 t^{x-1} (1-t)^{y-1} dt
@@ -56,3 +56,26 @@
 \]
 % TODO: 用\(t/t+1\)对beta函数进行变换
 % TODO: 用t^alpha对beta函数进行变换
+
+\section{Able求和}
+\begin{definition}{前向有限差分}
+    \[
+        \Delta f(x) = f(x+1) - f(x)
+    \]
+    称为\(f\)的前向有限差分。
+\end{definition}
+
+\begin{theorem}{Abel求和公式}
+    \begin{align*}
+        \sum_{k=m}^{n} f_{k} (g_{k+1} - g_{k}) &=
+        f_{n+1}g_{n+1} - f_{m}g_{m} - \sum_{k=m}^{n}
+        g_{k+1}(f_{k+1} -f_{k}) \\
+        \sum_{k=m}^{n} f_{k}\Delta g_{k} &= f_{n+1}g_{n+1}
+        - f_{m}g_{m} - \sum_{k=m}^{n} g_{k+1}\Delta f_{k}
+    \end{align*}
+\end{theorem}
+
+% TODO:等差乘等比的计算方法P187
+% TODO:Famous Integral： Gauss Integral, Fresnel Integral,
+% Dirichlet Integral, Laplace Integral
+% TODO:https://zhuanlan.zhihu.com/p/148450731

@@ -1,23 +1,225 @@
 % !TeX root = main.tex
 \chapter{数字特征与特征函数}
 \section{数学期望}
-% A table for distributions and their expectations
-\begin{table}[H]
-    \centering
-    \begin{tabular}{c|c|c}
-        \hline
-        分布 & 数学期望 & 方差\\
-        \hline
-        二项分布\(B(n,p)\) & \(np\) & \(np(1-p)\) \\
-        泊松分布\(P(\lambda)\) & \(\lambda\) & \(\lambda\) \\
-        几何分布\(G(p)\) & \(\frac{1}{p}\) & \(\frac{1-p}{p^2}\) \\
-        超几何分布\(H(N,K,n)\) & \(\frac{nK}{N}\) &
-        \(\frac{nK(N-K)(N-n)}{N^2(N-1)}\) \\
-        均匀分布\(U(a,b)\) & \(\frac{a+b}{2}\) & \(\frac{(b-a)^2}{12}\) \\
-        指数分布\(E(\lambda)\) & \(\frac{1}{\lambda}\) &
-        \(\frac{1}{\lambda^2}\) \\
-        正态分布\(N(\mu,\sigma^2)\) & \(\mu\) & \(\sigma^2\) \\
-        卡方分布\(C(n)\) & \(n\) & \(2n\) \\
-        \hline
-    \end{tabular}
-\end{table}
+数学期望本质是一种加权平均。
+% TODO: 定义（一般 离散 高维连续）
+%todo：线性性
+% 期望的另一个计算方法
+
+\begin{theorem}{佚名统计学家公式}
+
+\end{theorem}
+% todo：简单证明
+% TODO:例子：保险行业 s核算检验德军坦克 cha最大值的期望
+\subsubsection{二元正态分布最大值的期望}
+期望和方差的很多题目用性质\underline{注意力}可以优雅干脆的解决，如果注意力不集中，力大砖飞的计算也没有问题。
+
+\begin{problem}{二元正态分布最大值的期望}
+    设\(X\)和\(Y\)是标准正态分布随机变量，相关系数为\(\rho\)，
+    求证:\[E\max(X,Y)= \sqrt{\frac{1-\rho}{\pi}}\]。
+\end{problem}
+
+\begin{quote}
+    准备好了吗孩子们？
+\end{quote}
+
+\begin{proof}
+    联合分布密度函数为：\[
+        p(x,y) = \frac{1}{2\pi\sqrt{1-\rho^2}}
+        \exp\left(-\frac{1}{2(1-\rho^2)}(x^2 - 2\rho xy + y^2)\right)
+    \]
+    \begin{align*}
+        &\placeholder{=} E\max(X,Y)\\
+        &= \iint\limits_{x>y} x\cdot p(x,y)
+        \d{x}\d{y} + \iint\limits_{y\geq x} y\cdot p(x,y) \d{x}\d{y}\\
+        &= \int_{-\infty}^{\infty } \int_{y}^{\infty } x
+        p(x,y) \d{x} \d{y} + \int_{-\infty}^{\infty }
+        \int_{x}^{\infty } y p(x,y) \d{y} \d{x}\\
+        &= 2\int_{-\infty}^{\infty } xp(x,y) \d{x} \\
+        &= \frac{1}{\pi \sqrt{1-\rho^{2}}}
+        \underbrace{\int_{-\infty}^{+\infty} \int_{y}^{+\infty} x
+            \exp\left( -\frac{1}{2(1-\rho^{2})}(x^{2} - 2\rho
+        xy + y^{2}) \right) \d{x} \d{y}}_{I}
+    \end{align*}
+    记\(c = \sqrt{2(1-\rho^{2})}\)
+    \begin{align*}
+        I &= \e^{-\frac{y^{2}}{2}}\int_{y}^{+\infty} x \exp\left(
+        -\frac{1}{2(1-\rho^{2})}(x -\rho y)^{2} \right) \d{x}\\
+        & \xlongequal{ct = x-\rho y} \e^{-\frac{y^{2}}{2}}
+        \underbrace{\int_{\frac{(1-\rho) y}{c}}^{\infty } t
+        \e^{-t^{2}}  \d{t}}_{I_{1}} + \e^{-\frac{y^{2}}{2}} \rho y
+        c \underbrace{\int_{\frac{(1-\rho)y}{c}}^{\infty}
+        \e^{-t}  \d{t}}_{I_{2}}
+    \end{align*}
+    \begin{align*}
+        I_{1} &= \frac{1}{2}
+        \int_{\frac{(1-\rho)y}{c}}^{\infty } \e^{-t^{2}}
+        \d{t^{2}} = \frac{1}{2} \e^{-\frac{1-\rho}{2(1+\rho)}y^{2}}\\
+        I_{2} &= \frac{\sqrt{\pi}}{2} \erfc\left(
+        \sqrt{\frac{1-\rho}{2(1+\rho)}}y \right)\\
+        I &= \left( 1-\rho^{2}
+        \right)\e^{-\frac{y^{2}}{1+\rho}} + \rho y
+        \e^{-\frac{y^{2}}{2}}
+        \sqrt{\frac{\pi}{2}\left( 1-\rho^{2} \right)}
+        \erfc\left( \sqrt{\frac{1-\rho}{2(1+\rho)}}y \right)
+    \end{align*}
+    \begin{align*}
+        &\placeholder{=} E\max(X,Y) \\
+        &= \left( 1-\rho^{2} \right)
+        \underbrace{\int_{-\infty }^{\infty}
+        \e^{-\frac{y^{2}}{1+\rho}} \d{y}}_{J_{1}} + \rho
+        \sqrt{\frac{\pi}{2}\left( 1-\rho^{2} \right)}
+        \underbrace{\int_{-\infty }^{\infty } y\e^{-\frac{y^{2}}{2}}
+            \erfc\left( \sqrt{\frac{1-\rho}{2(1+\rho)}}y
+        \right) \d{y}}_{J_{2}}
+    \end{align*}
+    \[
+        J_{1} \xlongequal{t=\frac{y}{\sqrt{1+\rho}}}
+        (1+\rho)\underbrace{\int_{-\infty }^{\infty }
+        \e^{-t^{2}}\d{t}}_{\text{Gaussian Integral}}=
+        \sqrt{\pi(1+\rho)}
+    \]
+    \begin{align*}
+        J_{2} &= \int_{-\infty}^{\infty }
+        y\e^{-\frac{y^{2}}{2}} \left( 1-\erf\left(
+        \sqrt{\frac{1-\rho}{2(1+\rho)}}y \right) \right) \d{y}\\
+        &= 0+ 2\int_{0}^{\infty } \erf\left(
+        \sqrt{\frac{1-\rho}{2(1+\rho)}}y \right)
+        \d{\e^{-\frac{y^{2}}{2}} }\\
+        &= \left. 2\e^{-\frac{y^{2}}{2}} \erf\left(
+        \sqrt{\frac{1-\rho}{2(1+\rho)}}y \right)
+        \right|_{0}^{\infty} - \frac{2}{\sqrt{\pi}} \int_{0}^{\infty }
+        \e^{-\frac{y^{2}}{2}}
+        \sqrt{\frac{1-\rho}{2(1+\rho)}}
+        \e^{-\frac{1-\rho}{2(1+\rho)}y^{2}} \d{y}\\
+        &= -\frac{4}{\sqrt{\pi}}
+        \sqrt{\frac{1-\rho}{2(1+\rho)}} \int_{0}^{\infty}
+        \e^{-\frac{y^{2}}{1+\rho}}  \d{y}\\
+        &= -\sqrt{2(1-\rho)}
+    \end{align*}
+    \[
+        E\max(X,Y) = \frac{1}{\pi\left( 1-\rho^{2} \right)}
+        \left[ \left( 1-\rho^{2} \right)J_{1} +
+            \rho\sqrt{\frac{\pi}{2}\left( 1-\rho^{2}
+        \right)}J_{2} \right] = \sqrt{\frac{1-\rho}{\pi}}
+    \]
+\end{proof}
+% todo：报童问题与不完全伽玛函数
+\section{方差、相关系数、矩}
+\subsection{方差}
+为了描述随机变量的离散程度，一个符合直觉的度量应该是平均绝对偏差：
+\[
+    \frac{1}{n} \sum_{i=1}^{n} \abs{x_i - \mu}
+\]
+但其在数学上并不方便处理。于是引入方差：
+\[
+    \sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2
+\]
+% 定义
+% 性质：
+% TODO: This looks ugly
+% \begin{table}[H]
+%     \centering
+%     \begin{tabular}{c|c|c}
+%         \hline
+%         分布 & 数学期望 & 方差\\
+%         \hline
+%         二项分布\(B(n,p)\) & \(np\) & \(np(1-p)\) \\
+%         泊松分布\(P(\lambda)\) & \(\lambda\) & \(\lambda\) \\
+%         几何分布\(G(p)\) & \(\frac{1}{p}\) & \(\frac{1-p}{p^2}\) \\
+%         超几何分布\(H(N,K,n)\) & \(\frac{nK}{N}\) &
+%         \(\frac{nK(N-K)(N-n)}{N^2(N-1)}\) \\
+%         均匀分布\(U(a,b)\) & \(\frac{a+b}{2}\) &
+% \(\frac{(b-a)^2}{12}\) \\
+%         指数分布\(E(\lambda)\) & \(\frac{1}{\lambda}\) &
+%         \(\frac{1}{\lambda^2}\) \\
+%         正态分布\(N(\mu,\sigma^2)\) & \(\mu\) & \(\sigma^2\) \\
+%         卡方分布\(C(n)\) & \(n\) & \(2n\) \\
+%         均匀分布\(U(0,1)\) & \(\frac{1}{2}\) &
+%         \(\frac{1}{12}\) \\
+%         \hline
+%     \end{tabular}
+% \end{table}
+% 归一化和归一公式
+\subsection{相关系数}
+相关系数描述两个随机变量之间的线性关系。
+% 各种性质
+\subsubsection{相关与独立}
+% 随机向量空间
+\subsubsection{计算例子}
+% 超几何分布与错排问题的期望与方差计算（和直接计算）
+% 实用例子：噪声信号模型，投资模型
+\subsection{矩}
+% 杆的转动惯量与均匀分布的方差的关系
+% 为什么要定义矩
+% 性质
+% 分位数的定义
+% P276 35
+\section{母函数}
+母函数是概率分布的又一种刻画方法。一个母函数完全确定一个概率分布。
+\begin{definition}{母函数}
+    若随机变量\(\xi\) 取非负整数值，且相应的分布列为\(\{p_k\}_{k=0}^{\infty}\)，则称
+    \[
+        P(s) = \sum_{k=0}^{\infty} p_k s^{k}
+    \]
+    为\(\xi\)的母函数。
+\end{definition}
+
+母函数只是一个形式幂级数，它所能解决的问题实在和幂级数本身收敛与否关系不大。既然如此，回想复变函数中学过的洛朗级数，
+我们为何不能大胆一点，直接使用双边的幂级数\(\sum_{n=-\infty}^{\infty} p_{k}s^{k}
+\) ，对所有离散随机变量给出定义呢？
+
+\begin{definition}{双边Z变换}
+    双边Z变换把离散时域信号\(x[n]\)转为形式幂级数\(X(z)\)：
+    \[
+        X(z) = \mathcal{Z}\{x[n]\} =\sum_{n=-\infty}^{\infty}
+        x[n] z^{-n}
+    \]
+\end{definition}
+
+\begin{note}{生成函数与Z变换的关系}
+    他俩其实是一个东西。
+
+    单边Z变换是双边Z变换的一个特例，与母函数相比完全只相差\(z\) 的幂的系数。但相较而言，
+    Z变换常出现于信号与系统，作为Laplace变换的离散时域对应，而生成函数常用于概率论和组合数学里，作为随机变量分布的刻画工具。
+
+    因此，组合数学中用到的很多奇技淫巧例题实际上都可以用Z变换的性质来给出母函数版本的对应。
+\end{note}
+
+\subsection{生成函数的性质}
+% （骰子、二项分布逼近波松）
+
+\begin{description}
+    \item[线性性] \(P\left\{ a x_{n}+b y_{n} \right\} = a
+        P\{x_{n}\} + b P\{y_{n}\}\)
+    \item[平移] \(P\{x_{n+k}\} = \frac{1}{s^{k}}
+            \left( X(s) -
+        (x_{0} +\dots +x_{k-1}s^{k-1} ) \right)\)
+    \item[前向差分] \(P\{\Delta x_{n}\} = \frac{1}{s} \left(
+        X(s)-x_{0} \right)- X(s)\)
+    \item[缩放] \(P\{a^{n} x_{n}\} = X(as)\)
+    \item[微分] \(P\{n x_{n}\} = s(X'(s))\)
+    \item[卷积] \(P\{x_{n}y_{n}\} = X(s)Y(s)\)
+\end{description}
+% \footnote{均对应自\href{https://zh.wikipedia.org/wiki/Z%E8%BD%89%E6%8F%9B#%E5%B8%B8%E8%A7%81%E7%9A%84Z%E5%8F%98%E6%8D%A2%E5%AF%B9%E8%A1%A8}{Z变换的性质}}
+% TODO: 降采样怎么对应？
+\subsection{生成函数表}
+
+% \begin{table}[H]
+%     \centering
+%     \begin{tabular}{|c|c|c|}
+%         \hline
+%         分布 & 生成函数 \\
+%         \hline
+%         二项分布\(B(n,p)\) & \((1-p + ps)^{n}\) \\
+%         泊松分布\(P(\lambda)\) & \(\exp(\lambda(s-1))\) \\
+%         几何分布\(G(p)\) & \(\frac{ps}{1-(1-p)s}\) \\
+%         超几何分布\(H(N,K,n)\) &
+% \(\frac{(1-s)^{N-K}(1-s)^{n}}{(1-s)^{N}}\) \\
+%         指数分布\(E(\lambda)\) &
+% \(\frac{\lambda}{\lambda - s}\) \\
+%         正态分布\(N(\mu,\sigma^2)\) & \(\exp\left(\mu s +
+%         \frac{\sigma^2 s^{2}}{2}\right)\) \\
+%         \hline
+%     \end{tabular}
+% \end{table}

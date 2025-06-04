@@ -21,19 +21,28 @@
 \subsection{离散型随机变量}
 % 伯努利试验
 % 二项分布、超几何分布的简单介绍（严谨化 P181 25）
-\subsubsection{几何分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
-记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
-\[
-    \P{\zeta=k} = (1-p)^{k-1} p, \quad k=1,2,\ldots
-\]
+\subsubsection{几何分布}
+
+\begin{definition}{几何分布}
+    在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
+    记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
+    \[
+        \P{\zeta=k} = (1-p)^{k-1} p, \quad k=1,2,\ldots
+    \]
+\end{definition}
+
 % 几何分布的无记忆性
 
-\subsubsection{帕斯卡分布} 在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
-次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从帕斯卡分布：
-\[
-    \P{\zeta=k} = \binom{k-1}{r-1} p^r
-    (1-p)^{k-r}, \quad k=r,r+1,\ldots
-\]
+\subsubsection{帕斯卡分布}
+
+\begin{definition}{帕斯卡分布}
+    在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
+    次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从帕斯卡分布：
+    \[
+        \P{\zeta=k} = \binom{k-1}{r-1} p^r
+        (1-p)^{k-r}, \quad k=r,r+1,\ldots
+    \]
+\end{definition}
 
 % TODO：负二项分布？有什么用？
 
@@ -75,8 +84,16 @@
 考虑在一小时内把时间划分为\(n\) 份进行伯努利试验，并期望得到\(\lambda\)次试验结果。那么随着\(n
 \to \infty\)，得到结果次数\(k\) 服从的二项分布将逐渐逼近泊松分布。这就是泊松分布的意义。
 
-\subsubsection{Erlang分布} Erlang分布是帕斯卡分布的连续型版本。若\(\xi(t)\)
-是参数为\(\lambda t\) 的泊松过程，以\(W_{t}\) 记第\(r\) 个跳跃发生的时刻。
+\subsubsection{Erlang分布} Erlang分布是帕斯卡分布的连续型版本。
+\begin{definition}{Erlang分布}
+    若\(\xi(t)\) 是参数为\(\lambda t\) 的泊松过程，以\(W_{t}\) 记第\(r\) 个跳跃发生的时刻。
+    则随机变量\(W_{t}\) 服从Erlang分布，其概率密度函数为：
+    \[
+        p(t) = \frac{\lambda^{r}}{(r-1)!} \lambda t^{r-1}
+        \e^{-\lambda t},
+        \quad t>0
+    \]
+\end{definition}
 
 Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系类似，记\(\tau_{r}\) 是泊松过程第\(r\)
 个跳跃的发生间隔，则\(\tau_{r}\) 相互独立且满足指数分布，且：
@@ -99,7 +116,8 @@ Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系�
 记：
 \begin{align*}
     I_{0}(t) &= 1\\
-    I_{r+1}(t) &= \int_{0}^{t} I_{r}(t-x) \lambda \e^{-\lambda x} \d{x}
+    I_{r+1}(t) &= \int_{0}^{t} I_{r}(t-x) \lambda
+    \e^{-\lambda x} \d{x}
     \end{align*}
 则：\(\P{W_{r}<t} = I_{r}(t)\)
 
@@ -172,11 +190,14 @@ Erlang分布的概率密度函数为：
 
 \subsubsection{对数正态分布}
 % TODO: The relationship Chi-square distribution and Chi-Square Test
-若\(\xi\sim N(\mu,\sigma^{2})\), 则\(\eta=\e^{\xi} \) 服从对数正态分布：
-\[
-    q(y) = \frac{1}{\sqrt{2\pi}\sigma y}
-    \e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}},\quad y>0
-\]
+
+\begin{definition}{对数正态分布}
+    若\(\xi\sim N(\mu,\sigma^{2})\), 则\(\eta=\e^{\xi} \) 服从对数正态分布：
+    \[
+        q(y) = \frac{1}{\sqrt{2\pi}\sigma y}
+        \e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}},\quad y>0
+    \]
+\end{definition}
 
 对数正态分布在对自然现象的描述中非常重要。许多自然增长过程是由许多小的百分比变化累积驱动的，
 这些变化在以对数尺度为基准时是可加的。在适当的正则条件下，这些累积变化的结果分布将越来越接近对数正态分布。
@@ -194,13 +215,16 @@ Erlang分布的概率密度函数为：
 
 \subsubsection{\(\chi^{2}\) 分布}
 % TODO: Add the definition of Chi-square distribution
-如果独立随机变量\(\xi_{1}, \dots ,\xi_{n}\) 服从标准正态分布\(N(0,1)\)，
-则随机变量\(\eta = \xi_{1}^{2} + \xi_{2}^{2} + \cdots +
-\xi_{n}^{2}\) 服从\(\chi^{2}\) 分布，其概率密度函数为：
-\[
-    p(x) = \frac{1}{2^{n/2} \gammfunc{\frac{n}{2}}} x^{\frac{n}{2}-1}
-    \e^{-\frac{x}{2}}, \quad x>0
-\]
+\begin{definition}{\(\chi^{2}\) 分布}
+    如果独立随机变量\(\xi_{1}, \dots ,\xi_{n}\) 服从标准正态分布\(N(0,1)\)，
+    则随机变量\(\eta = \xi_{1}^{2} + \xi_{2}^{2} + \cdots +
+    \xi_{n}^{2}\) 服从\(\chi^{2}\) 分布，其概率密度函数为：
+    \[
+        p(x) = \frac{1}{2^{n/2} \gamma{\frac{n}{2}}}
+        x^{\frac{n}{2}-1}
+        \e^{-\frac{x}{2}}, \quad x>0
+        \]
+\end{definition}
 
 接下来我们用两种方法推导\(\chi^{2}\) 分布的概率密度函数：
 \paragraph{方法一：}
@@ -254,20 +278,20 @@ Jacobi行列式为：
     \betafunc{\frac{1}{2}}{\frac{n-2}{2}} \cdots
     \betafunc{\frac{1}{2}}{\frac{1}{2}}\\
     &=
-    \frac{\gammfunc{\dfrac{1}{2}}
-    \cancel{\gammfunc{\frac{n-1}{2}}}}{\gammfunc{\dfrac{n}{2}}} \cdot
-    \frac{\gammfunc{\dfrac{1}{2}}
-    \cancel{\gammfunc{\frac{n-2}{2}}}}{\cancel{\gammfunc{\dfrac{n-1}{2}}}}
+    \frac{\gammafunc{\dfrac{1}{2}}
+    \cancel{\gammafunc{\frac{n-1}{2}}}}{\gammafunc{\dfrac{n}{2}}} \cdot
+    \frac{\gammafunc{\dfrac{1}{2}}
+    \cancel{\gammafunc{\frac{n-2}{2}}}}{\cancel{\gammafunc{\dfrac{n-1}{2}}}}
     \cdots
-    \frac{\gammfunc{\dfrac{1}{2}}
-    \cancel{\gammfunc{\frac{1}{2}}}}{\cancel{\gammfunc{\dfrac{1}{2}}}}\\
-    &= \frac{\sqrt{\pi}^{n-1} }{\gammfunc{\dfrac{n}{2}}}
+    \frac{\gammafunc{\dfrac{1}{2}}
+    \cancel{\gammafunc{\frac{1}{2}}}}{\cancel{\gammafunc{\dfrac{1}{2}}}}\\
+    &= \frac{\sqrt{\pi}^{n-1} }{\gammafunc{\dfrac{n}{2}}}
 \end{align*}
 于是概率密度函数为：
 \begin{align*}
     p(y) &= \frac{2\pi}{\sqrt{2\pi}^{n}} r^{n-1} \e^{-\frac{r^{2}}{2}}
-    \cdot \frac{\sqrt{\pi}^{n-1} }{\gammfunc{\dfrac{n}{2}}}\\
-    &= \frac{1}{2^{n/2} \gammfunc{\dfrac{n}{2}}}
+    \cdot \frac{\sqrt{\pi}^{n-1} }{\gammafunc{\dfrac{n}{2}}}\\
+    &= \frac{1}{2^{n/2} \gammafunc{\dfrac{n}{2}}}
     y^{\frac{n}{2}-1} \e^{-\frac{y}{2}}, \quad y>0
 \end{align*}
 
@@ -281,12 +305,12 @@ Jacobi行列式为：
 \[
     F(+\infty) = C_{n} \int_{0}^{+\infty} r^{n-1}
     \e^{-\frac{r^{2}}{2}} \d{r} = C_{n} \cdot \sqrt{2}^{n}
-    \gammfunc{\frac{n}{2}} = 1
+    \gammafunc{\frac{n}{2}} = 1
 \]
 故：
 \begin{align*}
-    C_{n} &= \frac{1}{\sqrt{2}^{n} \gammfunc{\frac{n}{2}}}\\
-    p(y) &= \frac{1}{2^{n/2} \gammfunc{\frac{n}{2}}} y^{\frac{n}{2}-1}
+    C_{n} &= \frac{1}{\sqrt{2}^{n} \gammafunc{\frac{n}{2}}}\\
+    p(y) &= \frac{1}{2^{n/2} \gammafunc{\frac{n}{2}}} y^{\frac{n}{2}-1}
     \e^{-\frac{y}{2}}
 \end{align*}
 
@@ -303,7 +327,7 @@ Jacobi行列式为：
 \]
 故
 \[p(x) = \invL{\frac{1}{(2s+1)^{\frac{n}{2}}}}=
-    \frac{1}{2^{n/2} \gammfunc{\dfrac{n}{2}}}
+    \frac{1}{2^{n/2} \gammafunc{\dfrac{n}{2}}}
 x^{\frac{n}{2}-1} \e^{-\frac{x}{2}}\]
 
 \paragraph{\(\chi^{2}\) 检测与\(\chi^{2}\) 分布的关系}
