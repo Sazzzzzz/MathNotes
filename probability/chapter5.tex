@@ -1,0 +1,67 @@
+% !TeX root = main.tex
+\chapter{极限定理}
+\section{伯努利试验场合的极限定理}
+兜兜转转，我们又回到起点：
+\begin{quote}
+    为什么频率接近概率？
+\end{quote}
+
+如果记\(\mu_{n}\) 为\(n\)次独立同分布的伯努利试验中成功的频数，那这个问题等同于\(\mu_{n}/n\)
+为何逼近概率\(p\)，也即\textbf{大数定律}。
+
+实际上，我们不仅仅满足于频率接近概率这一事实，我们更希望知道频率如何接近概率。如果我们能量化这种收敛的速度，
+就能为频率对概率的估计提供更精确的界限，也就是\textbf{中心极限定理}。
+
+\subsection{伯努利大数定律}
+\begin{theorem}[che]{切比雪夫大数定律}
+    设\(\xi_{1}, \xi_2, \dots ,\xi_{n},\dots \) 是一串两两不相关的随机变量构成的序列，
+    每一个随机变量都有有限的方差，且具有公共上届\(C\)，则对任意\(\varepsilon>0\)，都有：
+    \[
+        \lim_{n \to \infty} \P{\abs{\frac{1}{n} \sum_{k=1}^{n} \xi_{k} -
+        \frac{1}{n} \sum_{k=1}^{n} E\xi_{k}} < \varepsilon} = 1
+    \]
+\end{theorem}
+
+\begin{proof}
+    因为\(\{\xi_{k}\}\) 两两不相关，则\[
+        D\left( \frac{1}{n} \sum_{k=1}^{n} \xi_{k} \right) =
+        \frac{1}{n^2} \sum_{k=1}^{n} D(\xi_{k}) \leq \frac{C}{n}
+    \]
+    由切比雪夫不等式得到：
+    \[
+        1 \geq \P{\abs{\frac{1}{n} \sum_{k=1}^{n} \xi_{k} -
+        \frac{1}{n} \sum_{k=1}^{n} E\xi_{k}} \leq  \varepsilon} \geq
+        1- \frac{C}{n\varepsilon^2}
+    \]
+    % TODO： Fix reference here
+    当\(n\to \infty\) 就有\cref{theorem:che}
+\end{proof}
+
+实际上只要\(\frac{1}{n^{2}} \sum_{k=1}^{n} D\xi_{k} \to 0\)，无需随机变量独立，
+该命题就成立。这被称为\textbf{马尔可夫大数定律}。
+
+\begin{theorem}{伯努利大数定律}
+    设\(\mu_{n}\) 是\(n\) 次伯努利试验中事件\(A\) 出现的次数，\(p\) 是事件\(A\) 的概率，
+    则对任意\(\varepsilon>0\)，都有：
+    \[
+        \lim_{n \to \infty} \P{\abs{ \frac{\mu_{n}}{n} - p} < \varepsilon} = 1
+    \]
+\end{theorem}
+
+\begin{theorem}{泊松大数定律}
+    在独立试验序列中，事件\(A\) 在第\(K\) 次试验出现的概率为\(p_{k}\)，记\(\mu_{n}\)为事件\(A\)
+    在前\(n\) 次试验中出现的次数，则对任意\(\varepsilon>0\)，都有：
+    \[
+        \lim_{n \to \infty} \P{\abs{\mu_{n} - \frac{p_{1}+p_{2}+\dots
+        +p_{n}}{n}} < \varepsilon} = 1
+    \]
+\end{theorem}
+
+\begin{quote}
+    伯努利大数定律建立了在大量重复独立试验中事件出现概率的稳定性，正是这种稳定性，概率的概念才有客观意义。
+\end{quote}
+
+% \section{拉普拉斯极限定理}
+% 内容，其等价于mu/n -p ~ N(0,pq/n)
+% 证明部分细节，如何估计二项分布的最大值，斯特林定理，泰勒展开
+% 用处：硬币的公正性，概率的概率，置信区间与置信度，估算二项分布
