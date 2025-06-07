@@ -1,15 +1,12 @@
 [project]
-name = "code-demos"
+name = "lights-out-problem"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "galois>=0.4.6",
-    "jupyter>=1.1.1",
     "numpy>=2.2.6",
-    "pyside6>=6.9.0",
-    "scipy>=1.15.3",
-    "sympy>=1.14.0",
+    "pyside6>=6.9.1",
     "wolframclient>=1.4.0",
 ]
