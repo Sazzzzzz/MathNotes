@@ -4,6 +4,8 @@
 
 这是一个数学笔记仓库！记录了笔者~~重学~~学习数学过程中遇到的有趣数学内容，包括~~试图推倒数学大厦~~、重学线性代数的深度感触`:-o`等等等等～
 
+同时这也是一个代码库`:-D` 在 [`code_demos`](code_demos) 目录下，有一些用`Python`/`Mathematica` 编写的分立项目，大部分是数学问题的代码示例，人畜无害～ ~~*（小部分则另有他用:-o）*~~
+
 目前数学笔记约每周更新一次，包括*实变函数学习笔记*、*线性代数学习笔记*等等，大部分笔记可以在[releases](https://github.com/Sazzzzzz/MathNotes/releases)中直接下载编译完成的PDF版本。*~~（一些见不得人的笔记可以自己编译）~~*
 
 ### 行动派指南
@@ -11,10 +13,12 @@
 **Prequisites**
 
 + `make`
-+ `LaTeX`
++ `LaTeX` 环境
 
-本仓库的数学笔记均使用 $\mathrm{\LaTeX}$ 编写，使用`makefile`编译。在确保安装`make`与相应`LaTeX`环境后，直接在命令行中输入`make some_notes` (for example `make real_analysis`)即可编译完成，具体的使用方法可用`make help`查看。
+本仓库的数学笔记均使用 $\mathrm{\LaTeX}$ 编写，使用`makefile`编译。在确保安装`make`与相应 $\mathrm{\LaTeX}$ 环境后，直接在命令行中输入`make some_notes` (for example `make real_analysis`)即可编译完成，具体的使用方法可用`make help`查看。
 编译完成后，PDF文件会在`build`目录下生成。
+
+[`code_demos`](code_demos)的配置可见于[`code_demo/README.md`](code_demos/README.md)。
 
 > [!NOTE]
 >
@@ -73,7 +77,7 @@
 
 ### 那为什么还要做笔记？
 
-本仓库的原目的，是记录笔者在学习数学分析中所有课后习题的解答（可见于`[deprecated]`文件夹）。后来作者发现这样的项目工作量很大，并且已经有成熟的替代品，大多数也是机械的工作，并无意义。
+本仓库的原目的，是记录笔者在学习数学分析中所有课后习题的解答（可见于[`[deprecated]`]([deprecated]/)文件夹）。后来作者发现这样的项目工作量很大，并且已经有成熟的替代品，大多数也是机械的工作，并无意义。
 
 本仓库现今的目的，不是单纯为了记录书上已有的定理或者结论，而是记录那些在学习过程中作者发现的有趣的数学内容，主要作为书上内容的补充。正如简介所言：“Mathematical pebbles gathered during learning” 。本仓库的一大目的，是为了抵抗遗忘。可能另一目的，在于给抽象的数学学习，留一些思考的形式化证明吧。
 
