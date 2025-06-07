@@ -4,7 +4,7 @@
 
 这是一个数学笔记仓库！记录了笔者~~重学~~学习数学过程中遇到的有趣数学内容，包括~~试图推倒数学大厦~~、重学线性代数的深度感触`:-o`等等等等～
 
-同时这也是一个代码库`:-D` 在 [`code_demos`](code_demos) 目录下，有一些用`Python`/`Mathematica` 编写的分立项目，大部分是数学问题的代码示例，人畜无害～ ~~*（小部分则另有他用:-o）*~~
+同时这也是一个代码库`:-D` 在 [`code_demos`](code_demos) 目录下，有一些用`Python`/`Mathematica`编写的分立项目，大部分是数学问题的代码示例，人畜无害～ ~~*（小部分则另有他用:-o）*~~
 
 目前数学笔记约每周更新一次，包括*实变函数学习笔记*、*线性代数学习笔记*等等，大部分笔记可以在[releases](https://github.com/Sazzzzzz/MathNotes/releases)中直接下载编译完成的PDF版本。*~~（一些见不得人的笔记可以自己编译）~~*
 
@@ -33,7 +33,7 @@
 
 ### 许可证
 
-仓库中的数学笔记使用[Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc]进行许可。
+仓库中的所有内容使用[Creative Commons Attribution-NonCommercial 4.0 International License][cc-by-nc]进行许可。
 
 [![CC BY-NC 4.0][cc-by-nc-image]][cc-by-nc]
 
