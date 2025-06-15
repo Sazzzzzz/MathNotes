@@ -1,11 +1,9 @@
-*.pdf
 *_temp/
 test*.*
 test*/
 build/
-develop_reference/
+reference/
 .DS_Store
-/test
 .release_date
 node_modules/
 __pycache__/

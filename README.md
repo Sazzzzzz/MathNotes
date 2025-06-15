@@ -2,9 +2,9 @@
 
 ## True README
 
-这是一个数学笔记仓库！记录了笔者~~重学~~学习数学过程中遇到的有趣数学内容，包括~~试图推倒数学大厦~~、重学线性代数的深度感触`:-o`等等等等～
+这是一个数学笔记仓库！记录了笔者~~重学~~学习数学过程中遇到的有趣数学内容，包括~~试图推倒数学大厦~~、重学线性代数的深度感触`:-o`等等等等～ 笔记全部存储在[`notes`](notes)目录下
 
-同时这也是一个代码库`:-D` 在 [`code_demos`](code_demos) 目录下，有一些用`Python`/`Mathematica`编写的分立项目，大部分是数学问题的代码示例，人畜无害～ ~~*（小部分则另有他用:-o）*~~
+同时这也是一个代码库`:-D` 在 [`demos`](demos) 目录下，有一些用`Python`/`Mathematica`编写的分立项目，是笔者在学习数学过程中遇到的有趣问题的代码实现。
 
 目前数学笔记约每周更新一次，包括*实变函数学习笔记*、*线性代数学习笔记*等等，大部分笔记可以在[releases](https://github.com/Sazzzzzz/MathNotes/releases)中直接下载编译完成的PDF版本。*~~（一些见不得人的笔记可以自己编译）~~*
 
@@ -18,14 +18,14 @@
 本仓库的数学笔记均使用 $\mathrm{\LaTeX}$ 编写，使用`makefile`编译。在确保安装`make`与相应 $\mathrm{\LaTeX}$ 环境后，直接在命令行中输入`make some_notes` (for example `make real_analysis`)即可编译完成，具体的使用方法可用`make help`查看。
 编译完成后，PDF文件会在`build`目录下生成。
 
-[`code_demos`](code_demos)的配置可见于[`code_demo/README.md`](code_demos/README.md)。
+[`demos`](demos)的配置可见于[`demos/README.md`](demos/README.md)。
 
 > [!NOTE]
 >
-> 为了加速编译，笔记所有的图片均预先转换为同名PDF文件，存放在每个笔记的`resource` 目录下。在编译前请务必用`imagemagick`或其他工具将图片转换为PDF格式，VSCode用户可对文件使用存储在`.vscode`目录下的`Convert Image to PDF`任务进行转换。
+> 为了加速编译，笔记所有的图片均预先转换为同名PDF文件，存放在每个笔记的`resource` 目录下。若发生编译错误，请务必用`imagemagick`或其他工具将图片转换为PDF格式，VSCode用户可对文件使用存储在`.vscode`目录下的`Convert Image to PDF`任务进行转换。
 
 > [!CAUTION]
-> `make github-release` 相关命令是作者方便推送 ~~（图省事加的）~~ 制作的，使用大概率会报错，小概率可能会直接把仓库推送到GitHub上，请谨慎使用。
+> `make github-release` 相关命令是作者方便推送 ~~（图省事加的）~~ 制作的，使用大概率会报错，小概率可能会直接把代码推送到GitHub同名仓库上，请谨慎使用。
 
 ### 提建议/意见
 

@@ -33,51 +33,70 @@ ifeq ($(OS),Windows_NT)
 			  if exist $(OUTPUT_DIR)\*.toc del /Q $(OUTPUT_DIR)\*.toc & \
 			  if exist $(OUTPUT_DIR)\*.bbl del /Q $(OUTPUT_DIR)\*.bbl & \
 			  if exist $(OUTPUT_DIR)\*.blg del /Q $(OUTPUT_DIR)\*.blg & \
+			  if exist $(OUTPUT_DIR)\*.bcf del /Q $(OUTPUT_DIR)\*.bcf & \
+			  if exist $(OUTPUT_DIR)\*.run.xml del /Q $(OUTPUT_DIR)\*.run.xml & \
 			  if exist $(OUTPUT_DIR)\main.pdf del /Q $(OUTPUT_DIR)\main.pdf
 	RM_PDF = if exist $(OUTPUT_DIR)\*.pdf del /Q $(OUTPUT_DIR)\*.pdf
 	PATH_SEP = \\
 	LIST_CMD = @for %%p in ($(PROJECTS)) do @echo - %%p
+	LIST_ALL_CMD = @for %%p in ($(ALL_PROJECTS)) do @echo - %%p
 else
 	# macOS/Unix settings
 	MKDIR = mkdir -p $(OUTPUT_DIR)
 	COPY = cp $(OUTPUT_DIR)/main.pdf $(OUTPUT_DIR)/$*.pdf
 	RM_TEMP = rm -f $(OUTPUT_DIR)/*.aux $(OUTPUT_DIR)/*.log $(OUTPUT_DIR)/*.out \
 			  $(OUTPUT_DIR)/*.toc $(OUTPUT_DIR)/*.bbl $(OUTPUT_DIR)/*.blg \
-			  $(OUTPUT_DIR)/main.pdf
+			  $(OUTPUT_DIR)/*.bcf $(OUTPUT_DIR)/*.run.xml $(OUTPUT_DIR)/main.pdf
 	RM_PDF = rm -f $(OUTPUT_DIR)/*.pdf
 	PATH_SEP = /
 	LIST_CMD = @for p in $(PROJECTS); do echo "- $$p"; done
+	LIST_ALL_CMD = @for p in $(ALL_PROJECTS); do echo "- $$p"; done
 endif
 
-# Default project list
+# Directory structure
+NOTES_DIR = notes
+
+# All available projects (can be built individually)
+ALL_PROJECTS = linear_algebra real_analysis geometry probability mathematical_analysis optimization_method math_formulas
+
+# Default subset for 'make all' and releases (mature/stable projects)
 PROJECTS = linear_algebra real_analysis geometry probability
 
 # Output directory
 OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes_build
 
-.PHONY: all clean-all clean-temp list $(PROJECTS) sync merge release tag-release github-release help
+.PHONY: all build-all clean-all clean-temp list list-all $(ALL_PROJECTS) sync merge release tag-release github-release help
 
 # Make help the default target if no target is specified
 .DEFAULT_GOAL := help
 
 all: $(PROJECTS)
 
-$(PROJECTS): %: $(OUTPUT_DIR)/%.pdf
+build-all: $(ALL_PROJECTS)
+
+$(ALL_PROJECTS): %: $(OUTPUT_DIR)/%.pdf
 	@$(MAKE) clean-temp
 
-$(OUTPUT_DIR)/%.pdf: %/main.tex header.tex
+$(OUTPUT_DIR)/%.pdf: $(NOTES_DIR)/%/main.tex $(NOTES_DIR)/header.tex
 	$(call colorecho,$(BLUE),Building $* PDF...)
 	@$(MKDIR)
-	@cd $* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../$(OUTPUT_DIR) main.tex
-	@cd $* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../$(OUTPUT_DIR) main.tex
+	@cd $(NOTES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(NOTES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
 	@$(COPY)
 	$(call colorecho,$(GREEN),$* PDF built successfully!)
 
 list:
-	$(call colorecho,$(CYAN),Available projects:)
+	$(call colorecho,$(CYAN),Default LaTeX projects (built by 'make all'):)
 	$(LIST_CMD)
-	$(call colorecho,$(CYAN),Use 'make' to build all projects)
+	$(call colorecho,$(CYAN),Use 'make' to build default projects)
+	$(call colorecho,$(CYAN),Use 'make PROJECT' to build a specific project)
+	$(call colorecho,$(CYAN),Use 'make list-all' to see all available projects)
+
+list-all:
+	$(call colorecho,$(CYAN),All available LaTeX projects:)
+	$(LIST_ALL_CMD)
+	$(call colorecho,$(CYAN),Use 'make build-all' to build all projects)
 	$(call colorecho,$(CYAN),Use 'make PROJECT' to build a specific project)
 
 clean-temp:
@@ -140,9 +159,11 @@ help:
 	$(call colorecho,$(CYAN),MathNotes LaTeX Build System)
 	$(call colorecho,$(CYAN),============================)
 	$(call colorecho,$(WHITE),Main commands:)
-	$(call colorecho,$(GREEN),  make               - Build all PDF documents)
+	$(call colorecho,$(GREEN),  make               - Build default PDF documents)
+	$(call colorecho,$(GREEN),  make build-all     - Build all available PDF documents)
 	$(call colorecho,$(GREEN),  make [project]     - Build specific project PDF)
-	$(call colorecho,$(GREEN),  make list          - Show available projects)
+	$(call colorecho,$(GREEN),  make list          - Show default projects)
+	$(call colorecho,$(GREEN),  make list-all      - Show all available projects)
 	$(call colorecho,$(GREEN),  make clean-temp    - Remove temporary files)
 	$(call colorecho,$(GREEN),  make clean-all     - Remove all generated files)
 	$(call colorecho,$(WHITE),Sync commands:)

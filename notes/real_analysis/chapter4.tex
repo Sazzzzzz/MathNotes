@@ -1,0 +1,21 @@
+% !TeX root = main.tex
+\chapter{可测函数}
+\section{Egorov定理}
+\begin{theorem}{Egorov定理}
+    设\(mE< \infty \)，\(\left\{ f_{n} \right\}\) 是\(E\)
+    上一列\(\ae\) 收敛于一个\(\ae\) 有限的可测函数，则对于任意的\(\delta > 0\)，存在一个可测集\(E_{\delta}
+    \subset E\)，
+    使得\(m(E \setminus E_{\delta}) < \delta\)，并且在\(E_{\delta}\)上，\(\left\{ f_{n}
+    \right\}\)一致收敛于该函数。
+\end{theorem}
+
+\subsection{为什么Egorov定理重要？}
+% TODO: 一致收敛和逐点收敛的两次表述
+% 积分当中的用途，数分反例的解决
+\subsection{Egorov定理的证明}
+用\(E\setminus E_{0}\) 代替\(E\) 。
+\(f_{n}\to f\)在\(E\setminus E_{0}\)上几乎处处收敛，应有：\[
+    \E{\lim_{n \to \infty} \left( f_{n}-f \right) \neq 0}
+    = \bigcup_{k=1}^{\infty} \bigcap_{N=1}^{\infty}
+    \bigcup_{n=N}^{\infty} \E{\abs{f_{n}-f} \geq \frac{1}{k}}.
+\]
