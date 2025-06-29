@@ -75,6 +75,7 @@
 
 \subsection{连续型随机变量}
 % 伯努利试验推导泊松分布（直观+公式）
+% 截断泊松分布与不完全gamma积分
 % 指数分布的直观推导与无记忆性 指数分布最小值也是指数分布
 % Erlang分布的推导和指数分布的推导过来
 % Erlang分布严谨化对比 习题8
@@ -208,7 +209,7 @@ Erlang分布的概率密度函数为：
     \caption{地壳中元素浓度的对数分布图}
     \label{fig:lognormal}
 \end{figure}\footnote{使用Mathematica绘制，源代码可见
-\href{https://github.com/Sazzzzzz/MathNotes/blob/main/code_demos/log_normal_dist_demo.nb}{\texttt{MathNotes/code_demos/log_normal_dist_demo.nb}}}
+\href{https://github.com/Sazzzzzz/MathNotes/main/demos/log_normal_dist_demo.nb}{\texttt{MathNotes/code_demos/log_normal_dist_demo.nb}}}
 % TODO: Fix the graph
 更多对数正态分布的应用可见
 \href{https://en.wikipedia.org/wiki/Log-normal_distribution#Occurrence_and_applications}{Wikipedia}
@@ -220,7 +221,7 @@ Erlang分布的概率密度函数为：
     则随机变量\(\eta = \xi_{1}^{2} + \xi_{2}^{2} + \cdots +
     \xi_{n}^{2}\) 服从\(\chi^{2}\) 分布，其概率密度函数为：
     \[
-        p(x) = \frac{1}{2^{n/2} \gamma{\frac{n}{2}}}
+        p(x) = \frac{1}{2^{n/2} \Gamma\left( \frac{n}{2} \right)}
         x^{\frac{n}{2}-1}
         \e^{-\frac{x}{2}}, \quad x>0
         \]
@@ -389,7 +390,6 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
 % 正态分布的性质
 
 \subsubsection{正态分布的导出}
-% 正态分布在等概率椭圆内的积分
 二元正态分布的条件分布、边际分布都是正态分布。
 二元正态分布两变量相互独立当且仅当\(\rho=0\)
 

@@ -25,7 +25,7 @@
 > 为了加速编译，笔记所有的图片均预先转换为同名PDF文件，存放在每个笔记的`resource` 目录下。若发生编译错误，请务必用`imagemagick`或其他工具将图片转换为PDF格式，VSCode用户可对文件使用存储在`.vscode`目录下的`Convert Image to PDF`任务进行转换。
 
 > [!CAUTION]
-> `make github-release` 相关命令是作者方便推送 ~~（图省事加的）~~ 制作的，使用大概率会报错，小概率可能会直接把代码推送到GitHub同名仓库上，请谨慎使用。
+> `make github-release` 相关命令是作者方便推送 ~~（图省事加的）~~ 制作的，使用大概率会报错，小概率可能会直接把代码推送到GitHub同名仓库上，请谨慎使用 ~~*（Or just don't use them at all :P）*~~。
 
 ### 提建议/意见
 
