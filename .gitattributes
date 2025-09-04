@@ -1,2 +1,11 @@
 *.png binary
-# *.nb binary
+*.pdf binary
+*.nb linguist-language=Mathematica
+*.py linguist-language=Python
+demos/ linguist-vendored=false
+# Ensure LaTeX files are properly detected
+*.tex linguist-language=TeX
+# Mark reference materials as documentation
+reference/ linguist-documentation=true
+# Mark build artifacts as generated
+build/ linguist-generated=true
