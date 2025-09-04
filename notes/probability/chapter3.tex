@@ -21,6 +21,42 @@
 \subsection{离散型随机变量}
 % 伯努利试验
 % 二项分布、超几何分布的简单介绍（严谨化 P181 25）
+
+\subsubsection{二项分布}
+\begin{definition}{二项分布}
+    在成功的概率为\(p\) 的伯努利试验中，若以\(\xi\) 记进行\(n\)
+    次试验后成功次数为随机变量\(\xi\)，则\(\xi\) 服从二项分布：
+    \[
+        \P{\xi=k} = \binom{n}{k} p^{k} (1-p)^{n-k}, \quad k=0,1,\ldots,n
+    \]
+\end{definition}
+
+\paragraph{二项分布的最大值}
+
+\[
+    \frac{\P{\xi=k+1}}{\P{\xi=k}} = \frac{\binom{n}{k+1} p^{k+1}
+    q^{n-k-1}}{\binom{n}{k} p^{k} q^{n-k}} =
+    \frac{(n-k)}{(k+1)} \cdot \frac{p}{q}
+\]
+故\(\P{\xi=k}\) 在\(k=pn-q\)附近取得最大值。
+考虑Stirling公式：
+\begin{align*}
+    \max_{k} \P{\xi=k} &= \frac{n!}{k!(n-k)!} p^{k} (1-p)^{n-k} \\
+    &\sim \frac{\sqrt{2\pi n} \left( \frac{n}{e} \right)^{n}}
+    {\sqrt{2\pi k} \left( \frac{k}{e} \right)^{k}
+    \sqrt{2\pi (n-k)} \left( \frac{n-k}{e} \right)^{n-k}} p^{k}q^{n-k}  \\
+    &= \frac{1}{\sqrt{2\pi}} \sqrt{\frac{n}{k(n-k)}} \cdot
+    \frac{p^{pn-q} q^{q(n+1)} n^{n} }{(pn-q)^{pn-q}(q(n+1))^{q(n+1)}} \\
+    &= \frac{1}{\sqrt{2\pi}} \sqrt{\frac{n}{k(n-k)}} \cdot
+    \frac{1}{(1+\frac{1}{n})^{q(n+1)}(1-\frac{q}{pn})^{pn-q}} \\
+    &\sim \frac{1}{2\pi} \frac{1}{\sqrt{npq}} \frac{1}{\e^{-q} \e^{q}
+    } = \frac{1}{\sqrt{2\pi npq}}
+\end{align*}
+
+从而：\[
+    \max_{k} \P{\xi=k} \sim \frac{1}{\sqrt{2\pi npq}}
+\]
+
 \subsubsection{几何分布}
 
 \begin{definition}{几何分布}
