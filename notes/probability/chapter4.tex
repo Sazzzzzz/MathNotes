@@ -171,7 +171,7 @@
 
 \paragraph{方差的无偏估计}
 
-当我们已知样本\(x_1, x_2, \ldots, x_n\) ，试估计总体方差\(\sigma^2\)时，自然会想到目前的样本方差：
+当我们已知从总体中抽选出的样本\(x_1, x_2, \ldots, x_n\) ，试估计总体方差\(\sigma^2\)时，自然会想到目前的样本方差：
 \[
     \hat{\sigma}^{2}= \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2
 \]
@@ -181,7 +181,8 @@
     \bar{x})^2 \right)\\
     &= \frac{1}{n} \sum_{i=1}^{n} E\left( x_i^2 - 2x_i\bar{x} +
     \bar{x}^2 \right)\\
-    &= \frac{1}{n} \left( n\sigma^2 - 2\mu\bar{\mu} + n\bar{\mu}^2 \right)\\
+    % TODO: 这里的计算有点问题
+    &= \frac{1}{n} \left( n\sigma^2 - 2n\mu\bar{\mu} + n\bar{\mu}^2 \right)\\
     &= \frac{n-1}{n} \sigma^2
 \end{align*}
 于是只需要将样本方差乘以\(\frac{n}{n-1}\)即可得到无偏估计（\textbf{Bessel 修正}）：

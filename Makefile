@@ -11,7 +11,7 @@ OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes
 
 # Project definitions
-ALL_PROJECTS = linear_algebra real_analysis geometry probability mathematical_analysis optimization_method math_formulas
+ALL_PROJECTS = linear_algebra real_analysis geometry probability mathematical_analysis optimization_method math_formulas mathematical_physics_equations
 PROJECTS = linear_algebra real_analysis geometry probability
 
 # Color definitions for terminal output

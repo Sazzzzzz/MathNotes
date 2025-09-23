@@ -1,0 +1,51 @@
+% ！TEX root = main.tex
+\chapter{Banach Spaces}
+\section{Normed Spaces}
+
+% fix notation and $$ to \[ \]
+\begin{definition}
+    设$X$是一个线性空间，$\|\cdot\|:X\to [0,+\infty)$是一个映射，如果对任意$x,y\in X$和标量$\alpha$，都有
+    \begin{enumerate}
+        \item $\|x\|=0 \Leftrightarrow x=0$;
+        \item $\|\alpha x\|=|\alpha|\|x\|$;
+        \item $\|x+y\|\leq \|x\|+\|y\|$;
+    \end{enumerate}
+    则称$\|\cdot\|$为$X$上的一个范数，$(X,\|\cdot\|)$称为一个赋范空间（normed space）。
+\end{definition}
+
+通过范数我们可以定义度量：
+
+\begin{definition}{范数诱导出的度量}
+    设$(X,\|\cdot\|)$是一个赋范空间，定义$d:X\times X\to [0,+\infty)$为
+    \[
+        d(x,y)=\|x-y\|
+    \]
+    则$d$是$X$上的一个度量，$(X,d)$是一个度量空间。
+\end{definition}
+
+故赋范线性空间必然是度量空间。
+
+这样定义出来的度量具有平移不变性：\[
+    d(x+z,y+z)=d(x,y)
+\]
+
+一般的度量空间并不定义在线性空间上，所以度量空间是比赋范空间更一般的概念。即使是定义在线性空间上的度量，也不一定是由范数诱导出来的。
+考虑离散度量\(d(x,y)\) ：
+\[
+    d(x,y)=
+    \begin{cases}
+        0 & x=y\\
+        1 & x\neq y
+    \end{cases}
+\]
+
+考虑范数\( \|x\| = d(x,0)\)：则：
+\[
+    \|2\| = d(2,0) = 1 \neq 2 d(1,0) = 2 \|1\|=2
+\]
+
+一般的，度量空间由范数诱导当且仅当：
+\begin{itemize}
+    \item 度量具有平移不变性：\(d(x+z,y+z)=d(x,y)\)；
+    \item 度量具有齐次性：\(d(\alpha x, \alpha y) = |\alpha| d(x,y)\)。
+\end{itemize}
