@@ -1,0 +1,64 @@
+\documentclass{ctexart}
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{geometry}
+\geometry{a4paper, scale=0.8}
+\usepackage{breqn}
+% Some may argue that the use of displaystyle in inline formulas may
+% break line spacing and make the document look ugly. However, I
+% prefer to follow the choice of the textbook setting
+\everymath{\displaystyle}
+
+\begin{document}
+
+\paragraph{1}
+\subparagraph{Sufficiency}
+\(f \in C[0,1] \implies \left\| f \right\|_{\infty } = \max_{x \in
+[0,1]} |f(x)|\)
+
+Since \(\left\| f \right\|_{\infty} \geq \left\| f \right\|_{0}\). When
+\(a \in [0,1]\)，\(\left\| f \right\| = \left\| f \right\|_{0}\)
+
+\begin{enumerate}
+    \item \(\left\| f \right\|_{0} = \int_{0}^{1} a\abs{f(x)} dx
+        \geq 0\) and \(\left\| f \right\|_{0} = 0 \iff f = 0\) a.e.
+        Since \(f\) is continuous, \(\left\| f \right\|_{0} = 0 \iff f = 0\).
+    \item For any scalar \(\lambda\), \(\left\| \lambda f \right\|_{0} =
+            \int_{0}^{1} \abs{\lambda a f(x)} dx = \abs{\lambda a}
+            \int_{0}^{1} \abs{f(x)} dx = \abs{\lambda a} \left\| f
+        \right\|_{0}\).
+    \item Triangle inequality: \(\left\| f + g \right\|_{0} =
+            \int_{0}^{1} \abs{a(f(x) + g(x))} dx \leq
+            \int_{0}^{1} \abs{af(x)} + \abs{ag(x)} dx = \left\| f
+        \right\|_{0} + \left\| g \right\|_{0}\).
+
+\end{enumerate}
+
+\subparagraph{Necessity}
+
+When \(a > 1\) , consider the following function:
+\begin{align*}
+    f(x) &=
+    \begin{cases}
+        -2ax + 2, & x \in \left[ 0, \frac{1}{a} \right] \\
+        0, & \text{otherwise}
+    \end{cases} \\
+    g(x) &=
+    \begin{cases}
+        1, & x \in \left[1, 2\left( 1-\frac{1}{a} \right)\right) \\
+        \frac{a}{2(a-1)}(x-1), & x \in \left[ 1-\frac{1}{a}, 1 \right] \\
+        0, & \text{otherwise}
+    \end{cases}
+\end{align*}
+
+Then:
+\begin{align*}
+    \left\| f \right\|_{\infty} &= 2 &\quad \left\| f \right\|_{0} =
+    1 &\implies \left\| f \right\| = 1\\
+    \left\| g \right\|_{\infty} &= 1 &\quad \left\| g \right\|_{0} =
+    a &\implies \left\| g \right\| = 1\\
+    \left\| f + g \right\|_{\infty} &= 3 &\quad \left\| f + g
+    \right\|_{0} = 2 &\implies \left\| f + g \right\| = \min \{1+a,3\} > 2
+\end{align*}
+\end{document}
