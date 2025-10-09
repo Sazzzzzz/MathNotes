@@ -1,0 +1,43 @@
+\documentclass{ctexart}
+\input{../../header_art.tex}
+\usepackage{geometry}
+\geometry{a4paper, scale=0.8}
+
+% DISABLE_SMART_IME
+
+\begin{document}
+
+\paragraph{1}
+
+Since all polynomials are continuous, the two norms degrade to:
+\begin{align*}
+    \left\| \cdot \right\|_{\infty } &= \max_{x \in [0,1]} |p(x)| \\
+    \left\| \cdot \right\|_{1} &= \int_{0}^{1} |p(x)| \d{x}
+\end{align*}
+
+Consider \(f_{n}(x) = x^{n}\):
+\begin{align*}
+    \left\| f_{n} \right\|_{\infty } &= \max_{x \in [0,1]} |x^{n}| = 1 \\
+    \left\| f_{n} \right\|_{1} &= \int_{0}^{1} |x^{n}|\d{x} = \frac{1}{n+1}
+\end{align*}
+
+There does not exist \(c > 0\) such that \(\left\| f_{n}
+    \right\|_{\infty } = 1 \leq c \left\| f_{n} \right\|_{1} =
+\frac{c}{n+1} \) for all \(n\).
+
+\paragraph{2}
+\begin{itemize}
+    \item \(\left\| x \right\|_{W} = \left\| Tx \right\|_{E} \geq 0\)
+    \item \(\left\| x \right\|_{W} \iff \left\| Tx \right\|_{E} = 0
+        \iff Tx = 0 \iff x = 0\)
+    \item \(\left\| \alpha x \right\|_{W} = \left\| T(\alpha x)
+            \right\|_{E} = \left\| \alpha Tx \right\|_{E} = |\alpha|
+        \left\| Tx \right\|_{E} = |\alpha| \left\| x \right\|_{W}\)
+    \item \(\left\| x + y \right\|_{W} = \left\| T(x + y)
+            \right\|_{E} = \left\| Tx + Ty \right\|_{E} \leq
+            \left\| Tx \right\|_{E} + \left\| Ty \right\|_{E} =
+        \left\| x \right\|_{W} + \left\| y \right\|_{W}\)
+\end{itemize}
+
+Thus \(\left\| \cdot \right\|_{W}\) is a norm on \(W\).
+\end{document}
