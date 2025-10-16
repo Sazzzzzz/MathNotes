@@ -1,0 +1,201 @@
+%!TEX root = main.tex
+\chapter{内积空间}
+\section{内积与范数}
+
+自然的，定义范数时，我们考虑\(\R^{n} \) 中的长度：\[
+    \abs{x} = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
+\]
+为使该定义在复数域上有定义，我们将平方改为模的平方：
+\begin{align*}
+    \abs{x} &= \sqrt{\abs{x_1}^2 + \abs{x_2}^2 + \cdots + \abs{x_n}^2}
+    &= \sqrt{x_1 \conj{x_1} + x_2 \conj{x_2} + \cdots + x_n
+    \conj{x_n}}
+\end{align*}
+
+于是我们如此定义内积：
+\begin{definition}{内积}
+    设\(V\)为域\(\F\)上的线性空间，则称映射
+    \[
+        \inner{\cdot}{\cdot} : V \times V \to \F
+    \]
+    为\(V\)上的一个\textbf{内积}，如果对任意\(x,y,z \in V, a \in \F\)，满足：
+    \begin{itemize}
+        \item (正定性) \(\inner{x}{x} \geq 0\)，且当且仅当\(x = 0\)时取等号
+        \item (第一个位置的线性性) \(\inner{ax + y}{z} = a\inner{x}{z} + \inner{y}{z}\)
+        \item (共轭对称性) \(\inner{x}{y} = \conj{\inner{y}{x}}\)
+    \end{itemize}
+\end{definition}
+
+这样得到的内积称为厄米特内积(Hermitian inner product)，共轭对称性可导出\[
+    \inner{x}{\lambda y} = \conj{\lambda} \inner{x}{y}
+\]
+
+\begin{definition}{范数}
+    \[
+        \norm{x} = \sqrt{\inner{x}{x}}
+    \]
+\end{definition}
+
+\begin{theorem}{勾股定理}
+    \(\norm{u}^{2} + \norm{v}^{2} = \norm{u+v}^{2} \iff \inner{u}{v} = 0\)
+\end{theorem}
+
+考虑向量\(u\) 在向量\(v\) 上的正交分解：
+设\(u = cv + (u-cv)\) ，则由正交应有：
+\begin{align*}
+    0 &= \inner{u-cv}{v} = \inner{u}{v} - c\norm{v}^{2} \\
+    c &= \frac{\inner{u}{v}}{\norm{v}^{2}}
+\end{align*}
+故\[
+    u = \frac{\inner{u}{v}}{\norm{v}^{2}} v + \left(u -
+    \frac{\inner{u}{v}}{\norm{v}^{2}} v\right)
+\]
+
+对于任意\(u\) ，\(v\) ，由勾股定理：
+\begin{align*}
+    \norm{u}^{2} &= \norm{u - \frac{\inner{u}{v}}{\norm{v}^{2}} v}^{2} +
+    \norm{\frac{\inner{u}{v}}{\norm{v}^{2}} v}^{2} \\
+    &\geq \frac{\abs{\inner{u}{v}}^{2}}{\norm{v}^{2}}
+\end{align*}
+
+也就是柯西不等式：
+\begin{theorem}{柯西不等式}
+    \(\abs{\inner{u}{v}} \leq \norm{u} \norm{v}\)
+\end{theorem}
+
+\begin{corollary}{}
+    \textbf{平行四边形法则}： \(\norm{u + v}^{2} + \norm{u - v}^{2} = 2\norm{u}^{2} +
+    2\norm{v}^{2}\)
+
+    实数域中满足极化恒等式：\(\inner{u}{v} = \frac{1}{4}(\norm{u+v}^{2} -
+    \norm{u-v}^{2})\)
+
+    但复数域中我们有
+    \begin{align*}
+        \inner{u}{v} + \conj{\inner{u}{v}} &= \frac{1}{2}(\norm{u+v}^{2} -
+        \norm{u-v}^{2}) \\
+        \inner{u}{\i v} + \conj{\inner{u}{\i v}} &=
+        \frac{1}{2}(\norm{u+\i v}^{2} -
+        \norm{u-\i v}^{2})
+    \end{align*}
+    从而：
+    \[
+        \inner{u}{v} = \frac{1}{4}(\norm{u+v}^{2} - \norm{u-v}^{2}) -
+        \frac{\i}{4}(\norm{u+\i v}^{2} - \norm{u-\i v}^{2})
+    \]
+\end{corollary}
+
+\section{规范正交基}
+
+\begin{definition}{规范正交组与规范正交基}
+    设\(V\)为域\(\F\)上的线性空间，\(\{e_1, e_2, \cdots, e_m\}\)为\(V\)的一组向量，
+    如果对任意\(i\)，\(j\) ，有：
+    \[
+        \inner{e_i}{e_j} =
+        \begin{cases}
+            1 & i = j \\
+            0 & i \neq j
+        \end{cases}
+    \]
+    则称该组向量为\(V\)上的一组\textbf{规范正交组}，如果该组向量还是\(V\)的一组基，
+    则称该组向量为\(V\)上的一组\textbf{规范正交基}。
+\end{definition}
+
+由于任意一组线性无关向量都可以扩充为一组基，故任何一个规范向量组也能扩充为一组规范正交基。
+
+\begin{corollary}
+    设\(\{e_1, e_2, \cdots, e_m\}\)为\(V\)上的一组规范正交组，则：\[
+        \norm{a_1 e_1 + a_2 e_2 + \cdots + a_m e_m}^{2} =
+        \abs{a_1}^{2} + \abs{a_2}^{2} + \cdots + \abs{a_m}^{2}
+    \]
+\end{corollary}
+
+\begin{theorem}{Bessel不等式}
+    设\(\{e_1, e_2, \cdots, e_m\}\)为\(V\)上的一组规范正交组，则对任意\(v \in V\)，有：
+    \[
+        \norm{v}^{2} \geq \abs{\inner{v}{e_1}}^{2} +
+        \abs{\inner{v}{e_2}}^{2} + \cdots + \abs{\inner{v}{e_m}}^{2}
+    \]
+    等号成立的充分必要条件是\(v\)在\(e_1, e_2, \cdots, e_m\)张成的子空间中。
+\end{theorem}
+
+\begin{proof}
+    设\(u = \inner{v}{e_1} e_1 + \inner{v}{e_2} e_2 + \cdots +
+    \inner{v}{e_m} e_m\)，对于任意\(e_{k}\)，有\(\inner{v-u}{e_k} = 0\)，
+    故\[
+        \inner{v-u}{u} = 0
+    \]
+    则由勾股定理：
+    \[
+        \norm{v}^{2} = \norm{v-u}^{2} + \norm{u}^{2} \geq
+        \norm{u}^{2} = \abs{\inner{v}{e_1}}^{2} +
+        \abs{\inner{v}{e_2}}^{2} + \cdots + \abs{\inner{v}{e_m}}^{2}
+    \]
+    等号成立的充分必要条件是\(v-u = 0\)，即\(v\)在\(e_1, e_2, \cdots, e_m\)张成的子空间中。
+\end{proof}
+
+\begin{corollary}{向量的规范正交基表示}
+    设\(\{e_1, e_2, \cdots, e_n\}\)为\(V\)的一组规范正交基，则对任意\(v \in V\)，有
+    \begin{itemize}
+        \item \(v = \inner{v}{e_1} e_1 + \inner{v}{e_2} e_2 + \cdots +
+            \inner{v}{e_n} e_n\)
+        \item \(\norm{v}^{2} = \abs{\inner{v}{e_1}}^{2} +
+            \abs{\inner{v}{e_2}} ^{2} + \cdots + \abs{\inner{v}{e_n}}^{2}\)
+        \item \(\inner{u}{v} = \inner{u}{e_1} \conj{\inner{v}{e_1}} +
+                \inner{u}{e_2} \conj{\inner{v}{e_2}} + \cdots + \inner{u}{e_n}
+            \conj{\inner{v}{e_n}}\) （Parseval 恒等式）
+    \end{itemize}
+\end{corollary}
+
+这里出现的Parseval恒等式与Bessel不等式与傅立叶级数中的Parseval恒等式与Bessel不等式是类似的。
+\begin{note}{}
+    \(f\) 的傅立叶级数展开系数有Bessel不等式：
+    \[
+        \frac{a_{0}^{2}}{2} + \sum_{n=1}^{\infty} (a_n^2 + b_n^2) \leq
+        \frac{1}{\pi} \int_{-\pi}^{\pi} f (x)^{2} \d{x}
+    \]
+    若\(f\) 的傅立叶级数一致收敛于\(f\)，则等号成立。（Parseval恒等式）
+\end{note}
+
+\begin{theorem}{Gram-Schimidt 正交化}
+    设\(V\)为域\(\F\)上的线性空间，\(\{v_1, v_2, \cdots, v_n\}\)为\(V\)的一组线性无关向量，
+    令\(f_{1}= v_{1}\)，\(f_{k}\) 依次定义为：
+    \[
+        f_k = v_k - \sum_{i=1}^{k-1} \frac{\inner{v_k}{f_i}}{\norm{f_i}^{2}} f_i
+    \]
+    再令\(e_k = \frac{f_k}{\norm{f_k}}\)，则\(\{e_1, e_2, \cdots,
+    e_n\}\)为\(V\)的一组规范正交组。
+    \[
+        \Span(v_1, v_2, \cdots, v_k) = \Span(e_1, e_2, \cdots, e_k)
+    \]
+\end{theorem}
+
+Gram-Schimidt 正交化过程是对新向量反复移除旧向量在其上的分量的过程。
+
+\begin{proof}
+    用数学归纳法证明，\(k=1\)时显然成立，假设对\(j\leq k\)时成立，则：
+    \begin{align*}
+        \inner{e_{k}}{e_{j}} &= \frac{1}{\norm{f_k} \norm{f_j}}
+        \inner{f_k}{f_j} \\
+        &= \frac{1}{\norm{f_k} \norm{f_j}} \inner{v_k -
+        \sum_{i=1}^{k-1} \frac{\inner{v_k}{f_i}}{\norm{f_i}^{2}} f_i}{f_j} \\
+        &= \frac{1}{\norm{f_k} \norm{f_j}} \left(
+        \inner{v_{k}}{f_{j}} - \inner{v_{k}}{f_{j}} \right) \\
+        &= 0
+    \end{align*}
+    故\(\{e_1, e_2, \cdots, e_n\}\)为\(V\)的一组规范正交组。又由于该组与原向量组维数相同，
+    故该组为\(V\)的一组规范正交基。
+\end{proof}
+
+% todo: 舒尔定理
+
+\subsection{内积空间上的线性泛函}
+
+\begin{theorem}{Rietz表示定理}
+    设\(V\)为域\(\F\)上的内积空间，则对任意线性泛函\(f \in V'\)，存在唯一的向量\(y \in V\)，
+    使得对任意\(x \in V\)，有：
+    \[
+        f(x) = \inner{x}{y}
+    \]
+    即映射\(y \mapsto f\)为从\(V\)到\(V'\)的共轭线性同构。
+\end{theorem}

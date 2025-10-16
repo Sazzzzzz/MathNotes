@@ -143,6 +143,7 @@
 % COLORS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{myclaimcolor}{RGB}{56, 140, 70}
+\definecolor{mycorollarycolor}{RGB}{56, 140, 70}
 \definecolor{mynotecolor}{RGB}{56, 140, 70}
 \definecolor{mytheoremcolor}{RGB}{0,102,204}
 \definecolor{mydefinitioncolor}{RGB}{235, 105,12}
@@ -150,6 +151,7 @@
 \definecolor{mycitecolor}{RGB}{0, 102, 204}
 \definecolor{myproblemcolor}{RGB}{255,128,0}
 \definecolor{mydoccolor}{RGB}{141,64,13}
+\definecolor{myexamplecolor}{RGB}{56, 102, 204}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TABLE OF CONTENTS
@@ -346,6 +348,34 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 
 %================================
+% COROLLARY BOX
+%================================
+\newtcbtheorem[number within=chapter]{Corollary}{Corollary}
+{%
+    enhanced
+    ,breakable
+    ,colback = mycorollarycolor!10
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{mycorollarycolor}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = mycorollarycolor!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, mycorollarycolor!85!black}
+}
+{corollary}
+
+\newenvironment{corollary}[2][]{%
+    \begin{Corollary}{#2}{#1}%
+    }{%
+    \end{Corollary}%
+}
+
+%================================
 % NOTE BOX
 %================================
 
@@ -373,6 +403,36 @@ within=chapter]{Definition}{Definition}{enhanced,
     }{%
     \end{Note}%
 }
+
+%================================
+% EXAMPLE BOX
+%================================
+
+\newtcbtheorem[number within=chapter]{Example}{Example}
+{%
+    enhanced
+    ,breakable
+    ,colback = myexamplecolor!10
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{myexamplecolor}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = myexamplecolor!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, myexamplecolor!85!black}
+}
+{example}
+
+\newenvironment{example}[2][]{%
+    \begin{Example}{#2}{#1}%
+    }{%
+    \end{Example}%
+}
+
 %================================
 % QUOTE BOX
 %================================

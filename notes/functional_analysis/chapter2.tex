@@ -50,3 +50,142 @@
     \item 度量具有平移不变性：\(d(x+z,y+z)=d(x,y)\)；
     \item 度量具有齐次性：\(d(\alpha x, \alpha y) = |\alpha| d(x,y)\)。
 \end{itemize}
+
+\section{Banach Spaces}
+
+\begin{definition}{Banach Space}
+    设\((X,\|\cdot\|)\)是一个赋范空间，若\(X\) 完备，即任意Cauchy列在\(X\) 中收敛，则称\(X\)
+    为一个Banach空间。
+\end{definition}
+
+\begin{example}{}
+    \begin{itemize}
+        \item 连续函数空间\(C[a,b]\) 不是Banach空间：连续函数的极限是可测函数（考虑\(f_{n}(x) =
+            x^{n}\) ），不一定是连续函数。
+        \item \(\ell_{p}\)，\(L_{p}[a,b]\) 是Banach空间。
+    \end{itemize}
+\end{example}
+
+\begin{theorem}{}
+    不存在可数维的Banach空间。
+\end{theorem}
+
+\begin{proof}
+    设\(E\) 是一个可数维的Banach空间，\(\{e_{i}\}_{i=1}^{\infty}\) 是\(E\) 的一组基。
+    记\(E_{n} = \Span\{e_{1},\ldots,e_{n}\}\) ，有：\[
+        E = \bigcup_{n=1}^{\infty} E_{n}
+    \]
+
+    由于\(E_{n}\) 是闭的子空间，由Baire纲定理，存在某个\(E_{n_{0}}\) ，使得\(E_{n_{0}}\) 有非空的内点：
+    \[
+        B(x_{0},r) \subset E_{n_{0}}
+    \]
+    从而：\[
+        E = \bigcup_{k=1}^{\infty} k B(x,r) \subset
+        \bigcup_{k=1}^{\infty} kE_{n_{0}} = E_{n_{0}}
+    \]
+    于是\(E = E_{n_{0}}\) ，与\(E\) 可数维矛盾。
+\end{proof}
+
+由此立刻可得：
+\begin{example}{}
+    \begin{itemize}
+        \item 多项式空间不是Banach空间。
+        \item
+            显然\(\left\{ 1, x, x^{2}, \ldots \right\}\) 是一个可数基。故多项式空间不是Banach空间。
+            考虑多项式列\[
+                P_{n}(x) = \sum_{k=0}^{n} \frac{x^{k}}{k!}
+            \]
+            有\(\lim_{n \to \infty} P_{n}(x) = \e^{x}\) ，不再是多项式。
+
+        \item \(c_{00}\) 不是Banach空间。
+
+            显然\(\left\{ e_{1}, e_{2}, \ldots \right\}\) 是一个可数基。
+            故\(c_{00}\) 不是Banach空间。
+            考虑序列列\[
+                x_{n} = \left(1, \frac{1}{2}, \ldots, \frac{1}{n}, 0,
+                0, \ldots \right)
+            \]
+            有\(\lim_{n \to \infty} x_{n} = \left( 1, \frac{1}{2},
+            \ldots  \right) \notin c_{0}\) ，不再是\(c_{00}\) 中的元素。
+    \end{itemize}
+\end{example}
+
+\begin{theorem}{}
+    Banach空间的闭子空间是Banach空间。
+\end{theorem}
+
+\begin{theorem}{}
+    有限维内积空间是Banach空间。
+\end{theorem}
+
+\begin{proof}
+    有限维内积空间同构于\((\R^{n} , \|\cdot\|_{2})\) ，而\((\R^{n} ,
+    \|\cdot\|_{2})\) 是Banach空间。
+\end{proof}
+
+另外，Banach空间保证所有的Cauchy列都收敛，但不保证所有序列都有收敛子列，也就是并非所有Banach空间都是紧的。
+考虑\(\ell_{2}\) 上的一个序列列：
+\[
+    x_{n} = (\underbrace{0,\ldots,0}_{n-1\text{个}} ,1,0,\ldots )
+\]
+则  \(\|x_{n}-x_{m}\|_{2} = \sqrt{2}\) ，所以该序列列没有收敛子列。
+
+\section{Separable Banach Spaces}
+\begin{definition}{可分空间}
+    设\(E\) 是一个度量空间，如果\(E\) 中存在一个可数子集\(A\) ，使得\(A\) 在\(E\) 中稠密，则称\(E\) 是一个可分空间。
+\end{definition}
+
+只要Banach空间\(E\) 中任意元素都可以用某个可数子集\(A\) 的元素来逼近，则该Banach空间是可分的。
+这部分常用的工具有：可变长的有限长有理数组是可数的。\[
+    \abs{\bigcup_{n=1}^{\infty} \mathbb{Q}^{n}} = \abs{\mathbb{N}
+    \times \mathbb{Q}} = \abs{\mathbb{N}}
+\]
+
+\begin{example}{}
+    \begin{itemize}
+        \item \(c_{0}\) 是可分的：考虑\(\left\{ (r_{1},\dots r_{N}, r_{0},
+            \dots ) \mid r_{0},\dots r_{N} \in \mathbb{Q} \right\}\)
+        \item \(\ell_{p}\) 是可分的：注意到\(\ell_{1} \subset \ell_{2}
+                \subset \cdots \subset \ell_{p} \subset \dots c_{0}
+            \subset \ell_{\infty}\)
+        \item \(L^{p}(a,b)\) 是可分的：\(\text{有理系数多项式} \to \text{连续函数}
+            \to f_{0} \to f\) 。其中\(f_{0}\) 为：\[
+                f_{0}(x) =
+                \begin{cases}
+                    f(x) & f(x) \leq n_{0}\\
+                    0 & f(x) > n_{0}
+                \end{cases}
+            \]
+            其中\(\mu(\left\{ t \in [a,b] \mid \abs{f(t)} > n_{0}
+            \right\})< \delta\) 。在这个意义下，\(f_{0}\) 与\(f\) 的距离小于\(\varepsilon\) 。
+        \item \(\ell_{\infty}\) 和 \(L^{\infty}(a,b)\) 是不可分的
+
+            证明不可分只需要证明空间中存在不可数子集，且子集中任意两点的距离都大于某个正数。
+            例如考虑\(\ell_{\infty}\) 中的子集\[
+                A = \{0,1\}^{\mathbb{N}} = \{ (a_{1},a_{2},\ldots)
+                \mid a_{i} = 0 \text{或} 1 \}
+            \]
+    \end{itemize}
+\end{example}
+
+\begin{definition}{Schauder Basis}
+    设\(X\) 是一个赋范空间，如果存在\(X\) 中的一个可数子集\(\{e_{i}\}_{i=1}^{\infty}\) ，
+    使得对于任意\(x \in X\) ，都存在唯一的一组标量\(\{x_{i}\}_{i=1}^{\infty}\) ，使得
+    \[
+        x = \sum_{i=1}^{\infty} x_{i} e_{i}
+    \]
+    则称\(\{e_{i}\}_{i=1}^{\infty}\) 为\(X\) 的Schauder基。
+\end{definition}
+
+\begin{theorem}{}
+    设\(X\) 是一个赋范空间，如果\(X\) 有Schauder基，则\(X\) 是可分的。
+\end{theorem}
+
+\begin{proof}
+    \[
+        A = \left\{ \sum_{i=1}^{N} r_{i} e_{i} \mid r_{i} \in
+        \mathbb{Q}, N \in \mathbb{N} \right\}
+    \]
+    则\(A\) 是\(X\) 的可数稠集。
+\end{proof}
