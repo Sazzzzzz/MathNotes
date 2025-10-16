@@ -11,8 +11,8 @@ OUTPUT_DIR = build
 SYNC_FOLDER = Sync:/Sync/MathNotes
 
 # Project definitions
-ALL_PROJECTS = linear_algebra real_analysis geometry probability mathematical_analysis optimization_method math_formulas mathematical_physics_equations
-PROJECTS = linear_algebra real_analysis geometry probability
+ALL_PROJECTS = linear_algebra real_analysis geometry probability mathematical_analysis optimization_method math_formulas mathematical_physics_equations functional_analysis
+PROJECTS = linear_algebra real_analysis geometry probability functional_analysis
 
 # Color definitions for terminal output
 COLORS = RED=\033[1;31m GREEN=\033[1;32m YELLOW=\033[1;33m BLUE=\033[1;34m PURPLE=\033[1;35m CYAN=\033[1;36m WHITE=\033[1;37m RESET=\033[0m
@@ -57,6 +57,9 @@ endif
 # Get all .tex files for a specific project
 get_tex_files = $(wildcard $(NOTES_DIR)/$(1)/*.tex)
 
+# Get all source files, excluding _temp directories
+ALL_SOURCE_FILES = $(shell find $(NOTES_DIR) -type d -name '*_temp' -prune -o -type f -print)
+
 # Create date tag for releases
 define create_date_tag
 	@if [ "$(OS)" = "Windows_NT" ]; then \
@@ -82,7 +85,7 @@ $(ALL_PROJECTS): %: $(OUTPUT_DIR)/%.pdf
 	@$(MAKE) clean-temp
 
 # PDF generation rule
-$(OUTPUT_DIR)/%.pdf: $(NOTES_DIR)/%/main.tex $(NOTES_DIR)/header.tex
+$(OUTPUT_DIR)/%.pdf: $(ALL_SOURCE_FILES)
 	$(call colorecho,$(BLUE),Building $* PDF...)
 	@$(MKDIR)
 	@cd $(NOTES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
@@ -91,7 +94,7 @@ $(OUTPUT_DIR)/%.pdf: $(NOTES_DIR)/%/main.tex $(NOTES_DIR)/header.tex
 	$(call colorecho,$(GREEN),$* PDF built successfully!)
 
 # Add dependencies for all .tex files in each project
-$(foreach proj,$(ALL_PROJECTS),$(eval $(OUTPUT_DIR)/$(proj).pdf: $(call get_tex_files,$(proj))))
+# $(foreach proj,$(ALL_PROJECTS),$(eval $(OUTPUT_DIR)/$(proj).pdf: $(call get_tex_files,$(proj))))
 
 # Information targets
 list:

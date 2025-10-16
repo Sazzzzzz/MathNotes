@@ -6,7 +6,7 @@
 
 同时这也是一个代码库`:-D` 在 [`demos`](demos) 目录下，有一些用`Python`/`Mathematica`编写的分立项目，是笔者在学习数学过程中遇到的有趣问题的代码实现。
 
-目前数学笔记约每周更新一次，包括*实变函数学习笔记*、*线性代数学习笔记*等等，大部分笔记可以在[releases](https://github.com/Sazzzzzz/MathNotes/releases)中直接下载编译完成的PDF版本。*~~（一些见不得人的笔记可以自己编译）~~*
+目前数学笔记约 ~~*每周更新一次*~~ 随缘更新，包括*实变函数学习笔记*、*线性代数学习笔记*等等，大部分笔记可以在[releases](https://github.com/Sazzzzzz/MathNotes/releases)中直接下载编译完成的PDF版本。*~~（一些见不得人的笔记可以自己编译）~~*
 
 ### 行动派指南
 
