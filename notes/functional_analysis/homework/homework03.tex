@@ -1,0 +1,102 @@
+\documentclass{ctexart}
+\input{../../header_art.tex}
+\usepackage{geometry}
+\geometry{a4paper, scale=0.8}
+
+% DISABLE_SMART_IME
+
+\begin{document}
+
+\paragraph{1}
+\subparagraph{(1) Counterexample}
+
+Let \(X = [1, \infty)\) be a complete metric space and define
+\(\varphi: [1, \infty) \to [1, \infty)\) by:
+\[
+    \varphi(x) = x + \frac{1}{x}
+\]
+
+No fixed point exists: If \(x = \varphi(x)\), then \(x = x +
+\frac{1}{x} \implies 0 = \frac{1}{x}\), which has no solution.
+
+The weakened contraction condition holds: For \(x \neq y\), by Mean
+Value Theorem, there exists \(c\) between \(x\) and \(y\) such that:
+\[
+    |\varphi(x) - \varphi(y)| = |\varphi'(c)||x-y| = \left(1 -
+    \frac{1}{c^2}\right)|x-y|
+\]
+
+Since \(c \in [1, \infty)\), we have \(0 < 1 - \frac{1}{c^2} < 1\), thus:
+\[
+    |\varphi(x) - \varphi(y)| < |x-y|
+\]
+
+\subparagraph{(2) Fixed Point Theorem for Compact Spaces}
+
+Let \((K, d)\) be a compact metric space and \(\varphi: K \to K\)
+satisfy \(d(\varphi(x), \varphi(y)) < d(x, y)\) for all \(x \neq y\).
+
+\textbf{Existence:} Define \(g: K \to \mathbb{R}\) by \(g(x) = d(x,
+\varphi(x))\). Since \(\varphi\) is continuous and \(d\) is
+continuous, \(g\) is continuous. By compactness, \(g\) attains its
+minimum at some \(x_0 \in K\).
+
+Suppose \(g(x_0) > 0\), then \(x_0 \neq \varphi(x_0)\). Consider:
+\[
+    g(\varphi(x_0)) = d(\varphi(x_0), \varphi(\varphi(x_0))) < d(x_0,
+    \varphi(x_0)) = g(x_0)
+\]
+
+This contradicts the minimality of \(g(x_0)\). Therefore \(g(x_0) =
+0\), implying \(x_0 = \varphi(x_0)\).
+
+\textbf{Uniqueness:} Suppose \(p, q\) are two fixed points with \(p
+\neq q\). Then:
+\[
+    d(p, q) = d(\varphi(p), \varphi(q)) < d(p, q)
+\]
+
+This is a contradiction. Therefore the fixed point is unique.
+
+\paragraph{2}
+\subparagraph{(\(\Rightarrow\)) Separability implies the decomposition}
+
+Assume \(V\) is separable with countable dense subset \(D = \{x_k
+\mid k \in \mathbb{N}\}\).
+
+Define \(V_n = \text{span}\{x_1, x_2, \ldots, x_n\}\). Each \(V_n\)
+is finite-dimensional and \(V_1 \subset V_2 \subset \cdots\).
+
+For any \(v \in V\) and \(\varepsilon > 0\), since \(D\) is dense,
+there exists \(x_k \in D\) with \(\left\| v - x_k \right\| <
+\varepsilon\). Since \(x_k \in V_k \subset \bigcup_{n=1}^{\infty}
+V_n\), we have \(v \in \overline{\bigcup_{n=1}^{\infty} V_n}\).
+
+\subparagraph{(\(\Leftarrow\)) The decomposition implies separability}
+
+Assume \(V = \overline{\bigcup_{n=1}^{\infty} V_n}\) where each
+\(V_n\) is finite-dimensional.
+
+Each finite-dimensional space \(V_n\) is separable: if \(\{e_1,
+\ldots, e_k\}\) is a basis for \(V_n\), then
+\[
+    D_n = \left\{ \sum_{i=1}^{k} q_i e_i \mid q_i \in \mathbb{Q} \right\}
+\]
+is a countable dense subset of \(V_n\).
+
+Define \(D = \bigcup_{n=1}^{\infty} D_n\). Since \(D\) is a countable
+union of countable sets, \(D\) is countable.
+
+For any \(v \in V\) and \(\varepsilon > 0\):
+\begin{itemize}
+    \item Since \(\bigcup V_n\) is dense in \(V\), there exists \(y
+        \in V_N\) for some \(N\) with \(\left\| v - y \right\| <
+        \frac{\varepsilon}{2}\).
+    \item Since \(D_N\) is dense in \(V_N\), there exists \(d \in
+        D_N\) with \(\left\| y - d \right\| < \frac{\varepsilon}{2}\).
+    \item By triangle inequality: \(\left\| v - d \right\| \leq
+        \left\| v - y \right\| + \left\| y - d \right\| < \varepsilon\).
+\end{itemize}
+
+Therefore \(D\) is dense in \(V\), so \(V\) is separable.
+\end{document}
