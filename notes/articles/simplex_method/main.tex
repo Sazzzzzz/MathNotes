@@ -1,27 +1,109 @@
-\documentclass{ctexart}
-\input{../header_art.tex}
-\title{无痛入门单纯形法}
-\author{}
+\documentclass{../mathnotes-art}
+\title{无痛入门单纯形法：如果你也被矩阵绕晕……}
 \begin{document}
-\maketitle
 
+\renewcommand{\c}{\mathbf{c}}
+\renewcommand{\b}{\mathbf{b}}
+\newcommand{\x}{\mathbf{x}}
+
+\maketitle
+\tableofcontents
 2025年3月26日，笔者入门单纯形法未遂，深感苦闷，遂作此篇。
 
-\section{这玩意TM有用吗？}
-哥们，高中写多少题了你也没问，现在问有没有用有必要吗？
-% TODO: Add delete line
+\section{这题我会}
 
-\section{从微积分开始}
+先来看一道基础例题：
+\begin{example}{}
+    在约束条件
+    \[
+        \begin{cases}
+            0 \leq x \leq 10 \\
+            0 \leq y \leq 10
+        \end{cases}
+    \]
+    下，求函数\(f(x,y) = 2x + y\) 的最大值。
+\end{example}
+% todo: 插入图形
 
-说实话，我们已经在微积分里干过不知道多少次求最大最小值的问题了。区区求线性函数的极值，我们上来就是一个求导（梯度）：
-\[
-    c = \nabla f =\left( \frac{\partial f}{\partial x_1},
-    \frac{\partial f}{\partial x_2} \right) = (2,1)
-\]
+其实我们已经在微积分里干过不知道多少次求最大最小值的问题了。区区求线性函数的极值，我们上来就是一个求导（梯度）：
+\begin{align*}
+    \c &= \nabla f =\left( \pdv{f}{x}, \pdv{f}{y} \right) = (2,1) \neq (0,0)\\
+    f &= \c^{\mathrm{T}} \x
+\end{align*}
 
-我们发现，非常函数线性函数的梯度总是常数值，这意味着求梯度使其等于零的做法是行不通的，
-函数在梯度方向上始终保持严格单调递增。所以我们要求最大值，实际上是求函数可行域在线性函数\(f\) 梯度方向最远能延伸到哪里。
+不难发现，非常函数线性函数的梯度总是常数值，这意味着求梯度使其等于零的做法是行不通的。
+函数在梯度方向上始终保持单调递增。所以我们要求最大值，实际上是求约束条件（或者说\textbf{可行域}）在线性函数\(f\)
+的梯度方向\(\c\) 上最远能延伸到哪里。
 
-用一点投影的语言，可行域内
+不难看出题上所给的约束条件其实是个正方形。我们在约束条件上随便找一点，比如\((0,0)\) ，看我们是否能沿着梯度方向走更远。
+\begin{itemize}
+    \item \(（f(x,y) = 2 x+y\)中\(x\) 前的系数是正的，那就把\(x\) 往大了走，最大能走到10；
+    \item \(y\) 前的系数也是正的，那就把\(y\) 往大了走，最大也能走到10。
+\end{itemize}
+所以起始点从\((0,0)\) 移动到了 \((10,10)\) ，此时函数值为\(f(10,10) = 30\) 。\(f(x,y)\)
+在约束条件下的最大值也就是30。
+
+Quite Easy Done！
+
+说实话，所谓单纯形法（以及课本上成坨的矩阵计算）其实本质上和这里做的事情是一样的，也是在约束条件上找一个点，然后看着系数，
+把能调大的系数调大\UseVerb{grin}
+
+\section{标准化}
+一般情况下的线性规划是由若干个等式条件和不等式条件构成的。但课本会把线性规划统一表示成如下形式：
+\begin{definition}{线性规划的标准形式}
+    线性规划问题的标准形式如下：
+    \begin{align*}
+        \max \quad c_{1}x_{1}  + \cdots + c_{n}x_{n} & \\
+        \text{s.t.} \quad a_{i1}x_{1}  + \cdots +
+        a_{in}x_{n} & \leq b_{i}, \quad i = 1, \ldots, m \\
+        x_{j} & \geq 0, \quad j = 1, \ldots, n
+    \end{align*}
+
+    记\(\c = (c_{1}, \dots, c_{n})^{\mathrm{T}}\) 、\(\b =
+    (b_{1},\dots, b_{m})^{\mathrm{T}}\) ，
+    \[
+        A =
+        \begin{pmatrix}
+            a_{11} & \cdots & a_{1n} \\
+            \vdots & \ddots & \vdots \\
+            a_{m1} & \cdots & a_{mn}
+        \end{pmatrix} \\
+    \]
+    则线性规划的矩阵形式可简写为：
+    \begin{align*}
+        \max \quad & \c^{\mathrm{T}} \x \\
+        \text{s.t.} \quad & A \x \leq \b \\
+        & \x \geq 0
+    \end{align*}
+\end{definition}
+% todo: add ref
+% todo: add min case
+
+化成标准形式的过程往往涉及以下的奇技淫巧：
+\begin{itemize}
+    \item 把不等式约束变成等式约束（引入松弛变量）；
+    \item 把大于等于约束变成小于等于约束（乘以-1）；
+    \item 把无非负约束的变量拆成两个非负变量的差；
+    \item 把最小化问题转化成最大化问题（目标函数变负）。
+\end{itemize}
+
+为什么？
+
+\subsection{线性方程组解的结构}
+\subsection{标准形式的几何意义}
+
+于是可以看到：方程\(A\x = \b\) ，实际上是高维空间的一个超平面，一个仿射集。而约束条件\(\x \geq 0\)
+只是空间里的一个象限，是一个凸集。一个超平面与一个凸锥的交集，就像是正方体与平面相交得到的截面一样，是一个凸多面体，是超平面的一部分。
+
+不仅如此，线性方程组的解集可以由\(n-m\) 个自由变量完全决定。可以想象，若干个轴形成的空间里，每一个自由变量的组合，都唯一的确定着线性方程的一个解。
+
+线性规划的极值多少带有些语不惊人死不休的性质：在这样一个凸集的可行域内，线性函数的极值点必然出现在凸集的某个顶点上。更美妙的是，
+由于该凸集是超平面与象限的交集，可以想象所有顶点的形成，一定是坐标平面与超平面相交所得到的，也就是说，每一个顶点都对应着某些变量取零，
+从而使得线性方程组的解唯一确定。
+
+% todo: add figure
+
+\section{不妨？妨！很妨！}
+\section{旋转跳跃我闭着眼}
 
 \end{document}
