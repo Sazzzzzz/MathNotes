@@ -66,6 +66,8 @@
     \end{itemize}
 \end{example}
 
+收敛序列一定是Cauchy列，但Cauchy列不一定收敛。Banach空间保证所有的Cauchy列都收敛。
+
 \begin{theorem}{}
     不存在可数维的Banach空间。
 \end{theorem}
@@ -143,7 +145,7 @@
     \abs{\bigcup_{n=1}^{\infty} \mathbb{Q}^{n}} = \abs{\mathbb{N}
     \times \mathbb{Q}} = \abs{\mathbb{N}}
 \]
-
+% todo: L1 space and CNC analogy
 \begin{example}{}
     \begin{itemize}
         \item \(c_{0}\) 是可分的：考虑\(\left\{ (r_{1},\dots r_{N}, r_{0},
@@ -191,3 +193,50 @@
     \]
     则\(A\) 是\(X\) 的可数稠集。
 \end{proof}
+
+\section{Completeness and Compactness in Banach Spaces}
+
+\begin{theorem}{}
+    范数空间\(E\) 是完备的当且仅当一致收敛列收敛。
+\end{theorem}
+
+\begin{proof}
+    \textbf{\(\Rightarrow\) }
+    \begin{align*}
+        \sum_{n=1}^{\infty} \norm{x_{n}} \to x
+        &\iff \sum_{n=m}^{m+p} \norm{x_{n}} \leq \varepsilon \\
+        &\implies \norm{\sum_{n=m}^{m+p} x_{n}} \leq \sum_{n=m}^{m+p}
+        \norm{x_{n}} \leq \varepsilon \\
+        &\implies \sum_{n=1}^{\infty} x_{n} \to x
+    \end{align*}
+
+    \textbf{\(\Leftarrow\) }
+    取任意一个Cauchy列\(\{x_{n}\}\) ，则可取子列\(\{x_{n_{k}}\}\) ，使得
+    \[\norm{x_{n_{k+1}} - x_{n_{k}}} < 2^{-k}\]
+    则\(\sum_{k=1}^{\infty}
+    (x_{n_{k+1}} - x_{n_{k}})\) 一致收敛，故收敛于某个\(x\) 。则原列：
+    \begin{align*}
+        x_{n} &= x_{n_{1}} + \sum_{k=1}^{\infty} (x_{n_{k+1}} - x_{n_{k}}) -
+        \sum_{k=K}^{\infty} (x_{n_{k+1}} - x_{n_{k}}) \\
+        &= \lim_{m \to \infty} x_{n_{m}}
+    \end{align*}
+\end{proof}
+
+\begin{corollary}{}
+    范数空间\(E\) 都可以被完备化。
+\end{corollary}
+
+考虑\(E\) 中所有Cauchy列的集合\(\tilde{E}\) ，定义等价关系：
+\[
+    \{x_{n}\} \sim \{y_{n}\} \iff \lim_{n \to \infty} \norm{x_{n} - y_{n}} = 0
+\]
+则\(\tilde{E}/\sim\) 是完备的，且自然映射\(x\mapsto {x_{n}}\) 其中\(x_{n} = x\)
+是两范数空间的同构。这个完备化的范数空间在相差一个等距同构意义下是唯一的。
+
+\begin{example}{}
+    \begin{itemize}
+        \item \(c_{00}\) 的完备化是\(c_{0}\) 。
+        \item \(P[0,1]\) 的完备化是\(C[0,1]\) 。
+        \item \((C[0,1], \norm{\cdot}_{p})\) 的完备化是\(L^{p}(0,1)\) 。
+    \end{itemize}
+\end{example}
