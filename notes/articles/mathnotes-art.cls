@@ -167,6 +167,7 @@
 \definecolor{mycitecolor}{RGB}{0, 102, 204}
 \definecolor{myexamplecolor}{RGB}{56, 140, 70}
 \definecolor{mydoccolor}{RGB}{0, 73, 145}
+\definecolor{myproblemcolor}{RGB}{56, 140, 70}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % New environments
@@ -257,6 +258,7 @@
     }{%
     \end{Example}%
 }
+
 %================================
 % CLAIM BOX
 %================================
@@ -283,6 +285,34 @@
     \begin{Claim}{#2}{#1}%
     }{%
     \end{Claim}%
+}
+
+%================================
+% PROBLEM BOX
+%================================
+\newtcbtheorem{Problem}{Problem}
+{%
+    enhanced,
+    breakable,
+    colback = myproblemcolor!10,
+    frame hidden,
+    boxrule = 0sp,
+    borderline west = {2pt}{0pt}{myproblemcolor},
+    sharp corners,
+    detach title,
+    before upper = \tcbtitle\par\smallskip,
+    coltitle = myproblemcolor!85!black,
+    fonttitle = \bfseries\sffamily,
+    description font = \mdseries,
+    separator sign none,
+    segmentation style={solid, myproblemcolor!85!black},
+}
+{problem}
+
+\newenvironment{problem}[2][]{%
+    \begin{Problem}{#2}{#1}%
+    }{%
+    \end{Problem}%
 }
 
 %================================
