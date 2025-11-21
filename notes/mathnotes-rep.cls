@@ -2,7 +2,7 @@
 % https://github.com/sohamch08/Eye-Candy-Lecture-Notes-Theme
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{mathnotesart}[2025/11/16 v1.0]
+\ProvidesClass{mathnotesrep}[2025/11/16 v1.0]
 
 % tex-fmt: off
 % cSpell: disable
@@ -10,9 +10,9 @@
 %================================
 % LOAD BASE CLASS
 %================================
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexrep}}
 \ProcessOptions\relax
-\LoadClass{ctexart}
+\LoadClass{ctexrep}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PACKAGE IMPORTS
@@ -28,7 +28,7 @@
     \let\@ifnextchar\new@ifnextchar
     \array{#1}}
 \makeatother
-\RequirePackage[a4paper,scale=0.8]{geometry}
+\RequirePackage[b5paper,margin=1in]{geometry}
 \RequirePackage{booktabs}  % better table lines
 % Provide support for minipage used in definition environment
 \RequirePackage{varwidth}
@@ -163,6 +163,7 @@
 % COLORS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{myclaimcolor}{RGB}{56, 140, 70}
+\definecolor{mycorollarycolor}{RGB}{56, 140, 70}
 \definecolor{mynotecolor}{RGB}{56, 140, 70}
 \definecolor{mytheoremcolor}{RGB}{0,102,204}
 \definecolor{mydefinitioncolor}{RGB}{235, 105,12}
@@ -171,6 +172,68 @@
 \definecolor{myexamplecolor}{RGB}{56, 140, 70}
 \definecolor{mydoccolor}{RGB}{0, 73, 145}
 \definecolor{myproblemcolor}{RGB}{56, 140, 70}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE OF CONTENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Let's just hope I won't use chapter more than 10 times
+\usetikzlibrary{shapes, positioning}
+\contentsmargin{0cm}
+\titlecontents{chapter}[3.7pc]
+{\addvspace{30pt}%
+    \begin{tikzpicture}[remember picture, overlay]%
+        \draw[fill=mydoccolor!60,draw=mydoccolor!60]
+        (-7,-.1) rectangle (-0.6,.5);%
+        \pgftext[left,x=-2.5cm,y=0.2cm]{\color{white}\Large\bfseries
+        \thecontentslabel};%
+\end{tikzpicture}\color{mydoccolor!60}\large\bfseries}%
+{}
+{}
+{\;\titlerule\;\large\bfseries Page \thecontentspage
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[fill=mydoccolor!60,draw=mydoccolor!60]
+        (2pt,0) rectangle (4,0.1pt);
+\end{tikzpicture}}%
+\titlecontents{section}[3.7pc]
+{\addvspace{2pt}}
+{\contentslabel[\textcolor{mydoccolor!80}\thecontentslabel]{2pc}}
+{}
+{\hfill\small \thecontentspage}
+[]
+\titlecontents{subsection}[2.7pc]
+{\addvspace{-1pt}\small}
+{\hspace*{2pc}\contentslabel[\textcolor{mydoccolor!80}\thecontentslabel]{1pc}}
+{}
+{\hfill\small \thecontentspage}
+[]
+
+%{\addvspace{-1pt}\small}
+%{}
+%{}
+%{\ --- \small\thecontentspage}
+%[ \textbullet\ ][]
+
+\makeatletter
+\renewcommand{\tableofcontents}{%
+    \chapter*{%
+        \vspace*{-80\p@}%
+        \begin{tikzpicture}[remember picture, overlay]%
+            \pgftext[right,x=15cm,y=0.2cm]{\color{mydoccolor!60}\Huge\bfseries
+            \contentsname};%
+            \draw[fill=mydoccolor!60,draw=mydoccolor!60] (13,-.75)
+            rectangle (20,1);%
+            \clip (13,-.75) rectangle (20,1);
+            \pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\bfseries
+            \contentsname};%
+    \end{tikzpicture}}%
+\@starttoc{toc}}
+\makeatother
+%\titleformat{\chapter}[display]
+%{\normalfont\Huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\newcommand\colorlink[3]{\href{#2}{\color{#1}#3}}
+\newcommand\colorurl[2]{{\color{#1}\url{#2}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % New environments
@@ -181,24 +244,31 @@
 %================================
 % THEOREM BOX
 %================================
-\newtcbtheorem{Theorem}{Theorem}
-{%
-    enhanced,
+\makeatletter
+\newtcbtheorem[number within=chapter]{Theorem}{Theorem}{enhanced,
     breakable,
-    colback = mytheoremcolor!10,
-    frame hidden,
-    boxrule = 0sp,
-    borderline west = {2pt}{0pt}{mytheoremcolor},
-    sharp corners,
-    detach title,
-    before upper = \tcbtitle\par\smallskip,
-    coltitle = mytheoremcolor!85!black,
-    fonttitle = \bfseries\sffamily,
-    description font = \mdseries,
-    separator sign none,
-    segmentation style={solid, mytheoremcolor!85!black},
-}
-{theorem}
+    colback=mytheoremcolor!8,
+    colframe=mytheoremcolor,
+    attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+    fonttitle=\bfseries,
+    title={#2},
+    boxed title size=title,
+    boxed title style={%
+        sharp corners,
+        rounded corners=northwest,
+        colback=tcbcolframe,
+        boxrule=0pt,
+    },
+    underlay boxed title={%
+        \path[fill=tcbcolframe] (title.south west)--(title.south east)
+        to[out=0, in=180] ([xshift=5mm]title.east)--
+        (title.center-|frame.east)
+        [rounded corners=\kvtcb@arc] |-
+        (frame.north) -| cycle;
+    },
+    #1
+}{theorem}
+\makeatother
 
 \newenvironment{theorem}[2][]{%
     \begin{Theorem}{#2}{#1}%
@@ -209,24 +279,32 @@
 %================================
 % DEFINITION BOX
 %================================
-\newtcbtheorem{Definition}{Definition}
-{%
-    enhanced,
+\makeatletter
+\newtcbtheorem[number
+within=chapter]{Definition}{Definition}{enhanced,
     breakable,
-    colback = mydefinitioncolor!10,
-    frame hidden,
-    boxrule = 0sp,
-    borderline west = {2pt}{0pt}{mydefinitioncolor},
-    sharp corners,
-    detach title,
-    before upper = \tcbtitle\par\smallskip,
-    coltitle = mydefinitioncolor!85!black,
-    fonttitle = \bfseries\sffamily,
-    description font = \mdseries,
-    separator sign none,
-    segmentation style={solid, mydefinitioncolor!85!black},
-}
-{definition}
+    colback=mydefinitioncolor!8,
+    colframe=mydefinitioncolor,
+    attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+    fonttitle=\bfseries,
+    title={#2},
+    boxed title size=title,
+    boxed title style={%
+        sharp corners,
+        rounded corners=northwest,
+        colback=tcbcolframe,
+        boxrule=0pt,
+    },
+    underlay boxed title={%
+        \path[fill=tcbcolframe] (title.south west)--(title.south east)
+        to[out=0, in=180] ([xshift=5mm]title.east)--
+        (title.center-|frame.east)
+        [rounded corners=\kvtcb@arc] |-
+        (frame.north) -| cycle;
+    },
+    #1
+}{definition}
+\makeatother
 
 \newenvironment{definition}[2][]{%
     \begin{Definition}{#2}{#1}%
@@ -235,37 +313,36 @@
 }
 
 %================================
-% EXAMPLE BOX
+% PROBLEM BOX
 %================================
-\newtcbtheorem{Example}{Example}
+\newtcbtheorem[number within=chapter]{Problem}{Problem}
 {%
     enhanced,
     breakable,
-    colback = myexamplecolor!10,
+    colback = myproblemcolor!10,
     frame hidden,
     boxrule = 0sp,
-    borderline west = {2pt}{0pt}{myexamplecolor},
+    borderline west = {2pt}{0pt}{myproblemcolor},
     sharp corners,
     detach title,
     before upper = \tcbtitle\par\smallskip,
-    coltitle = myexamplecolor!85!black,
+    coltitle = myproblemcolor!85!black,
     fonttitle = \bfseries\sffamily,
     description font = \mdseries,
     separator sign none,
-    segmentation style={solid, myexamplecolor!85!black},
+    segmentation style={solid, myproblemcolor!85!black},
 }
-{example}
+{problem}
 
-\newenvironment{example}[2][]{%
-    \begin{Example}{#2}{#1}%
+\newenvironment{problem}[2][]{%
+    \begin{Problem}{#2}{#1}%
     }{%
-    \end{Example}%
+    \end{Problem}%
 }
-
 %================================
 % CLAIM BOX
 %================================
-\newtcbtheorem{Claim}{Claim}
+\newtcbtheorem[number within=chapter]{Claim}{Claim}
 {%
     enhanced
     ,breakable
@@ -291,38 +368,38 @@
 }
 
 %================================
-% PROBLEM BOX
+% COROLLARY BOX
 %================================
-\newtcbtheorem{Problem}{Problem}
+\newtcbtheorem[number within=chapter]{Corollary}{Corollary}
 {%
-    enhanced,
-    breakable,
-    colback = myproblemcolor!10,
-    frame hidden,
-    boxrule = 0sp,
-    borderline west = {2pt}{0pt}{myproblemcolor},
-    sharp corners,
-    detach title,
-    before upper = \tcbtitle\par\smallskip,
-    coltitle = myproblemcolor!85!black,
-    fonttitle = \bfseries\sffamily,
-    description font = \mdseries,
-    separator sign none,
-    segmentation style={solid, myproblemcolor!85!black},
+    enhanced
+    ,breakable
+    ,colback = mycorollarycolor!10
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{mycorollarycolor}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = mycorollarycolor!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, mycorollarycolor!85!black}
 }
-{problem}
+{corollary}
 
-\newenvironment{problem}[2][]{%
-    \begin{Problem}{#2}{#1}%
+\newenvironment{corollary}[2][]{%
+    \begin{Corollary}{#2}{#1}%
     }{%
-    \end{Problem}%
+    \end{Corollary}%
 }
 
 %================================
 % NOTE BOX
 %================================
 
-\newtcbtheorem{Note}{Note}
+\newtcbtheorem[number within=chapter]{Note}{Note}
 {%
     enhanced
     ,breakable
@@ -346,6 +423,36 @@
     }{%
     \end{Note}%
 }
+
+%================================
+% EXAMPLE BOX
+%================================
+
+\newtcbtheorem[number within=chapter]{Example}{Example}
+{%
+    enhanced
+    ,breakable
+    ,colback = myexamplecolor!10
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{myexamplecolor}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = myexamplecolor!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, myexamplecolor!85!black}
+}
+{example}
+
+\newenvironment{example}[2][]{%
+    \begin{Example}{#2}{#1}%
+    }{%
+    \end{Example}%
+}
+
 %================================
 % QUOTE BOX
 %================================
@@ -363,5 +470,5 @@
 \renewenvironment{quote}{%
 \begin{refbox}}{%
 \end{refbox}}
-
-\endinput
+% Extra Information
+% INFO: Use \mathclap and \substack to create multiline

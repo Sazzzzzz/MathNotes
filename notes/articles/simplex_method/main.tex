@@ -1,4 +1,4 @@
-\documentclass{../mathnotes-art}
+\documentclass{../../mathnotes-art}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -438,17 +438,17 @@ So far so good. 朝着这个方向继续努力，不久我们就能找到最优�
 \end{itemize}
 
 为了照顾所有的基变量，\(x_k\) 的增长不能超过所有这些限制中\textbf{最小}的那个。
-这就是\textbf{最小比率检验}（Minimum Ratio Test）：
+这就是\textbf{最小比率检验}（ Minimum Ratio Test ）：
 \[
     x_k = \min \left\{ \frac{\bar{b}_i}{\bar{a}_{ik}} \mid
     \bar{a}_{ik} > 0 \right\}
 \]
 
 那个限制最紧的基变量（也就是比率最小的那一行对应的变量），会在 \(x_k\) 达到最大值时恰好变成 0。
-既然它变成了 0，那它就光荣地完成了作为基变量的使命，退化成非基变量（Leaving Variable）。而 \(x_k\) 则从 0
-变成了正数，晋升为基变量（Entering Variable）。
+既然它变成了 0，那它就光荣地完成了作为基变量的使命，退化成非基变量（Leaving Variable ）。而 \(x_k\) 则从 0
+变成了正数，晋升为基变量（ Entering Variable ）。
 
-这就是单纯形法中换基的本质：我们在可行域的边界上，沿着目标函数增加的方向（reduced cost > 0），
+这就是单纯形法中换基的本质：我们在可行域的边界上，沿着目标函数增加的方向（ reduced cost > 0），
 从一个顶点滑向相邻的另一个顶点，直到被某个约束条件挡住为止。
 
 \subsection{换基直到成功}

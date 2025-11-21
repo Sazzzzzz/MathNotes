@@ -1,10 +1,5 @@
 % This is a mathematical formula memo
-\documentclass{ctexart}
-\input{../header_art.tex}
-\usepackage{ctex}
-\predate{}
-\postdate{}
-\date{}
+\documentclass{../../mathnotes-art}
 
 \setlength{\parindent}{0pt}
 
@@ -105,7 +100,7 @@ Fubini's theorem:
 % https://en.wikipedia.org/wiki/Fubini%27s_theorem#Proofs
 \[
     \int_{X\times Y}  f(x, y) \d{x}\d{y} = \int_{X} \left(
-        \int_{Y} f(x, y) \d{y} \right) \d{x} = \int_{Y} \left(
+    \int_{Y} f(x, y) \d{y} \right) \d{x} = \int_{Y} \left(
     \int_{X} f(x, y) \d{x} \right) \d{y}
 \]
 
