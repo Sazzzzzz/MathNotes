@@ -1,0 +1,88 @@
+\documentclass{../../mathnotes-art}
+
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% DISABLE_SMART_IME
+
+\begin{document}
+\paragraph{1}
+\subparagraph{(a)}
+
+This is essentially scale \(a\) and \(b\) by
+\(\frac{1}{\norm{a}^{2}\norm{b}^{2}}\), triangle formed by \(0\),
+\(a'\) and \(b'\) is similar to triangle formed by \(0\), \(a\) and \(b\).
+\begin{align*}
+    &\phantom{=} \inner{a' - b'}{a' - b'} \\
+    &= \inner{a'}{a'} - \inner{a'}{b'} - \inner{b'}{a'} + \inner{b'}{b'} \\
+    &= \frac{1}{\norm{a}^{4} } \inner{a}{a} + \frac{1}{\norm{b}^{4}}
+    \inner{b}{b} - \frac{1}{\norm{a}^{2}\norm{b}^{2}}\left(
+    \inner{a}{b} + \inner{b}{a} \right)\\
+    &= \frac{\norm{a}^{2} + \norm{b}^{2} - \inner{a}{b} -
+    \inner{b}{a}}{\norm{a}^{2}\norm{b}^{2}} \\
+    &= \frac{\norm{a - b}^{2}}{\norm{a}^{2}\norm{b}^{2}}
+\end{align*}
+Thus, \[\norm{a' - b'} = \frac{\norm{a - b}}{\norm{a}\norm{b}}\]
+
+\subparagraph{(b)}
+
+Ptolemaic inequality:
+\begin{align*}
+    &\phantom{=} \norm{a-b}\norm{c-d} + \norm{b-c}\norm{a-d}\\
+    &= (\norm{a-b}\norm{c-d} + \norm{a-b}\norm{a-d}) -
+    (\norm{a-b}\norm{a-d} - \norm{b-c}\norm{a-d}) \\
+    &= \norm{a-b}(\norm{c-d} + \norm{a-d}) - \norm{a-d}(\norm{a-b} -
+    \norm{b-c}) \\
+    &\geq \norm{a-b}\norm{a-c} - \norm{a-d}\norm{a-c} \\
+    &= \norm{a-c}(\norm{a-b} - \norm{a-d}) \\
+    &\geq \norm{a-c}\norm{b-d}
+\end{align*}
+
+Thus, \[\norm{a-b}\norm{c-d} + \norm{b-c}\norm{a-d} \geq
+\norm{a-c}\norm{b-d}\]
+
+\paragraph{2}
+
+Let \(Px\) be the projection map of \(x\) onto the subspace \(M\).
+
+For \(x+M, y+M \in H/M\), define:
+\[
+    \inner{x+M}{y+M}_{H/M} \coloneqq \inner{x-Px}{y-Py}_{H}
+\]
+
+We verify the inner product axioms:
+\begin{enumerate}
+    \item Positivity: \(\inner{x+M}{x+M}_{H/M} = \inner{x-Px}{x-Px}_{H}
+        \geq 0\) and \(\inner{x+M}{x+M}_{H/M} = 0 \iff x-Px = 0
+        \iff x \in M \iff x+M = 0 + M\).
+    \item Conjugate symmetry: \(\inner{x+M}{y+M}_{H/M} =
+            \inner{x-Px}{y-Py}_{H} = \overline{
+            \inner{y-Py}{x-Px}_{H}} = \overline{
+        \inner{y+M}{x+M}_{H/M}}\).
+    \item Homogeneity:
+        \(\Re \inner{\lambda x - \lambda Px }{b - \lambda Px} = \Re
+        \lambda\inner{x - Px }{b' - Px} \leq 0\)
+        therefore \(P\lambda x= \lambda Px\)
+        \begin{align*}
+            \inner{\lambda x + M}{y + M}_{H/M} &= \inner{\lambda x - P
+            \lambda x}{y - Py}_{H} \\
+            &= \inner{\lambda x - \lambda Px}{y - Py}_{H} \\
+            &= \lambda \inner{x - Px}{y - Py}_{H} \\
+            &= \lambda \inner{x + M}{y + M}_{H/M}
+        \end{align*}
+    \item Additivity:
+        \begin{align*}
+            &\Re \inner{x + y - (Px + Py)}{b - (Px + Py)} \\
+            = &\Re \inner{x - Px}{b - (Px + Py)} + \Re
+            \inner{y - Py}{b - (Px + Py)} \leq 0
+        \end{align*}
+        therefore \(P(x + y) = Px + Py\)
+        \begin{align*}
+            \inner{x + y + M}{z + M}_{H/M} &= \inner{x + y - P(x +
+            y)}{z - Pz}_{H} \\
+            &= \inner{x - Px + y - Py}{z - Pz}_{H} \\
+            &= \inner{x - Px}{z - Pz}_{H} + \inner{y - Py}{z - Pz}_{H} \\
+            &= \inner{x + M}{z + M}_{H/M} + \inner{y + M}{z + M}_{H/M}
+        \end{align*}
+\end{enumerate}
+
+\end{document}
