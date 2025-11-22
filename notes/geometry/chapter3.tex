@@ -20,7 +20,7 @@
 答案很简单，群最初是研究对称的学问。而对称的复合，正如函数的复合，满足结合律而不一定满足交换律。
 那为什么函数的复合满足结合律呢？
 
-\begin{theorem}{函数的复合满足结合律}
+\begin{theorem}[函数的复合满足结合律]
     设\(f: X\to Y\)，\(g: Y\to Z\)，\(h: Z\to W\)是任意函数，则
     \[
         h\circ(g\circ f)=(h\circ g)\circ f
@@ -48,7 +48,7 @@
 应用时间与结果无关。在现实生活中可以理解为三个模块按顺序叠加并不影响其功能}
 
 一个函数\(f: X \to Y\)实际上可以看作集合\(X \times Y\) 上的一个子集\(F\)。
-\begin{definition}{函数（的像）}
+\begin{definition}[函数（的像）]
     称\(f: X\to Y\) 是一个函数，如果：
 
     对于任意\(x\in X\)，存在唯一的\(y\in Y\)使得二元关系\(x \circ_{f} y\)
@@ -57,15 +57,15 @@
 
 两个函数相等实际上就是对于相同的自变量\(x\)对应相同的值\(y\)。
 而函数的复合就可以定义为：
-\begin{definition}{函数的复合}
+\begin{definition}[函数的复合]
     设\(f: X\to Y\)，\(g: Y\to Z\)，则\(g\circ f: X \to Z\)是一个函数，使得
     \[
         x \circ_{g\circ f} z \iff \exists! y \in Y, x
         \circ_{f} y \land y \circ_{g} z
     \]
     其中\(x\in X\)，\(y\in Y\)，\(z\in Z\)。
-    \end{definition}
-    有了以上的定义我们就能够用量词更确切的告诉我们函数的复合性是成立的。
+\end{definition}
+有了以上的定义我们就能够用量词更确切的告诉我们函数的复合性是成立的。
 \begin{proof}
     \(\forall x \in X\):
     \begin{align*}
@@ -110,7 +110,7 @@
     \hfill ---\textit{Linear Algebra Done Right}
 \end{quote}
 
-\begin{definition}{半直积}
+\begin{definition}[半直积]
     给定任意两个群\(N\)和\(H\)以及群同态\(\phi: H \to \Aut{N}\)，我们在集合\(H
     \times N\) 上定义二元运算\(\circ\)：
     \begin{align*}
@@ -158,7 +158,7 @@ New notations, new toys!
 
 抽象代数里曾指出所有群都同构于置换群的一个子群，也就是\textit{群作用}：
 
-\begin{definition}{群作用}
+\begin{definition}[群作用]
     设\(G\)是一个群，\(X\)是一个集合，\(G\)在\(X\)上的作用是一个映射
     \begin{align*}
         \Phi: G\times X & \to X \\
@@ -192,7 +192,6 @@ New notations, new toys!
 \[
     X=\bigsqcup_{i=1}^{N} \mathcal{O}_{i}
 \]
-
 
 Orbit-Stabilizer Theorem
 \[

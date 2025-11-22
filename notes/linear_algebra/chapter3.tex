@@ -10,7 +10,7 @@
 \end{quote}\footcite[p.~67]{LinearAlgebraDone2024}
 \subsubsection{什么不是线性映射？}
 线性映射最基本也是最重要的定义如下：
-\begin{definition}{线性映射}
+\begin{definition}[线性映射]
     设\(V\)和\(W\)是两个向量空间，\(T: V \to W\) 是一个映射，如果对于任意的\(u,
     v \in V\)和任意的\(a \in \F\)，都有：
     \begin{description}
@@ -85,7 +85,7 @@ counterexample}
 \end{itemize}
 \subsection{为什么线性映射能写成矩阵？}
 线性映射引理告诉我们： 线性映射被基和基的像唯一确定。接下来我们顺着习题3，证明线性映射可以写成矩阵的形式
-\begin{theorem}{线性映射的矩阵形式}
+\begin{theorem}[线性映射的矩阵形式]
     设\(T \in \L(\F^{n},\F^{m})\)
     存在标量\(A_{j,k} \in
     \F (j = 1, \dots ,m, k=1, \dots, n) \)，使得：
@@ -173,7 +173,7 @@ counterexample}
 
 \subsection{为什么线性映射基本定理基本？}
 
-\begin{theorem}{线性映射基本定理}
+\begin{theorem}[线性映射基本定理]
     假设\(V\) 是有限维的且 \(T \in \L(V,W)\)，那么\(\range
     T\) 是有限维的，且\[
         \dim V = \dim \nullspace T + \dim \range T
@@ -254,7 +254,7 @@ counterexample}
 
 同一数域上的线性空间即可定义直积。
 
-\begin{theorem}{直积的维数}
+\begin{theorem}[直积的维数]
     设\(V_1, \dots , V_{m}\) 都是\(V\) 上的线性空间，那么 \(V_{1}
     \times \dots \times V_{m}\) 是一个线性空间。并且满足\[
         \dim (V_{1} \times \dots \times V_{m}) = \dim V_{1}
@@ -294,7 +294,7 @@ counterexample}
 在某种意义上，求商空间可以直接看做直积的逆运算
 
 \subsubsection{矩阵分块的原理}
-\begin{problem}{矩阵分块}
+\begin{problem}[矩阵分块]
     设\(V_1,\dots ,V_{m}\) 是向量空间，证明\(\L(V_1\times
     \dots \times V_{m},W)\) 和\(\L(V_1,W)\times \dots
     \times \L(V_{m},W)\) 是同构向量空间。
@@ -319,7 +319,7 @@ counterexample}
     \L(V,W_1)\times \dots \times
 \L(V,W_{n})\) 表示的是矩阵按行分块的几何意义。
 
-\begin{problem}{线性空间分解}
+\begin{problem}[线性空间分解]
     设\(V\) 是一个有限维线性空间，\(U\) 是\(V\) 的子空间，证明：
     \[
         U/V \times V \cong U
@@ -403,7 +403,7 @@ counterexample}
 
 线性泛函通过矩阵乘法作用在向量上，也就是行向量与列向量的乘法。不严谨的说，可以看作两个向量之间的内积，
 线性泛函的作用也就是求``分量''。基于我们对内积空间的认识，不难理解
-\begin{theorem}{对偶空间的元素分解}
+\begin{theorem}[对偶空间的元素分解]
     设\(V\) 是有限维线性空间，\(v_{1}, \dots ,v_{n}\) 是\(V\) 的一组基，\(v \in V\)，
     \(V'\) 是\(V\) 的对偶空间，\(\varphi_{1}, \dots ,\varphi_{n}\)
     是\(v_{1}, \dots ,v_{n}\) 的对偶基，\(\varphi \in V'\)

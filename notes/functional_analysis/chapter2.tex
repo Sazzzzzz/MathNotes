@@ -15,7 +15,7 @@
 
 通过范数我们可以定义度量：
 
-\begin{definition}{范数诱导出的度量}
+\begin{definition}[范数诱导出的度量]
     设$(X,\|\cdot\|)$是一个赋范空间，定义$d:X\times X\to [0,+\infty)$为
     \[
         d(x,y)=\|x-y\|
@@ -53,12 +53,12 @@
 
 \section{Banach Spaces}
 
-\begin{definition}{Banach Space}
+\begin{definition}[Banach Space]
     设\((X,\|\cdot\|)\)是一个赋范空间，若\(X\) 完备，即任意Cauchy列在\(X\) 中收敛，则称\(X\)
     为一个Banach空间。
 \end{definition}
 
-\begin{example}{}
+\begin{example}
     \begin{itemize}
         \item 连续函数空间\(C[a,b]\) 不是Banach空间：连续函数的极限是可测函数（考虑\(f_{n}(x) =
             x^{n}\) ），不一定是连续函数。
@@ -68,7 +68,7 @@
 
 收敛序列一定是Cauchy列，但Cauchy列不一定收敛。Banach空间保证所有的Cauchy列都收敛。
 
-\begin{theorem}{}
+\begin{theorem}
     不存在可数维的Banach空间。
 \end{theorem}
 
@@ -90,7 +90,7 @@
 \end{proof}
 
 由此立刻可得：
-\begin{example}{}
+\begin{example}
     \begin{itemize}
         \item 多项式空间不是Banach空间。
         \item
@@ -113,11 +113,11 @@
     \end{itemize}
 \end{example}
 
-\begin{theorem}{}
+\begin{theorem}
     Banach空间的闭子空间是Banach空间。
 \end{theorem}
 
-\begin{theorem}{}
+\begin{theorem}
     有限维内积空间是Banach空间。
 \end{theorem}
 
@@ -136,7 +136,7 @@
 则  \(\|x_{n}-x_{m}\|_{2} = \sqrt{2}\) ，所以该序列列没有收敛子列。
 
 \section{Separable Banach Spaces}
-\begin{definition}{可分空间}
+\begin{definition}[可分空间]
     设\(E\) 是一个度量空间，如果\(E\) 中存在一个可数子集\(A\) ，使得\(A\) 在\(E\) 中稠密，则称\(E\) 是一个可分空间。
 \end{definition}
 
@@ -146,7 +146,7 @@
     \times \mathbb{Q}} = \abs{\mathbb{N}}
 \]
 % todo: L1 space and CNC analogy
-\begin{example}{}
+\begin{example}
     \begin{itemize}
         \item \(c_{0}\) 是可分的：考虑\(\left\{ (r_{1},\dots r_{N}, r_{0},
             \dots ) \mid r_{0},\dots r_{N} \in \mathbb{Q} \right\}\)
@@ -173,7 +173,7 @@
     \end{itemize}
 \end{example}
 
-\begin{definition}{Schauder Basis}
+\begin{definition}[Schauder Basis]
     设\(X\) 是一个赋范空间，如果存在\(X\) 中的一个可数子集\(\{e_{i}\}_{i=1}^{\infty}\) ，
     使得对于任意\(x \in X\) ，都存在唯一的一组标量\(\{x_{i}\}_{i=1}^{\infty}\) ，使得
     \[
@@ -182,7 +182,7 @@
     则称\(\{e_{i}\}_{i=1}^{\infty}\) 为\(X\) 的Schauder基。
 \end{definition}
 
-\begin{theorem}{}
+\begin{theorem}
     设\(X\) 是一个赋范空间，如果\(X\) 有Schauder基，则\(X\) 是可分的。
 \end{theorem}
 
@@ -196,7 +196,7 @@
 
 \section{Completeness and Compactness in Banach Spaces}
 
-\begin{theorem}{}
+\begin{theorem}
     范数空间\(E\) 是完备的当且仅当一致收敛列收敛。
 \end{theorem}
 
@@ -222,7 +222,7 @@
     \end{align*}
 \end{proof}
 
-\begin{corollary}{}
+\begin{corollary}
     范数空间\(E\) 都可以被完备化。
 \end{corollary}
 
@@ -233,7 +233,7 @@
 则\(\tilde{E}/\sim\) 是完备的，且自然映射\(x\mapsto {x_{n}}\) 其中\(x_{n} = x\)
 是两范数空间的同构。这个完备化的范数空间在相差一个等距同构意义下是唯一的。
 
-\begin{example}{}
+\begin{example}
     \begin{itemize}
         \item \(c_{00}\) 的完备化是\(c_{0}\) 。
         \item \(P[0,1]\) 的完备化是\(C[0,1]\) 。

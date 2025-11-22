@@ -4,7 +4,7 @@
 数学期望本质是一种加权平均。
 % TODO: 定义（一般 离散 高维连续）
 
-\begin{definition}{数学期望}
+\begin{definition}[数学期望]
     设\(\xi\) 是一个随机变量，其分布函数为\(F_{\xi}\)，且以下积分绝对收敛，则\(\xi\) 的数学期望定义为：
     \[
         E(\xi) = \int_{-\infty}^{+\infty} x \d{F_{\xi}}(x)
@@ -14,7 +14,7 @@
 %todo：线性性
 % 期望的另一个计算方法
 
-\begin{theorem}{佚名统计学家公式}
+\begin{theorem}[佚名统计学家公式]
     若\(g(x)\) 是一元博雷尔函数，\(\eta=g(\xi)\) ，则\[
         (E(\eta)) = \int_{-\infty}^{\infty} y \d{F_{\eta}}(y) =
         \int_{-\infty}^{\infty} g(x) \d{F_{\xi}}(x)
@@ -32,7 +32,7 @@
 \subsubsection{二元正态分布最大值的期望}
 期望和方差的很多题目用性质\underline{注意力}可以优雅干脆的解决，如果注意力不集中，力大砖飞的计算也没有问题。
 
-\begin{problem}{二元正态分布最大值的期望}
+\begin{problem}[二元正态分布最大值的期望]
     设\(X\)和\(Y\)是标准正态分布随机变量，相关系数为\(\rho\)，
     求证:\[E\max(X,Y)= \sqrt{\frac{1-\rho}{\pi}}\]。
 \end{problem}
@@ -201,7 +201,7 @@
 % 分位数的定义
 \section{母函数}
 母函数是概率分布的又一种刻画方法。一个母函数完全确定一个概率分布。
-\begin{definition}{母函数}
+\begin{definition}[母函数]
     若随机变量\(\xi\) 取非负整数值，且相应的分布列为\(\{p_k\}_{k=0}^{\infty}\)，则称
     \[
         P(s) = \sum_{k=0}^{\infty} p_k s^{k}
@@ -213,7 +213,7 @@
 我们为何不能大胆一点，直接使用双边的幂级数\(\sum_{n=-\infty}^{\infty} p_{k}s^{k}
 \) ，对所有离散随机变量给出定义呢？
 
-\begin{definition}{双边Z变换}
+\begin{definition}[双边Z变换]
     双边Z变换把离散时域信号\(x[n]\)转为形式幂级数\(X(z)\)：
     \[
         X(z) = \mathcal{Z}\{x[n]\} =\sum_{n=-\infty}^{\infty}
@@ -221,7 +221,7 @@
     \]
 \end{definition}
 
-\begin{note}{生成函数与Z变换的关系}
+\begin{note}[生成函数与Z变换的关系]
     他俩其实是一个东西。
 
     单边Z变换是双边Z变换的一个特例，与母函数相比完全只相差\(z\) 的幂的系数。但相较而言，

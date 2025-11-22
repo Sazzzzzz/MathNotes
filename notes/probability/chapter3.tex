@@ -23,7 +23,7 @@
 % 二项分布、超几何分布的简单介绍（严谨化 P181 25）
 
 \subsubsection{二项分布}
-\begin{definition}{二项分布}
+\begin{definition}[二项分布]
     在成功的概率为\(p\) 的伯努利试验中，若以\(\xi\) 记进行\(n\)
     次试验后成功次数为随机变量\(\xi\)，则\(\xi\) 服从二项分布：
     \[
@@ -59,7 +59,7 @@
 
 \subsubsection{几何分布}
 
-\begin{definition}{几何分布}
+\begin{definition}[几何分布]
     在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\)
     记第一次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从几何分布：
     \[
@@ -71,7 +71,7 @@
 
 \subsubsection{帕斯卡分布}
 
-\begin{definition}{帕斯卡分布}
+\begin{definition}[帕斯卡分布]
     在成功的概率为\(p\) 的伯努利试验中，若以第\(\zeta\) 记第\(r\)
     次成功出现时的试验次数为随机变量\(\zeta\)，则\(\zeta\) 服从帕斯卡分布：
     \[
@@ -122,7 +122,7 @@
 \to \infty\)，得到结果次数\(k\) 服从的二项分布将逐渐逼近泊松分布。这就是泊松分布的意义。
 
 \subsubsection{Erlang分布} Erlang分布是帕斯卡分布的连续型版本。
-\begin{definition}{Erlang分布}
+\begin{definition}[Erlang分布]
     若\(\xi(t)\) 是参数为\(\lambda t\) 的泊松过程，以\(W_{t}\) 记第\(r\) 个跳跃发生的时刻。
     则随机变量\(W_{t}\) 服从Erlang分布，其概率密度函数为：
     \[
@@ -155,7 +155,7 @@ Erlang分布和指数分布的关系与几何分布和帕斯卡分布的关系�
     I_{0}(t) &= 1\\
     I_{r+1}(t) &= \int_{0}^{t} I_{r}(t-x) \lambda
     \e^{-\lambda x} \d{x}
-    \end{align*}
+\end{align*}
 则：\(\P{W_{r}<t} = I_{r}(t)\)
 
 我们用Laplace变换来求解这个递推积分。
@@ -228,7 +228,7 @@ Erlang分布的概率密度函数为：
 \subsubsection{对数正态分布}
 % TODO: The relationship Chi-square distribution and Chi-Square Test
 
-\begin{definition}{对数正态分布}
+\begin{definition}[对数正态分布]
     若\(\xi\sim N(\mu,\sigma^{2})\), 则\(\eta=\e^{\xi} \) 服从对数正态分布：
     \[
         q(y) = \frac{1}{\sqrt{2\pi}\sigma y}
@@ -252,7 +252,7 @@ Erlang分布的概率密度函数为：
 
 \subsubsection{\(\chi^{2}\) 分布}
 % TODO: Add the definition of Chi-square distribution
-\begin{definition}{\(\chi^{2}\) 分布}
+\begin{definition}[\(\chi^{2]\) 分布}
     如果独立随机变量\(\xi_{1}, \dots ,\xi_{n}\) 服从标准正态分布\(N(0,1)\)，
     则随机变量\(\eta = \xi_{1}^{2} + \xi_{2}^{2} + \cdots +
     \xi_{n}^{2}\) 服从\(\chi^{2}\) 分布，其概率密度函数为：
@@ -260,7 +260,7 @@ Erlang分布的概率密度函数为：
         p(x) = \frac{1}{2^{n/2} \Gamma\left( \frac{n}{2} \right)}
         x^{\frac{n}{2}-1}
         \e^{-\frac{x}{2}}, \quad x>0
-        \]
+    \]
 \end{definition}
 
 接下来我们用两种方法推导\(\chi^{2}\) 分布的概率密度函数：
@@ -431,7 +431,7 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
 
 % TODO: Add deduction of Normal distribution
 \subsection{正态分布变量的生成}
-\begin{claim}{}
+\begin{claim}
     对于两个相互独立的标准正态分布随机变量\((\xi, \eta)\)，
     记\(r=\sqrt{\xi^{2}+\eta^{2}}\), \(\theta =
     \tan^{-1}\left( \frac{\eta}{\xi} \right)\),
@@ -439,14 +439,14 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
     \(\theta\)服从均匀分布\(U(0,2\pi)\)。
 \end{claim}
 
-\begin{definition}{Rayleigh分布}
+\begin{definition}[Rayleigh分布]
     称\(\xi\) 服从Rayleigh分布，若其概率密度函数为：
     \[
         R(r) = r\e^{-\frac{r^{2}}{2}}, \quad r>0
     \]
 \end{definition}
 
-\begin{theorem}{Box-Muller变换}
+\begin{theorem}[Box-Muller变换]
     设\(U_{1}, U_{2}\) 是独立的标准正态分布随机变量，则：
     \begin{align*}
         \xi &= \sqrt{-2\ln U_{1}} \cos(2\pi U_{2})\\
@@ -474,7 +474,7 @@ Grid[{Prepend[set, HoldForm[\[Alpha]] // DisplayForm],
 
 \subsubsection{等概率椭圆内的积分}
 
-\begin{problem}{二元正态分布在等概率椭圆内的积分}
+\begin{problem}[二元正态分布在等概率椭圆内的积分]
     若\((\xi,\eta)\) 服从二元正态分布，参数为\(\mu_{1}\)，\(\mu_{2}\)，
     \(\sigma_{1}^{2}\)，\(\sigma_{2}^{2}\)，\(\rho\)，
     记椭圆\(D(\lambda)\):\[

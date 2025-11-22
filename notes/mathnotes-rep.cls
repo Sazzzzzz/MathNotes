@@ -270,8 +270,8 @@
 }{theorem}
 \makeatother
 
-\newenvironment{theorem}[2][]{%
-    \begin{Theorem}{#2}{#1}%
+\NewDocumentEnvironment{theorem}{O{} O{}}{%
+    \begin{Theorem}{#1}{#2}%
     }{%
     \end{Theorem}%
 }
@@ -306,8 +306,8 @@ within=chapter]{Definition}{Definition}{enhanced,
 }{definition}
 \makeatother
 
-\newenvironment{definition}[2][]{%
-    \begin{Definition}{#2}{#1}%
+\NewDocumentEnvironment{definition}{O{} O{}}{%
+    \begin{Definition}{#1}{#2}%
     }{%
     \end{Definition}%
 }
@@ -334,11 +334,12 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 {problem}
 
-\newenvironment{problem}[2][]{%
-    \begin{Problem}{#2}{#1}%
+\NewDocumentEnvironment{problem}{O{} O{}}{%
+    \begin{Problem}{#1}{#2}%
     }{%
     \end{Problem}%
 }
+
 %================================
 % CLAIM BOX
 %================================
@@ -361,8 +362,8 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 {claim}
 
-\newenvironment{claim}[2][]{%
-    \begin{Claim}{#2}{#1}%
+\NewDocumentEnvironment{claim}{O{} O{}}{%
+    \begin{Claim}{#1}{#2}%
     }{%
     \end{Claim}%
 }
@@ -389,8 +390,8 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 {corollary}
 
-\newenvironment{corollary}[2][]{%
-    \begin{Corollary}{#2}{#1}%
+\NewDocumentEnvironment{corollary}{O{} O{}}{%
+    \begin{Corollary}{#1}{#2}%
     }{%
     \end{Corollary}%
 }
@@ -418,8 +419,8 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 {note}
 
-\newenvironment{note}[2][]{%
-    \begin{Note}{#2}{#1}%
+\NewDocumentEnvironment{note}{O{} O{}}{%
+    \begin{Note}{#1}{#2}%
     }{%
     \end{Note}%
 }
@@ -447,8 +448,8 @@ within=chapter]{Definition}{Definition}{enhanced,
 }
 {example}
 
-\newenvironment{example}[2][]{%
-    \begin{Example}{#2}{#1}%
+\NewDocumentEnvironment{example}{O{} O{}}{%
+    \begin{Example}{#1}{#2}%
     }{%
     \end{Example}%
 }

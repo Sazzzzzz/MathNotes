@@ -13,7 +13,7 @@
 \end{align*}
 
 于是我们如此定义内积：
-\begin{definition}{内积}
+\begin{definition}[内积]
     设\(V\)为域\(\F\)上的线性空间，则称映射
     \[
         \inner{\cdot}{\cdot} : V \times V \to \F
@@ -30,13 +30,13 @@
     \inner{x}{\lambda y} = \conj{\lambda} \inner{x}{y}
 \]
 
-\begin{definition}{范数}
+\begin{definition}[范数]
     \[
         \norm{x} = \sqrt{\inner{x}{x}}
     \]
 \end{definition}
 
-\begin{theorem}{勾股定理}
+\begin{theorem}[勾股定理]
     \(\norm{u}^{2} + \norm{v}^{2} = \norm{u+v}^{2} \iff \inner{u}{v} = 0\)
 \end{theorem}
 
@@ -59,11 +59,11 @@
 \end{align*}
 
 也就是柯西不等式：
-\begin{theorem}{柯西不等式}
+\begin{theorem}[柯西不等式]
     \(\abs{\inner{u}{v}} \leq \norm{u} \norm{v}\)
 \end{theorem}
 
-\begin{corollary}{}
+\begin{corollary}
     \textbf{平行四边形法则}： \(\norm{u + v}^{2} + \norm{u - v}^{2} = 2\norm{u}^{2} +
     2\norm{v}^{2}\)
 
@@ -87,7 +87,7 @@
 
 \section{规范正交基}
 
-\begin{definition}{规范正交组与规范正交基}
+\begin{definition}[规范正交组与规范正交基]
     设\(V\)为域\(\F\)上的线性空间，\(\{e_1, e_2, \cdots, e_m\}\)为\(V\)的一组向量，
     如果对任意\(i\)，\(j\) ，有：
     \[
@@ -110,7 +110,7 @@
     \]
 \end{corollary}
 
-\begin{theorem}{Bessel不等式}
+\begin{theorem}[Bessel不等式]
     设\(\{e_1, e_2, \cdots, e_m\}\)为\(V\)上的一组规范正交组，则对任意\(v \in V\)，有：
     \[
         \norm{v}^{2} \geq \abs{\inner{v}{e_1}}^{2} +
@@ -134,7 +134,7 @@
     等号成立的充分必要条件是\(v-u = 0\)，即\(v\)在\(e_1, e_2, \cdots, e_m\)张成的子空间中。
 \end{proof}
 
-\begin{corollary}{向量的规范正交基表示}
+\begin{corollary}[向量的规范正交基表示]
     设\(\{e_1, e_2, \cdots, e_n\}\)为\(V\)的一组规范正交基，则对任意\(v \in V\)，有
     \begin{itemize}
         \item \(v = \inner{v}{e_1} e_1 + \inner{v}{e_2} e_2 + \cdots +
@@ -148,7 +148,7 @@
 \end{corollary}
 
 这里出现的Parseval恒等式与Bessel不等式与傅立叶级数中的Parseval恒等式与Bessel不等式是类似的。
-\begin{note}{}
+\begin{note}
     \(f\) 的傅立叶级数展开系数有Bessel不等式：
     \[
         \frac{a_{0}^{2}}{2} + \sum_{n=1}^{\infty} (a_n^2 + b_n^2) \leq
@@ -157,7 +157,7 @@
     若\(f\) 的傅立叶级数一致收敛于\(f\)，则等号成立。（Parseval恒等式）
 \end{note}
 
-\begin{theorem}{Gram-Schimidt 正交化}
+\begin{theorem}[Gram-Schimidt 正交化]
     设\(V\)为域\(\F\)上的线性空间，\(\{v_1, v_2, \cdots, v_n\}\)为\(V\)的一组线性无关向量，
     令\(f_{1}= v_{1}\)，\(f_{k}\) 依次定义为：
     \[
@@ -191,7 +191,7 @@ Gram-Schimidt 正交化过程是对新向量反复移除旧向量在其上的分
 
 \subsection{内积空间上的线性泛函}
 
-\begin{theorem}{Rietz表示定理}
+\begin{theorem}[Rietz表示定理]
     设\(V\)为域\(\F\)上的内积空间，则对任意线性泛函\(f \in V'\)，存在唯一的向量\(y \in V\)，
     使得对任意\(x \in V\)，有：
     \[

@@ -1,0 +1,96 @@
+% !TEX root = main.tex
+\chapter{Hilbert Spaces}
+
+希尔伯特空间（Hilbert Spaces）是有限维欧几里得空间 \(\mathbb{R}^n\) 的自然推广。在
+\(\mathbb{R}^n\) 中，向量不仅有“长度”（范数），还有“角度”（由内积定义）。希尔伯特空间就是装备了内积的完备赋范线性空间，其范数由内积诱导。
+
+\section{Basic properties}
+
+关于内积空间的基本定义、柯西-施瓦茨不等式（Cauchy-Schwarz inequality）、勾股定理、三角不等式等性质，
+与线性代数中的内容基本一致，不再赘述。
+
+\subsection{内积的连续性}
+
+\begin{theorem}[Continuity of inner product]
+    设 \(x_n, y_n\) 是内积空间 \(E\) 中的元素，\(n=1, 2, \dots\)，且
+    \[
+        x_n \to x, \quad y_n \to y,
+    \]
+    即在诱导范数拓扑下收敛。则
+    \[
+        \langle x_n, y_n \rangle \to \langle x, y \rangle.
+    \]
+\end{theorem}
+
+\begin{proof}
+    因为 \(y_n \to y\)，存在常数 \(C > 0\) 使得 \(\|y_n\| \le C\) 对所有 \(n \in
+    \mathbb{N}\) 成立。
+    由三角不等式和柯西-施瓦茨不等式：
+    \begin{align*}
+        |\langle x_n, y_n \rangle - \langle x, y \rangle|
+        &= |\langle x_n, y_n \rangle - \langle x_n, y \rangle +
+        \langle x_n, y \rangle - \langle x, y \rangle| \\
+        &\le |\langle x_n, y_n - y \rangle| + |\langle x_n - x, y \rangle| \\
+        &\le \|x_n\| \|y_n - y\| + \|x_n - x\| \|y\| \\
+        &\le C \|y_n - y\| + \|x_n - x\| \|y\|.
+    \end{align*}
+    当 \(n \to \infty\) 时，上式趋于 \(0\)。
+\end{proof}
+
+\subsection{平行四边形定则}
+
+平行四边形定则（Parallelogram Law）揭示了范数与内积之间的深刻联系。如果一个范数满足平行四边形定则，
+那么它一定是由某个内积诱导的。这是因为平行四边形定则可以推导出极化恒等式（Polarization Identity）。
+
+\begin{theorem}[Parallelogram Law]
+    向量空间 \(E\) 上的范数 \(\|\cdot\|\) 是由内积定义的，当且仅当
+    \[
+        \|x+y\|^2 + \|x-y\|^2 = 2(\|x\|^2 + \|y\|^2), \quad \forall x, y \in E.
+    \]
+\end{theorem}
+
+如果范数满足平行四边形定则，我们可以通过极化恒等式来定义内积：
+\begin{itemize}
+    \item 实情形：
+        \[
+            \langle x, y \rangle = \frac{1}{4} (\|x+y\|^2 - \|x-y\|^2).
+        \]
+    \item 复情形：
+        \[
+            \langle x, y \rangle = \frac{1}{4} \sum_{k=0}^3 i^k \|x +
+            i^k y\|^2 = \frac{1}{4} (\|x+y\|^2 - \|x-y\|^2 +
+            i\|x+iy\|^2 - i\|x-iy\|^2).
+        \]
+\end{itemize}
+
+\subsection{希尔伯特空间的直和}
+
+我们可以将两个内积空间“拼”成一个更大的内积空间，这称为希尔伯特空间的直和（Direct Sum）。
+
+\begin{example}
+    设 \(H\) 和 \(K\) 是内积空间，内积分别为 \(\langle \cdot, \cdot \rangle_H\) 和
+    \(\langle \cdot, \cdot \rangle_K\)。则 \(H \times K\) 也是一个内积空间，其内积定义为：
+    \[
+        \langle (x, \xi), (y, \eta) \rangle = \langle x, y \rangle_H
+        + \langle \xi, \eta \rangle_K,
+    \]
+    其中 \(x, y \in H\) 且 \(\xi, \eta \in K\)。
+\end{example}
+
+在这种情况下，我们将 \(H \times K\) 记为 \(H \oplus K\)，称为希尔伯特空间 \(H\) 和 \(K\) 的直和。
+
+由上述内积诱导的范数为：
+\[
+    \|(x, \xi)\|_{H \oplus K} = \sqrt{\|x\|_H^2 + \|\xi\|_K^2}.
+\]
+
+显然，如果 \(H\) 和 \(K\) 都是完备的（即希尔伯特空间），那么 \(H \oplus K\) 在此范数下也是完备的。
+
+值得注意的是，高维空间往往可以看作低维空间的直和。例如，\(\mathbb{R}^n\) 实际上就是 \(n\) 个
+\(\mathbb{R}\) 作为希尔伯特空间的直和：
+\[
+    \mathbb{R}^n = \underbrace{\mathbb{R} \oplus \mathbb{R} \oplus
+    \cdots \oplus \mathbb{R}}_{n \text{个}}.
+\]
+
+\section{Best Approximation}

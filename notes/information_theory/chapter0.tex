@@ -8,7 +8,7 @@
 \textbf{信息}： 信息是用来消除不确定性的东西。
 
 概率越小的事件发生，携带的信息量越大。又结合信息的可叠加性，我们可以定义信息量。
-\begin{definition}{信息量}
+\begin{definition}[信息量]
     设事件\(A\)发生的概率为\(P(A)\)，则事件\(A\)发生时所包含的信息量定义为：
     \[
         I(A) = -\log P(A)
@@ -16,7 +16,7 @@
 \end{definition}
 
 熵是信息量的数学期望，是仅依赖于随机变量的概率分布的泛函。
-\begin{definition}{熵}
+\begin{definition}[熵]
     设随机变量\(X\)的概率分布为\(P(X=x_i)=p_i\)，则随机变量\(X\)的熵定义为：
     \[
         H(X) = -\sum_i p_i \log p_i
@@ -29,7 +29,7 @@
 information source -> source encoder -> channel encoder -> channel ->
 channel decoder -> source decoder -> destination
 
-\begin{definition}{分离定理}
+\begin{definition}[分离定理]
     在信道容量大于信源熵率的条件下，信源编码和信道编码可以独立设计，而不影响系统的整体最优性。
 \end{definition}
 

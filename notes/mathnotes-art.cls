@@ -200,8 +200,8 @@
 }
 {theorem}
 
-\newenvironment{theorem}[2][]{%
-    \begin{Theorem}{#2}{#1}%
+\NewDocumentEnvironment{theorem}{O{} O{}}{%
+    \begin{Theorem}{#1}{#2}%
     }{%
     \end{Theorem}%
 }
@@ -228,8 +228,8 @@
 }
 {definition}
 
-\newenvironment{definition}[2][]{%
-    \begin{Definition}{#2}{#1}%
+\NewDocumentEnvironment{definition}{O{} O{}}{%
+    \begin{Definition}{#1}{#2}%
     }{%
     \end{Definition}%
 }
@@ -256,8 +256,8 @@
 }
 {example}
 
-\newenvironment{example}[2][]{%
-    \begin{Example}{#2}{#1}%
+\NewDocumentEnvironment{example}{O{} O{}}{%
+    \begin{Example}{#1}{#2}%
     }{%
     \end{Example}%
 }
@@ -284,8 +284,8 @@
 }
 {claim}
 
-\newenvironment{claim}[2][]{%
-    \begin{Claim}{#2}{#1}%
+\NewDocumentEnvironment{claim}{O{} O{}}{%
+    \begin{Claim}{#1}{#2}%
     }{%
     \end{Claim}%
 }
@@ -312,8 +312,8 @@
 }
 {problem}
 
-\newenvironment{problem}[2][]{%
-    \begin{Problem}{#2}{#1}%
+\NewDocumentEnvironment{problem}{O{} O{}}{%
+    \begin{Problem}{#1}{#2}%
     }{%
     \end{Problem}%
 }
@@ -341,8 +341,8 @@
 }
 {note}
 
-\newenvironment{note}[2][]{%
-    \begin{Note}{#2}{#1}%
+\NewDocumentEnvironment{note}{O{} O{}}{%
+    \begin{Note}{#1}{#2}%
     }{%
     \end{Note}%
 }
