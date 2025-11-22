@@ -1,8 +1,8 @@
 % !TEX root = main.tex
 \chapter{Hilbert Spaces}
 
-希尔伯特空间（Hilbert Spaces）是有限维欧几里得空间 \(\mathbb{R}^n\) 的自然推广。在
-\(\mathbb{R}^n\) 中，向量不仅有“长度”（范数），还有“角度”（由内积定义）。希尔伯特空间就是装备了内积的完备赋范线性空间，其范数由内积诱导。
+希尔伯特空间（Hilbert Spaces）是有限维欧几里得空间 \(\R^n\) 的自然推广。在
+\(\R^n\) 中，向量不仅有“长度”（范数），还有“角度”（由内积定义）。希尔伯特空间就是装备了内积的完备赋范线性空间，其范数由内积诱导。
 
 \section{Basic properties}
 
@@ -49,7 +49,7 @@
     \]
 \end{theorem}
 
-如果范数满足平行四边形定则，我们可以通过极化恒等式来定义内积：
+如果范数满足平行四边形定则，可以通过极化恒等式来定义内积：
 \begin{itemize}
     \item 实情形：
         \[
@@ -86,11 +86,11 @@
 
 显然，如果 \(H\) 和 \(K\) 都是完备的（即希尔伯特空间），那么 \(H \oplus K\) 在此范数下也是完备的。
 
-值得注意的是，高维空间往往可以看作低维空间的直和。例如，\(\mathbb{R}^n\) 实际上就是 \(n\) 个
-\(\mathbb{R}\) 作为希尔伯特空间的直和：
+值得注意的是，高维空间往往可以看作低维空间的直和。例如，\(\R^n\) 实际上就是 \(n\) 个
+\(\R\) 作为希尔伯特空间的直和：
 \[
-    \mathbb{R}^n = \underbrace{\mathbb{R} \oplus \mathbb{R} \oplus
-    \cdots \oplus \mathbb{R}}_{n \text{个}}.
+    \R^n = \underbrace{\R \oplus \R \oplus
+    \cdots \oplus \R}_{n \text{个}}.
 \]
 
 \section{Best Approximation}
