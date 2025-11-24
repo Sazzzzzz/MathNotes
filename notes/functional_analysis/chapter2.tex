@@ -2,25 +2,25 @@
 \chapter{Banach Spaces}
 \section{Normed Spaces}
 
-% fix notation and $$ to \[ \]
 \begin{definition}
-    设$X$是一个线性空间，$\|\cdot\|:X\to [0,+\infty)$是一个映射，如果对任意$x,y\in X$和标量$\alpha$，都有
+    设\(X\)是一个线性空间，\(\|\cdot\|:X\to [0,+\infty)\)是一个映射，如果对任意\(x,y\in
+    X\)和标量\(\alpha\)，都有
     \begin{enumerate}
-        \item $\|x\|=0 \Leftrightarrow x=0$;
-        \item $\|\alpha x\|=|\alpha|\|x\|$;
-        \item $\|x+y\|\leq \|x\|+\|y\|$;
+        \item \(\|x\|=0 \Leftrightarrow x=0\);
+        \item \(\|\alpha x\|=|\alpha|\|x\|\);
+        \item \(\|x+y\|\leq \|x\|+\|y\|\);
     \end{enumerate}
-    则称$\|\cdot\|$为$X$上的一个范数，$(X,\|\cdot\|)$称为一个赋范空间（normed space）。
+    则称\(\|\cdot\|\)为\(X\)上的一个范数，\((X,\|\cdot\|)\)称为一个赋范空间（normed space）。
 \end{definition}
 
 通过范数我们可以定义度量：
 
 \begin{definition}[范数诱导出的度量]
-    设$(X,\|\cdot\|)$是一个赋范空间，定义$d:X\times X\to [0,+\infty)$为
+    设\((X,\|\cdot\|)\)是一个赋范空间，定义\(d:X\times X\to [0,+\infty)\)为
     \[
         d(x,y)=\|x-y\|
     \]
-    则$d$是$X$上的一个度量，$(X,d)$是一个度量空间。
+    则\(d\)是\(X\)上的一个度量，\((X,d)\)是一个度量空间。
 \end{definition}
 
 故赋范线性空间必然是度量空间。
