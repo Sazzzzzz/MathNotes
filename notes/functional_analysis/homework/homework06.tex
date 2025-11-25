@@ -1,0 +1,77 @@
+\documentclass{../../mathnotes-art}
+
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% DISABLE_SMART_IME
+
+\begin{document}
+\paragraph{1.}
+\(\forall x \in \ell_{\infty}\), we have \(x_{n} \leq \sup_{n}
+|x_{n}| = \norm{x}_{\infty}\)
+
+\begin{align*}
+    \norm{Tx}^{p} &= \norm{\sum_{n=1}^{\infty} x_{n}
+    \chi_{\left[\frac{1}{2^{n}} , \frac{1}{2^{n-1}} \right)}}^{p}  \\
+    &= \int_{0}^{1} \left( \sum_{n=1}^{\infty}
+        x_{n}\chi_{\left[\frac{1}{2^{n}} , \frac{1}{2^{n-1}} \right)}
+    \right)^{p}  \d{x} \\
+    &\leq \int_{0}^{1} \left( \sum_{n=1}^{\infty}
+        \norm{x}_{\infty} \chi_{\left[\frac{1}{2^{n}} , \frac{1}{2^{n-1}}
+    \right)} \right)^{p}  \d{x} \\
+    &= \norm{x}_{\infty}^{p} \int_{0}^{1} \left( \sum_{n=1}^{\infty}
+        \chi_{\left[\frac{1}{2^{n}} , \frac{1}{2^{n-1}} \right)}
+    \right)^{p}  \d{x}\\
+    &= \norm{x}_{\infty}^{p} \int_{0}^{1} \left( \chi_{\left(0,1
+    \right)} \right)^{p} \d{x} = \norm{x}_{\infty}^{p}
+\end{align*}
+therefore \(\norm{T} \leq 1\), \(\norm{T}\) is bounded, which means
+\(T\) is a continuous linear operator.
+Consider \(x = (1,1,1,\dots)\), then
+\begin{align*}
+    \norm{Tx} &= \norm{\sum_{n=1}^{\infty} \chi_{\left[\frac{1}{2^{n}} ,
+    \frac{1}{2^{n-1}} \right)}} \\
+    &= \norm{\chi_{\left(0, 1\right)}} \\
+    &= \left( \int_{0}^{1} \chi_{\left(0,
+    1\right)} \d{x} \right)^{\frac{1}{p}} = 1
+\end{align*}
+therefore \(\norm{T} = 1\).
+
+\paragraph{2.}
+\subparagraph{a}
+
+Since \(x \in \ell^{n}\), \(x_{i} \leq 1, \forall i \in \N\)
+
+\[
+    \norm{A_{n}x} = \sqrt{\sum_{k=1}^{\infty} \left(
+    \frac{x_{k}}{kn} \right)^{2}}
+    = \frac{1}{n} \sqrt{\sum_{k=1}^{\infty} \left( \frac{x_{k}}{k}
+    \right)^{2}}
+    \leq \frac{1}{n} \sqrt{\sum_{k=1}^{\infty} \frac{1}{k^{2}}} =
+    \frac{\pi^{2}}{6n}
+\]
+therefore \(0 \leq \norm{A_{n}} \leq \frac{\pi^{2}}{6n}\), and as \(n \to
+\infty\), \(\norm{A_{n}} \to 0\).
+
+\subparagraph{b}
+
+\[
+    \norm{B_{n}x} = \sqrt{\sum_{k=1}^{\infty } x_{k}^{2} -
+    \sum_{k=1}^{n} x_{k}^{2}}
+\]
+\(\forall x \in \ell^{n}\), \(\sum_{k=1}^{n} x_{k}^{2}\) approaches
+\(\sum_{k=1}^{\infty}
+x_{k}^{2}\) as \(n \to \infty\).
+therefore:
+\[
+    \lim_{n \to \infty} \norm{B_{n}x} = 0
+\]
+
+However, for each \(n\), consider \(e_{n+1} = (0,0, \dots
+,\underbrace{1}_{n+1 \text{th}},0, \dots)\)
+\[
+    \norm{B_{n} e_{n+1}} = \sqrt{\sum_{k=1}^{\infty} (e_{n+1})_{k}^{2} -
+    \sum_{k=1}^{n} (e_{n+1})_{k}^{2}} = 1
+\]
+\((B_{n})_{n\in \N}\) does not converge to \(0\) in operator norm.
+
+\end{document}
