@@ -1,11 +1,20 @@
+# System file
+.DS_Store
+
+# Dev artifacts
 *_temp/
 test*.*
 test*/
+.release_date
 build/
 reference/
-.DS_Store
-.release_date
-node_modules/
-__pycache__/
 
+# References
+textbook*.*
+
+# VSCode
 .vscode/settings.json
+
+# Python
+__pycache__/
+*.pyc

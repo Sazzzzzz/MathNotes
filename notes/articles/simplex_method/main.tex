@@ -1,8 +1,5 @@
 \documentclass{../../mathnotes-art}
-\usepackage{amsthm}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsopn}
+
 \title{无痛入门单纯形法：如果你也被矩阵绕晕……}
 \bibliography{../../reference.bib}
 
@@ -30,7 +27,6 @@
     \]
     下，求函数\(f(x,y) = 2x + y\) 的最大值。
 \end{example}
-% todo: 插入图形
 
 其实我们已经在微积分里干过不知道多少次求最大最小值的问题了。区区求线性函数的极值，我们上来就是一个求导（梯度）：
 \begin{align*}
@@ -43,6 +39,44 @@
 我们看的实际上是求约束条件（或者说\textbf{可行域}）在线性函数\(f\)
 的梯度方向\(\c\) 上最远能延伸到哪里。
 
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=0.4, every node/.style={font=\small}]
+        % 坐标轴
+        \draw[->, thick] (-1,0) -- (13,0) node[below right] {$x$};
+        \draw[->, thick] (0,-1) -- (0,13) node[below left] {$y$};
+
+        % 可行域 (0<=x<=10, 0<=y<=10)
+        \fill[cyan, opacity=0.2] (0,0) rectangle (10,10);
+        \draw[thick, cyan] (0,0) rectangle (10,10);
+        \node[black, below right] at (4,6) {可行域};
+
+        % 目标函数 f(x,y) = 2x + y 的等高线
+        % 梯度方向为 (2,1)
+        \begin{scope}
+            \clip (0,0) rectangle (12,14); % 限制绘图在 0<=x<=12 和 0<=y<=12 的区域
+            \foreach \c in {5,15,25,30} {
+                \draw[red, dashed, domain=0:15] plot (\x, \c - 2*\x);
+            }
+        \end{scope}
+        \node[red, rotate=-63, right] at (12, 6) {目标函数等高线};
+
+        % 梯度向量 c
+        \draw[->, thick, violet] (4,11) -- (4+2, 11+1) node[right]
+        {$\nabla f = (2,1)$};
+
+        % 顶点
+        \fill (0,0) circle (3pt) node[below left] {$(0,0)$};
+        \fill (10,0) circle (3pt) node[below right] {$(10,0)$};
+        \fill (0,10) circle (3pt) node[above left] {$(0,10)$};
+        \fill (10,10) circle (3pt) node[above right] {最优点 $(10,10)$};
+
+        % 标注最优解处的等高线
+        \node[red, above, sloped] at (7.5, 15) {$2x+y=30$};
+
+    \end{tikzpicture}
+\end{figure}
+
 不难看出题上所给的约束条件其实是个正方形。我们在约束条件上随便找一点，比如\((0,0)\) ，试着能沿着梯度方向走更远。
 \begin{itemize}
     \item \(（f(x,y) = 2 x+y\)中\(x\) 前的系数是正的，那就把\(x\) 往大了走，最大能走到10；
@@ -52,22 +86,34 @@
 \end{itemize}
 所以起始点从\((0,0)\) 移动到了 \((10,10)\) ，此时函数值为\(f(10,10) = 30\) 。\(f(x,y)\)
 在约束条件下的最大值也就是30。
-% TODO: 加一个把东西调小到0的解法
+
+当然，能看这篇文章的读者相比也不满足于这样简单的方法。为了把题目解得更单纯形法一些，我们换个思路来看这个问题\UseVerb{smile}
+
+令\(x' = 10-x\) ，\(y' = 10-y\) ，则约束条件变成\(x, y, x', y'\geq 0\) 。
+如果我们突发奇想，把目标函数也用新变量表示出来：
+\begin{align*}
+    f(x,y) &= 2x + y \\
+    &= 2(10 - x') + (10 - y') \\
+    &= 30 - 2x' - y'
+\end{align*}
+
+一样的道理，一眼可以发现\(x'\)，\(y'\) 的系数都是负的。为了让函数值最大，我们要把\(x'\)，\(y'\) 尽可能调小至零，
+函数的最大值直接就是常数项30。
 
 \hl{Q}uite \hl{E}asy \hl{D}one！
 
-说实话，所谓单纯形法（以及课本上成坨的矩阵计算）其实本质上和这里做的事情是一样的，也是在约束条件上找一个点，然后看着系数，
-把能调大的系数调大\UseVerb{grin}
+说实话，所谓单纯形法（以及课本上成坨的矩阵计算）其实本质上和这里做的事情是一样的，也是在约束条件上找一个点，然后看着系数，调整变量，
+直到出现像这道题中一眼就是最大值的情景\UseVerb{grin}
 
 此外，隐隐约约地，我们能感觉到，线性规划中函数极值点，一定是约束条件的某个\textbf{顶点}。这一点其实很好说明：
 凸集里所有点都能通过顶点的仿射组合（和为1的线性组合）得到。那中间点的函数取值，也能通过顶点的函数取值仿射组合得到，
 也就被限制在顶点的函数取值范围内了\UseVerb{smile}
-\footcite[严谨证明可见最优化方法][p.~27]{ZuiYouHuaFangFa}
+\footcite[严谨证明可见最优化方法][p.~27]{ZuiYouHuaFangFa2015}
 怎么可能出现极值呢\UseVerb{smile}
 
 \section{标准化}
 一般情况下的线性规划是由若干个等式条件和不等式条件组成的热闹海洋。但课本会把线性规划统一表示成如下形式：
-\begin{definition}[线性规划的标准形式]
+\begin{definition}[线性规划的标准形式\cite[p.~24]{ZuiYouHuaFangFa2015}]
     线性规划问题的标准形式如下：
     \begin{align*}
         \max \quad c_{1}x_{1}  + \cdots + c_{n}x_{n} & \\
@@ -93,10 +139,8 @@
         & \x \geq 0
     \end{align*}
 \end{definition}
-% todo: add ref
-% todo: add min case
 
-化成标准形式的过程往往需要以下的dirty work\sout{（奇技淫巧）}：
+化成标准形式的过程往往需要以下的dirty work\sout{\fangsong{（奇技淫巧）}}：
 \begin{itemize}
     \item[引入松弛变量] 把不等式约束变成等式约束：
         \(x + y \leq 10 \iff x + y + s = 10 \land s \geq 0\)
@@ -108,7 +152,7 @@
         \(x + y \geq 10 \iff -x - y \leq -10\)
 \end{itemize}
 
-可标准形式究竟有什么好处，值得我们如此大费周章地去化简呢？
+可标准形式究竟有什么好处，值得我们如此大费周章地去化简呢\UseVerb{froze}
 
 \subsection{线性方程组解的结构}
 
@@ -122,14 +166,13 @@
 可以理解为经过原点的直线/平面。并且该线性方程组的解可以由\(n-m\) 个自由变量完全决定（其他的元根据这些变量唯一确定）。
 不妨把该空间记为\(\nullspace A\)。
 
-% TODO: Add figure
-
 再来看非齐次线性方程组\(A\x = \b\) 。该线性方程组的任何一个解都能拆分成一个特解\(\x_{0}\)
 和齐次线性方程组\(A\x = \b\) 的和。特解\(x_{0}\) 是任意满足\(A\x = \b\) 的解。也就是说，
 非齐次线性方程组的解集是一个平移\(\x_{0}\) 后的线性子空间，在三维空间中，就是任意的平面/直线\footnote{当然了，点也算。
-不过点上做线性规划可能就没什么意义了\UseVerb{grin}}。
+不过点上做线性规划可能就没什么意义了\UseVerb{froze}}。
 \[
-    \underbrace{\x'}_{\text{非齐次方程的解}} = \underbrace{\x_{0}}_{\text{一个满足条件的特解}} +
+    \underbrace{\x'}_{\text{非齐次方程的解}} =
+    \underbrace{\x_{0}}_{\text{一个满足条件的特解}} +
     \underbrace{\x}_{\text{齐次方程的解}}
 \]
 
@@ -168,7 +211,7 @@ You know, if notation confuses you \UseVerb{smile}
     \end{pmatrix} &= \b \\
     B\x_{B} + N\x_{N} &= \b \\
     B\x_{B} &= \b - N\x_{N} \\
-    \x_{B} &= B^{-1}(\b - N\x_{N}) \label{eq:basis-solution}
+    \x_{B} &= B^{-1}(\b - N\x_{N})
 \end{align*}
 \(\x =
     \begin{pmatrix}
@@ -184,11 +227,16 @@ You know, if notation confuses you \UseVerb{smile}
 终于，我们可以回答最开始的问题了：为什么要把线性规划化成标准形式？
 
 可以看出：方程\(A\x = \b\) 的解，实际上是高维空间的一个超平面，一个仿射集。而约束条件\(\x \geq 0\)
-是空间里的\textbf{第一象限}；是一个凸锥。一个超平面与一个凸锥的交集，就像是正方体与平面相交得到的截面一样，必然是一个凸多面体，是超平面的一部分。
+是空间里的\textbf{第一象限}；是一个凸锥。一个超平面与一个凸锥的交集，就像是正方体与平面相交得到的截面一样，
+必然是一个凸多面体，是超平面的一部分。
 
 不仅如此，线性方程组的解集可以由\(n-m\) 个自由变量完全决定。大胆想象，在若干个自由向量的轴形成的坐标平面里，
 每一个自由变量的线性组合，都唯一的确定着线性方程的一个解，解空间的一个点。
-% todo: add figure
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{resources/solution_space.pdf}
+    \caption{\(x+y+z=1\)的解空间，只需\(x\)与\(y\)就能唯一确定一个解}
+\end{figure}
 
 线性规划的极值多少带有些语不惊人死不休的性质：\textbf{在凸集的可行域内，线性函数的极值点必然出现在凸集的某个顶点上}。最美妙的是，
 由于这个凸集是超平面与象限的交集，可以大胆想象，所有顶点的形成，一定是坐标平面与超平面相交所得到的；也就是说，这个凸集上的每一个顶点，
@@ -199,16 +247,16 @@ N\x_{N})\) ，
     \begin{pmatrix}
         B^{-1} \b \\
         \mathbf{0}
-\end{pmatrix}\label{eq:vertex_solution}\)这个样子\UseVerb{smile}
+\end{pmatrix}\)这个样子\UseVerb{smile}
 \footnote{很多教科书在此处用\textbf{不妨}二字一笔带过\UseVerb{grin}}
 
-% todo: add figure
 \section{当我们知道何时成功}
 \subsection{手把手推导判别式}
 OK，了解了顶点，我们就成功了一半。接下来我们需要关注线性函数在这些顶点上的取值。
 
 从之前的例子我们知道，线性函数的取值完全由系数决定。求最大值，对参数为正的变量而言，就是把能调大的变量调大；对参数为负的变量而言，
-就是把能调小的变量调小。结合上面我们的分析：顶点都是自由变量取零得到的，\hl{此时的自由变量将小无可小，因为他们身后就是坐标轴}\UseVerb{smile}
+就是把能调小的变量调小。结合上面我们的分析：顶点都是自由变量取零得到的，\hl{此时的自由变量将小无可小，
+因为他们身后就是坐标轴}\UseVerb{smile}
 
 所以，如果我们能\textbf{把所有自由变量的系数都变成负数（非正数），并且让其他基变量的系数为零，那这些自由变量取零得到的顶点，
 就将是线性函数的极值点}\UseVerb{surprised}
@@ -220,7 +268,8 @@ OK，了解了顶点，我们就成功了一半。接下来我们需要关注线
 \begin{align*}
     \c^{\mathrm{T}} \x &= \c_{B}^{\mathrm{T}} \x_{B} +
     \c_{N}^{\mathrm{T}} \x_{N} \\
-    &= \c_{B}^{\mathrm{T}} B^{-1}(\b - N\x_{N}) + \c_{N}^{\mathrm{T}} \x_{N} \\
+    &= \c_{B}^{\mathrm{T}} B^{-1}(\b - N\x_{N}) +
+    \c_{N}^{\mathrm{T}} \x_{N} \\
     &= \c_{B}^{\mathrm{T}} B^{-1} \b + (\c_{N}^{\mathrm{T}} -
     \c_{B}^{\mathrm{T}} B^{-1} N) \x_{N}
 \end{align*}
@@ -305,7 +354,8 @@ N\x_{N})\)的那个值。这些矩阵的抽象只是告诉我们为什么这样�
         我们可以理解为这就是已经经过取基变量 \(\to \) 对函数换元之后的结果。
     \item 左侧第一列：所有的基变量
     \item 最后一列是求出的\(B^{-1}\b\)
-    \item 结合\cref{eq:vertex_solution}，可知此时我们测试的顶点就是\(x_{3} \to 3,
+    \item 结合顶点形状\((B^{-1}\b, \mathbf{0})^{\mathrm{T}}\)，
+        可知此时我们测试的顶点就是\(x_{3} \to 3,
         x_{4} \to 2, x_{5} \to 16\)，其他变量为零。
     \item 中间的矩阵部分是\(B^{-1}A\)
     \item 上面的\(\bar{\c}\) 是经过变换后的线性函数系数，对非基变量来说是\(\c_{B}^{\mathrm{T}}
@@ -316,7 +366,8 @@ N\x_{N})\)的那个值。这些矩阵的抽象只是告诉我们为什么这样�
 然后对线性函数系数做同样的行变换即可\footnote{如果你愿意在求解开始给\(\c\)行的最后补上\(0\)，
 那么当你结束后可以直接从这个位置读出线性函数的最小值}。
 
-在这个例子中我们可以读出：非基变量的系数为\((2,3)\) ，均为正，说明我们可以通过调大非基变量来增大线性函数值，单纯形法的任务远没有结束。接下来的任务，
+在这个例子中我们可以读出：非基变量的系数为\((2,3)\) ，均为正，说明我们可以通过调大非基变量来增大线性函数值，
+单纯形法的任务远没有结束。接下来的任务，
 就是单纯形法的核心：
 \textbf{换基}（Pivot\footnote{\textit{pivot}有支点、枢轴、使在枢轴上旋转的意思，
 这里翻译成旋转也许更有趣\UseVerb{wink}}）
@@ -342,9 +393,10 @@ N\x_{N})\)的那个值。这些矩阵的抽象只是告诉我们为什么这样�
 \]
 
 所以如果我们暴力的测试所有的顶点，最坏情况下需要测试\(\binom{n}{m}\) 次\UseVerb{cry}。也正因如此，
-单纯形法采用贪心的策略：每次调整基变量/非基变量的划分，只调整一个变量，朝着让线性函数值变大的方向前进。它恰好贪心，可行域恰好是凸集。
-局部最优恰好是全局最优，单纯形法因而有效\UseVerb{smile}\footnote{也因此，在这个意义下单纯形法的最坏时间复杂度是指数级别的，
-但通过微扰输入可以证明单纯形法在实际应用有多项式时间复杂度\cite{ComplexitySimplexAlgorithm2010}}
+单纯形法采用贪心的策略：每次调整基变量/非基变量的划分，只调整一个变量，朝着让线性函数值变大的方向前进。它恰好贪心，可行域恰好是凸集：
+局部最优恰好是全局最优，它给了任意一点一个直挺挺滑向最优解的机会。单纯形法因而有效\UseVerb{smile}\footnote{也因此，
+    在这个意义下单纯形法的最坏时间复杂度是指数级别的，
+但通过微扰输入可以证明单纯形法在实际应用有多项式时间复杂度\cite{2374}}
 
 \subsection{尝试一次换基}
 
@@ -414,7 +466,8 @@ So far so good. 朝着这个方向继续努力，不久我们就能找到最优�
 \[
     x_{B_i} = \bar{b}_i - \bar{a}_{ik} x_k
 \]
-其中 \(\bar{b}_i\) 是当前基变量的值（\(\bar{\b}\)也就是单纯形表最右边那一列），\(\bar{a}_{ik}\) 是我们选中的入基变量
+其中 \(\bar{b}_i\) 是当前基变量的值（\(\bar{\b}\)也就是单纯形表最右边那一列），
+\(\bar{a}_{ik}\) 是我们选中的入基变量
 \(x_k\) 所在列对应的系数（也就是单纯形表中间的那部分）。
 
 我们要保证新的解仍然在可行域内，也就是说，所有的基变量 \(x_{B_i}\) 必须仍然大于等于零：
@@ -453,9 +506,10 @@ So far so good. 朝着这个方向继续努力，不久我们就能找到最优�
 
 \subsection{换基直到成功}
 
-接下来完成上面的例子，以下内容基本照搬自\cite[pp.~36-37]{ZuiYouHuaFangFa} ：
+接下来完成上面的例子，以下内容基本照搬自\cite[pp.~36-37]{ZuiYouHuaFangFa2015} ：
 
-考虑消去\(x_{2}\) ，\(x_{4}\) 所在行比率最小\footnote{这正是我们错误例子中不满足非负约束的行\UseVerb{grin}}：
+考虑消去\(x_{2}\) ，\(x_{4}\)
+所在行比率最小\footnote{这正是我们错误例子中不满足非负约束的行\UseVerb{grin}}：
 \[
     \begin{array}{c|*{5}{c}|c}
         \hline
@@ -475,6 +529,7 @@ So far so good. 朝着这个方向继续努力，不久我们就能找到最优�
         x_{5} & 6   & 0   & 0   & -1   & 1   & 14 \\ \hline
     \end{array}
 \]
+同理：
 \[
     \begin{array}{c|*{5}{c}|c}
         \hline
@@ -516,7 +571,24 @@ So far so good. 朝着这个方向继续努力，不久我们就能找到最优�
         8/5 \\ \hline
     \end{array}
 \]
-% TODO: better reference
-% TODO: add ending
+\section{总结}
+
+单纯形法最初由George Dantzig在1947年提出，被誉为“20世纪最伟大的算法之一”\cite{2374}。时至今日，
+单纯形法已经有50多年的历史，拥有诸如大M法、两阶段法等多种变体，运用于包括博弈论、运筹学、经济学等多个领域的线性规划问题中。
+单纯形法的目的是最优化，学会单纯形法，你可以优化你的时间管理、投资组合
+，甚至可以玩游戏赢兄弟的钱\cite[part2 p.~20]{GameTheory}\UseVerb{wink}
+
+单纯形法的核心思想，就是靠变基在基本可行解之间跳跃，直到找到最优解为止。总结一下单纯形法的步骤：
+\begin{enumerate}
+    \item 把线性规划问题化成标准形式
+    \item 构造初始单纯形表
+    \item 检查非基变量系数，如果都非正，结束，当前解即为最优解
+    \item 选择一个系数为正的非基变量作为入基变量
+    \item 用最小比率检验选择一个基变量作为出基变量
+    \item 换基，回到步骤3
+\end{enumerate}
+
+希望这篇文章能帮助你理解单纯形法的原理\UseVerb{wink}
+
 \printbibliography[heading=bibintoc,title={参考}]
 \end{document}
