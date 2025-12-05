@@ -1,0 +1,51 @@
+\documentclass{../../../articles/mathnotes-art}
+
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+% DISABLE_SMART_IME
+
+\begin{document}
+\paragraph{1.}
+\(\forall z(t) \in L^{2}(\Omega)\), we have:
+\begin{align*}
+    & \phantom{=} \inner{Tx(t)}{z(t)}\\
+    &= \int_{\Omega} x(t) y(t) \overline{z(t)} \d{t}\\
+    &= \int_{\Omega} x(t) \overline{\overline{y(t)} z(t)} \d{t}\\
+    &= \inner{x(t)}{\overline{y(t)} z(t)}\\
+\end{align*}
+Thus, \(T^* z(t) = \overline{y(t)} z(t)\).
+
+\paragraph{2.}
+First we prove \(T\) is self-adjoint, i.e., \(T = T^*\).
+
+\(\forall x(x), y(x) \in L^{2}[0,1]\), by Fubini's theorem, and
+\(\varphi(x)\) is real-valued, we have:
+\begin{align*}
+    &\phantom{=} \inner{Tx(x)}{y(x)}\\
+    &= \int_{0}^{1} \left( \varphi(x) \int_{0}^{1} \varphi(t)x(t)
+    \d{t} \right) \overline{y(x)} \d{x}\\
+    &= \int_{0}^{1} \int_{0}^{1} \varphi(x) \overline{y(x)}
+    \varphi(t) x(t) \d{t} \d{x}\\
+    &= \int_{0}^{1} x(t) \varphi(t) \left( \int_{0}^{1} \varphi(x)
+    \overline{y(x)} \d{x} \right) \d{t}\\
+    &= \int_{0}^{1} x(t) \overline{\varphi(t) \left( \int_{0}^{1}
+    \varphi(x)y(x) \d{x} \right)} \d{t}\\
+    &= \inner{x(x)}{Ty(x)}
+\end{align*}
+therefore \(T\) is self-adjoint.
+
+Next we prove \(T\) is positive, i.e., \(\inner{Tx}{x} \geq 0\),
+\(\forall x \in L^{2}[0,1]\):
+\begin{align*}
+    \inner{Tx}{x} &= \int_{0}^{1} \left( \varphi(x) \int_{0}^{1}
+    \varphi(t)x(t) \d{t} \right) \overline{x(x)} \d{x}\\
+    &= \int_{0}^{1} \int_{0}^{1} \varphi(x) \overline{x(x)}
+    \varphi(t) x(t) \d{t} \d{x}\\
+    &= \left( \int_{0}^{1} \varphi(t) x(t) \d{t} \right)
+    \overline{\left( \int_{0}^{1} \varphi(x) x(x) \d{x} \right)}\\
+    &= \left| \int_{0}^{1} \varphi(t) x(t) \d{t} \right|^{2} \geq 0
+\end{align*}
+
+Therefore \(T\) is a positive operator.
+
+\end{document}
