@@ -83,6 +83,7 @@
 \SaveVerb{grin}|:-]|
 \SaveVerb{naughty}|:P|
 \SaveVerb{relaxed}|:-|%
+\SaveVerb{froze}!:|!% % use ! as delimiter to avoid conflict with |
 % For cancel line
 \RequirePackage{cancel}
 % For code highlighting
@@ -155,7 +156,6 @@
 \newfontfamily\DancingScript{Dancing Script OT}
 \newcommand{\Caffein}{\DancingScript{Caffein3}}
 % Predefine title, author and date
-% ? what's the difference between \@author and \author?
 \author{\Large \Caffein}
 \date{}
 

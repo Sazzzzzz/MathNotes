@@ -115,6 +115,8 @@ $$
 $$\underbrace{\mathbf{x}'}_{\text{非齐次方程的解}} = \underbrace{\mathbf{x}_{0}}_{\text{一个满足条件的特解}} +
     \underbrace{\mathbf{x}}_{\text{齐次方程的解}}$$
 
+![image](resources/null_space&solution.png)
+
 我们可以把解集记为$\mathbf{x}_{0} + \mathop{\mathrm{null}}{A}$
 
 ### 形式化解线性方程组

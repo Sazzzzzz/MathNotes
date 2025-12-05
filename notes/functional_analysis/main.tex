@@ -1,9 +1,10 @@
 \documentclass{../mathnotes-rep}
 
-\bibliography{../reference.bib}
+\bibliography{../../reference.bib}
 
 \DeclareMathOperator{\Span}{span}
 \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiterX{\inner}[2]{\langle}{\rangle}{#1, #2}
 
 \begin{document}
 % cSpell: ignore LADR
@@ -11,8 +12,10 @@
 \title{泛函分析学习笔记}
 \maketitle
 \tableofcontents
+\include{chapter1}
 \include{chapter2}
 \include{chapter3}
+\include{chapter4}
 % \mainmatter
 
 \printbibliography[heading=bibintoc, title={参考文献}]

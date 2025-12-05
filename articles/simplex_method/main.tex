@@ -1,4 +1,4 @@
-\documentclass{../../mathnotes-art}
+\documentclass{../mathnotes-art}
 
 \title{无痛入门单纯形法：如果你也被矩阵绕晕……}
 \bibliography{../../reference.bib}
@@ -170,6 +170,11 @@
 和齐次线性方程组\(A\x = \b\) 的和。特解\(x_{0}\) 是任意满足\(A\x = \b\) 的解。也就是说，
 非齐次线性方程组的解集是一个平移\(\x_{0}\) 后的线性子空间，在三维空间中，就是任意的平面/直线\footnote{当然了，点也算。
 不过点上做线性规划可能就没什么意义了\UseVerb{froze}}。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{resources/null_space&solution.pdf}
+    \caption{一般线性方程组的解空间，由一个特解和平移后的齐次方程组的解空间组成}
+\end{figure}
 \[
     \underbrace{\x'}_{\text{非齐次方程的解}} =
     \underbrace{\x_{0}}_{\text{一个满足条件的特解}} +

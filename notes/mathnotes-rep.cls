@@ -155,7 +155,6 @@
 \newfontfamily\DancingScript{Dancing Script OT}
 \newcommand{\Caffein}{\DancingScript{Caffein3}}
 % Predefine title, author and date
-% ? what's the difference between \@author and \author?
 \author{\Large \Caffein}
 \date{}
 
@@ -244,31 +243,50 @@
 %================================
 % THEOREM BOX
 %================================
-\makeatletter
-\newtcbtheorem[number within=chapter]{Theorem}{Theorem}{enhanced,
+% Archive old version
+% \makeatletter
+% \newtcbtheorem[number within=chapter]{Theorem}{Theorem}{enhanced,
+%     breakable,
+%     colback=mytheoremcolor!8,
+%     colframe=mytheoremcolor,
+%     attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+%     fonttitle=\bfseries,
+%     title={#2},
+%     boxed title size=title,
+%     boxed title style={%
+%         sharp corners,
+%         rounded corners=northwest,
+%         colback=tcbcolframe,
+%         boxrule=0pt,
+%     },
+%     underlay boxed title={%
+%         \path[fill=tcbcolframe] (title.south west)--(title.south east)
+%         to[out=0, in=180] ([xshift=5mm]title.east)--
+%         (title.center-|frame.east)
+%         [rounded corners=\kvtcb@arc] |-
+%         (frame.north) -| cycle;
+%     },
+%     #1
+% }{theorem}
+% \makeatother
+\newtcbtheorem[number within=chapter]{Theorem}{Theorem}
+{%
+    enhanced,
     breakable,
-    colback=mytheoremcolor!8,
-    colframe=mytheoremcolor,
-    attach boxed title to top left={yshift*=-\tcboxedtitleheight},
-    fonttitle=\bfseries,
-    title={#2},
-    boxed title size=title,
-    boxed title style={%
-        sharp corners,
-        rounded corners=northwest,
-        colback=tcbcolframe,
-        boxrule=0pt,
-    },
-    underlay boxed title={%
-        \path[fill=tcbcolframe] (title.south west)--(title.south east)
-        to[out=0, in=180] ([xshift=5mm]title.east)--
-        (title.center-|frame.east)
-        [rounded corners=\kvtcb@arc] |-
-        (frame.north) -| cycle;
-    },
-    #1
-}{theorem}
-\makeatother
+    colback = mytheoremcolor!10,
+    frame hidden,
+    boxrule = 0sp,
+    borderline west = {2pt}{0pt}{mytheoremcolor},
+    sharp corners,
+    detach title,
+    before upper = \tcbtitle\par\smallskip,
+    coltitle = mytheoremcolor!85!black,
+    fonttitle = \bfseries\sffamily,
+    description font = \mdseries,
+    separator sign none,
+    segmentation style={solid, mytheoremcolor!85!black},
+}
+{theorem}
 
 \NewDocumentEnvironment{theorem}{O{} O{}}{%
     \begin{Theorem}{#1}{#2}%
@@ -279,32 +297,24 @@
 %================================
 % DEFINITION BOX
 %================================
-\makeatletter
-\newtcbtheorem[number
-within=chapter]{Definition}{Definition}{enhanced,
+\newtcbtheorem[number within=chapter]{Definition}{Definition}
+{%
+    enhanced,
     breakable,
-    colback=mydefinitioncolor!8,
-    colframe=mydefinitioncolor,
-    attach boxed title to top left={yshift*=-\tcboxedtitleheight},
-    fonttitle=\bfseries,
-    title={#2},
-    boxed title size=title,
-    boxed title style={%
-        sharp corners,
-        rounded corners=northwest,
-        colback=tcbcolframe,
-        boxrule=0pt,
-    },
-    underlay boxed title={%
-        \path[fill=tcbcolframe] (title.south west)--(title.south east)
-        to[out=0, in=180] ([xshift=5mm]title.east)--
-        (title.center-|frame.east)
-        [rounded corners=\kvtcb@arc] |-
-        (frame.north) -| cycle;
-    },
-    #1
-}{definition}
-\makeatother
+    colback = mydefinitioncolor!10,
+    frame hidden,
+    boxrule = 0sp,
+    borderline west = {2pt}{0pt}{mydefinitioncolor},
+    sharp corners,
+    detach title,
+    before upper = \tcbtitle\par\smallskip,
+    coltitle = mydefinitioncolor!85!black,
+    fonttitle = \bfseries\sffamily,
+    description font = \mdseries,
+    separator sign none,
+    segmentation style={solid, mydefinitioncolor!85!black},
+}
+{definition}
 
 \NewDocumentEnvironment{definition}{O{} O{}}{%
     \begin{Definition}{#1}{#2}%
@@ -473,3 +483,18 @@ within=chapter]{Definition}{Definition}{enhanced,
 \end{refbox}}
 % Extra Information
 % INFO: Use \mathclap and \substack to create multiline
+%================================
+% PROOF BOX
+%================================
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+    \pushQED{\qed}%
+    \ttfamily\topsep6\p@\@plus6\p@\relax
+    \trivlist
+\item[\hskip\labelsep
+        \fangsong
+    #1\@addpunct{.}]\ignorespaces
+}{%
+    \popQED\endtrivlist\@endpefalse
+}
+\makeatother
