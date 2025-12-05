@@ -18,7 +18,7 @@
     \]
     即在诱导范数拓扑下收敛。则
     \[
-        \langle x_n, y_n \rangle \to \langle x, y \rangle.
+        \inner{x_n}{y_n} \to \inner{x}{y}.
     \]
 \end{theorem}
 
@@ -27,10 +27,10 @@
     \mathbb{N}\) 成立。
     由三角不等式和柯西-施瓦茨不等式：
     \begin{align*}
-        |\langle x_n, y_n \rangle - \langle x, y \rangle|
-        &= |\langle x_n, y_n \rangle - \langle x_n, y \rangle +
-        \langle x_n, y \rangle - \langle x, y \rangle| \\
-        &\le |\langle x_n, y_n - y \rangle| + |\langle x_n - x, y \rangle| \\
+        |\inner{x_n}{y_n} - \inner{x}{y}|
+        &= |\inner{x_n}{y_n} - \inner{x_n}{y} +
+        \inner{x_n}{y} - \inner{x}{y}| \\
+        &\le |\inner{x_n}{y_n - y}| + |\inner{x_n - x}{y}| \\
         &\le \|x_n\| \|y_n - y\| + \|x_n - x\| \|y\| \\
         &\le C \|y_n - y\| + \|x_n - x\| \|y\|.
     \end{align*}
@@ -53,11 +53,11 @@
 \begin{itemize}
     \item 实情形：
         \[
-            \langle x, y \rangle = \frac{1}{4} (\|x+y\|^2 - \|x-y\|^2).
+            \inner{x}{y} = \frac{1}{4} (\|x+y\|^2 - \|x-y\|^2).
         \]
     \item 复情形：
         \[
-            \langle x, y \rangle = \frac{1}{4} \sum_{k=0}^3 i^k \|x +
+            \inner{x}{y} = \frac{1}{4} \sum_{k=0}^3 i^k \|x +
             i^k y\|^2 = \frac{1}{4} (\|x+y\|^2 - \|x-y\|^2 +
             i\|x+iy\|^2 - i\|x-iy\|^2).
         \]
@@ -68,11 +68,11 @@
 我们可以将两个内积空间“拼”成一个更大的内积空间，这称为希尔伯特空间的直和（Direct Sum）。
 
 \begin{example}
-    设 \(H\) 和 \(K\) 是内积空间，内积分别为 \(\langle \cdot, \cdot \rangle_H\) 和
-    \(\langle \cdot, \cdot \rangle_K\)。则 \(H \times K\) 也是一个内积空间，其内积定义为：
+    设 \(H\) 和 \(K\) 是内积空间，内积分别为 \(\inner{\cdot}{\cdot}_H\) 和
+    \(\inner{\cdot}{\cdot}_K\)。则 \(H \times K\) 也是一个内积空间，其内积定义为：
     \[
-        \langle (x, \xi), (y, \eta) \rangle = \langle x, y \rangle_H
-        + \langle \xi, \eta \rangle_K,
+        \inner{\langle (x, \xi)}{(y, \eta)}= \inner{x}{y}_H
+        + \inner{\xi}{\eta}_K,
     \]
     其中 \(x, y \in H\) 且 \(\xi, \eta \in K\)。
 \end{example}
@@ -93,4 +93,329 @@
     \cdots \oplus \R}_{n \text{个}}.
 \]
 
-\section{Best Approximation}
+\section{Best approximation}
+% TODO: 独自证明压缩性质、等价性质、存在唯一性
+
+在希尔伯特空间中，最佳逼近问题是寻找一个闭凸集中与给定点距离最近的点。
+本章思路：存在性与唯一性\(\to \) 等价性质 \(\to \) 压缩性。
+相比线性代数，这一章所讲的投影更加广泛，不再局限于子空间，而是任意闭凸集。
+
+\subsection{存在性与唯一性}
+
+\begin{theorem}[存在性与唯一性]
+    设 \(B\) 是希尔伯特空间 \(H\) 中的非空闭凸集。对于任意 \(x \in H\)，存在唯一的 \(\hat{x} \in B\) 使得
+    \[
+        \|x - \hat{x}\| = d(x, B) \coloneqq \inf_{y \in B} \|x - y\|.
+    \]
+    我们称 \(\hat{x}\) 为 \(x\) 在 \(B\) 中的\textbf{最佳逼近元}（best
+    approximation element）。
+\end{theorem}
+
+\begin{proof}
+    \textbf{存在性}：设 \(d = d(x, B)\)。由下确界定义，存在序列 \(\{y_n\} \subset B\)
+    使得 \(\|x - y_n\| \leq  d + \frac{1}{n}\)。
+    利用平行四边形定则，我们可以证明 \(\{y_n\}\) 是柯西序列。
+    \begin{align*}
+        \|y_n - y_m\|^2 &= 2\|x - y_n\|^2 + 2\|x - y_m\|^2 - 4\left\|x
+        - \frac{y_n + y_m}{2}\right\|^2 \\
+        &\le 2\left(d + \frac{1}{n}\right)^2 + 2\left(d +
+        \frac{1}{m}\right)^2 - 4d^2 \\
+        &= \frac{2}{n^2} + \frac{2}{m^2} + 4d\left(\frac{1}{n} +
+        \frac{1}{m}\right).
+    \end{align*}
+    由于 \(B\) 是凸集，\(\frac{y_n + y_m}{2} \in B\)，故 \(\|x - \frac{y_n +
+    y_m}{2}\| \ge d\)。
+    由此可得 \(\|y_n - y_m\| \to 0\)（当 \(n, m \to \infty\)）。
+    由 \(H\) 的完备性，\(y_n \to \hat{x}\)。由 \(B\) 的闭性，\(\hat{x} \in B\)。
+    由范数的连续性，\(\|x - \hat{x}\| = d\)。
+
+    \textbf{唯一性}：若有 \(\hat{x}, \hat{y} \in B\) 均为最佳逼近元，再次利用平行四边形定则可证
+    \(\|\hat{x} - \hat{y}\| = 0\)，即 \(\hat{x} = \hat{y}\)。
+\end{proof}
+
+\subsection{等价性质}
+
+最佳逼近元可以通过变分不等式来刻画。这不仅提供了判定准则，也揭示了深刻的几何意义。
+
+\begin{theorem}[Characterization of Best Approximation]
+    设 \(B\) 是希尔伯特空间 \(H\) 中的闭凸集，\(\hat{x} \in B\)，\(x \in H \setminus
+    B\)。下列条件等价：
+    \begin{enumerate}
+        \item \(\|x - \hat{x}\| = d(x, B)\)；
+        \item \(\Re\inner{x - \hat{x}}{b - \hat{x}} \le
+            0, \quad \forall b \in B\)；
+        \item \(\Re\inner{x - b}{\hat{x} - b} \ge 0,
+            \quad \forall b \in B\)。
+    \end{enumerate}
+\end{theorem}
+
+这里出现了实部 \(\Re\)，这在复希尔伯特空间中尤为重要。
+
+\subsubsection{几何解释：角度与实部}
+
+在实希尔伯特空间中，条件 (2) \(\inner{x - \hat{x}}{b - \hat{x}} \le 0\) 直观地表示误差向量
+\(x - \hat{x}\) 与从 \(\hat{x}\) 出发指向 \(B\) 中任意一点的向量 \(b - \hat{x}\)
+之间的夹角是\textbf{钝角}（\(\ge 90^\circ\)）。这意味着我们无法通过向 \(b\) 的方向移动来进一步减小距离。
+
+在复希尔伯特空间中，距离（范数）仍然是一个实数。当我们对距离函数求导或进行变分分析时，自然会出现内积的实部。
+希尔伯特空间中有两种定义角度的方式：
+\begin{itemize}
+    \item \textbf{欧几里得角度（Euclidean Angle）}：将复空间 \(\mathbb{C}^n\)
+        视为实空间 \(\mathbb{R}^{2n}\)，此时角度 \(\phi_E\) 定义为
+        \[ \cos \phi_E = \frac{\Re\inner{u}{v}}{\|u\|\|v\|}. \]
+        这正是最佳逼近定理中使用的角度概念。条件 \(\Re\inner{u}{v} \le 0\)
+        意味着在“实化”的几何视图下，角度 \(\ge 90^\circ\)。
+    \item \textbf{埃尔米特角度（Hermitian Angle）}：这是复几何中更自然的定义，关注复共线关系，定义为
+        \(\cos \phi_H = \frac{|\inner{u}{v}|}{\|u\|\|v\|}\)。但这不适用于距离最小化问题。
+\end{itemize}
+
+因此，定理中的条件 (2) 和 (3) 本质上是在说：\(\hat{x}\) 是最佳逼近元，当且仅当误差向量与集合 \(B\)
+的“切线”方向（即 \(b - \hat{x}\)）在欧几里得意义下成钝角。
+
+\subsection{投影算子}
+
+\begin{definition}[投影算子]
+    设 \(B\) 是希尔伯特空间 \(H\) 的非空闭凸子集。定义映射 \(P_B: H \to B\) 为
+    \[ P_B(x) = \hat{x}, \]
+    其中 \(\hat{x}\) 是 \(x\) 在 \(B\) 中的唯一最佳逼近元。\(P_B\) 称为向 \(B\)
+    的投影算子。
+\end{definition}
+
+\begin{corollary}[压缩性质]
+    投影算子 \(P_B\) 是连续的，且是压缩映射（contraction），即：
+    \[
+        \|P_B(x) - P_B(y)\| \le \|x - y\|, \quad \forall x, y \in H.
+    \]
+\end{corollary}
+
+\section{Orthogonal Decomposition}
+
+这一章主要内容是推导正交性的一些基本性质，证明比较巧妙。
+\begin{definition}[Orthogonality]
+    设 \(H\) 为内积空间。
+    \begin{enumerate}
+        \item 若 \(x, y \in H\) 满足 \(\inner{x}{y} = 0\)，则称 \(x\) 与
+            \(y\) \textbf{正交}（orthogonal），记为 \(x \perp y\)。
+        \item 若 \(x \in H\) 与集合 \(S \subset H\) 中的任意元素都正交，则称 \(x\) 与
+            \(S\) 正交，记为 \(x \perp S\)。
+        \item 若集合 \(S_1, S_2 \subset H\) 满足对任意 \(x \in S_1, y \in
+            S_2\) 都有 \(x \perp y\)，则称 \(S_1\) 与 \(S_2\) 正交，记为 \(S_1 \perp S_2\)。
+        \item 定义 \(S\) 的\textbf{正交补}（orthogonal complement）为：
+            \[
+                S^\perp = \{y \in H : \inner{y}{x} = 0, \forall x \in S\}.
+            \]
+    \end{enumerate}
+\end{definition}
+正交条件下勾股定理成立。
+
+\begin{theorem}
+    设 \(S, S_1, S_2\) 为内积空间 \(H\) 的子集。
+    \begin{enumerate}
+        \item \(x^{\perp} \)是闭子空间
+        \item \(S^\perp\) 是 \(H\) 的闭子空间。
+        \item \(S^\perp = (\overline{S})^\perp\)。
+        \item \(S \subseteq  S^{\perp\perp}\)。
+        \item \(S_1 \subset S_2 \implies S_2^\perp \subset S_1^\perp\)。
+        \item \(S^\perp = S^{\perp\perp\perp}\)。
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item (1) 由内积的连续性可知
+        \item (2)  \(S^\perp = \bigcap_{x
+            \in S} \{x\}^\perp\)，所以 \(S^\perp\) 也是闭子空间。
+        \item (3) 设 \(x \in S\)。对于任意 \(y \in S^\perp\)，有
+            \(\inner{y}{x} = 0\)，即
+            \(\inner{x}{y} = 0\)。
+            这表明 \(x\) 与 \(S^\perp\) 中所有元素正交，即 \(x \in (S^\perp)^\perp =
+            S^{\perp\perp}\)。
+
+            注意：比如\(S\) 只有上半平面时就不能取等。这里 \(S\) 的正交补的正交补
+            \(S^{\perp\perp}\) 被称作 \(S\)
+            的\textbf{闭线性张成}（closed linear span）。
+        \item (5) 由(4) 有\(S \in S^{\perp\perp}
+            \)即\(S^{\perp \perp \perp }
+            \subset  S^\perp\)
+            由(4) 有\(S^{\perp } \subseteq (S^{\perp })^{\perp \perp } = S^{\perp
+            \perp \perp } \)
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}
+    设 \(M\) 是希尔伯特空间 \(H\) 的闭子空间，\(x \in H\)。
+    \(y \in M\) 是 \(x\) 在 \(M\) 中的最佳逼近元，当且仅当 \(x\) 与其在 \(M\) 上的投影
+    \(y\) 的连线垂直于该子空间，即
+    \[
+        x - y \perp M.
+    \]
+\end{theorem}
+
+\begin{theorem}[Orthogonal Decomposition Theorem]
+    设 \(M\) 是希尔伯特空间 \(H\) 的闭子空间，则 \(H\) 等于 \(M\) 和 \(M\) 的正交补的直和：
+    \[
+        H = M \oplus M^\perp.
+    \]
+\end{theorem}
+
+\begin{example}
+    设 \(H = L^2[0, 1]\)，\(S = \{f \in H : f(t) = 0 \text{ a.e. } t
+    \in [0, 1/2]\}\)。
+    则
+    \[
+        S^\perp = \{g \in H : g(t) = 0 \text{ a.e. } t \in [1/2, 1]\}.
+    \]
+    且 \(S^{\perp\perp} = S\)。
+\end{example}
+
+\section{Orthonormal Basis}
+
+% TODO: 规范正交基问题3.4.7的证明中，为什么假定了希尔伯特空间中元素可以被逼近？
+% TODO: 等距映射是双射，当且仅当它是单射或者满射吗？
+% TODO: 等距映射在泛函分析中和线性代数中有什么区别？
+% TODO: 如何对多项式基进行施密特正交化得到勒让德多项式？
+% TODO: 关于等距映射更多性质与LADR的对比
+% TODO: 补充希尔伯特空间的分类
+
+在有限维欧几里得空间中，正交基是一个非常核心的概念。在希尔伯特空间中，我们将这一概念推广为规范正交基（Orthonormal Basis）。
+
+\subsection{定义与基本性质}
+
+\begin{definition}[Orthonormal Basis]
+    设 \(H\) 是一个希尔伯特空间。如果 \(\mathcal{E}\) 是 \(H\)
+    中包含关系下的极大规范正交系，则称 \(\mathcal{E}\) 为 \(H\)
+    的一个\textbf{规范正交基}（Orthonormal Basis）。
+\end{definition}
+
+根据佐恩引理（Zorn's Lemma），任何非零希尔伯特空间都存在规范正交基。
+
+下面的定理是希尔伯特空间理论中最重要的结果之一，它建立了抽象希尔伯特空间与序列空间 \(l^2\) 之间的联系。
+
+\begin{theorem}[Expansion and Parseval's Identity]
+    设 \(\{e_\alpha\}_{\alpha \in A}\) 是希尔伯特空间 \(H\) 的一个规范正交基。则对于任意
+    \(x \in H\)，下列结论成立：
+    \begin{enumerate}
+        \item \textbf{展开}：
+            \[
+                x = \sum_{\alpha \in A} \norm{x}{e_\alpha} e_\alpha.
+            \]
+            这里的求和是基于网（net）的无条件收敛，即对于任意 \(\epsilon > 0\)，存在有限集 \(F_0
+            \subset A\)，使得对任意包含 \(F_0\) 的有限集 \(F \subset A\)，都有 \(\|x
+                - \sum_{\alpha \in F} \norm{x}{e_\alpha}
+            e_\alpha\| < \epsilon\)。
+        \item \textbf{帕塞瓦尔恒等式}：
+            \[
+                \|x\|^2 = \sum_{\alpha \in A} |\norm{x}{e_\alpha}|^2.
+            \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    证明主要分为两步：首先证明部分和的有界性，其次证明逼近的收敛性。
+    \textbf{第一步：利用网证明收敛性}。
+    考虑由 \(A\) 的所有有限子集构成的集合 \(\mathcal{F}\)，并通过包含关系 \(\subset\) 定义偏序。
+    由于 \(\sum_{\alpha \in A} |\norm{x}{e_\alpha}|^2\) 收敛，
+    对于任意 \(\epsilon > 0\)，存在 \(F_0 \in \mathcal{F}\) 使得对所有 \(F \supset F_0\)，有
+    \[
+        \| \sum_{\alpha \in F \setminus F_0} \langle x, e_\alpha
+        \rangle e_\alpha \|^2 = \sum_{\alpha \in F \setminus F_0}
+        |\norm{x}{e_\alpha}|^2 < \epsilon^2.
+    \]
+    这表明网 \((x_F)_{F \in \mathcal{F}}\) 是柯西网。由于 \(H\) 是完备的，该网收敛于某个元素 \(y \in H\)。
+    容易验证 \(x - y\) 与所有 \(e_\alpha\) 正交。由规范正交基的极大性（或完备性），必有 \(x - y =
+    0\)，即 \(x = y\)。
+
+    \textbf{第二步：贝塞尔不等式}。
+    对于 \(A\) 的任意有限子集 \(F\)，令 \(x_F = \sum_{\alpha \in F} \langle x,
+    e_\alpha \rangle e_\alpha\)。注意到 \(x - x_F\) 与 \(x_F\)
+    正交（通过直接计算内积验证），由勾股定理可得：
+    \[
+        \|x\|^2 = \|x - x_F\|^2 + \|x_F\|^2 = \|x - x_F\|^2 +
+        \sum_{\alpha \in F} |\norm{x}{e_\alpha}|^2.
+    \]
+    由此推出 \(\sum_{\alpha \in F} |\norm{x}{e_\alpha}|^2 \le
+    \|x\|^2\)。由于 \(F\) 是任意的，这意味着集合 \(\{\alpha \in A : \langle x,
+    e_\alpha \rangle \neq 0\}\) 是可数的，且级数 \(\sum_{\alpha \in A}
+    |\norm{x}{e_\alpha}|^2\) 收敛。
+\end{proof}
+
+\subsection{希尔伯特空间的维数与同构}
+
+\begin{definition}[Dimension]
+    希尔伯特空间 \(H\) 的\textbf{维数}（Dimension）定义为 \(H\)
+    中任意规范正交基的基数（Cardinality）。记作 \(\dim H\)。
+\end{definition}
+
+为了使上述定义有意义，我们需要如下定理：
+
+\begin{theorem}
+    希尔伯特空间 \(H\) 的任意两个规范正交基具有相同的基数。
+\end{theorem}
+
+\begin{proof}
+    如果基是有限时显然。
+
+    如果基是无限的，设 \(B_1\) 和 \(B_2\) 是两个规范正交基。对于每个 \(e \in B_1\)，由傅里叶展开知，
+    集合 \(A_e = \{f \in B_2 : \norm{e}{f} \neq 0\}\) 是可数的。
+    从而：\[
+        \abs{B_2} = \abs{\bigcup_{e \in B_1} A_e} \leq \abs{B_1}
+        \cdot \aleph_0 = \abs{B_1}
+    \]
+    同理可得 \(\abs{B_1} \leq \abs{B_2}\)，因此 \(\abs{B_1} = \abs{B_2}\)。
+\end{proof}
+
+基于维数我们可以对希尔伯特空间进行分类\UseVerb{smile}:
+
+\begin{theorem}[Isomorphism]
+    两个希尔伯特空间 \(H_1\) 和 \(H_2\) 是同构的（即存在保持内积的线性双射），当且仅当它们具有相同的维数。
+\end{theorem}
+
+\begin{example}
+
+\end{example}
+
+\subsection{典型例子}
+
+\begin{example}[Legendre Polynomials]
+    在空间 \(L^2([-1, 1])\) 中，通过对单项式基 \(\{1, t, t^2, \dots\}\)
+    进行格拉姆-施密特（Gram-Schmidt）正交化，可以得到勒让德多项式（Legendre Polynomials）。
+    归一化后的勒让德多项式构成 \(L^2([-1, 1])\) 的一个规范正交基：
+    \[
+        e_n(t) = \sqrt{n + \frac{1}{2}} P_n(t), \quad n = 0, 1, 2, \dots
+    \]
+    其中 \(P_n(t) = \frac{1}{2^n n!} \odv[n]{}{t}(t^2 - 1)^n\)。
+\end{example}
+
+\begin{example}[Fourier Basis]
+    \[
+        \left\{ \frac{1}{\sqrt{2\pi}}, \frac{1}{\sqrt{\pi}} \sin t,
+        \frac{1}{\sqrt{\pi}} \cos t, \dots \right\}
+    \]
+    是\(L^{2}[-\pi,\pi]\) 配备内积\(\inner{f}{g} = \int_{-\pi}^{\pi}
+    f(t)g(t) \d{t}\)的一个规范正交基。
+    \[
+        f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty \left( a_n \cos nt +
+        b_n \sin nt \right)
+    \]
+    \[
+        \norm{f}^2 = \frac{\pi}{2} a_0^2 + \pi \sum_{n=1}^\infty (a_n^2 + b_n^2)
+    \]
+    其中\(a_{n} = \inner{f}{\cos nt}\)，\(b_{n} = \inner{f}{\sin nt}\)。
+\end{example}
+
+\subsection{等距映射}
+
+\begin{example}
+    设 \(T: H_1 \to H_2\) 是希尔伯特空间之间的线性映射。\(T\) 是等距映射（即 \(\|Tx\| =
+    \|x\|, \forall x \in H_1\)），当且仅当 \(T\) 保持内积（即 \(\langle Tx, Ty
+    \rangle = \inner{x}{y}, \forall x, y \in H_1\)）。
+\end{example}
+
+\begin{proof}
+    充分性显然，因为范数由内积定义。
+    必要性由极化恒等式直接得出。例如在实情形下：
+    \[
+        \inner{Tx}{Ty} = \frac{1}{4}(\|Tx+Ty\|^2 -
+        \|Tx-Ty\|^2) = \frac{1}{4}(\|x+y\|^2 - \|x-y\|^2) = \inner{x}{y}.
+    \]
+\end{proof}

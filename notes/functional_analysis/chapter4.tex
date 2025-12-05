@@ -1,0 +1,121 @@
+% !TeX root = main.tex
+\chapter{Continuous Linear Operators}
+\subsection{Basic Definitions and Properties}
+% TODO: 柯西方程及其反例，不连续的线性算子
+% TODO: 复分析怎么解释导数算子不连续？
+% TODO: p77例子
+本节主要介绍连续线性算子的等价定义和判定条件，以及连续线性算子全体构成赋范线性空间这一性质。
+
+\begin{definition}
+    有界：集合\(A\) 有界，如果存在常数 \(M > 0\)，使得\(A \subset M U_{E}\)
+\end{definition}
+
+\begin{theorem}[连续线性算子的等价条件]
+    设 \(X, Y\) 是赋范线性空间，\(T: X \to Y\) 是线性算子。则下列条件等价：
+    \begin{enumerate}
+        \item \(T\) 是 Lipschitz 连续的；
+        \item \(T\) 是连续的；
+        \item \(T\) 在 \(0\) 点连续；
+        \item \(T(U_{E})\) 有界
+        \item \(T\) 将有界集映射为有界集（即 \(T\) \textbf{局部有界}）；
+        \item 存在 \(c \ge 0\)，使得 \(\|Tx\| \le c\|x\|,
+            \forall x \in X\)（\(T\) 是\textbf{有界算子}）。
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item 由连续性推导有界性：利用连续性定义，在 \(0\) 点找一个小球，其像包含在 \(Y\) 的单位球内，
+            开集中总能找到新的开集包含在该像内，从而说明有界性。
+        \item 从 (5) 推导 (6)：扩大单位球
+        \item 从 (6) 推导 (1)：利用 \(x-y\) 和线性性。
+            test
+    \end{itemize}
+\end{proof}
+
+同线性代数中矩阵范数类似：
+
+\begin{theorem}[算子范数的等价定义]
+    定义：
+    \[ \|T\| \coloneqq  \sup_{\|x\| \leq 1} \|Tx\| \]
+    设 \(T \in B(X, Y)\)，则
+    \[ \|T\| = \sup_{x \ne 0} \frac{\|Tx\|}{\|x\|} = \sup_{\|x\| \le
+    1} \|Tx\| = \sup_{\|x\| = 1} \|Tx\|. \]
+\end{theorem}
+
+\begin{proof}
+    \[
+        Tu = \norm{u} T \frac{u}{\norm{u}}, \forall u \ne 0.
+    \]
+    \begin{align*}
+        \sup_{\norm{x} < 1} \norm{Tx}&= \norm{x}\sup_{\norm{x}<1} \norm{T
+        \frac{x}{\norm{x}}} \leq \norm{x} \sup_{\norm{x}=1} \norm{T
+        x} < \sup_{\norm{x} = 1} \norm{T x}\\
+        \sup_{\norm{x} =1} \norm{Tx} &= (1+\varepsilon)
+        \sup_{\norm{x} =1} \frac{\norm{Tx}}{1+\varepsilon} \leq
+        (1+\varepsilon) \sup_{\norm{x}<1} \norm{Tx}, \forall \varepsilon >0\\
+    \end{align*}
+    因此 \(\sup_{\norm{x} < 1} \norm{Tx} = \sup_{\norm{x} = 1} \norm{T x}\)。
+    \[
+        \inf \left\{ k \mid k\geq \frac{\norm{Tx}}{\norm{x}} \right\}
+        = \sup \frac{\norm{Tx}}{\norm{x}} = \sup_{\norm{x}=1} \norm{Tx} = \|T\|.
+    \]
+\end{proof}
+
+类比矩阵构成的线性空间\(\mathscr{L}(V,W)\):
+\begin{theorem}
+    \(\mathbf{B}(X, Y)\) 构成赋范线性空间。
+\end{theorem}
+
+\begin{proof}
+    \[
+        \norm{\alpha Tx} = \sup_{x\in E} \norm{\alpha T x} =
+        |\alpha| \sup_{x\in E}
+        \norm{T x} = |\alpha| \norm{T}.
+    \]
+    其他性质类似。
+\end{proof}
+
+\begin{theorem}
+    \[
+        \norm{T} = \sup \left\{ \abs{\inner{Th}{k}} \mid k\in U_{k},
+        h\in U_{h} \right\}
+    \]
+\end{theorem}
+
+\begin{proof}
+    本质是说自己与自己的内积最大。
+    \[
+        \abs{\inner{Th}{k}} \leq \norm{Th} \norm{k} \leq \norm{T}
+    \]
+    \[
+        \norm{Th} = \inner{Th}{Th} = \sup_{\norm{k} \leq 1} \abs{\inner{Th}{k}}
+    \]
+\end{proof}
+
+\begin{example}[积分算子]
+    设 \(X = C[0, 1]\) 配备 sup 范数。定义 \(T: X \to \mathbb{F}\) 为
+    \[ T(f) = \int_0^1 f(t) dt. \]
+    则 \(T\) 是有界线性算子且 \(\|T\| = 1\)。
+    \begin{proof}
+        求连续线性算子范数的方法一般是给出一个上界，并证明这个上界可达。
+        首先，
+        \[ |T(f)| = \left| \int_0^1 f(t) dt \right| \le \int_0^1
+        |f(t)| dt \le \|f\|_\infty. \]
+        这表明 \(\|T\| \le 1\)。
+        另一方面，取 \(f(t) \equiv 1\)，则 \(\|f\|_\infty = 1\) 且 \(T(f) = 1\)。
+        因此 \(\|T\| \ge |T(f)|/\|f\| = 1\)。
+        综上，\(\|T\| = 1\)。
+    \end{proof}
+\end{example}
+
+\begin{example}[导数算子]
+    求导算子不是有界算子。
+
+    设 \(X = C^1[0, 1]\)， \(Y = C[0, 1]\)，均配备 sup 范数。定义 \(T: X \to Y\)
+    为 \(T(f) = f'\)。
+
+    考虑 \(f_n(t) = t^n\) (\(n \in \mathbb{N}\))。则 \(\|f_n\|_\infty = 1\)。
+    但是 \(T(f_n) = n t^{n-1}\)，故 \(\|T(f_n)\|_\infty = n\)。
+    这表明 \(T\) 在单位球上无界，因此不是有界算子。
+\end{example}
