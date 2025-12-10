@@ -349,6 +349,11 @@
 %================================
 % QUOTE BOX
 %================================
+\newfontfamily\RefLatinFont{Times New Roman Italic}[]
+\newCJKfontfamily\RefCJKFont{STFangsong}[
+    AutoFakeSlant = false,
+    BoldFont = Heiti SC Medium,
+]
 \newtcolorbox{refbox}[1][]{%
     enhanced,
     breakable,
@@ -357,11 +362,24 @@
     boxrule = 0sp,
     borderline west = {2pt}{0pt}{myquotecolor},
     sharp corners,
-    fontupper = \ttfamily,
+    fontupper = \RefLatinFont\RefCJKFont,
     #1
 }
 \renewenvironment{quote}{%
 \begin{refbox}}{%
 \end{refbox}}
-
-\endinput
+%================================
+% PROOF BOX
+%================================
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+    \pushQED{\qed}%
+    \RefCJKFont\topsep6\p@\@plus6\p@\relax
+    \trivlist
+\item[\hskip\labelsep
+        \RefLatinFont\RefCJKFont
+    #1\@addpunct{.}]\ignorespaces
+}{%
+    \popQED\endtrivlist\@endpefalse
+}
+\makeatother
