@@ -1,0 +1,252 @@
+% !TeX root = main.tex
+\chapter{内积空间上的算子}
+\section{内积空间上的算子}
+\subsection{伴随}
+
+\subsubsection{定义与性质}
+线性代数中伴随算子（Adjoint Operator）的概念与泛函分析中的定义完全一致：
+
+\begin{definition}[伴随]
+    对于内积空间 \(V\) 和 \(W\)
+    上的线性映射 \(T: V \to W\)，其伴随 \(T^*: W \to V\) 是满足以下条件的唯一映射：
+    \[
+        \langle Tv, w \rangle = \langle v, T^*w \rangle
+    \]
+    对于所有的 \(v \in V\) 和 \(w \in W\) 成立。
+\end{definition}
+
+伴随算子具有以下基本性质：
+\begin{enumerate}
+    \item \textbf{加法性}：\((S+T)^* = S^* + T^*\)
+    \item \textbf{共轭齐次性}：\((\lambda T)^* = \bar{\lambda} T^*\)
+    \item \textbf{对合性}：\((T^*)^* = T\)
+    \item \textbf{单位元}：\(I^* = I\)
+    \item \textbf{乘积}：\((ST)^* = T^*S^*\)
+\end{enumerate}
+
+\begin{theorem}
+    设 \(T: \L(V, W)\)
+    \begin{align*}
+        \norm{T^*} &= \norm{T} \\
+        \norm{TT^*} &= \norm{T}^2 = \norm{T^*T}
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    \(\forall h \in U_{W}, k \in U_{W}\):
+    \[
+        \norm{T} = \sup \abs{\inner{Th}{k}} = \sup
+        \abs{\inner{h}{T^*k}} = \sup \abs{\inner{T^*k}{h}} = \norm{T^*}
+    \]
+
+    \(\forall z \in U_{V}\):
+    \[
+        \norm{T}^2 = \inner{Tz}{Tz} = \inner{T^*Tz}{z} \leq
+        \norm{T^*T} \leq \norm{T^*}\norm{T} = \norm{T}^2
+    \]
+    从而\(\norm{TT^*} = \norm{T}^2 = \norm{T^*T}\)
+\end{proof}
+
+\subsubsection{零空间与值域}
+伴随算子将原算子的零空间与值域通过正交补联系起来。
+\begin{theorem}[伴随的零空间与值域]
+    设 \(T \in \mathcal{L}(V, W)\)，则：
+    \begin{itemize}
+        \item \(\text{null } T^* = (\text{range } T)^\perp\)
+        \item \(\text{range } T^* = (\text{null } T)^\perp\)
+        \item \(\text{null } T = (\text{range } T^*)^\perp\)
+        \item \(\text{range } T = (\text{null } T^*)^\perp\)
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        w \in \text{null } T^* &\iff T^*w = 0 \\
+        &\iff \langle v, T^*w \rangle = 0, \quad \forall v \in V \\
+        &\iff \langle Tv, w \rangle = 0, \quad \forall v \in V \\
+        &\iff w \in (\text{range } T)^\perp
+    \end{align*}
+    通过两边取正交补/伴随，即可得到其他结论。
+\end{proof}
+
+这实际上对应了Gilbert Strang线性代数中著名的四个基本子空间：
+\begin{itemize}
+    \item \(T\) 的零空间 (\(\text{null } T\))
+    \item \(T\) 的列空间 (\(\text{range } T\))
+    \item \(T\) 的左零空间 (\(\text{null } T^*\))
+    \item \(T\) 的行空间 (\(\text{range } T^*\))
+\end{itemize}
+
+上述定理说明了：\textbf{零空间的正交补是行空间（的共轭），列空间的正交补是左零空间。}
+
+这里需要特别澄清 \(\text{range } T^*\) 与传统``行空间''的区别。
+在实向量空间 \(\R\) 中，转置 \(A^T\) 和伴随 \(A^*\) 是一样的，所以 \(\text{range } T^*\) 就是行空间。
+但在复向量空间 \(\C\) 中，伴随 \(T^*\) 对应的是共轭转置 \(\bar{A}^T\)。
+\begin{itemize}
+    \item \textbf{行空间}：通常定义为矩阵行向量生成的空间，即 \(\text{span}(\text{row}_1,
+        \dots, \text{row}_n)\)。
+    \item \textbf{伴随的值域} (\(\text{range } T^*\))：是矩阵共轭转置的列空间，即
+        \(\text{span}(\overline{\text{row}_1}, \dots,
+        \overline{\text{row}_n})\)。
+\end{itemize}
+由于内积在第二个分量是共轭线性的（\(\langle u, v \rangle = \sum u_i \overline{v_i}\)），
+为了使几何上的正交性成立（即 \(V = \text{null } T \oplus (\text{null } T)^\perp\)），
+我们需要的是共轭行向量生成的空间。因此，LADR 采用 \(\text{range } T^*\) 而非行空间这一术语，这保证了结论在复空间中依然成立。
+
+用上伴随的武器，我们先前有线性代数基本定理：
+
+\begin{theorem}[线性映射基本定理]
+    假设\(V\) 是有限维的且 \(T \in \L(V,W)\)，那么\(\range
+    T\) 是有限维的，且\[
+        \dim V = \dim \nullspace T + \dim \range T
+    \]
+\end{theorem}
+
+在内积空间的背景下，我们有：
+\[
+    V = \nullspace T \oplus (\nullspace T)^\perp = \nullspace T
+    \oplus \range T^*
+\]
+
+由于\(\dim \range T^* = \dim \range T\)，从而：
+\[
+    V = \nullspace T \oplus \range T
+\]
+
+\subsubsection{与对偶空间的联系}
+在第3章中，我们讨论了零化子和对偶映射。
+\begin{itemize}
+    \item \textbf{对偶映射} \(T'\) 作用于线性泛函。
+    \item \textbf{伴随} \(T^*\) 作用于向量。
+\end{itemize}
+通过里兹表示定理，我们可以建立向量 \(v\) 和泛函
+\(\varphi_v(\cdot) = \langle \cdot, v \rangle\) 之间的一一对应。
+这使得我们可以将对偶空间的概念``拉回''到原空间中。
+
+零化子与对偶映射实际上对应着正交补和伴随，而正交补、零化子与商空间都有相同的维数，因而同构。
+
+\subsection{自伴算子}
+
+\subsubsection{定义}
+\begin{definition}{自伴算子}
+    如果一个算子 \(T \in \mathcal{L}(V)\) 满足 \(T = T^*\)，即对于所有 \(v, w \in V\) 都有
+    \[
+        \langle Tv, w \rangle = \langle v, Tw \rangle
+    \]
+    则称 \(T\) 为\textbf{自伴算子}（Self-Adjoint Operator）。
+\end{definition}
+
+在矩阵语言中，
+这对应于埃尔米特矩阵（Hermitian Matrix），即 \(A = \bar{A}^T\)。
+
+\subsubsection{性质}
+
+\begin{theorem}
+    如果 \(T\) 是自伴算子，且对于所有 \(v \in V\) 都有 \(\langle Tv, v \rangle = 0\)，
+    则 \(T = 0\)。
+\end{theorem}
+\begin{proof}
+    （注：在复空间中，不需要自伴性即可推出此结论；但在实空间中必须要求 \(T\) 自伴）。
+    利用极化恒等式或展开 \(\langle T(u+w), u+w \rangle - \langle T(u-w), u-w
+    \rangle\) 可以证明。
+    简单来说，如果 \(T\) 自伴，内积是对称的。若 \(\langle Tv, v \rangle = 0\) 恒成立，
+    则由双线性形式的性质可知该形式为0，从而 \(T=0\)。
+\end{proof}
+
+\begin{theorem}
+    \(T\) 是自伴算子当且仅当对于所有 \(v \in V\)，\(\langle Tv, v \rangle \in \R\)。
+\end{theorem}
+
+\subsubsection{结构与类比}
+自伴算子在算子理论中的地位类似于实数在复数中的地位。
+\begin{itemize}
+    \item 如果 \(S, T\) 是自伴的，则 \(S+T\) 也是自伴的。
+    \item 如果 \(T\) 是自伴的，\(a \in \R\)，则 \(aT\) 也是自伴的。
+\end{itemize}
+
+\textbf{分解定理}：任何算子 \(T\) 都可以分解为
+\[
+    T = A + \i B
+\]
+其中 \(A, B\) 是自伴算子。具体构造为：
+\[
+    A = \frac{T + T^*}{2}, \quad B = \frac{T - T^*}{2\i}
+\]
+这完全类比于复数 \(z = x + iy\) 的实部和虚部。
+
+\subsubsection{斜伴随算子}
+如果 \(T^* = -T\)，则称 \(T\) 为斜伴随算子。
+斜自伴算子对应于纯虚数。
+
+\begin{example}
+    考虑在适当的函数空间上的微分算子 \(D = \odv{}{x}\) ，且函数具有紧支集。
+
+    利用分部积分：
+    \[
+        \inner{Df}{g} = \int f' \bar{g} = -\int f \bar{g}' =
+        \inner{f}{-Dg}
+    \]
+    所以 \(D^* = -D\)，微分算子是一个斜伴随算子。
+\end{example}
+
+\subsection{正规算子}
+
+\subsubsection{定义与基本性质}
+如果算子 \(T\) 满足 \(TT^* = T^*T\)，即 \(T\) 与其伴随交换，则称 \(T\) 为\textbf{正规算子}。
+自伴算子和斜自伴算子都是正规算子。
+
+\begin{theorem}
+    \(T\) 是正规算子当且仅当对于所有 \(v \in V\)，
+    \[
+        \|Tv\| = \|T^*v\|
+    \]
+\end{theorem}
+\begin{proof}
+    注意以下等式：
+    \begin{align*}
+        \|Tv\|^2 - \|T^*v\|^2 &= \langle Tv, Tv \rangle - \langle
+        T^*v, T^*v \rangle \\
+        &= \langle T^*Tv, v \rangle - \langle TT^*v, v \rangle \\
+        &= \langle (T^*T - TT^*)v, v \rangle
+    \end{align*}
+    如果 \(T\) 正规，则 \(T^*T - TT^* = 0\)，上式为0。
+    反之，如果范数相等，则算子 \(T^*T - TT^*\)（它是自伴的）满足 \(\langle Sv, v \rangle =
+    0\)，从而 \(S=0\)。
+\end{proof}
+
+\subsubsection{正规算子的结构}
+\begin{theorem}
+    \begin{enumerate}
+        \item \(\text{null } T = \text{null } T^*\) （由范数相等直接得出）。
+        \item \(\text{range } T = \text{range } T^*\)。
+        \item \(V = \text{null } T \oplus \text{range } T\)。
+    \end{enumerate}
+\end{theorem}
+
+% todo: proof
+\subsubsection{正交特征向量}
+\begin{theorem}
+    设 \(T\) 是正规算子。如果 \(v, w\) 是 \(T\) 的对应于不同特征值的特征向量，则 \(v \perp w\)。
+\end{theorem}
+
+\section{谱定理}
+
+\begin{theorem}[实谱定理]
+    设 \(\mathbb{F} = \R\) 且 \(T \in \L(V)\)。那么下列命题等价：
+    \begin{enumerate}
+        \item \(T\) 是自伴的。
+        \item \(T\) 关于 \(V\) 的某个规范正交基具有对角矩阵。
+        \item \(V\) 有由 \(T\) 的特征向量构成的规范正交基。
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[复谱定理]
+    设 \(\mathbb{F} = \C\) 且 \(T \in \L(V)\)。那么下列命题等价：
+    \begin{enumerate}
+        \item \(T\) 是正规的。
+        \item \(T\) 关于 \(V\) 的某个规范正交基具有对角矩阵。
+        \item \(V\) 有由 \(T\) 的特征向量构成的规范正交基。
+    \end{enumerate}
+\end{theorem}
+
+结合谱定理，我们知道复空间中的正规算子是自伴算子当且仅当其所有特征值均为实数。

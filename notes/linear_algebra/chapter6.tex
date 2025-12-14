@@ -80,9 +80,16 @@
     \end{align*}
     从而：
     \[
-        \inner{u}{v} = \frac{1}{4}(\norm{u+v}^{2} - \norm{u-v}^{2}) -
-        \frac{\i}{4}(\norm{u+\i v}^{2} - \norm{u-\i v}^{2})
+        \inner{u}{v} = \frac{1}{4}(\norm{u+v}^{2} - \norm{u-v}^{2}) +
+        \frac{\i}{4}(\norm{u+\i v}^{2} + \norm{u-\i v}^{2})
     \]
+    常用的还有另一种形式：
+    \begin{align*}
+        \inner{Tu}{v} &= \frac{1}{4}(\inner{T(u+v)}{u+v} -
+        \inner{T(u-v)}{u-v}) \\
+        &\quad + \frac{\i}{4}(\inner{T(u+\i v)}{u+\i v} -
+        \inner{T(u-\i v)}{u-\i v})
+    \end{align*}
 \end{corollary}
 
 \section{规范正交基}
@@ -195,7 +202,194 @@ Gram-Schimidt 正交化过程是对新向量反复移除旧向量在其上的分
     设\(V\)为域\(\F\)上的内积空间，则对任意线性泛函\(f \in V'\)，存在唯一的向量\(y \in V\)，
     使得对任意\(x \in V\)，有：
     \[
-        f(x) = \inner{x}{y}
+        \varphi(x) = \inner{x}{y}
     \]
     即映射\(y \mapsto f\)为从\(V\)到\(V'\)的共轭线性同构。
 \end{theorem}
+
+\begin{proof}
+    有限维情形下：
+    \begin{align*}
+        \varphi(x) &= \varphi\left(\inner{x}{e_1}e_{1} + \dots +
+        \inner{x}{e_n}e_{n}\right) \\
+        &= \inner{x}{e_1}\varphi(e_1) + \dots + \inner{x}{e_n}\varphi(e_n) \\
+        &= \inner{x}{\conj{\varphi(e_1)} e_1 + \dots +
+        \conj{\varphi(e_n)} e_n}
+    \end{align*}
+    从而\(y = \conj{\varphi(e_1)} e_1 + \dots +
+    \conj{\varphi(e_n)} e_n\)
+
+    无限维希尔伯特空间情形下：若\(\varphi = 0\)，则取\(y = 0\)即可。
+    否则，令\(K = \nullspace f\)，存在\(z \in K^\perp \)使\(f(z) = k \neq 0\)。
+
+    \(\forall x \in V\)，注意到：
+    \[
+        \varphi(x-\frac{1}{k} \varphi(x)z) = \varphi(x) - \frac{1}{k}
+        \varphi(x) \varphi(z) =0
+    \]
+    故\(x - \frac{1}{k} \varphi(x) z \in K\)，从而：\[
+        \inner{x-\frac{1}{k}\varphi(x)z}{z} = 0,
+    \]
+    即\(\varphi(x) = \inner{x}{\frac{kz}{\norm{z}^{2}}}\)
+\end{proof}
+
+\section{正交补与最小化问题}
+% TODO:为什么伪逆顺便把有解时解的范数也最小化了？
+% TODO:尝试一下正交化多项式并最优化sin x
+\subsection{正交补}
+
+正交补这个概念在泛函分析中其实已经讲的很清楚了。在有限维的情况下，泛函分析中难证明的结论可以变得很简单。
+
+\begin{definition}[正交补]
+    设\(U\)是\(V\)的子空间，\(U\)的\textbf{正交补}（orthogonal complement）定义为：
+    \[
+        U^\perp = \{v \in V : \forall u \in U, \inner{v}{u} = 0\}
+    \]
+\end{definition}
+
+\begin{theorem}
+    设\(U\)是\(V\)的有限维子空间，则
+    \[
+        V = U \oplus U^\perp
+    \]
+\end{theorem}
+
+\begin{proof}
+    设\(\{e_1, \dots, e_m\}\)是\(U\)的一组规范正交基。对于任意\(v \in V\)，我们可以将其分解为：
+    \[
+        v = \underbrace{\sum_{i=1}^m \inner{v}{e_i} e_i}_{u} +
+        \underbrace{\left( v - \sum_{i=1}^m \inner{v}{e_i} e_i \right)}_{w}
+    \]
+    显然\(u \in U\)。对于任意\(j \in \{1, \dots, m\}\)，
+    \[
+        \inner{w}{e_j} = \inner{v}{e_j} - \sum_{i=1}^m \inner{v}{e_i}
+        \inner{e_i}{e_j} = \inner{v}{e_j} - \inner{v}{e_j} = 0
+    \]
+    故\(w\)与\(U\)的基向量正交，从而\(w \in U^\perp\)。
+    这就证明了\(V = U + U^\perp\)。
+
+    若\(v \in U \cap U^\perp\)，则\(\inner{v}{v} = 0 \implies v = 0\)，故和是直和。
+\end{proof}
+
+\begin{corollary}
+    \[
+        \dim U^\perp = \dim V - \dim U
+    \]
+\end{corollary}
+
+可以把正交补看作是商空间的一个可视化版本，正交补的维数等于商空间的维数。
+
+\begin{definition}[正交投影]
+    对于任意\(v \in V\)，存在唯一的\(u \in U\)和\(w \in U^\perp\)使得\(v = u + w\)。
+    定义\textbf{正交投影}算子\(P_U\)为：
+    \[
+        P_U v = u
+    \]
+\end{definition}
+
+在泛函分析中，正交投影通常定义为空间到子空间的最佳逼近，虽然定义不同，但本质是一样的。
+
+\begin{theorem}[正交投影的性质]
+    设\(P_U\)是\(V\)到\(U\)的正交投影，则：
+    \begin{itemize}
+        \item \(\range P_U = U\)
+        \item \(\nullspace P_U = U^\perp\)
+        \item 对任意\(v \in V\)，\(\norm{P_U v} \leq \norm{v}\)
+        \item 若\(\{e_1, \dots, e_m\}\)是\(U\)的规范正交基，则
+            \[
+                P_U v = \sum_{i=1}^m \inner{v}{e_i} e_i
+            \]
+    \end{itemize}
+\end{theorem}
+
+在泛函分析中投影算子是压缩映射的证明是需要一定技巧的，但在有限维空间中可以直接用勾股定理证明\UseVerb{smile}。
+注意到投影的代数表示只与子空间\(U\)的规范正交基有关，而与整个空间\(V\)的基无关。
+
+\subsection{最小化问题}
+
+最小化问题实际上是用勾股定理证明了正交投影与最佳逼近定义的等价性。投影点就是子空间中距离原向量最近的点。
+
+\begin{theorem}[最佳逼近]
+    设\(U\)是\(V\)的子空间，\(v \in V\)，则
+    \[
+        \norm{v - P_U v} \leq \norm{v - u}
+    \]
+    对任意\(u \in U\)成立。等号成立当且仅当\(u = P_U v\)。
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \norm{v - u}^2 &= \norm{(v - P_U v) + (P_U v - u)}^2 \\
+        &= \norm{v - P_U v}^2 + \norm{P_U v - u}^2 \quad (\text{勾股定理，
+        因为 } v - P_U v \in U^\perp, P_U v - u \in U) \\
+        &\geq \norm{v - P_U v}^2
+    \end{align*}
+    等号成立当且仅当\(\norm{P_U v - u} = 0\)，即\(u = P_U v\)。
+\end{proof}
+
+\subsection{伪逆}
+
+在初学伪逆（Pseudoinverse）时，这个定义显得非常神秘。因为对于有解的线性方程，它能给出范数最小的解；对于无解的线性方程，
+它可以给出最佳逼近，也就是误差最小的解。但实际上，伪逆的定义是很简单的。
+
+这里的思路其实类似于商空间。线性映射基本定理告诉我们，结合上面的维数定理，零空间的正交补和值域应当有相同的维数。相当于把整个空间用零空间给分成了若干份。
+
+\begin{theorem}
+    设\(T \in \L(V, W)\)，则限制映射
+    \[
+        T|_{(\nullspace T)^\perp} : (\nullspace T)^\perp \to \range T
+    \]
+    是双射（既单又满）。
+\end{theorem}
+
+\begin{proof}
+    设\(v \in (\nullspace T)^\perp\)且\(Tv = 0\)，则\(v \in \nullspace T\)。
+    故\(v \in (\nullspace T)^\perp \cap \nullspace T = \{0\}\)，所以是单射。
+
+    对于任意\(y \in \range T\)，存在\(v \in V\)使得\(Tv = y\)。
+    将\(v\)分解为\(v = u + w\)，其中\(u \in \nullspace T\)，\(w \in
+    (\nullspace T)^\perp\)。
+    则\(Tv = Tu + Tw = 0 + Tw = Tw = y\)。
+    故\(w\)是\((\nullspace T)^\perp\)中映射到\(y\)的元素，所以是满射。
+\end{proof}
+
+伪逆的定义其实也很有意思，它是先人为的把任何一个在映射空间中的向量投影到值域上，然后用限制过后的既是单射又是满射的线性映射，返回到定义域上。
+
+\begin{definition}[伪逆]
+    设\(T \in \L(V, W)\)，\(T\)的\textbf{伪逆} \(T^\dagger \in \L(W, V)\) 定义为：
+    \[
+        T^\dagger y = (T|_{(\nullspace T)^\perp})^{-1} (P_{\range T} y)
+    \]
+    其中\(P_{\range T}\)是\(W\)到\(\range T\)的正交投影。
+\end{definition}
+
+\begin{theorem}[伪逆的性质]
+    对于线性方程 \(Tx = y\)：
+    \begin{itemize}
+        \item 若方程无解，\(x = T^\dagger y\) 给出\textbf{最佳近似解}，即
+            \(\norm{Tx - y}\) 最小。
+        \item 若方程有解（可能有无穷多解），\(x = T^\dagger y\) 给出\textbf{最小范数解}，
+            即在所有解中 \(\norm{x}\) 最小。
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    对于任意\(x \in V\)，
+    \[
+        \norm{Tx - y} \geq \norm{P_{\range T} y - y}
+    \]
+    等号成立当且仅当 \(Tx = P_{\range T} y\)。
+    令 \(x_0 = T^\dagger y \in (\nullspace T)^\perp\)，则 \(T x_0 =
+    P_{\range T} y\)，故 \(x_0\) 是最佳近似解之一。
+
+    若 \(x\) 是另一个满足 \(Tx = P_{\range T} y\) 的解，则 \(T(x - x_0) = 0\)，即
+    \(x - x_0 \in \nullspace T\)。
+    由于 \(x_0 \in (\nullspace T)^\perp\)，由勾股定理：
+    \[
+        \norm{x}^2 = \norm{x_0 + (x - x_0)}^2 = \norm{x_0}^2 +
+        \norm{x - x_0}^2 \geq \norm{x_0}^2
+    \]
+    故 \(x_0\) 是范数最小的。
+\end{proof}
+
+在这里不难看到，伪逆的定义其实并不那么依赖于有限维空间，在无穷维空间上也可以一定程度的定义伪逆。
