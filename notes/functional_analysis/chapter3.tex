@@ -2,7 +2,8 @@
 \chapter{Hilbert Spaces}
 
 希尔伯特空间（Hilbert Spaces）是有限维欧几里得空间 \(\R^n\) 的自然推广。在
-\(\R^n\) 中，向量不仅有“长度”（范数），还有“角度”（由内积定义）。希尔伯特空间就是装备了内积的完备赋范线性空间，其范数由内积诱导。
+\(\R^n\) 中，向量不仅有“长度”（范数），还有“角度”（由内积定义）。
+希尔伯特空间就是装备了内积的完备赋范线性空间（完备这里指的是从范数由内积诱导的Banach空间上完备）。
 
 \section{Basic properties}
 
@@ -188,6 +189,24 @@
     \]
 \end{corollary}
 
+\begin{proof}
+    在闭空间上的证明很简单：用勾股定理即可。
+    在闭凸集上，\(\forall x, y \in H\) 且\(x=P_{B}(x), y=P_{B}(y)\):
+    \begin{align*}
+        \Re \inner{x-\hat{x}}{b-\hat{x}} &\le 0 \\
+        \Re \inner{y-\hat{y}}{b-\hat{y}} &\le 0
+    \end{align*}
+    取 \(b = \hat{y}\) 和 \(b = \hat{x}\)，相加得：
+    \[
+        \Re \inner{y-x-(\hat{y} - \hat{x})}{\hat{y} - \hat{x}} \geq  0
+    \]
+    从而：
+    \[
+        \|\hat{y} - \hat{x}\|^2 \leq \Re \inner{y - x}{\hat{y} - \hat{x}} \leq
+        \|y - x\| \|\hat{y} - \hat{x}\|
+    \]
+    即\(\norm{x-y}\geq \norm{\hat{x}-\hat{y}}\)
+\end{proof}
 \section{Orthogonal Decomposition}
 
 这一章主要内容是推导正交性的一些基本性质，证明比较巧妙。
@@ -199,10 +218,12 @@
         \item 若 \(x \in H\) 与集合 \(S \subset H\) 中的任意元素都正交，则称 \(x\) 与
             \(S\) 正交，记为 \(x \perp S\)。
         \item 若集合 \(S_1, S_2 \subset H\) 满足对任意 \(x \in S_1, y \in
-            S_2\) 都有 \(x \perp y\)，则称 \(S_1\) 与 \(S_2\) 正交，记为 \(S_1 \perp S_2\)。
+            S_2\) 都有 \(x \perp y\)，则称 \(S_1\) 与 \(S_2\) 正交，记为
+            \(S_1 \perp S_2\)。
         \item 定义 \(S\) 的\textbf{正交补}（orthogonal complement）为：
             \[
-                S^\perp = \{y \in H : \inner{y}{x} = 0, \forall x \in S\}.
+                S^\perp = \{y \in H : \inner{y}{x} = 0,
+                \forall x \in S\}.
             \]
     \end{enumerate}
 \end{definition}
@@ -237,7 +258,8 @@
         \item (5) 由(4) 有\(S \in S^{\perp\perp}
             \)即\(S^{\perp \perp \perp }
             \subset  S^\perp\)
-            由(4) 有\(S^{\perp } \subseteq (S^{\perp })^{\perp \perp } = S^{\perp
+            由(4) 有\(S^{\perp } \subseteq (S^{\perp })^{\perp
+                \perp } = S^{\perp
             \perp \perp } \)
     \end{itemize}
 \end{proof}
@@ -257,6 +279,15 @@
         H = M \oplus M^\perp.
     \]
 \end{theorem}
+
+所以说，有限维空间有正交分解，无限维希尔伯特空间也有正交分解。那什么空间没有正交分解呢？不完备的内积空间。
+\begin{example}
+    考虑\(C[-1,1]\)上的内积\(\int_{-1}^{1} fg \d{x}\)。考虑：\[
+        U = \left\{ f\in  C[-1,1] \mid f(0)=0 \right\}
+    \]
+    容易证明\(U^{\perp } = \{0\} \), \(C[0,1] \neq U \oplus U^{\perp }
+    \)。这是因为\(C[0,1]\) 不是希尔伯特空间，其完备化为\(L^2[-1,1]\)。
+\end{example}
 
 \begin{example}
     设 \(H = L^2[0, 1]\)，\(S = \{f \in H : f(t) = 0 \text{ a.e. } t
@@ -315,13 +346,15 @@
     \textbf{第一步：利用网证明收敛性}。
     考虑由 \(A\) 的所有有限子集构成的集合 \(\mathcal{F}\)，并通过包含关系 \(\subset\) 定义偏序。
     由于 \(\sum_{\alpha \in A} |\norm{x}{e_\alpha}|^2\) 收敛，
-    对于任意 \(\epsilon > 0\)，存在 \(F_0 \in \mathcal{F}\) 使得对所有 \(F \supset F_0\)，有
+    对于任意 \(\epsilon > 0\)，存在 \(F_0 \in \mathcal{F}\) 使得对所有
+    \(F \supset F_0\)，有
     \[
         \| \sum_{\alpha \in F \setminus F_0} \langle x, e_\alpha
         \rangle e_\alpha \|^2 = \sum_{\alpha \in F \setminus F_0}
         |\norm{x}{e_\alpha}|^2 < \epsilon^2.
     \]
-    这表明网 \((x_F)_{F \in \mathcal{F}}\) 是柯西网。由于 \(H\) 是完备的，该网收敛于某个元素 \(y \in H\)。
+    这表明网 \((x_F)_{F \in \mathcal{F}}\) 是柯西网。由于 \(H\) 是完备的，
+    该网收敛于某个元素 \(y \in H\)。
     容易验证 \(x - y\) 与所有 \(e_\alpha\) 正交。由规范正交基的极大性（或完备性），必有 \(x - y =
     0\)，即 \(x = y\)。
 
@@ -398,7 +431,8 @@
         b_n \sin nt \right)
     \]
     \[
-        \norm{f}^2 = \frac{\pi}{2} a_0^2 + \pi \sum_{n=1}^\infty (a_n^2 + b_n^2)
+        \norm{f}^2 = \frac{\pi}{2} a_0^2 + \pi
+        \sum_{n=1}^\infty (a_n^2 + b_n^2)
     \]
     其中\(a_{n} = \inner{f}{\cos nt}\)，\(b_{n} = \inner{f}{\sin nt}\)。
 \end{example}
@@ -416,6 +450,8 @@
     必要性由极化恒等式直接得出。例如在实情形下：
     \[
         \inner{Tx}{Ty} = \frac{1}{4}(\|Tx+Ty\|^2 -
-        \|Tx-Ty\|^2) = \frac{1}{4}(\|x+y\|^2 - \|x-y\|^2) = \inner{x}{y}.
+        \|Tx-Ty\|^2) = \frac{1}{4}(\|x+y\|^2 - \|x-y\|^2) =
+        \inner{x}{y}.
     \]
 \end{proof}
+% 这好像是我第一次完整的写完一章连续的笔记:-o

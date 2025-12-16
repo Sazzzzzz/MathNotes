@@ -2,7 +2,7 @@
 .DS_Store
 
 # Dev artifacts
-*_temp/
+*_files/
 test*.*
 test*/
 .release_date

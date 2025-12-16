@@ -29,7 +29,6 @@
             开集中总能找到新的开集包含在该像内，从而说明有界性。
         \item 从 (5) 推导 (6)：扩大单位球
         \item 从 (6) 推导 (1)：利用 \(x-y\) 和线性性。
-            test
     \end{itemize}
 \end{proof}
 
@@ -48,7 +47,7 @@
         Tu = \norm{u} T \frac{u}{\norm{u}}, \forall u \ne 0.
     \]
     \begin{align*}
-        \sup_{\norm{x} < 1} \norm{Tx}&= \norm{x}\sup_{\norm{x}<1} \norm{T
+        \sup_{\norm{x} < 1} \norm{Tx}&= \sup_{\norm{x}<1} \norm{x} \norm{T
         \frac{x}{\norm{x}}} \leq \norm{x} \sup_{\norm{x}=1} \norm{T
         x} < \sup_{\norm{x} = 1} \norm{T x}\\
         \sup_{\norm{x} =1} \norm{Tx} &= (1+\varepsilon)
@@ -77,6 +76,7 @@
 \end{proof}
 
 \begin{theorem}
+    \(T: K \mapsto H\) 是 Hilbert 空间之间的有界线性算子，则：
     \[
         \norm{T} = \sup \left\{ \abs{\inner{Th}{k}} \mid k\in U_{k},
         h\in U_{h} \right\}
