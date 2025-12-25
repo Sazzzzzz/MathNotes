@@ -1,0 +1,482 @@
+% % !TEX root = main.tex
+\chapter{函数最佳逼近}
+
+% todo: Weistrass 定理怎么证明的，伯恩斯坦多项式用处
+\begin{theorem}[Weierstrass 逼近定理]
+    设 \(f \in C[a, b]\)，则对任意 \(\varepsilon > 0\)，存在多项式 \(P(x)\)，使得
+    \[
+        \max_{a \le x \le b} |f(x) - P(x)| < \varepsilon
+    \]
+    即闭区间上的连续函数可以被多项式一致逼近。
+\end{theorem}
+
+如果想用计算机计算函数\(f\) 的值，我们该怎么做？
+
+想象一个没有SFU的年代，一个自然的想法，是用多项式拟合一般函数。但用什么多项式呢？泰勒展开似乎可行，但是泰勒展开在展开点附近效果很好，
+但远离展开点时，误差迅速增大；多项式插值似乎可行，但Runge现象照样表明误差在边界处增大。我们需要一种能在一段区间上都表现良好的多项式逼近方法。
+
+\section{线性赋范空间的最佳逼近及存在性定理}
+\begin{definition}
+    设 \(f(x)\) 是 \([a, b]\) 上的连续函数，称
+    \begin{equation}
+        E_n(f; P_n) = \inf_{p_n \in P_n} \max_{a \le x \le b} |f(x) - p_n(x)|
+    \end{equation}
+    为 \(f(x)\) 在 \([a, b]\) 上的最佳一致逼近误差。
+\end{definition}
+设 \(H_m = \text{span}\{\phi_1, \phi_2, \cdots, \phi_m\}\)，其中 \(\phi_i
+\in E, i = 1, 2, \cdots, m\)，且元素系 \(\phi_1, \phi_2, \cdots, \phi_m\)
+线性无关。这时，对于 \(\forall \phi \in H_m\)，有
+\[
+    \phi = \sum_{i=1}^m \alpha_i \phi_i, \quad \alpha_i \in
+    \R, i = 1, 2, \cdots, m,
+\]
+即 \(\phi\) 与 \(\R^m\) 中的元素 \((\alpha_1, \alpha_2, \cdots,
+\alpha_m)^{\mathrm{T}}\) 一一对应。由此，可给出最佳逼近元素的等价定义。
+
+\begin{definition}
+    称 \(\phi^* = \sum_{i=1}^m \alpha_i^* \phi_i \in H_m\) 为 \(f\) 的最佳逼近元素，如果它满足
+    \begin{equation}
+        \left\| f - \sum_{i=1}^m \alpha_i^* \phi_i \right\| =
+        \inf_{(\alpha_1, \alpha_2, \cdots, \alpha_m)^{\mathrm{T}} \in
+        \R^m} \left\| f - \sum_{k=1}^m \alpha_k \phi_k \right\|.
+    \end{equation}
+\end{definition}
+
+\begin{theorem}[最佳逼近元素的存在性]
+    设 \(E\) 是线性赋范空间，\(H_m\) 是 \(E\) 的有限维子空间，则对于
+    \(\forall f \in E\)，\(f\) 在 \(H_m\) 中存在最佳逼近元素。
+\end{theorem}
+
+我们先用的几何学把有限维逼近化成划归成\(\R^{n} \)的问题，远处利用范数在无穷远处特别大的性质，在近处闭集内用连续函数基本性质，得到证明。
+
+\begin{proof}
+    设 \(h(\alpha) = \left\| f - \sum_{i=1}^m \alpha_i \phi_i
+    \right\|\)，其中 \(\alpha = (\alpha_1, \alpha_2, \cdots,
+    \alpha_m)^{\mathrm{T}} \in \R^m\)。
+    由多元函数 \(g(\alpha) = \left\| \sum_{i=1}^m \alpha_i \phi_i
+    \right\|\) 的连续性可知，\(g\) 在 \(\R^m\) 中的单位球面 \(\left\{
+    \alpha \mid \sum_{i=1}^m \alpha_i^2 = 1 \right\}\) 上达到它的最小值 \(\mu\)。
+    又由 \(\phi_i, i = 1, 2, \cdots, m\) 的线性无关性，必有 \(\mu > 0\)。这样，若令
+    \(\beta = \sqrt{\sum_{i=1}^m \alpha_i^2}\)，则
+    \[
+        h(\alpha) \geqslant \left\| \sum_{i=1}^m \alpha_i \phi_i
+        \right\| - \|f\| = \beta \left\| \sum_{i=1}^m
+        \frac{\alpha_i}{\beta} \phi_i \right\| - \|f\| \geqslant
+        \beta \mu - \|f\|,
+    \]
+    由此可知，当 \(\sum_{i=1}^m \alpha_i^2 \to \infty\) 时，\(h(\alpha) \to
+    \infty\)。由于 \(h(\alpha)\) 是 \(\R^m\) 上的连续函数，故其必在
+    \(\R^m\) 上达到最小值。
+\end{proof}
+
+其实最佳逼近的存在性我们在泛函分析、线性代数和数值分析各证明了一遍。线性代数只考虑有限维空间在有限维子空间的最佳逼近，直接用正交分解，
+但证明不适用于此。泛函分析考虑的是Hilbert空间的闭凸集的最佳逼近，但这里只有范数空间，没有内积。
+这里要求的是线性赋范空间的有限维子空间的最佳逼近，证明思路一脉相承于数学分析。
+
+\begin{definition}
+    设 \(E\) 是线性赋范空间，若对于任意 \(x, y \in E\)，由 \(\|x+y\| = \|x\| +
+    \|y\|\) 且 \(x \neq 0\) 可推出存在 \(\lambda \ge 0\) 使得 \(y = \lambda
+    x\)，则称 \(E\) 为狭义线性赋范空间（或严格凸空间）。
+\end{definition}
+
+\begin{theorem}
+    若 \(E\) 是狭义线性赋范空间，则 \(f \in E\) 在有限维子空间 \(H_m\) 中的最佳逼近元素唯一。
+\end{theorem}
+
+\section{最佳一致逼近多项式}
+当我们考虑最佳一致逼近时，实际上是在\(L^{\infty } \)中考虑最佳逼近问题。
+
+\begin{equation}
+    E_n(f) := E_n(f; P_n) = \inf_{p_n \in P_n} \|f - p_n\| =
+    \inf_{p_n \in P_n} \max_{a \le x \le b} |f(x) - p_n(x)|.
+\end{equation}
+故最佳一致逼近多项式又称Minimax多项式。
+
+靠我们用待定系数法求解最佳逼近的直觉可以发现：
+如果最佳逼近存在，那么最佳逼近误差应在整个逼近区间上均匀分布, 即误差函数的最大、最小值大小相等符号相反, 且交错分布。
+
+\begin{definition}
+    设 \(f \in C[a, b]\)，称满足 \(a \le x_0 < x_1 < \cdots < x_k \le b\)
+    的点集 \(\{x_i\}_{i=0}^k\) 为 \(f(x)\) 在 \([a, b]\) 上的交错点组，如果它满足
+    \begin{equation}
+        f(x_i) = (-1)^i \sigma \|f\|, \quad i = 0, 1, \cdots, k,
+        \sigma = 1 \text{或} -1,
+    \end{equation}
+\end{definition}
+\begin{theorem}[Vallee-Poussin定理]
+    设 \(f\in C[a,b]\)，若存在多项式 \(p\in P_n\)，使得
+    \(f(x)-p(x)\) 在 \([a,b]\) 上至少在 \(n+2\) 个点
+    \(x_0<x_1<\cdots<x_{n+1}\) 处取值正负相间，则
+    \[
+        E_n(f)\ge \lambda:=\min_{0\le i\le n+1}|f(x_i)-p(x_i)|.
+    \]
+\end{theorem}
+
+\begin{proof}
+    用反证法。设 \(p_n^*\in P_n\) 为 \(f\) 的最佳一致逼近多项式，且
+    \(E_n(f)<\lambda\)。注意
+    \[
+        p_n^*(x)-p(x)=f(x)-p(x)-(f(x)-p_n^*(x)).
+    \]
+    在各点 \(x_i\) 处，上式的符号由 \(f(x_i)-p(x_i)\) 决定，因此
+    \(p_n^*-p\) 在这些点上交错取得正负值，于是必至少有 \(n+1\) 个零点。
+    但 \(p_n^*-p\) 是次数不超过 \(n\) 的多项式，故只能恒为零，即
+    \(p_n^*\equiv p\)，这与 \(E_n(f)<\lambda\) 矛盾。由此得证。
+\end{proof}
+Vallee-Poussin定理的意义：给出一个多项式逼近误差的下界，让我们知道逼近有多好。当最大误差和最小误差相差不大时，
+说明逼近效果很好。当完全相等时是不是就达到了最佳逼近呢？我们有切比雪夫定理：
+\begin{theorem}[Chebyshev 定理]
+    设 \(f \in C[a, b]\)，则多项式 \(p^* \in P_n\) 是 \(f\) 在 \([a, b]\)
+    上的最佳一致逼近多项式的充分必要条件是：至少存在
+    \(n+2\) 个点 \(a \le x_0 < x_1 < \cdots < x_{n+1} \le b\)，使得
+    \begin{equation}
+        f(x_i) - p^*(x_i) = (-1)^i E_n(f), \quad i = 0, 1, \cdots,
+        n+1.
+    \end{equation}
+\end{theorem}
+
+\begin{corollary}[唯一性]
+    设 \(f \in C[a, b]\)，则 \(f\) 在 \([a, b]\) 上的最佳一致逼近多项式唯一。
+\end{corollary}
+这个推论可以证明：
+\begin{theorem}
+    偶函数的最佳一致逼近是偶函数，奇函数的最佳一致逼近也是奇函数。
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        E_{n}(f) &= \min_{p \in P_{n}} \max_{x \in [a, b]} |f(x) - p(x)| \\
+        &= \min_{p \in P_{n}} \max_{x \in [a, b]} |f(x) - p(-x)| \\
+    \end{align*}
+    故\(p(x)\) 与\(p(-x)\) 都是最佳一致逼近多项式，由唯一性可知二者相等。
+\end{proof}
+
+\begin{quote}
+    当证明“殊途同归”这件事时，我们常常用到唯一性。
+\end{quote}
+
+\begin{corollary}
+    设 \(p(x)\) 是 \(f(x)\) 的 \(n\) 次最佳一致逼近多项式，如果
+    \(f\) 在 \([a,b]\) 上具有 \(n+1\) 阶导数，且 \(f^{(n+1)}(x)\) 在 \([a,b]\) 上保持同号，
+    则 \(f-p\) 的交错点组恰有 \(n+2\) 个交错点，并且区间 \([a,b]\) 的端点属于该交错点组。
+\end{corollary}
+
+这个推论很有用处，它直接给出了逼近多项式的求解方法：
+只需要待定系数法，设\(p(x) = a_{0} + a_{1}x + \cdots + a_{n}x^{n}\)求解方程组：
+\begin{align*}
+    f(a) - p(a) &= p(x_{1}) - f(x_{1}) = f(x_{2}) - p(x_{2}) = \cdots
+    = (-1)^{n+1} (f(b) - p(b))\\
+    0 &=f'(x_{1}) - p'(x_{1}) = f'(x_{2}) - p'(x_{2}) = \cdots =
+    f'(x_{n}) - p'(x_{n})
+\end{align*}
+一共\(a_{0}, a_{1}, \dots , a_{n}\) 和 \(x_{1}, x_{2}, \dots, x_{n}\)
+共\(2n+1\) 个未知数，方程也有\(2n+1\) 个。
+
+但是这个方程非常难解，是非线性方程组（几乎只会在数值分析的课后习题中出现\UseVerb{sad}。但只要确定内部交错点的位置，
+方程组就是线性的了。于是我们有Remez算法：
+\subsection*{Remez算法}
+Remez 算法通过迭代寻找交错点组，其基本步骤如下：
+
+\begin{enumerate}
+    \item \textbf{初始化}：在 \([a, b]\) 上选取初始点集 \(x_0 < x_1 < \cdots <
+        x_{n+1}\)（通常选取 Chebyshev 多项式的极值点）。
+    \item \textbf{求解线性方程组}：解关于 \(a_0, a_1, \dots, a_n\) 和 \(E\) 的方程组
+        \[
+            p_n(x_i) + (-1)^i E = f(x_i), \quad i = 0, 1, \dots, n+1
+        \]
+        其中 \(p_n(x) = \sum_{j=0}^n a_j x^j\)。由于系数矩阵是 Vandermonde 矩阵的变体，该方程组有唯一解。
+    \item \textbf{寻找最大误差点}：计算误差函数 \(r(x) = f(x) - p_n(x)\)，求出使
+        \(|r(x)|\) 达到最大值的点 \(x^*\)。
+    \item \textbf{更新点集}：若 \(|r(x^*)| - |E| < \varepsilon\)，则停止迭代，输出
+        \(p_n(x)\)；否则根据交错性质，用 \(x^*\) 替换原点集 \(\{x_i\}\) 中的一个点，
+        使得新的点集仍保持交错性且包含 \(x^*\)，然后返回步骤 2。
+\end{enumerate}
+切比雪夫定理中这个\(n+2\)看起来很怪，实际上是用\(n\)维子空间去逼近函数，需要\(n+1\)个点去确定误差的正负交替。
+\begin{theorem}
+    要使用\(n\)维线性子空间逼近一个函数，你需要 \(n+1\)个交替点。
+\end{theorem}
+也就是说，即使是用缺省常数项的多项式去逼近函数，利用一般化的切比雪夫定理，照样可以通过找交替点的方法去求解最佳一致逼近。
+
+一般的，切比雪夫定理不光适用于多项式，也适用包括样条曲线等其他函数系，这些函数系需满足Haar条件。
+% todo: Haar条件是什么
+\section{Chebyshev 多项式}
+% todo: prove chebyshev theorem
+
+\subsection{与零偏差最小问题}
+
+在寻找最佳一致逼近多项式时，如何找到一个最高次项系数固定的多项式，使其在区间 \([-1, 1]\) 上的最大绝对值最小？
+显然直接调小多项式系数是可行的，但若最高次项系数被限制为 1 呢？这就是所谓的\textbf{零偏差最小问题}
+
+考虑逼近误差 \(e(x) = f(x) - p_{n-1}(x)\)。若 \(f(x) = x^n\)，则误差函数 \(e(x)\)
+是一个首项系数为 1 的 \(n\) 次多项式：
+\[
+    e(x) = x^n + a_{n-1}x^{n-1} + \dots + a_0
+\]
+根据 Chebyshev 极小化定理，最佳逼近的误差函数必须在区间上交替变号至少 \(n+1\) 次。
+
+\subsection{Chebyshev 多项式的定义与性质}
+
+\begin{theorem}[第一类 Chebyshev 多项式]
+    Chebyshev 多项式 \(T_n(x)\) 定义为：
+    \[
+        T_n(\cos \theta) = \cos(n \theta), \quad \theta \in [0, \pi]
+    \]
+\end{theorem}
+
+\begin{theorem}[第二类 Chebyshev 多项式]
+    第二类 Chebyshev 多项式 \(U_n(x)\) 定义为：
+    \[
+        U_n(\cos \theta) = \frac{\sin((n+1) \theta)}{\sin \theta},
+        \quad \theta \in
+        [0, \pi]
+    \]
+\end{theorem}
+
+\[
+    \odv{T_{n}(x)}{x} = n U_{n-1}(x)
+\]
+\paragraph{递推公式}
+利用三角恒等式 \(\cos(n+1)\theta + \cos(n-1)\theta = 2\cos\theta \cos n\theta\)，可得递推关系：
+\begin{equation}
+    \begin{cases}
+        T_0(x) = 1 \\
+        T_1(x) = x \\
+        T_{n+1}(x) = 2x T_n(x) - T_{n-1}(x), \quad n \geq 1
+    \end{cases}
+\end{equation}
+同样的，也可以用Chebyshev 多项式计算\(x^{n} \)，
+\[
+    x^{n}=T_{n}\!\left({\frac
+    {x+x^{-1}}{2}}\right)+{\frac
+    {x-x^{-1}}{2}}\ U_{n-1}\!\left({\frac {x+x^{-1}}{2}}\right)
+\]
+
+注意到\href{https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Table}{三角恒等式}：
+\[
+    \cos^n \theta =
+    \begin{cases}
+        {\frac {2}{2^{n}}}\sum _{k=0}^{\frac
+        {n-1}{2}}{\binom {n}{k}}\cos (n-2k),
+        & n \text{为奇数} \\
+        {\frac {1}{2^{n}}}{\binom {n}{\frac
+        {n}{2}}}+{\frac {2}{2^{n}}}\sum _{k=0}^{{\frac {n}{2}}-1}{\binom
+        {n}{k}}\cos (n-2k), & n \text{为偶数}
+    \end{cases}
+\]
+有：
+\[
+    x^{n} = \cos^{n}(\arccos x) =
+    \begin{cases}
+        {\frac {2}{2^{n}}}\sum _{k=0}^{\frac
+        {n-1}{2}}{\binom {n}{k}}T_{n-2k}(x),
+        & n \text{为奇数} \\
+        \frac {1}{2^{n}}\binom {n}{\frac
+        {n}{2}}T_{0}(x)+{\frac {2}{2^{n}}}\sum _{k=0}^{{\frac {n}{2}}-1}{\binom
+        {n}{k}}T_{n-2k}(x), & n \text{为偶数}
+    \end{cases}
+\]
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|ccccc}
+        \hline
+        \(n\) & 0 & 1 & 2 & 3 & 4 \\
+        \hline
+        \(T_n(x)\) & 1 & \(x\) & \(2x^2 - 1\) & \(4x^3 - 3x\) &
+        \(8x^4 - 8x^2 + 1\) \\
+        \(x^n\) & \(T_0\) & \(T_1\) & \(\frac{1}{2}(T_0 + T_2)\) &
+        \(\frac{1}{4}(3T_1 + T_3)\) & \(\frac{1}{8}(3T_0 + 4T_2 +
+        T_4)\) \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{零点}
+Chebyshev 多项式 \(T_n(x)\) 在区间 \([-1, 1]\) 上的 \(n\) 个零点为：
+\[
+    x_k = \cos\left(\frac{2k-1}{2n}\pi\right), \quad k = 1, 2, \dots, n
+\]
+
+\paragraph{行列式定义}
+\[
+    T_n(x) = \frac{1}{2^{n-1}}
+    \begin{bmatrix}
+        x &1 &0 &\cdots &0 \\
+        1 &2x &1 &\ddots &\vdots \\
+        0 &1 &2x &\ddots &0 \\
+        \vdots &\ddots &\ddots &\ddots &1 \\
+        0 &\cdots &0 &1 &2x
+    \end{bmatrix}
+\]
+
+\paragraph{正交性}
+Chebyshev 多项式系 \(\{T_n(x)\}\) 关于权函数 \(w(x) =
+\frac{1}{\sqrt{1-x^2}}\) 正交：
+\[
+    \int_{-1}^1 T_n(x) T_m(x) \frac{1}{\sqrt{1-x^2}} \,
+    \mathrm{d}x =
+    \begin{cases}
+        0 & n \neq m \\
+        \pi/2 & n = m \neq 0 \\
+        \pi & n = m = 0
+    \end{cases}
+\]
+第二类 Chebyshev 多项式系 \(\{U_n(x)\}\) 关于权函数 \(w(x) =
+\sqrt{1-x^2}\) 正交。
+
+\subsection{Chebyshev 多项式的应用}
+\paragraph{余项极小化} 如插值多项式的余项公式可以看作是多项式的零偏差最小问题的一个应用。
+
+\paragraph{Chebyshev 缩减}
+这是一种优化普通幂级数的高效技术。其核心思想是利用 \(x^n\) 的 Chebyshev 展开式，将幂用 Chebyshev
+多项式的组合替换，从而减少在区间 \([-1, 1]\) 上的最大误差。
+
+\begin{example}[\(\e^x\) 的切比雪夫缩减]
+    \(\e^{x} \) 的泰勒展开式：
+    \[
+        \e^{x} \approx 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!}
+    \]
+    用 Chebyshev 多项式替换：
+    \[
+        \e^{x} \approx 1 + T_1(x) + \frac{1}{2} T_2(x) + \frac{1}{4} T_3(x)
+    \]
+    % todo: finish this
+\end{example}
+
+\paragraph{Clenshaw 算法}
+虽然 Chebyshev 展开式收敛更快，但直接计算 \(T_n(x)\) 非常繁琐。实际上，利用
+\textbf{Clenshaw 递推算法}，我们可以像 Horner 算法计算幂级数一样高效地计算 Chebyshev 级数。
+% todo: 写出算法
+\section{内积空间的最佳逼近}
+最佳一致逼近总体效果不错，但遇到特殊点容易直接崩溃。内积空间上的最佳平方逼近则更稳定。
+
+这部分理论在泛函分析/线性代数已经讲过了。内积空间上最佳逼近的理论就是Hilbert空间上投影定理的一个特例，因此显得简洁优雅。而\(L^{\infty }
+\)上的范数不满足平行四边形恒等式，没有内积结构，显得复杂一些。
+
+求内积空间上的投影，只需要对子空间上给一个基，然后求解线性方程组。
+\begin{theorem}[求内积空间的最佳逼近]
+    \[
+        E^2(f; M) = (f, f) - (f, \phi^*)
+    \]
+    设 \(X\) 的 \(n\) 维子空间 \(M = \Span\{\phi_1, \phi_2, \cdots,
+    \phi_n\}\)，且 \(\phi_1, \phi_2, \cdots, \phi_n\) 是 \(X\) 的线性无关元素系。对
+    \(\forall f \in X\)，设其最佳逼近元素 \(\phi^*\) 可表示为 \(\phi^* = \sum_{i=1}^n c_i^*
+    \phi_i\)，有
+    \[
+        \left( f - \sum_{i=1}^n c_i^* \phi_i, \phi_j \right) = 0, \quad j
+        = 1, 2, \cdots, n,
+    \]
+    即
+    \[
+        \sum_{i=1}^n (\phi_i, \phi_j) c_i^* = (f, \phi_j), \quad j = 1,
+        2, \cdots, n
+    \]
+    称为最佳逼近元素的法方程组（或正规方程组）。记 \(n \times n\) 阶对称矩阵
+    \[
+        G =
+        \begin{bmatrix}
+            (\phi_1, \phi_1) & (\phi_1, \phi_2) & \cdots & (\phi_1, \phi_n) \\
+            (\phi_2, \phi_1) & (\phi_2, \phi_2) & \cdots & (\phi_2, \phi_n) \\
+            \vdots & \vdots & & \vdots \\
+            (\phi_n, \phi_1) & (\phi_n, \phi_2) & \cdots & (\phi_n, \phi_n)
+        \end{bmatrix},
+    \]
+    利用 \(\{\phi_i\}_{i=1}^n\) 的线性无关性，容易证明矩阵 \(G\) 是正定的。因此，法方程组的解存在且唯一。
+\end{theorem}
+
+但是这个方程组在计算时是高度病态的，所以我们需要用多项式正交基
+\section{最佳平方逼近与正交多项式}
+\begin{definition}
+    定义在 \([a, b]\) 上的函数系 \(\{g_l(x)\}_{l=0}^n\) 称为 \(P_n\) 的带权
+    \(\rho(x)\) 正交基（\(g_l(x)\) 称为 \([a, b]\) 上的带权 \(l\) 次正交多项式），如果它满足
+    \begin{enumerate}
+        \item \(g_l(x) = \sum_{k=0}^l \alpha_k x^k\) 恰为 \(l\) 次多项式，即
+            \(\alpha_l \neq 0\)；
+        \item \((g_i, g_j) =
+                \begin{cases} 0, & i \neq j, \\ \int_a^b \rho(x)
+                    g_i^2(x) \mathrm{d}x > 0, & i = j.
+            \end{cases}\)
+    \end{enumerate}
+    特别地，若 \((g_i, g_i) = 1, i = 0, 1, \cdots, n\)，则称
+    \(\{g_l(x)\}_{l=0}^n\) 为 \([a, b]\) 上 \(P_n\) 的正规正交基。
+\end{definition}
+
+\begin{theorem}
+    上述带权正交基有递推公式
+    \begin{equation}
+        \begin{cases}
+            g_{k+1}^*(x) = (x - \beta_k) g_k^*(x) - \alpha_k
+            g_{k-1}^*(x), & k = 1, 2, \cdots, n-1, \\
+            g_0^*(x) = 1, \quad g_1^*(x) = x - (xg_0^*, g_0^*)/(g_0^*, g_0^*),
+        \end{cases}
+    \end{equation}
+    其中常数
+    \[
+        \beta_k = \frac{(xg_k^*, g_k^*)}{(g_k^*, g_k^*)}, \quad
+        \alpha_k = \frac{(g_k^*, g_k^*)}{(g_{k-1}^*, g_{k-1}^*)}.
+    \]
+\end{theorem}
+\subsection{Chebyshev 逼近}
+chebyshev 多项式也是一种正交多项式系。考虑：\[
+    f(x) = \sum_{n=1}^{\infty} a_{n}T_{n}(x)
+\]
+其中 \[
+    a_{n} = \frac{2}{\pi}\int_{-1}^{1} \frac{f(x)T_{n}(x)}{\sqrt{1-x^{2}}} \d{x}
+\]
+被称为Chebyshev 级数展开。
+多项式插值往往在边缘处表现不佳（Runge现象）。
+
+（第一类）Chebyshev 多项式的权函数是\(\rho(x) = \frac{1}{\sqrt{1-x^{2}}}\) 。
+这是一个端点处趋于无穷的权函数，说明切比雪夫逼近更关注区间端点处的误差。
+
+从零点上看，切比雪夫多项式的零点，就是等角度划分半圆时点的横坐标。这些点在区间端点处也更密集。一般的，在零点密集的地方权函数较大，
+因为高频的震荡才能避免非零值产生的巨大积分。
+\footnote{参考\href{https://www.embeddedrelated.com/showarticle/152.php}{这篇文章}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{resources/chebyshev_zeros.pdf}
+    \caption{Chebyshev 多项式的零点分布}
+\end{figure}
+切比雪夫逼近很接近最佳一致逼近，而切比雪夫缩减又很接近切比雪夫逼近。计算量基本上是逐级递减\UseVerb{smile}
+
+\subsection{常见的正交多项式系}
+\paragraph{Legrende 多项式}
+这是最自然的正交多项式，权函数为1。可以用Gram-Schmidt 正交化方法从普通多项式系得到。
+\[
+    P_n(x) = \frac{1}{2^n n!}\cdot\frac{2n+1}{2} \odv[n]{}{x} (x^2 - 1)^n
+\]
+迭代式：\[
+    P_{n+1}(x) = \frac{(2n+1)(2n+3)}{n+1} x P_n(x) -
+    \frac{2n+3}{2n-1} P_{n-1}(x)
+\]
+% TODO: 怎么从Gram-Schmidt 推导到定义
+
+\paragraph{Laguerre 多项式}
+\[
+    L_{n}(x) = \e^{x} \frac{1}{n!} \odv[n]{}{x} (x^n \e^{-x})
+\]
+它是区间 \([0, +\infty)\) 上关于权函数 \(\rho(x) = \e^{-x}\) 的正交多项式系。
+\paragraph{Hermite 多项式}
+\[
+    H_{n}(x) = (-1)^{n} \e^{x^{2}} \odv[n]{}{x} \e^{-x^{2}}
+\]
+它是区间 \((-\infty, +\infty)\) 上关于权函数 \(\rho(x) = \e^{-x^2}\) 的正交多项式系。
+% todo: add remez algorithm
+% 2. The Remez Algorithm (Iterative Application)
+% 2. Remez 算法（迭代应用）
+% This is the standard algorithm for finding best polynomial
+% approximations. It relies entirely on the intuition of Vallée-Poussin.
+% 这是寻找最佳多项式逼近的标准算法。它完全依赖于瓦莱-普桑的直觉。
+
+% Step 1: Guess n+2 points.
+% 第一步：猜测 n+2 点数。
+% Step 2: Build a polynomial that oscillates on these points (forcing
+% larger errors).
+% 步骤 2：构建一个在这些点上振荡的多项式（强制产生更大的误差）。
+% Step 3: Use Vallée-Poussin reasoning to see that the current maximum
+% error is an upper bound for the best error, and the minimum
+% alternating error is a lower bound.
+% 第三步：使用瓦莱-普桑推理可知，当前最大误差是最佳误差的上限，而最小交替误差是下限。
+% Step 4: Move the points to where the error is highest and repeat
+% until the bounds converge (Upper Bound ≈ Lower Bound).
+% 第四步：将点移动到误差最高的地方，然后重复此操作，直到边界收敛（上限 ≈ 下限）。
