@@ -4,11 +4,17 @@ import statistics
 import timeit
 from typing import Callable, List
 
+from approx_cy import (
+    approx_legrende_cy,
+    approx_chebyshev_cy,
+    approx_legrende_cy_3ord,
+    approx_lut_cy,
+)  # type: ignore
+from approx_rust import approx_legrende_rust  # type: ignore
 from tabulate import tabulate
 
-from approx_cy import approx_legrende_cy
-from approx_py import approx_legrende_native, approx_legrende_jit
-from approx_rust import approx_legrende_rust
+from approx_py import approx_legrende_jit, approx_legrende_native
+from test import approx_chebyshev_native
 
 
 def blank(x: float) -> float:
@@ -113,5 +119,9 @@ if __name__ == "__main__":
             approx_legrende_jit,
             approx_legrende_cy,
             approx_legrende_rust,
+            approx_chebyshev_native,
+            approx_chebyshev_cy,
+            approx_legrende_cy_3ord,
+            approx_lut_cy,
         ]
     )

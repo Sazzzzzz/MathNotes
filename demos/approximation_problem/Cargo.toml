@@ -11,3 +11,11 @@ crate-type = ["cdylib"]
 [dependencies]
 approx = "0.5.1"
 pyo3 = "0.27.0"
+
+[profile.release]
+opt-level = 3           # Maximum optimization
+lto = "fat"             # Whole-program analysis (Link Time Optimization)
+codegen-units = 1       # Reduce parallel compilation to allow better optimization across units
+panic = "abort"         # Remove stack unwinding bloat (slight speedup)
+strip = "symbols"       # Optional: reduces binary size, doesn't affect speed much
+
