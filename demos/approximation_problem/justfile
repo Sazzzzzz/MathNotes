@@ -1,0 +1,17 @@
+# Build a specific target (cython, rust, etc.)
+build target:
+    @echo "Building {{ target }}"
+    @just build-{{ target }}
+
+# Cython build recipe
+build-cython:
+    uv run python setup.py build_ext --inplace
+    # maturin automatically places the built .so files in src/
+
+    @cp src/approx_cy*.so .
+# Future: Rust build recipe
+build-rust:
+    maturin build --release
+
+benchmark:
+    uv run python benchmark.py
