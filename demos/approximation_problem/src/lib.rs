@@ -23,26 +23,22 @@ fn approx_legrende_rust(x: f64) -> PyResult<f64> {
     Ok(x * (A1 + x2 * (A3 + x2 * (A5 + x2 * (A7 + x2 * A9)))))
 }
 
-/// Fast Chebyshev approximation of sin(x) for x in [-pi/2, pi/2].
+/// Fast Chebyshev approximation of sin(x) using 2-step recurrence formula.
 #[pyfunction]
 #[inline(always)]
 fn approx_chebyshev_rust(x: f64) -> PyResult<f64> {
-    let t = TWO_OVER_PI * x;
-    let two_t = 2.0 * t;
     let mut b_next = 0.0;
     let mut b_curr = 0.0;
-
-    (b_next, b_curr) = (B9 + two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (B7 + two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (B5 + two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (B3 + two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (two_t * b_next - b_curr, b_next);
-    (b_next, b_curr) = (B1 + two_t * b_next - b_curr, b_next);
-
-    Ok(t * b_next - b_curr)
+    let t = TWO_OVER_PI * x;
+    let four_t2 = 4.0 * t * t;
+    let four_t2_minus_two = four_t2 - 2.0;
+    
+    (b_next, b_curr) = (B9 + four_t2_minus_two * b_next - b_curr, b_next);
+    (b_next, b_curr) = (B7 + four_t2_minus_two * b_next - b_curr, b_next);
+    (b_next, b_curr) = (B5 + four_t2_minus_two * b_next - b_curr, b_next);
+    (b_next, b_curr) = (B3 + four_t2_minus_two * b_next - b_curr, b_next);
+    
+    Ok(t * B1 + ((four_t2 - 3.0) * t) * b_next - t * b_curr)
 }
 
 /// A Python module implemented in Rust.

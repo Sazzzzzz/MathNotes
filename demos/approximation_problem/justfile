@@ -9,9 +9,17 @@ build-cython:
     # maturin automatically places the built .so files in src/
 
     @cp src/approx_cy*.so .
-# Future: Rust build recipe
 build-rust:
     maturin build --release
 
 benchmark:
     uv run python benchmark.py
+
+setup:
+    @echo "Setting up the environment"
+    uv sync
+    source ./.venv/bin/activate
+    just build cython
+    just build rust
+run: setup
+    just benchmark

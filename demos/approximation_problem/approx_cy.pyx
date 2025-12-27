@@ -8,7 +8,6 @@ cdef double A3 = <double>float.fromhex("-0x1.555541010e1d1p-3")
 cdef double A5 = <double>float.fromhex("0x1.110df7f7ef661p-7")
 cdef double A7 = <double>float.fromhex("-0x1.9f55f86c5c0ebp-13")
 cdef double A9 = <double>float.fromhex("0x1.5cb66525ec44ap-19")
-cdef double TWO_OVER_PI = 2.0 / M_PI
 
 cdef inline double approx_legrende_cy_impl(double x) nogil:
     """Fast approximation of sin(x) for x in [-pi/2, pi/2]."""
@@ -21,56 +20,38 @@ cdef double B3 = <double>-0.1380717765871921
 cdef double B5 = <double>0.004490714246554918
 cdef double B7 = <double>-0.00006770127584215249
 cdef double B9 = <double>5.891295330289313e-7
+cdef double TWO_OVER_PI = 2.0 / M_PI
 
 cdef inline double approx_chebyshev_cy_impl(double x) nogil:
-    cdef double t = TWO_OVER_PI * x
     """Fast Chebyshev approximation of sin(x) for x in [-pi/2, pi/2]."""
-    cdef double two_t = 2.0 * t
-    cdef double b_next = 0.0
-    cdef double b_curr = 0.0
+    cdef double t = TWO_OVER_PI * x
+    cdef double four_t2 = 4.0 * t * t
+    cdef double four_t2_minus_two = four_t2 - 2.0
+    cdef double b_next = <double>0.0
+    cdef double b_curr = <double>0.0
     cdef double temp
     
-    b_next, b_curr = B9 + two_t * b_next - b_curr, b_next
+    b_next, b_curr = B9 + four_t2_minus_two * b_next - b_curr, b_next
     temp = b_next
-    b_next = two_t * b_next - b_curr
+    b_next = B7 + four_t2_minus_two * b_next - b_curr
     b_curr = temp
     
     temp = b_next
-    b_next = B7 + two_t * b_next - b_curr
+    b_next = B5 + four_t2_minus_two * b_next - b_curr
     b_curr = temp
     
     temp = b_next
-    b_next = two_t * b_next - b_curr
+    b_next = B3 + four_t2_minus_two * b_next - b_curr
     b_curr = temp
     
-    temp = b_next
-    b_next = B5 + two_t * b_next - b_curr
-    b_curr = temp
-    
-    temp = b_next
-    b_next = two_t * b_next - b_curr
-    b_curr = temp
-    
-    temp = b_next
-    b_next = B3 + two_t * b_next - b_curr
-    b_curr = temp
-    
-    temp = b_next
-    b_next = two_t * b_next - b_curr
-    b_curr = temp
-    
-    temp = b_next
-    b_next = B1 + two_t * b_next - b_curr
-    b_curr = temp
-    
-    return t * b_next - b_curr
+    return t * B1 + ((four_t2 - 3.0) * t) * b_next - t * b_curr
 
 cdef double C3 = <double>-0.1450618133068681
 cdef double C1 = <double>0.9887922330533080
 cdef inline double approx_legrende_cy_3ord_impl(double x) nogil:
     cdef double x2 = x * x
     return x * (C1 + x2 * C3)
-
+    
 # Public wrapper for Python
 def approx_legrende_cy(double x) -> double:
     """Fast approximation of sin(x) for x in [-pi/2, pi/2]."""

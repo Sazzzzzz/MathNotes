@@ -1,28 +1,32 @@
-import math
 import random
 import statistics
 import timeit
+from math import pi, sin
 from typing import Callable, List
 
 from approx_cy import (
-    approx_legrende_cy,
     approx_chebyshev_cy,
+    approx_legrende_cy,
     approx_legrende_cy_3ord,
     approx_lut_cy,
 )  # type: ignore
-from approx_rust import approx_legrende_rust  # type: ignore
+from approx_rust import approx_legrende_rust, approx_chebyshev_rust  # type: ignore
 from tabulate import tabulate
 
-from approx_py import approx_legrende_jit, approx_legrende_native
-from test import approx_chebyshev_native
+from approx_py import (
+    approx_Bhāskara_native,
+    approx_legrende_jit,
+    approx_legrende_native,
+    approx_chebyshev_native,
+)
 
 
-def blank(x: float) -> float:
+def blank(x: float):
     return 0.0
 
 
 def benchmark(
-    funcs: List[Callable[[float], float]], num_samples: int = 100_000, repeats: int = 3
+    funcs: List[Callable[[float], float]], num_samples: int = 100_000, repeats: int = 5
 ):
     """
     Benchmarks multiple trigonometric approximation functions against math.sin.
@@ -33,22 +37,24 @@ def benchmark(
     """
 
     # 1. Generate random test data in [-pi/2, pi/2]
-    test_data = [random.uniform(-math.pi / 2, math.pi / 2) for _ in range(num_samples)]
+    test_data = [random.uniform(-pi / 2, pi / 2) for _ in range(num_samples)]
 
     # 2. Measure Overhead (Blank Function)
     # We measure the time it takes just to iterate and call a function
     start_time = timeit.default_timer()
     for x in test_data:
         blank(x)
-    overhead_time = timeit.default_timer() - start_time
+    overhead_time_s = timeit.default_timer() - start_time
 
     results = []
 
     # Add standard math.sin to the comparison
-    all_funcs = [math.sin] + funcs
+    all_funcs = [sin] + funcs
 
-    print(f"Benchmarking on {num_samples:,} random samples in [-π/2, π/2]...")
-    print(f"Overhead (blank function loop): {overhead_time:.4f}s\n")
+    print(f"\nBenchmarking on {num_samples:,} random samples in [-π/2, π/2]...")
+    print(
+        f"Overhead (blank function per loop): {overhead_time_s / num_samples * 1e9:.2f} ns"
+    )
 
     for func in all_funcs:
         func_name = func.__name__
@@ -56,6 +62,7 @@ def benchmark(
         # Run the benchmark multiple times and collect timings
 
         # Use a wrapper function with a simple loop to avoid list allocation overhead
+        # The cost of calling func(x) is dispersed over many calls
         def run_benchmark_loop():
             for x in test_data:
                 func(x)
@@ -66,15 +73,14 @@ def benchmark(
         computed_values = [func(x) for x in test_data]
 
         # Use minimum time
-        total_time = min(times)
-        avg_time = statistics.mean(times)
-        min_time_ns = (total_time / num_samples) * 1e9
-        avg_time_ns = (avg_time / num_samples) * 1e9
+        total_time_ms = min(times) * 1000
+        min_time_ns = (total_time_ms / num_samples) * 1e6
+        execution_time = min_time_ns - (overhead_time_s / num_samples * 1e9)
 
         # --- Accuracy ---
         errors = []
         for i, val in enumerate(computed_values):
-            true_val = math.sin(test_data[i])
+            true_val = sin(test_data[i])
             errors.append(abs(val - true_val))
 
         avg_error = statistics.mean(errors)
@@ -84,8 +90,8 @@ def benchmark(
             [
                 func_name,
                 min_time_ns,
-                avg_time_ns,
-                total_time,
+                execution_time,
+                total_time_ms,
                 avg_error,
                 max_error,
             ]
@@ -95,8 +101,8 @@ def benchmark(
     headers = [
         "Function",
         "Min Time (ns)",
-        "Avg Time (ns)",
-        "Total (s)",
+        "Exec Time (ns)",
+        "Total (ms)",
         "Avg Error",
         "Max Error",
     ]
@@ -115,12 +121,14 @@ def benchmark(
 if __name__ == "__main__":
     benchmark(
         funcs=[
+            approx_Bhāskara_native,
             approx_legrende_native,
             approx_legrende_jit,
             approx_legrende_cy,
             approx_legrende_rust,
             approx_chebyshev_native,
             approx_chebyshev_cy,
+            approx_chebyshev_rust,
             approx_legrende_cy_3ord,
             approx_lut_cy,
         ]
