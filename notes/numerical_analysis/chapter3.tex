@@ -346,6 +346,51 @@ Chebyshev 多项式系 \(\{T_n(x)\}\) 关于权函数 \(w(x) =
 \paragraph{Clenshaw 算法}
 虽然 Chebyshev 展开式收敛更快，但直接计算 \(T_n(x)\) 非常繁琐。实际上，利用
 \textbf{Clenshaw 递推算法}，我们可以像 Horner 算法计算幂级数一样高效地计算 Chebyshev 级数。
+
+Clenshaw 算法是Horner算法的推广：
+\begin{theorem}[Clenshaw 算法]
+    设函数序列 \(\phi_k(x)\) 满足线性递推关系：
+    \[ \phi_{k+1}(x) = \alpha_k(x) \phi_k(x) + \beta_k(x) \phi_{k-1}(x) \]
+    其中系数 \(\alpha_k(x)\) 和 \(\beta_k(x)\) 已知（通常情况下甚至与\(k, x\)无关）。
+    为计算有限项级数 \(S(x) =
+    \sum_{k=0}^n a_k \phi_k(x)\)，可利用如下递推公式：
+    \begin{itemize}
+        \item 令 \(b_{n+1}(x) = b_{n+2}(x) = 0\)。
+        \item 逆向计算 \(b_k(x)\)：
+            \[ b_k(x) = a_k + \alpha_k(x) b_{k+1}(x) + \beta_{k+1}(x)
+            b_{k+2}(x), \quad k = n, n-1, \dots, 1 \]
+        \item 最终级数和为：
+            \[ S(x) = \phi_0(x) a_0 + \phi_1(x) b_1(x) + \beta_1(x)
+            \phi_0(x) b_2(x) \]
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    将递推关系变形为 \(a_k = b_k - \alpha_k b_{k+1} - \beta_{k+1} b_{k+2}\)，
+    代入级数 \(S(x) = \sum_{k=0}^n a_k \phi_k\)：
+    \begin{align*}
+        S(x) &= \sum_{k=0}^n (b_k - \alpha_k b_{k+1} - \beta_{k+1}
+        b_{k+2}) \phi_k \\
+        &= \sum_{k=0}^n b_k \phi_k - \sum_{k=0}^n \alpha_k b_{k+1}
+        \phi_k - \sum_{k=0}^n \beta_{k+1} b_{k+2} \phi_k
+    \end{align*}
+    对后两项进行指标变换，并利用 \(b_{n+1} = b_{n+2} = 0\)：
+    \begin{align*}
+        S(x) &= \sum_{k=0}^n b_k \phi_k - \sum_{k=1}^n \alpha_{k-1}
+        b_k \phi_{k-1} - \sum_{k=2}^n \beta_{k-1} b_k \phi_{k-2} \\
+        &= b_0 \phi_0 + b_1 \phi_1 - b_1 \alpha_0 \phi_0 +
+        \sum_{k=2}^n b_k (\phi_k - \alpha_{k-1} \phi_{k-1} -
+        \beta_{k-1} \phi_{k-2})
+    \end{align*}
+    由于基函数满足 \(\phi_k - \alpha_{k-1} \phi_{k-1} - \beta_{k-1}
+    \phi_{k-2} = 0\)，求和项消失。代入 \(b_0\) 的定义式 \(b_0 = a_0 + \alpha_0 b_1
+    + \beta_1 b_2\)：
+    \begin{align*}
+        S(x) &= (a_0 + \alpha_0 b_1 + \beta_1 b_2) \phi_0 + b_1
+        \phi_1 - \alpha_0 b_1 \phi_0 \\
+        &= a_0 \phi_0 + b_1 \phi_1 + \beta_1 b_2 \phi_0
+    \end{align*}
+\end{proof}
 % todo: 写出算法
 \section{内积空间的最佳逼近}
 最佳一致逼近总体效果不错，但遇到特殊点容易直接崩溃。内积空间上的最佳平方逼近则更稳定。
@@ -386,6 +431,7 @@ Chebyshev 多项式系 \(\{T_n(x)\}\) 关于权函数 \(w(x) =
 
 但是这个方程组在计算时是高度病态的，所以我们需要用多项式正交基
 \section{最佳平方逼近与正交多项式}
+
 \begin{definition}
     定义在 \([a, b]\) 上的函数系 \(\{g_l(x)\}_{l=0}^n\) 称为 \(P_n\) 的带权
     \(\rho(x)\) 正交基（\(g_l(x)\) 称为 \([a, b]\) 上的带权 \(l\) 次正交多项式），如果它满足
@@ -440,6 +486,10 @@ chebyshev 多项式也是一种正交多项式系。考虑：\[
 切比雪夫逼近很接近最佳一致逼近，而切比雪夫缩减又很接近切比雪夫逼近。计算量基本上是逐级递减\UseVerb{smile}
 
 \subsection{常见的正交多项式系}
+
+这里的多项式往往有自己的定义域。例如，要将Legrende 多项式拓展到任意\([a,b]\) 区间上，需要线性变换 \(x =
+\frac{b-a}{2} t + \frac{a+b}{2}\) 把 \([a,b]\) 映射到 \([-1,1]\) 上。
+
 \paragraph{Legrende 多项式}
 这是最自然的正交多项式，权函数为1。可以用Gram-Schmidt 正交化方法从普通多项式系得到。
 \[

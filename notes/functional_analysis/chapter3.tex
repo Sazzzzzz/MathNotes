@@ -40,8 +40,8 @@
 
 \subsection{平行四边形定则}
 
-平行四边形定则（Parallelogram Law）揭示了范数与内积之间的深刻联系。如果一个范数满足平行四边形定则，
-那么它一定是由某个内积诱导的。这是因为平行四边形定则可以推导出极化恒等式（Polarization Identity）。
+平行四边形定则揭示了范数与内积之间的联系。如果一个范数满足平行四边形定则，
+那么它一定是由某个内积诱导的。这是因为平行四边形定则可以推导出极化恒等式。
 
 \begin{theorem}[Parallelogram Law]
     向量空间 \(E\) 上的范数 \(\|\cdot\|\) 是由内积定义的，当且仅当
@@ -63,6 +63,20 @@
             i\|x+iy\|^2 - i\|x-iy\|^2).
         \]
 \end{itemize}
+
+\begin{example}
+    考虑\(L^{\infty }[0,1] \), 取\(f(x)= x\)，\(g(x)= x^2\)
+
+    有：
+    \begin{align*}
+        \norm{f+g}_{\infty }^{2} + \norm{f-g}_{\infty }^{2} &= 2 \\
+        2(\norm{f}_{\infty }^{2} + \norm{g}_{\infty }^{2}) &= 4
+    \end{align*}
+
+    故\(L^{\infty }[0,1] \)上范数不满足平行四边形定则，不能由内积诱导。
+
+    \(L^{\infty }[0,1] \)不是内积空间，这就解释了数值分析中最佳一致逼近与内积空间最佳逼近的区别。
+\end{example}
 
 \subsection{希尔伯特空间的直和}
 
