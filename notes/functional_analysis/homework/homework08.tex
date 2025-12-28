@@ -1,0 +1,46 @@
+\documentclass{../../../articles/mathnotes-art}
+
+% DISABLE_SMART_IME
+
+\begin{document}
+
+\paragraph{1}
+Let \(X\) be a topological vector space over \(\mathbb{K}\)
+(\(\mathbb{R}\) or \(\mathbb{C}\)) and let \(V\) be a neighborhood of
+\(0\) in \(X\). We show \(V\) is absorbing, i.e., for every \(x\in
+X\) there exists \(t>0\) such that \(x\in tV\).
+
+Consider the continuous scalar multiplication \(m:\mathbb{K}\times
+X\to X\), \((\alpha,y)\mapsto \alpha y\). Fix \(x\in X\). Continuity
+of \(m\) at \((0,x)\) yields a neighborhood \(U\) of \(0\) in
+\(\mathbb{K}\) such that \(\alpha x\in V\) for all \(\alpha\in U\).
+In particular, there exists \(\varepsilon>0\) with
+\(|\alpha|<\varepsilon\Rightarrow \alpha x\in V\).
+
+Choose \(t>\varepsilon^{-1}\). Then \((1/t)x\in V\), hence \(x\in
+tV\). Since \(x\) was arbitrary, \(V\) absorbs every \(x\in X\);
+therefore \(V\) is an absorbing set.
+
+\paragraph{2}
+Let \(A = \{x \in \mathbb{R}^2 : \|x\|_2 \leq 1/2 \text{ or } \|x\|_2
+= 1\}\). The gauge (Minkowski functional) of \(A\) is defined as
+\(p_A(x) = \inf \{ \lambda > 0 : x \in \lambda A \}\).
+
+For any \(x \in \mathbb{R}^2\), let \(r = \|x\|_2\). Then:
+\[
+    x \in \lambda A \iff \frac{x}{\lambda} \in A \iff \left\|
+    \frac{x}{\lambda} \right\|_2 \leq \frac{1}{2} \quad \text{or}
+    \quad \left\| \frac{x}{\lambda} \right\|_2 = 1
+\]
+Substituting \(\|x\|_2 = r\), this condition becomes:
+\[
+    \frac{r}{\lambda} \leq \frac{1}{2} \quad \text{or} \quad
+    \frac{r}{\lambda} = 1 \iff \lambda \geq 2r \quad \text{or}
+    \quad \lambda = r
+\]
+The set of admissible \(\lambda > 0\) is \(\{r\} \cup [2r, \infty)\).
+The infimum of this set is clearly \(r\).
+Thus, \(p_A(x) = r = \|x\|_2\). The gauge of \(A\) agrees with the
+Euclidean norm \(\|\cdot\|_2\).
+
+\end{document}

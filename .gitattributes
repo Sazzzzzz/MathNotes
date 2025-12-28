@@ -2,9 +2,3 @@
 *.pdf binary
 *.ggb binary
 *.nb binary
-
-*.nb linguist-language=Mathematica
-*.py linguist-language=Python
-*.tex linguist-language=TeX
-
-demos/ linguist-detectable=true
