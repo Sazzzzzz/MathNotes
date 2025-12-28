@@ -13,7 +13,7 @@ reference/
 textbook*.*
 
 # VSCode
-.vscode/settings.json
+.vscode/
 
 # Python
 __pycache__/

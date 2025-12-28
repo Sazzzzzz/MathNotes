@@ -17,3 +17,4 @@
 - `notes-geometry.pdf` : 几何学学习笔记，参考徐斌彬老师几何学讲义与M.A. Armstrong [*Groups and Symmetry*](https://superoles.wordpress.com/wp-content/uploads/2014/10/lluvia.pdf)
 - `notes-probability.pdf` : 概率论学习笔记，参考李贤平 *基础概率论*
 - `notes-functional_analysis.pdf` : 泛函分析学习笔记，参考*An introduction to Functional Analysis and preserver problems* by Lei Li and Ngai-Ching Wong
+- `notes-numerical_analysis.pdf` : 数值分析学习笔记，参考黄云清 *数值计算方法*
