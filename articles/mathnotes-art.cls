@@ -32,7 +32,12 @@
 \RequirePackage{booktabs}  % better table lines
 % Provide support for minipage used in definition environment
 \RequirePackage{varwidth}
-\RequirePackage[style=numeric-comp,autocite=superscript]{biblatex}
+\RequirePackage[
+    backend=biber,      % biber 后端
+    style=gb7714-2015,  % 使用 gb7714-2015 样式
+    sorting=none,       % 按照引用顺序排序
+    autocite=superscript
+]{biblatex}
 \RequirePackage{array} % enhanced table features
 % Underline and strikethrough
 \RequirePackage[normalem]{ulem}
@@ -102,7 +107,7 @@
     columns=flexible,
     tabsize=4
 }
-
+\RequirePackage{xeCJKfntef} % for \uline with auto line break in CJK
 %================================
 % PAGE SETUP
 %================================
