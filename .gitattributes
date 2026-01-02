@@ -1,4 +1,11 @@
-*.png binary
 *.pdf binary
+*.png binary
+*.jpg binary
 *.ggb binary
 *.nb binary
+
+Cargo.lock linguist-generated=true
+uv.lock linguist-generated=true
+
+*.nb linguist-documentation=true
+notes/* linguist-documentation=true
