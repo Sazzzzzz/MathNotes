@@ -1,4 +1,4 @@
-# cython: boundscheck=False, wraparound=False, cdivision=True, fast_math=True, language_level=3
+# cython: boundscheck=False, wraparound=False, cdivision=True, fast_math=True, language_level=3, embedsignature=True
 
 from libc.math cimport M_PI, sin
 
@@ -9,7 +9,7 @@ cdef double A5 = <double>float.fromhex("0x1.110df7f7ef661p-7")
 cdef double A7 = <double>float.fromhex("-0x1.9f55f86c5c0ebp-13")
 cdef double A9 = <double>float.fromhex("0x1.5cb66525ec44ap-19")
 
-cdef inline double approx_legrende_cy_impl(double x) nogil:
+cdef inline double approx_legendre_cy_impl(double x) nogil:
     """Fast approximation of sin(x) for x in [-pi/2, pi/2]."""
     cdef double x2 = x * x
     return x * (A1 + x2 * (A3 + x2 * (A5 + x2 * (A7 + x2 * A9))))
@@ -48,23 +48,23 @@ cdef inline double approx_chebyshev_cy_impl(double x) nogil:
 
 cdef double C3 = <double>-0.1450618133068681
 cdef double C1 = <double>0.9887922330533080
-cdef inline double approx_legrende_cy_3ord_impl(double x) nogil:
+cdef inline double approx_legendre_cy_3ord_impl(double x) nogil:
     cdef double x2 = x * x
     return x * (C1 + x2 * C3)
     
 # Public wrapper for Python
-def approx_legrende_cy(double x) -> double:
+def approx_legendre_cy(double x) -> double:
     """Fast approximation of sin(x) for x in [-pi/2, pi/2]."""
-    return approx_legrende_cy_impl(x)
+    return approx_legendre_cy_impl(x)
 
 
 def approx_chebyshev_cy(double x) -> double:
     """Fast Chebyshev approximation of sin(x) for x in [-pi/2, pi/2]."""
     return approx_chebyshev_cy_impl(x)
 
-def approx_legrende_cy_3ord(double x) -> double:
+def approx_legendre_cy_3ord(double x) -> double:
     """Fast 3rd order Legendre approximation of sin(x) for x in [-pi/2, pi/2]."""
-    return approx_legrende_cy_3ord_impl(x)
+    return approx_legendre_cy_3ord_impl(x)
 
 # Lookup table configuration
 DEF TABLE_SIZE = 8192

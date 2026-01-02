@@ -4,21 +4,23 @@ import timeit
 from math import pi, sin
 from typing import Callable, List
 
+from rich.console import Console
+from rich.table import Table
+from rich import box
+
 from approx_cy import (
     approx_chebyshev_cy,
-    approx_legrende_cy,
-    approx_legrende_cy_3ord,
+    approx_legendre_cy,
+    approx_legendre_cy_3ord,
     approx_lut_cy,
-)  # type: ignore
-from approx_rust import approx_legrende_rust, approx_chebyshev_rust  # type: ignore
-from tabulate import tabulate
-
+)
 from approx_py import (
     approx_Bhāskara_native,
-    approx_legrende_jit,
-    approx_legrende_native,
     approx_chebyshev_native,
+    approx_legendre_jit,
+    approx_legendre_native,
 )
+from approx_rust import approx_chebyshev_rust, approx_legendre_rust
 
 
 def blank(x: float):
@@ -98,38 +100,41 @@ def benchmark(
         )
 
     # 3. Format and Print Table
-    headers = [
-        "Function",
-        "Min Time (ns)",
-        "Exec Time (ns)",
-        "Total (ms)",
-        "Avg Error",
-        "Max Error",
-    ]
-    # Formatting floats for the table
-    print(
-        tabulate(
-            results,
-            headers=headers,
-            floatfmt=(".4f", ".2f", ".2f", ".4f", ".2e", ".2e"),
-            numalign="center",
-            tablefmt="rounded_grid",
+    console = Console()
+    table = Table(show_lines=True, box=box.SQUARE_DOUBLE_HEAD)
+
+    table.add_column("Function", style="cyan", no_wrap=True)
+    table.add_column("Min Time (ns)", justify="right", style="magenta")
+    table.add_column("Exec Time (ns)", justify="right", style="magenta")
+    table.add_column("Total (ms)", justify="right", style="green")
+    table.add_column("Avg Error", justify="right", style="yellow")
+    table.add_column("Max Error", justify="right", style="red")
+
+    for row in results:
+        table.add_row(
+            str(row[0]),
+            f"{row[1]:.2f}",
+            f"{row[2]:.2f}",
+            f"{row[3]:.4f}",
+            f"{row[4]:.2e}",
+            f"{row[5]:.2e}",
         )
-    )
+
+    console.print(table)
 
 
 if __name__ == "__main__":
     benchmark(
         funcs=[
             approx_Bhāskara_native,
-            approx_legrende_native,
-            approx_legrende_jit,
-            approx_legrende_cy,
-            approx_legrende_rust,
+            approx_legendre_native,
+            approx_legendre_jit,
+            approx_legendre_cy,
+            approx_legendre_rust,
             approx_chebyshev_native,
             approx_chebyshev_cy,
             approx_chebyshev_rust,
-            approx_legrende_cy_3ord,
+            approx_legendre_cy_3ord,
             approx_lut_cy,
         ]
     )
