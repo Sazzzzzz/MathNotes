@@ -1,6 +1,6 @@
 # Approximation Problem
 
-> **教你快出超过 Python 标准库的三角函数**
+> **教你写出快过 Python 标准库的三角函数**
 
 ![Chebyshev Nodes](resources/chebyshev_nodes.png)
 

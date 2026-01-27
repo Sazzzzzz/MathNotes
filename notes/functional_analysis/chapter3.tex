@@ -7,7 +7,7 @@
 
 \section{Basic properties}
 
-关于内积空间的基本定义、柯西-施瓦茨不等式（Cauchy-Schwarz inequality）、勾股定理、三角不等式等性质，
+关于内积空间的基本定义、柯西-施瓦茨不等式（Cauchy-Schwartz inequality）、勾股定理、三角不等式等性质，
 与线性代数中的内容基本一致，不再赘述。
 
 \subsection{内积的连续性}
@@ -334,7 +334,7 @@
 
 根据佐恩引理（Zorn's Lemma），任何非零希尔伯特空间都存在规范正交基。
 
-下面的定理是希尔伯特空间理论中最重要的结果之一，它建立了抽象希尔伯特空间与序列空间 \(l^2\) 之间的联系。
+下面的定理是希尔伯特空间理论中最重要的结果之一，它建立了抽象希尔伯特空间与序列空间 \(\ell^2\) 之间的联系。
 
 \begin{theorem}[Expansion and Parseval's Identity]
     设 \(\{e_\alpha\}_{\alpha \in A}\) 是希尔伯特空间 \(H\) 的一个规范正交基。则对于任意
@@ -342,7 +342,7 @@
     \begin{enumerate}
         \item \textbf{展开}：
             \[
-                x = \sum_{\alpha \in A} \norm{x}{e_\alpha} e_\alpha.
+                x = \sum_{\alpha \in A} \inner{x}{e_\alpha} e_\alpha.
             \]
             这里的求和是基于网（net）的无条件收敛，即对于任意 \(\epsilon > 0\)，存在有限集 \(F_0
             \subset A\)，使得对任意包含 \(F_0\) 的有限集 \(F \subset A\)，都有 \(\|x
@@ -350,7 +350,7 @@
             e_\alpha\| < \epsilon\)。
         \item \textbf{帕塞瓦尔恒等式}：
             \[
-                \|x\|^2 = \sum_{\alpha \in A} |\norm{x}{e_\alpha}|^2.
+                \|x\|^2 = \sum_{\alpha \in A} |\inner{x}{e_\alpha}|^2.
             \]
     \end{enumerate}
 \end{theorem}
@@ -402,8 +402,8 @@
 \begin{proof}
     如果基是有限时显然。
 
-    如果基是无限的，设 \(B_1\) 和 \(B_2\) 是两个规范正交基。对于每个 \(e \in B_1\)，由傅里叶展开知，
-    集合 \(A_e = \{f \in B_2 : \norm{e}{f} \neq 0\}\) 是可数的。
+    如果基是无限的，设 \(B_1\) 和 \(B_2\) 是两个规范正交基。对于每个 \(e \in B_1\)，由广义Fouier展开知，
+    集合 \(A_e = \{f \in B_2 : \inner{e}{f} \neq 0\}\) 是可数的。
     从而：\[
         \abs{B_2} = \abs{\bigcup_{e \in B_1} A_e} \leq \abs{B_1}
         \cdot \aleph_0 = \abs{B_1}

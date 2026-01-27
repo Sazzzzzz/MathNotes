@@ -476,8 +476,7 @@ chebyshev 多项式也是一种正交多项式系。考虑：\[
 这是一个端点处趋于无穷的权函数，说明切比雪夫逼近更关注区间端点处的误差。
 
 从零点上看，切比雪夫多项式的零点，就是等角度划分半圆时点的横坐标。这些点在区间端点处也更密集。一般的，在零点密集的地方权函数较大，
-因为高频的震荡才能避免非零值产生的巨大积分。
-\footnote{参考\href{https://www.embeddedrelated.com/showarticle/152.php}{这篇文章}}
+因为高频的震荡才能避免非零值产生的巨大积分\footnote{参考\href{https://www.embeddedrelated.com/showarticle/152.php}{这篇文章}}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{resources/chebyshev_zeros.pdf}
@@ -487,10 +486,10 @@ chebyshev 多项式也是一种正交多项式系。考虑：\[
 
 \subsection{常见的正交多项式系}
 
-这里的多项式往往有自己的定义域。例如，要将Legrende 多项式拓展到任意\([a,b]\) 区间上，需要线性变换 \(x =
+这里的多项式往往有自己的定义域。例如，要将Legendre 多项式拓展到任意\([a,b]\) 区间上，需要线性变换 \(x =
 \frac{b-a}{2} t + \frac{a+b}{2}\) 把 \([a,b]\) 映射到 \([-1,1]\) 上。
 
-\paragraph{Legrende 多项式}
+\paragraph{Legendre 多项式}
 这是最自然的正交多项式，权函数为1。可以用Gram-Schmidt 正交化方法从普通多项式系得到。
 \[
     P_n(x) = \frac{1}{2^n n!}\cdot\frac{2n+1}{2} \odv[n]{}{x} (x^2 - 1)^n
