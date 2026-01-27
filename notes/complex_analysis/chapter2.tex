@@ -1,0 +1,34 @@
+% !TeX root = main.tex
+\chapter{积分}
+\[
+    \int_{\Gamma} f(z) \d{z} = \int_{a}^{b} f(z(t)) z'(t) \d{t}
+\]
+% 有没有更简单的定理证明？
+\begin{theorem}[Cauchy积分定理]
+    如果函数\(f(z)\)在单连通区域\(D\)内解析，则对\(D\)内任意闭合曲线\(\Gamma\)，有
+    \[
+        \int_{\Gamma} f(z) \d{z} = 0
+    \]
+\end{theorem}
+
+\begin{theorem}[多连通域的 Cauchy 定理]
+    设 \(\Gamma\) 是一条正向简单闭路径，内部为 \(D\)。\(\{\Gamma_k\}_{1 \le k \le
+    n}\) 是 \(D\) 中 \(n\) 条正向简单闭路径，内部分别为 \(\{D_k\}_{1 \le k \le n}\)，
+    并且它们的闭包两两不相交。若 \(f \in H\left(\overline{D} - \bigcup_{k=1}^n D_k\right)\)，则
+    \[
+        \int_{\Gamma} f(z) \d{z} = \sum_{k=1}^n \int_{\Gamma_k} f(z) \d{z}.
+    \]
+\end{theorem}
+
+\begin{note}
+    利用Cauchy积分定理，构造积分为零的闭合曲线，从而证明某些积分公式。
+\end{note}
+
+% Cauchy积分公式
+\begin{theorem}[Cauchy积分公式]
+    设函数 \(f(z)\) 在单连通区域 \(D\) 内解析，\(\Gamma\) 是 \(D\) 内一条正向简单闭曲线，且
+    \(z_0\) 是 \(\Gamma\) 内的任意一点，则有
+    \[
+        f(z_0) = \frac{1}{2\pi \i} \int_{\Gamma} \frac{f(z)}{z - z_0} \d{z}.
+    \]
+\end{theorem}

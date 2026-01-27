@@ -1,0 +1,13 @@
+% !TeX root = main.tex
+\chapter{解析函数}
+
+求导的过程中要求各个方向上\(\Delta z \to 0\)时都要收敛到同一个极限值，这就要求函数满足Cauchy-Riemann方程：
+\begin{theorem}
+    函数\(f(z)=u(x,y)+\i v(x,y)\)在点\(z_{0}=x_{0}+\i y_{0}\)处可导\(\iff
+    \)\(u\)和\(v\)在点\((x_{0},y_{0})\)处偏导数存在，且满足Cauchy-Riemann方程：
+    \[
+        \pdv{u}{x}=\pdv{v}{y},\quad \pdv{u}{y}=-\pdv{v}{x}
+    \]
+\end{theorem}
+
+解析函数（analytic function）就是各处可导的函数。

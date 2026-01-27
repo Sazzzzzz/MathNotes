@@ -1,0 +1,10 @@
+% !TeX root = main.tex
+\chapter{级数}
+% 留数定理
+\begin{theorem}[留数定理]
+    设函数 \(f(z)\) 在区域 \(D\) 内解析，除有限个点 \(a_1, a_2, \ldots, a_n\) 外均解析。设
+    \(\Gamma\) 是 \(D\) 内一条正向简单闭曲线，且不经过任何奇点，则有
+    \[
+        \int_{\Gamma} f(z) \d{z} = 2 \pi \i \sum_{k=1}^n \Res(f, a_k).
+    \]
+\end{theorem}
