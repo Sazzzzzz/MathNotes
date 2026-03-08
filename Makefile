@@ -61,6 +61,19 @@ else
 endif
 
 #==============================================================================
+# Verbosity Control
+#==============================================================================
+
+# By default, suppress build output. Use VERBOSE=1 for full output.
+ifeq ($(VERBOSE),1)
+	XELATEX_MODE = nonstopmode
+	BIBER_QUIET =
+else
+	XELATEX_MODE = batchmode
+	BIBER_QUIET = --quiet
+endif
+
+#==============================================================================
 # Functions
 #==============================================================================
 
@@ -86,12 +99,12 @@ $(ALL_NOTES): notes-%: $(OUTPUT_DIR)/notes-%.pdf
 $(OUTPUT_DIR)/notes-%.pdf: $(ALL_SOURCE_FILES)
 	$(call colorecho,$(BLUE),Building notes: $* ...)
 	@$(MKDIR)
-	@cd $(NOTES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
-	@cd $(NOTES_DIR)/$* && biber --output-directory ../../$(OUTPUT_DIR) main
-	@cd $(NOTES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
-	@cd $(NOTES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(NOTES_DIR)/$* && xelatex -interaction=$(XELATEX_MODE) -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(NOTES_DIR)/$* && biber $(BIBER_QUIET) --output-directory ../../$(OUTPUT_DIR) main
+	@cd $(NOTES_DIR)/$* && xelatex -interaction=$(XELATEX_MODE) -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(NOTES_DIR)/$* && xelatex -interaction=$(XELATEX_MODE) -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
 	@mv $(OUTPUT_DIR)/main.pdf $(OUTPUT_DIR)/notes-$*.pdf
-	$(call colorecho,$(GREEN),notes-$*.pdf built successfully!)
+	$(call colorecho,$(GREEN),$(OUTPUT_DIR)/notes-$*.pdf built successfully!)
 
 # Articles build rule: articles-<project> -> build/articles-<project>.pdf
 $(ALL_ARTICLES): articles-%: $(OUTPUT_DIR)/articles-%.pdf
@@ -100,12 +113,12 @@ $(ALL_ARTICLES): articles-%: $(OUTPUT_DIR)/articles-%.pdf
 $(OUTPUT_DIR)/articles-%.pdf: $(ALL_SOURCE_FILES)
 	$(call colorecho,$(BLUE),Building article: $* ...)
 	@$(MKDIR)
-	@cd $(ARTICLES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
-	@cd $(ARTICLES_DIR)/$* && biber --output-directory ../../$(OUTPUT_DIR) main
-	@cd $(ARTICLES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
-	@cd $(ARTICLES_DIR)/$* && xelatex -interaction=nonstopmode -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(ARTICLES_DIR)/$* && xelatex -interaction=$(XELATEX_MODE) -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(ARTICLES_DIR)/$* && biber $(BIBER_QUIET) --output-directory ../../$(OUTPUT_DIR) main
+	@cd $(ARTICLES_DIR)/$* && xelatex -interaction=$(XELATEX_MODE) -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
+	@cd $(ARTICLES_DIR)/$* && xelatex -interaction=$(XELATEX_MODE) -file-line-error -output-directory=../../$(OUTPUT_DIR) main.tex
 	@mv $(OUTPUT_DIR)/main.pdf $(OUTPUT_DIR)/articles-$*.pdf
-	$(call colorecho,$(GREEN),articles-$*.pdf built successfully!)
+	$(call colorecho,$(GREEN),$(OUTPUT_DIR)/articles-$*.pdf built successfully!)
 
 # Information targets
 list:
@@ -182,3 +195,5 @@ help:
 	$(call colorecho,$(GREEN),  make release_message.md  - Complete release: build + merge + update GitHub release)
 	$(call colorecho,$(GREEN),  make merge   - Merge develop→main and push)
 	$(call colorecho,$(GREEN),  make github-release  - Update current release with latest PDFs)
+	$(call colorecho,$(WHITE),Verbosity:)
+	$(call colorecho,$(GREEN),  make VERBOSE=1 <target>  - Show full build output (xelatex nonstopmode, biber verbose))
