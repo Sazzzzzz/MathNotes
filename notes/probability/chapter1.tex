@@ -24,7 +24,7 @@
     D_{m}(n)&=(n-1)D_{m}(n-1)+\combination{n-1}{m-1}(m-1)!D_{m}(n-m) \\
     &= (n-1)D_{m}(n-1)+\permutation{n-1}{m-1}D_{m}(n-m)
 \end{align*}
-
+前若干项为\footnote{可见\href{https://oeis.org/A038205}{OEISA038205}}：
 \begin{lstlisting}[language=Mathematica]
 d[m_, n_] := d[m, n] = (n - 1) d[m, n - 1] + 
     FactorialPower[n - 1, m - 1] d[m, n - m]
@@ -32,7 +32,16 @@ d[m_, 0] := 1
 d[m_, k_ /; k < 0] := 0
 d[3, 56]/56! // N
 \end{lstlisting}
-
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|*{12}{c|}}
+        \hline
+        \(n\) & 0 & 1 & 2  & 3  & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+        \hline
+        \(D_{3}(n)\) & 1 & 0 & 0 & 2 & 6 & 24 & 160 & 1140 & 8988 & 80864 & 809856\\
+        \hline
+    \end{tabular}
+\end{table}
 故产生幸运儿的概率为：
 
 \[
