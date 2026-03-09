@@ -1,5 +1,7 @@
 \documentclass{../mathnotes-rep}
 
+\addbibresource{../../reference.bib}
+
 \begin{document}
 \title{概率论笔记}
 \maketitle
@@ -16,14 +18,19 @@
 \newcommand{\betafunc}[2]{\mathrm{B}\left(#1,#2\right)}
 % Gamma function
 \newcommand{\gammafunc}[1]{\Gamma\left(#1\right)}
+% Error function
 \newcommand{\erf}{\mathrm{erf}}
+% Complementary error function
 \newcommand{\erfc}{\mathrm{erfc}}
+% Permutation and combination
+\newcommand{\permutation}[2]{\mathrm{A}_{#1}^{#2}}
+\newcommand{\combination}[2]{\mathrm{C}_{#1}^{#2}}
 
-% \include{chapter0}
-% \include{chapter1}
+\include{chapter1}
 % \include{chapter2}
 \include{chapter3}
 \include{chapter4}
 \include{chapter5}
+\printbibliography[heading=bibintoc, title={参考}]
 
 \end{document}
