@@ -1,0 +1,39 @@
+% !TeX root = main.tex
+\chapter{群}
+
+% 半群的定义
+% 幺半群的定义
+% 幺元的性质：要么左幺等于右幺，且幺元唯一，要么存在（多个）左幺元或右幺元
+
+% 群的定义
+% 逆元的性质：要么左逆等于右逆，且逆元唯一，要么存在（多个）左逆元或右逆元
+% 结合律的作用：规定了唯一形式的一种乘积，因此可定义幂运算（an = a · a · ... · a）a^-n 是良定义的 a^0 = e（0a）是一种规定
+% 交换群etc 用+表示运算
+
+% 例：Zn + 的定义
+% Zn * 的定义（严格说明）
+% 贝祖定理及拓展欧几里得算法
+% wallis 定理：如果p是素数，那么对于任意整数a，a^p ≡ a (mod p) 群伦证明
+
+% 子群
+% 子群的逆和幺元都和大群里的一样
+% 定理：关于运算封闭等价 ab-1 在H中
+
+% orders of elements
+% 定义
+% ab的阶、ord(a^k) = ord(a) / gcd(ord(a), k)
+
+% 群同态/同构
+
+\section{循环群}
+\begin{theorem}[循环群的结构]
+    设\(G\) 是循环群：
+    \begin{itemize}
+        \item 若\(\abs{G}\)是有限的，则\(G\)同构于\(\mathbb{Z}_n\)，其中\(n = \abs{G}\)；
+        \item 若\(\abs{G}\)是无限的，则\(G\)同构于\(\mathbb{Z}\)。
+    \end{itemize}
+\end{theorem}
+\begin{theorem}[循环群子群结构]
+    循环群的任意子群也是循环群。
+    若\(m|n\), 则\(\mathbb{Z}_n\)有且仅有一个子群同构于\(\mathbb{Z}_m\)。
+\end{theorem}

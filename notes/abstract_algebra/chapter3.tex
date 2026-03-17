@@ -1,0 +1,92 @@
+% !TeX root = main.tex
+\chapter{有限域}
+
+% 域的定义
+% 有限域的定义
+% 例子 Zp
+
+\begin{theorem}[]
+    域是整环
+\end{theorem}
+
+\begin{proof}
+    反证法。若存在\(a,b\neq 0\)使得\(ab=0\)，则\(b=a^{-1}ab=a^{-1} \cdot 0=0\)，
+    这与\(b\neq 0\)矛盾。
+\end{proof}
+
+\begin{theorem}
+    有限整环一定是域
+\end{theorem}
+
+\begin{proof}
+    设\(R\)是一个有限整环，任取\(a\neq 0\)，
+    考虑映射\(f(x)=ax\)。由于\(R\)是一个整环，若\(x\neq y\),则\(ax\neq ay\)。故\(f\)是单射。
+    又因为\(R\)是有限的，所以\(f\)也是满射。因此，存在一个元素\(b\in R\)，使得\(ab=f(b)=1\)。因此，
+    \(a\)的逆元为\(b\)，\(R\)是一个域。
+\end{proof}
+
+\begin{definition}[域的特征]
+    设\(F\)是一个域，若存在一个最小正整数\(p\)，使得\(p \cdot e = 0\)，则称\(F\)的特征为\(p\)。
+    否则，称\(F\)的特征为\(0\)。
+\end{definition}
+我们通过研究域内的循环群 \(\langle e \rangle\)来研究域的性质。
+
+\begin{theorem}[域的特征为素数]
+    设\(F\)是一个域，若\(F\)的特征为\(p \)，则\(p\)是一个素数。
+\end{theorem}
+
+\begin{proof}
+    反证法。设\(p=p_{1}p_{2}\)，其中\(p_1,p_2>1\)。则\(0=p \cdot e=(p_{1}p_{2}) \cdot
+    e=(p_{1}e) \cdot (p_{2}e)\)，
+    这与\(F\)是整环矛盾。
+\end{proof}
+
+\begin{theorem}[]
+    设\(F\)是特征为\(p\)的域，则\(\forall a \in F\)，有\(p \cdot a = 0\)。
+
+    进一步，有\(ma=0 \iff p \mid m\)
+\end{theorem}
+
+\begin{proof}
+    设\(a\in F\)，则\(0=p \cdot e=(p \cdot e) \cdot a=p \cdot (e \cdot
+    a)=p \cdot a\)。
+
+    设\(m=kp+r\)，其中\(k,r\in \mathbb{Z}\)，且\(0 \leq r < p\)。则
+    \(ma=(kp+r)a=k(p \cdot a)+ra=ra\)。因此，\(ma=0\)当且仅当\(r=0\)，即\(p \mid m\)。
+\end{proof}
+
+\begin{theorem}[]
+    设\(F\)是特征为\(p\)的域，则\(\forall a,b \in F\)，有\[
+        (a\pm b)^{p}=a^{p}\pm b^{p}
+    \]
+\end{theorem}
+
+\begin{proof}
+    设\(a,b \in F\)，则\[
+        (a+b)^{p}=\sum_{k=0}^{p}\binom{p}{k} a^{k} b^{p-k}
+    \]
+    因为\(p\)是素数，所以当\(1 \leq k \leq p-1\)时，
+    \(\binom{p}{k}=\frac{p!}{k!(p-k)!}\)是\(p\)的倍数。
+    因此，\[
+        (a+b)^{p}=a^{p}+b^{p}
+    \]
+
+    同理可得\((a-b)^{p}=a^{p}-(-1)^{p}b^{p}\)。
+    \begin{itemize}
+        \item 当\(p=2\)时，\(b^{p}= - b^{2} \)，\((a-b)^{p}=a^{p}-b^{p}\)。
+        \item 当\(p\)为奇素数时，\((-1)^{p}=-1\)，\((a-b)^{p}=a^{p}-b^{p}\)。
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    设\(F\)是特征为\(p\)的域，则\(\forall a ,b \in F\)，有\[
+        (a\pm b)^{p^{n}}=a^{p^{n}}\pm b^{p^{n}}
+    \]
+
+    \(\forall a_{1},\dots ,a_{k} \in F\)，有\[
+        (a_{1}+\cdots +a_{k})^{p}=a_{1}^{p}+\cdots +a_{k}^{p}
+    \]
+\end{corollary}
+
+% 域同构
+% 同构的域特征相同
