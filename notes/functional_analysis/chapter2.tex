@@ -222,16 +222,73 @@
     \end{align*}
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}[Banach空间完备化定理]
     范数空间\(E\) 都可以被完备化。
+
+    考虑\(E\) 中所有Cauchy列的集合\(\tilde{E}\) ，定义等价关系：
+    \[
+        \{x_{n}\} \sim \{y_{n}\} \iff \lim_{n \to \infty} \norm{x_{n}
+        - y_{n}} = 0
+    \]
+    则\(\tilde{E}/\sim\) 是完备的，且自然映射\(x\mapsto {x_{n}}\) 其中\(x_{n} = x\)
+    是两范数空间的同构。这个完备化的范数空间在相差一个等距同构意义下是唯一的。
 \end{corollary}
 
-考虑\(E\) 中所有Cauchy列的集合\(\tilde{E}\) ，定义等价关系：
-\[
-    \{x_{n}\} \sim \{y_{n}\} \iff \lim_{n \to \infty} \norm{x_{n} - y_{n}} = 0
-\]
-则\(\tilde{E}/\sim\) 是完备的，且自然映射\(x\mapsto {x_{n}}\) 其中\(x_{n} = x\)
-是两范数空间的同构。这个完备化的范数空间在相差一个等距同构意义下是唯一的。
+\begin{proof}
+    \(\tilde{E}\) 上范数与 \(\tilde{E}\) 是线性空间的证明留给感兴趣的读者\UseVerb{naughty}
+
+    设 \((\mathbf{X}_n)_{n=1}^\infty\) 是 \(\tilde{E}\) 中的一个柯西序列，每个元素
+    \(\mathbf{X}_n\) 是原空间 \(E\) 中柯西序列的一个等价类的代表元素。
+
+    所有常序列 \([y] \coloneqq(y, y, \dots)\) 所在的等价类在 \(\tilde{E}\) 中是稠密的。对每个
+    \(\mathbf{X}_n \in \tilde{E}\) 及任意 \(n \in \mathbb{N}\)，我们可选
+    \(y_n \in E\) 使得：
+    \[ \| \mathbf{X}_n - [y_n] \|_{\tilde{E}} < \frac{1}{n} \]
+
+    接下来，我们证明这样构造出的序列 \((y_n)_{n=1}^\infty\) 是 \(E\) 中的一个柯西序列：
+    \begin{align*}
+        \|y_n - y_m\|_E &= \|[y_n] - [y_m]\|_{\tilde{E}} \\
+        &\le \|[y_n] - \mathbf{X}_n\|_{\tilde{E}} + \|\mathbf{X}_n -
+        \mathbf{X}_m\|_{\tilde{E}} + \|\mathbf{X}_m - [y_m]\|_{\tilde{E}} \\
+        &< \frac{1}{n} + \|\mathbf{X}_n - \mathbf{X}_m\|_{\tilde{E}}
+        + \frac{1}{m}
+    \end{align*}
+    由于 \((\mathbf{X}_n)_{n=1}^\infty\) 是 \(\tilde{E}\) 中的柯西序列，当 \(n, m \to
+    \infty\) 时，中间项 \(\|\mathbf{X}_n - \mathbf{X}_m\|_{\tilde{E}} \to 0\)。
+    同时，\(\frac{1}{n}\) 和 \(\frac{1}{m}\) 也趋于 \(0\)。因此，上式右端趋于 \(0\)，这表明
+    \((y_n)_{n=1}^\infty\) 是 \(E\) 中的柯西序列。
+
+    因为 \((y_n)_{n=1}^\infty\) 是 \(E\) 中的柯西序列，由定义可知其定义了 \(\tilde{E}\) 中的一个元素，
+    不妨令该元素为 \(\mathbf{Y}\)，即：
+    \[
+        \mathbf{Y} = [(y_n)_{n=1}^\infty] \in \tilde{E}
+    \]
+    现在我们证明序列 \((\mathbf{X}_n)_{n=1}^\infty\) 收敛于 \(\mathbf{Y}\)。考察它们之间的距离范数：
+    \[
+        \|\mathbf{X}_n - \mathbf{Y}\|_{\tilde{E}} \le \|\mathbf{X}_n -
+        [y_n]\|_{\tilde{E}} + \|[y_n] - \mathbf{Y}\|_{\tilde{E}}
+    \]
+    我们分别分析右侧的两项：
+
+    \begin{itemize}
+        \item 根据步骤1的构造，第一项 \(\|\mathbf{X}_n - [y_n]\|_{\tilde{E}} <
+            \frac{1}{n}\)，当 \(n \to \infty\) 时，此项趋于 \(0\)。
+        \item 对于第二项，根据 \(\tilde{E}\) 中范数的定义，我们有：
+            \[ \|[y_n] - \mathbf{Y}\|_{\tilde{E}} = \lim_{m \to \infty} \|y_n
+            - y_m\|_E \]
+            由于 \((y_n)_{n=1}^\infty\) 是 \(E\) 中的柯西序列，对任意
+            \(\epsilon > 0\)，存在一个
+            \(N\)，使得当 \(n, m > N\) 时，\(\|y_n - y_m\|_E < \epsilon\)。
+            因此，当 \(n > N\) 时，
+            上述极限 \(\lim_{m \to \infty} \|y_n - y_m\|_E \le \epsilon\)。这意味着当 \(n
+            \to \infty\) 时，第二项也趋于 \(0\)。
+    \end{itemize}
+
+    综上，当 \(n \to \infty\) 时：
+    \[ \|\mathbf{X}_n - \mathbf{Y}\|_{\tilde{E}} \le \frac{1}{n} +
+    \lim_{m \to \infty} \|y_n - y_m\|_E \to 0 \]
+    即 \(\lim_{n \to \infty} \mathbf{X}_n = \mathbf{Y}\)。\(\square\)
+\end{proof}
 
 \begin{example}
     \begin{itemize}
