@@ -1,0 +1,134 @@
+% !TeX root = main.tex
+\chapter{预备知识}
+\section{函数与映射}
+
+\begin{definition}[函数]
+    设\(\mathcal{X}\)是⼀个⾮空数集，对任意\(x \in \mathcal{X}\)，按照确定的法则f，
+    都有唯⼀确定的实数\(y\)与它对应，则该对应关系叫作集合\(\mathcal{X}\)上的⼀个函数.记作
+    \[
+        f: \mathcal{X} \to \mathbb{R},\quad x \mapsto f(x)
+    \]
+    其中\(x\)称为⾃变量，数集\(\mathcal{X}\)称为该函数的定义域。所有函数值构成的集合叫作该函数的值域，
+    记作\(f(\mathcal{X})\)。
+\end{definition}
+
+注意，此处的值域（Range/Image）是函数值的集合，而不是函数值的集合的上界（Codomain）。例如，函数\(f(x) =
+x^2\)的定义域为\(\mathbb{R}\)，值域为\([0, +\infty)\)，而不是\(\mathbb{R}\)。
+只有在函数\(f\)是满射时，值域才等于定义域。
+
+相较于最广泛的映射（Mapping），函数要求每个自变量对应的函数值唯一。单射和满射本身是对偶的概念，在函数定义下才产生了满足条件不一样的错觉：
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c}
+        \hline
+        & 陪域/定义域存在元素对应 & 陪域/定义域只有一个元素对应\\
+        \hline
+        单射 & \checkmark & 验证不同元素像不同\\
+        满射 & 验证存在元素有此像 & \checkmark\\
+        \hline
+    \end{tabular}
+\end{table}
+
+关于函数的定义域和值域，值得注意的还有反函数的写法：
+\begin{align*}
+    f(f^{-1}(y)) & = y, \quad y \in f(\mathcal{X}) \\
+    f^{-1}(f(x)) & = x, \quad x \in \mathcal{X}
+\end{align*}
+
+\section{初等基本函数}
+\subsection{欧拉公式是定理还是定义？}
+
+这看似是一个复变函数的问题。指数函数在数学中应用如此普遍，从复指数、矩阵的指数到算子的指数，处处可见\(\e^{x} \)的身影。
+问题从此而来：\textbf{如何准确的定义\(\e^{x} \)}？
+
+以复数为例，实际上指数函数和三角函数可以通过多种方法等价的定义。我们知道通过单位圆可以定义实数的三角函数，因此将欧拉公式视为定义，有：
+\begin{align*}
+    \e^{ix} &\coloneqq \cos x + i \sin x \\
+    \e^{a+bi} &\coloneqq \e^{a} (\cos b + i \sin b)
+\end{align*}
+
+但这种方法依赖三角函数的定义，在定义矩阵的指数上并不方便。更普遍的定义借助于幂级数：
+
+\begin{align*}
+    \e^{x} &\coloneqq  \sum_{n=0}^{\infty} \frac{x^{n}}{n!} \\
+    \sin x &\coloneqq \sum_{n=0}^{\infty} \frac{(-1)^{n} x^{2n+1}}{(2n+1)!} \\
+    \cos x &\coloneqq \sum_{n=0}^{\infty} \frac{(-1)^{n} x^{2n}}{(2n)!}
+\end{align*}
+
+这种定义极易拓展，而且非常有趣，可以用大量的分析还原极为浅显的道理\UseVerb{naughty}：
+
+\begin{problem}
+    求证\(\sin^2 x + \cos^2 x = 1\)
+\end{problem}
+
+\begin{proof}
+    记\(S(x) = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!} =
+    \sum_{n=0}^{\infty} s(x)\)，\(C(x) = \sum_{n=0}^{\infty} (-1)^n
+    \frac{x^{2n}}{(2n)!} = \sum_{n=0}^{\infty} c(x)\)，则：
+    \[
+        \left\vert \frac{s_{n+1}}{s_{n}} \right\vert =
+        \frac{x^2}{(2n+2)(2n+3)} \to 0，\quad n \to \infty
+    \]
+
+    \[
+        \left\vert \frac{c_{n+1}}{c_{n}} \right\vert =
+        \frac{x^2}{(2n+2)(2n+1)} \to 0，\quad n \to \infty
+    \]
+
+    故\(S(x)\)与\(C(x)\)都绝对收敛。
+
+    \begin{align*}
+        &\placeholder{=} \sin^{2} x + \cos^{2}x\\
+        & = \sum_{n=0}^{\infty} \sum_{i=0}^{n} (-1)^{i}
+        \frac{x^{2i+1}}{(2i+1)!} \cdot (-1)^{n-i}
+        \frac{x^{2n-2i+1}}{(2(n-i)+1)!}
+        + \sum_{n=0}^{\infty} \sum_{i=0}^{n} (-1)^{i}
+        \frac{x^{2i}}{(2i)!} \cdot (-1)^{n-i} \frac{x^{2n -
+        2i}}{(2(n-i))!}      \\
+        & = \sum_{n=0}^{\infty} (-1)^n x^{2n+2} \cdot \sum_{i=0}^{n}
+        \left( \frac{1}{(2i+1)!} \cdot \frac{1}{(2(n-i)+1)!} \right) +
+        \sum_{n=0}^{\infty} (-1)^n x^{2n} \cdot \sum_{i=0}^{n}
+        \left( \frac{1}{(2i)!} \cdot \frac{1}{(2(n-i))!} \right)
+        \\
+        & = 1 + \sum_{n=0}^{\infty} (-1)^n x^{2n+2}
+        \cdot
+        % TODO：添加一个上括号
+        \left[ \sum_{i=0}^{n} \left( \frac{1}{(2i+1)!} \cdot
+            \frac{1}{(2(n-i)+1)!} \right)
+            - \sum_{i=0}^{n+1} \left( \frac{1}{(2i)!} \cdot
+        \frac{1}{(2(n-i))!} \right) \right]
+    \end{align*}
+
+    故只需证明\(A=0\)。
+    而：
+    \[
+        A=\frac{1}{n!}\left[ \sum_{i=1}^{n} C^{2i+1}_{2n} -
+        \sum_{i=0}^{n} C^{2i}_{2n} \right] = - \frac{1}{n!}
+        \sum_{i=0}^{n} (-1)^i C^{i}_{2n} =
+        - \frac{1}{n!} \left( 1 - 1 \right)^2
+        =0
+    \]
+    故\(\sin^2 x + \cos^2 x = 1\)。
+\end{proof}
+
+也可以用微分方程定义
+\begin{align*}
+    \e^{x} &\coloneqq \text{满足} f' = f, f(0) = 1 \text{的函数} \\
+    \sin x &\coloneqq \text{满足} f'' = -f, f(0) = 0, f'(0) = 1 \text{的函数} \\
+    \cos x &\coloneqq \text{满足} f'' = -f, f(0) = 1, f'(0) = 0 \text{的函数}
+\end{align*}
+
+使用后两种定义方法，欧拉公式\(\e^{ix} = \cos x + i \sin x\) 就是一个定理了。
+
+\subsection{正割为什么是余弦的倒数？}
+\subsection{什么是双曲三角函数？}
+\subsection{三角函数嵌套长什么样子？}
+\subsection{如何理解分数幂？}
+% todo: x^{2/4}!= x^{1/2}？
+
+\section{函数的性质}
+\subsection{有反函数的函数一定单调吗？}
+% todo: 是不是连通集上的连续有反函数的函数一定单调？
+\subsection{周期函数之和一定是周期函数吗？}
+\subsection{函数的对称性构成什么样的群结构？}
