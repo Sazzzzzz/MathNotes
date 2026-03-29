@@ -1,8 +1,14 @@
 % !TeX root = main.tex
 \chapter{有限域}
 
-% 域的定义
-% 有限域的定义
+\section{域的定义}
+
+\begin{definition}
+    设\(R\)是一个环，若\(R\)中除零元以外的元素都具有乘法逆元，则称\(R\)是一个域。
+    若\(R\)是一个域且\(R\)中元素的个数只有有限的\(p\) 个，则称\(R\)是一个有限域，
+    记作\(\mathbb{F}_{p}\) 或\(\mathrm{GF}(p)\)。
+\end{definition}
+
 % 例子 Zp
 
 \begin{theorem}[]
@@ -25,11 +31,12 @@
     \(a\)的逆元为\(b\)，\(R\)是一个域。
 \end{proof}
 
+\section{域的特征}
+
 \begin{definition}[域的特征]
     设\(F\)是一个域，若存在一个最小正整数\(p\)，使得\(p \cdot e = 0\)，则称\(F\)的特征为\(p\)。
     否则，称\(F\)的特征为\(0\)。
 \end{definition}
-我们通过研究域内的循环群 \(\langle e \rangle\)来研究域的性质。
 
 \begin{theorem}[域的特征为素数]
     设\(F\)是一个域，若\(F\)的特征为\(p \)，则\(p\)是一个素数。
@@ -88,5 +95,54 @@
     \]
 \end{corollary}
 
-% 域同构
-% 同构的域特征相同
+我们通过研究子域 \(\langle e \rangle\)来研究域的性质。
+
+\begin{definition}[素域]
+    设\(e\)是域\(F\)的乘法单位元，考虑：\[
+        \Pi \coloneqq \left\{ 0, e, 2e ,\dots (p-1)e \right\}
+    \]
+    则\(\Pi\)是\(F\)的子域，称为\(F\)的素域。
+\end{definition}
+
+\begin{proof}
+    \(\forall 0\leq k< p, 0\leq l<p, k\neq p\)，则：
+    \begin{align*}
+        ke-le & = (k-l)e \in \Pi \\
+        (ke)(le)^{-1}&= (kl^{-1})e \in \Pi
+    \end{align*}
+    其中的减法与逆是在模\(p\)意义下进行的。
+\end{proof}
+
+素域是域的最小子域，同构于\(\mathbb{Z}_{p}\)。
+
+\section{子域/域同构}
+
+域同构与子域的概念和群/环基本类似，这里不加证明的给出一些定理。
+
+\begin{theorem}[子域的判定]
+    设\(F\)是一个域，\(S\subseteq F\)，则\(S\)是\(F\)的子域当且仅当：
+    \begin{itemize}
+        \item \(e \in S \)
+        \item \(\forall a,b \in S\)，有\(a-b \in S\)和\(ab^{-1} \in
+            S\)（\(b \neq 0\)）。
+    \end{itemize}
+\end{theorem}
+
+\begin{theorem}[域同构]
+    设\(F\)和\(F'\)是两个域，\(f:F \to F'\)是一个映射，则\(f\)是\(F\)到\(F'\)的同构当且仅当：
+    \begin{itemize}
+        \item \(f\)是双射。
+        \item \(\forall a,b \in F\)，
+            有\(f(a+b)=f(a)+f(b)\)和\(f(ab)=f(a)f(b)\)。
+    \end{itemize}
+\end{theorem}
+同构的域特征相同。
+
+\section{域上的多项式}
+
+\begin{theorem}[域上的多项式环]
+    \(\langle F[x], +, \cdot \rangle\)是带幺交换环。
+\end{theorem}
+
+% 分裂域，同构定理
+% 多项式环的理想与商环
