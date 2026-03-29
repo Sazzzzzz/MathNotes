@@ -1,0 +1,130 @@
+% !TeX root = main.tex
+\chapter{极限}
+
+\section{极限的性质}
+
+\begin{description}
+    \item[唯一性] 极限如果存在，则唯一。
+    \item[有界性]
+    \item[保序性]
+\end{description}
+
+记\(A\) 为\(\lim_{n \to \infty} a_{n}\)，\(B\) 为\(\lim_{n \to \infty} b_{n}\)，则：
+\begin{itemize}
+    \item 若\(A\) 和 \(B\) 都存在，则\(\lim_{n \to \infty} (a_{n} \pm b_{n}) =
+        A \pm B\)，
+        \(\lim_{n \to \infty} (a_{n} b_{n}) = AB\)，\(\lim_{n \to
+        \infty} \frac{a_{n}}{b_{n}} = \frac{A}{B}\)（\(B \neq 0\)）。
+    \item 若\(A\) 存在，\(B\) 不存在，则\(\lim_{n \to \infty} (a_{n} \pm
+        b_{n})\) 不存在。若\(B\) 有界且\(A\) 趋于零，则\(\lim_{n \to \infty}
+        (a_{n} b_{n}) = 0\).
+    \item 若\(A\) 不存在，\(B\) 存在，所有情况都需要具体分析。
+\end{itemize}
+
+\subsection{Q \& A}
+\subsubsection{等价无穷小究竟能不能用于加减？}
+
+本质上等价无穷小是一种近似：
+\[
+    f(x) = g(x) + o(g(x))
+\]
+在乘法时，我们可以无忧的使用等价无穷小，是因为：\[
+    \lim_{x \to x_{0}} \frac{f(x)}{g(x)} = \lim_{x \to x_{0}}
+    \frac{g(x) + o(g(x))}{g(x)} = \lim_{x  \to x_{0}} \left( 1 +
+    \frac{o(g(x))}{g(x)} \right) = 1
+\]
+
+当我们讨论加法的等价无穷小时，我们几乎总在讨论\(\lim_{x \to x_{0}} \frac{f(x) -
+g(x)}{h(x)}\) 中\(f(x)\) 能否直接替换成\(g(x)\)，这几乎不能实现。只有在使用小\(o\)记号，
+严格证明替换后上部分的差值是\(o(h(x))\)时才可以。其他替换情况同理，都需具体分析。
+
+因此在使用等价无穷小时，最好总是使用带有小\(o\)记号的等式进行替换。
+
+\subsubsection{为什么大于/小于取极限后会变成大于等于/小于等于？}
+实际上极限的保号性是两条性质：
+\begin{itemize}
+    \item 如果\(a_{n} \geq c\)，且\(\lim_{n \to \infty} a_{n} = A\)，则\(A \geq c\)。
+    \item 如果\(\lim_{n \to \infty} a_{n} = A\)，且\(A > c  \)，则存在\(N\)，
+        使得当\(n > N\)时，\(a_{n} > c\)。
+\end{itemize}
+当我们在对\(a_{n}>c \) 两边取极限时，实际是不存在能直接运用的定理的，我们推出\(A\geq c \) 实际是：\[
+    a_{n} > c \implies a_{n}\geq c \implies \lim_{n \to \infty} a_{n} = A \geq c
+\]
+
+收敛数列总有界，若有\(a_{n} \geq c\) ，数列\(\left\{ a_{n}
+\right\}\)就被限制在\(\R^{1} \) 内的有界闭区间\([c,M]\)内。欧几里得空间里有界闭集等价于紧集等价于列紧集。
+因此数列\(\{a_{n}\}\) 的极限\(A\) 也必须在\([c,M]\) 内。与其说这是极限的保号性，
+不如说这是闭区间的保号性\UseVerb{naughty}
+
+\subsubsection{为什么泰勒展开可以批量生产不等式？}
+
+神奇的是，泰勒展开总可以确定局部的符号。如果远处不等式仍成立，那就可以批量生产不等式：
+\begin{align*}
+    \e^{x} - x &\geq \frac{x^{2}}{2} \\
+    x- \ln (1+x) &\leq \frac{x^2}{2} \\
+    x - \sin x &\leq \frac{x^3}{6}
+\end{align*}
+
+考虑性质良好的函数\(f(x)\)，在\(x_{0}\)处\(n+1\) 阶连续可导，则有拉格朗日余项的泰勒展开：
+\[
+    f(x) = \underbrace{\sum_{k=0}^{n} \frac{f^{(k)}(x_{0})}{k!}
+    (x-x_{0})^{k}}_{P_{n}(x-x_{0})}
+    + \underbrace{\frac{f^{(n+1)}(\xi)}{(n+1)!}
+    (x-x_{0})^{n+1}}_{R_{n}(x-x_{0})}
+\]
+于是\(f(x) - P_{n}(x-x_{0})\) 的符号由\(R_{n}(x-x_{0})\) 确定。
+
+假设\(f^{(n+1)}(0)>0 \)（若存在且等于零，则可以考虑更高阶的不为零的展开）。
+考虑足够小的\(x_{0}<x'<x+\varepsilon\) ，总有\(f^{(n+1)}(\xi) > 0\)，因此\(f(x) -
+P_{n}(x-x_{0}) = R_{n}(x-x_{0}) > 0\)。泰勒展开局部保号。
+\section{迭代数列的收敛性}
+一切迭代都是不动点迭代。
+
+\section{一些著名的极限}
+
+\subsection{Euler-Mascheroni Constant}
+
+\begin{theorem}[Euler常数的存在性]
+    极限\[
+        \lim_{n \to \infty} 1 + \frac{1}{2} + \cdots +
+        \frac{1}{n} - \ln n
+    \]
+    存在。
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        &\phantom{=} 1 + \frac{1}{2} + \cdots +
+        \frac{1}{n} - \ln n \\
+        & = \left( 1 - \ln \left( 1+ \frac{1}{1} \right) \right) +
+        \left( \frac{1}{2} + \ln \left( 1+\frac{1}{2}  \right)
+        \right) + \cdots + \left( \frac{1}{n} + \ln \left( 1 +
+        \frac{1}{n} \right) \right)
+        \\
+    \end{align*}
+    记\(a_{n} = \sum_{i=1}^{n} \left( \frac{1}{i} - \ln \left( 1 +
+    \frac{1}{i} \right) \right) \) ，容易发现\(x-\ln(1+x) \leq
+    \frac{x^2}{2}\)。从而数列\(\{a_{n}\}\) 单调递增，且：
+    \begin{align*}
+        a_{n} &= \frac{1}{2} \sum_{i=1}^{n} \left( \frac{1}{i} -
+            \ln \left( 1 +
+        \frac{1}{i} \right) \right) \leq \sum_{i=1}^{\infty}
+        \frac{1}{2i^2} \\
+        &\leq \frac{1}{2} \left( 1 + \sum_{i=2}^{n}
+        \frac{1}{i^{2}} \right) \\
+        &\leq \frac{1}{2} \left( 1 + \sum_{i=1}^{n}
+        \frac{1}{i(i+1)}\right) \\
+        &= \frac{1}{2} (1+1-\frac{1}{n+1}) <1
+    \end{align*}
+    故数列\(\{a_{n}\}\) 有界单调递增，极限存在。
+\end{proof}
+
+\begin{definition}[Euler-Mascheroni Constant]
+    \[
+        \gamma = \lim_{n \to \infty} 1 + \frac{1}{2} + \cdots +
+        \frac{1}{n} - \ln n = \int_{1}^{\infty} \frac{1}{\lfloor x
+        \rfloor} - \frac{1}{x} \d{x}
+    \]
+\end{definition}
+
+欧拉伽马常数的数值约为\(0.57721\)，是否为无理数尚未得到证明。
