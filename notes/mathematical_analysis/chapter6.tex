@@ -1,3 +1,47 @@
 % !TeX root = main.tex
 \chapter{实数理论及其应用}
+
 \section{柯西方程}
+\begin{definition}[柯西函数方程]
+    \[f(x+y)=f(x)+f(y), \forall x,y \in \R
+    \]
+\end{definition}
+
+这是柯西加性函数方程，类似的还有乘性方程\(f(xy) = f(x)f(y)\) 、指数方程\(f(x+y) = f(x)f(y)\)
+和对数方程\(f(xy) = f(x) + f(y)\) 等。
+
+在满足某些（很弱）条件的情况下，柯西函数方程只有线性解。这些条件包括：
+\begin{itemize}
+    \item \(f\)在某个点连续。
+    \item \(f\)在某个区间单调
+    \item \(f\)在某个区间有界
+    \item \(f\)的图在\(\R^2\)中不稠密
+\end{itemize}
+
+下以连续性条件为例。
+
+\begin{theorem}
+    设\(f:\R \to \R\)满足柯西函数方程，且\(f\)在某个点连续，则\(f\)是线性的。
+\end{theorem}
+
+\begin{proof}
+    记\(f(1)=k\)。
+    \paragraph*{\(f(x)\)是奇函数} \(f(0) = f(0) + f(0)\)，所以 \(f(0) = 0\)。
+    \(f(x) + f(-x) = f(0) = 0\)，故\(f\) 是奇函数。
+    \paragraph*{\(f(n)=kn\)} 由\(f(n) = f(n-1) + f(1)\) 可得 \(f(n) = kn\)，
+    其中\(n\)为正整数。又\(f\) 是奇函数，所以\(f(-n) = -f(n) = -kn\)。
+    \paragraph*{\(f\left( \frac{p}{q} \right) = k \frac{p}{q}\)}
+    由\(f\left( \frac{p}{q} \right)
+    = f\left( \frac{1}{q} + \cdots + \frac{1}{q} \right)\) ，
+    \(qf\left( \frac{1}{q} \right)= f(1) = k\)可得
+    \(f\left( \frac{p}{q} \right) = k
+    \frac{p}{q}\)。
+    \paragraph*{\(f\) 是连续函数} 设\(f\) 在\(x_0\)处连续，则有：\[
+        \lim_{x \to x_0} f(x)-f(x_{0}) = \lim_{x \to x_0} f(x-x_0) =0
+    \]
+    \(\forall x' \in \R\)，有：\[
+        \lim_{x \to x'} f(x)-f(x') = \lim_{x \to x'} f(x-x') =
+        \lim_{x \to x_{0}} f(x-x_{0}) = 0
+    \]
+    故\(f\)在\(\R\)上连续。又\(\Q\)在\(\R\)上稠密，所以\(f(x) = kx, \forall x \in \R\)。
+\end{proof}
