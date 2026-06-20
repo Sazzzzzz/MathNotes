@@ -146,9 +146,9 @@ clean-all: clean-temp
 
 # Git workflow targets
 merge:
-	$(call colorecho,$(BLUE),Merging develop to main and pushing...)
-	@git checkout main && git merge develop && git push origin main
-	@git checkout develop && git push origin develop
+	$(call colorecho,$(BLUE),Merging dev to main and pushing...)
+	@git checkout main && git merge dev && git push origin main
+	@git checkout dev && git push origin dev
 	$(call colorecho,$(GREEN),Merge workflow completed successfully)
 
 github-release:
@@ -193,7 +193,7 @@ help:
 	$(call colorecho,$(GREEN),  make clean-all   - Remove all generated files)
 	$(call colorecho,$(WHITE),Release Workflow:)
 	$(call colorecho,$(GREEN),  make release_message.md  - Complete release: build + merge + update GitHub release)
-	$(call colorecho,$(GREEN),  make merge   - Merge develop→main and push)
+	$(call colorecho,$(GREEN),  make merge   - Merge dev→main and push)
 	$(call colorecho,$(GREEN),  make github-release  - Update current release with latest PDFs)
 	$(call colorecho,$(WHITE),Verbosity:)
 	$(call colorecho,$(GREEN),  make VERBOSE=1 <target>  - Show full build output (xelatex nonstopmode, biber verbose))
