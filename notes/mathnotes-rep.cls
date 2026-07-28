@@ -150,6 +150,8 @@
 \Crefname{claim}{断言}{断言}
 \crefname{note}{注}{注}
 \Crefname{note}{注}{注}
+\crefname{figure}{图}{图}
+\Crefname{figure}{图}{图}
 
 %================================
 % DOCUMENT SETUP

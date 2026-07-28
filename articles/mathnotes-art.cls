@@ -151,6 +151,8 @@
 \Crefname{claim}{断言}{断言}
 \crefname{note}{注}{注}
 \Crefname{note}{注}{注}
+\crefname{figure}{图}{图}
+\Crefname{figure}{图}{图}
 
 %================================
 % DOCUMENT SETUP
@@ -293,6 +295,34 @@
     \begin{Claim}{#1}{#2}%
     }{%
     \end{Claim}%
+}
+
+%================================
+% COROLLARY BOX
+%================================
+\newtcbtheorem[number within=chapter]{Corollary}{Corollary}
+{%
+    enhanced
+    ,breakable
+    ,colback = mycorollarycolor!10
+    ,frame hidden
+    ,boxrule = 0sp
+    ,borderline west = {2pt}{0pt}{mycorollarycolor}
+    ,sharp corners
+    ,detach title
+    ,before upper = \tcbtitle\par\smallskip
+    ,coltitle = mycorollarycolor!85!black
+    ,fonttitle = \bfseries\sffamily
+    ,description font = \mdseries
+    ,separator sign none
+    ,segmentation style={solid, mycorollarycolor!85!black}
+}
+{corollary}
+
+\NewDocumentEnvironment{corollary}{O{} O{}}{%
+    \begin{Corollary}{#1}{#2}%
+    }{%
+    \end{Corollary}%
 }
 
 %================================
