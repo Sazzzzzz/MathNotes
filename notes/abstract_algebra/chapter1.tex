@@ -22,8 +22,8 @@
 % orders of elements
 % 定义
 % ab的阶、ord(a^k) = ord(a) / gcd(ord(a), k)
-
-% 群同态/同构
+% ab 的阶并不简单，只有两者可交换且阶数互质时才有 ord(ab) = ord(a) * ord(b)。
+% 乘积的阶只能说整除lcm ord a ord b。比如(12)(12)，阶为1，发生了相互抵消。多个元素也是如此
 
 \section{循环群}
 \begin{theorem}[循环群的结构]
@@ -33,7 +33,217 @@
         \item 若\(\abs{G}\)是无限的，则\(G\)同构于\(\mathbb{Z}\)。
     \end{itemize}
 \end{theorem}
+循环群可以分成两类：有限循环群和无限循环群。前者同构于\(\mathbb{Z}_n\)，后者同构于\(\mathbb{Z}\)。因此，
+循环群的结构非常简单，完全由一个生成元决定。
 \begin{theorem}[循环群子群结构]
     循环群的任意子群也是循环群。
     若\(m|n\), 则\(\mathbb{Z}_n\)有且仅有一个子群同构于\(\mathbb{Z}_m\)。
 \end{theorem}
+
+% 同构：幺元到幺元，逆元到逆元
+% 同态和同态基本定理是什么？
+
+% 陪集：左陪集和右陪集有什么区别？
+% 陪集构成分划，和陪集的充要条件：H是G的子群当且仅当对于任意\(a, b \in G\)，
+% \(aH = bH\) 或 \(aH \cap bH = \emptyset\)。
+% 代数与编码只在交换群上进行，还比较简单
+% 拉格朗日定理、正规子群又是什么？
+
+怎么证明Zp是乘法群？
+
+自同构
+
+拉格朗日定理，推论可导出欧拉定理，再导出费马小定理
+
+\section{置换群}
+\begin{definition}[置换群]
+    记 \([n]=\{1,2,\dots,n\}\)。集合 \([n]\) 到自身的一个双射称为一个 \(n\) 元
+    \textbf{置换}。所有 \(n\) 元置换组成的集合记为 \(S_n\)，并以映射的复合作为乘法：
+    \[
+        (\sigma\tau)(i)=\sigma\bigl(\tau(i)\bigr).
+    \]
+
+    \(S_n\) 关于映射复合构成群，称为 \(n\) 阶
+    \textbf{对称群}，且 \(\abs{S_n}=n! \)。
+\end{definition}
+
+设 \(\sigma(k)=i_k\)，则可用\textbf{二行式}表示置换：
+\[
+    \sigma=
+    \begin{pmatrix}
+        1   & 2   & \cdots & n   \\
+        i_1 & i_2 & \cdots & i_n
+    \end{pmatrix}
+\]
+
+考虑一类特殊的置换：
+\begin{definition}
+    \(i_1,i_2,\dots,i_r\in[n]\) 两两不同。若置换 \(\sigma\) 满足
+    \[
+        \sigma(i_1)=i_2,\quad \sigma(i_2)=i_3,\quad\dots,\quad
+        \sigma(i_{r-1})=i_r,\quad \sigma(i_r)=i_1,
+    \]
+    并固定其余所有元素，则称 \(\sigma\) 为一个 \(r\)-\textbf{轮换}，记为
+    \[
+        \sigma=(i_1i_2\dots i_r).
+    \]
+    其中 \(i_1,i_2,\dots,i_r\) 称为该轮换中的文字，\(r\) 称为轮换的长度。
+
+    长度为 \(2\) 的轮换 \((ij)\) 称为\textbf{对换}；两个轮换若没有公共文字，则称它们\textbf{不相交}。
+\end{definition}
+
+\subsection{轮换分解}
+\begin{theorem}[置换的不相交轮换分解]
+    每个置换都可以表示为若干个两两不相交轮换的乘积。若省略长度为 \(1\) 的轮换，
+    则该表示除轮换的排列次序及每个轮换起点的选择外是唯一的。
+\end{theorem}
+\begin{proof}
+    任取 \(a\in[n]\)，依次考察
+    \[
+        a,\ \sigma(a),\ \sigma^2(a),\ \dots.
+    \]
+    由于 \([n]\) 有限，这个序列中必有重复项。设 \(\sigma^m(a)\) 是第一个与之前
+    某项重复的元素，即 \(\sigma^m(a)=\sigma^k(a)\)，其中 \(0\leq k<m\)。
+    若 \(k>0\)，对等式两边作用 \(\sigma^{-k}\)，便得到
+    \(\sigma^{m-k}(a)=a\)，这与 \(\sigma^m(a)\) 是第一个重复项矛盾。因此 \(k=0\)，
+    从而得到轮换
+    \[
+        \bigl(a\ \sigma(a)\ \sigma^2(a)\ \dots\ \sigma^{m-1}(a)\bigr).
+    \]
+    若其中尚未包含 \([n]\) 的全部元素，就从未出现过的元素出发重复上述过程。
+    因为 \(\sigma\) 是单射，新得到的轨道不会与已有轨道相交。如此继续，有限步后
+    即得到 \(\sigma\) 的不相交轮换分解。
+
+    每个元素所在的轮换恰好由它在 \(\sigma\) 下的轨道决定，所以这些轮换本身是唯一的；
+    只可能改变各轮换的书写次序或循环移动轮换的起点。
+\end{proof}
+
+置换的\textbf{型}（cycle type）就是分解中轮换长度的可重集合.这些轮换的长度构成了一个置换长度\(n\)的整数分划．如果得到的分解中长度为\(k\)的轮换共计 \(\alpha_{k}\) 个，
+那么置换的型常记作:\[
+    1^{\alpha_{1}}2^{\alpha_{2}}\dots n^{\alpha_{n}}
+\]
+且\(\sum_{k=1}^{n} k\alpha_{k}=n\)。
+
+不相交轮换作用在互不相交的元素上，因而彼此可交换。若
+\[
+    \sigma=\sigma_1\sigma_2\dots\sigma_s
+\]
+是不相交轮换分解，且各轮换的长度分别为 \(r_1,r_2,\dots,r_s\)。并且轮换各不相交，不会相互抵消。故有：
+\[
+    \abs{(\sigma)}=\lcm(r_1,r_2,\dots,r_s).
+\]
+例如
+\[
+    \sigma=
+    \begin{pmatrix}
+        1&2&3&4&5&6&7\\
+        1&7&5&2&3&6&4
+    \end{pmatrix}
+    =(274)(35),
+\]
+有\(\abs{\sigma}=\lcm(3,2)=6\)。
+
+考虑\(n\) 元随机置换的轮换数\(C_{n}\)。
+
+\(\forall \sigma \in S_{n-1}\)，可以由以下方法形成 \(S_{n}\) 中的置换：
+\begin{itemize}
+    \item \(n\)变成 \((n)\)，自己形成单独的轮换。一种可能。
+    \item 在 \(i\to \sigma(i)\) 插入变成 \(i\to n\to \sigma(i)\)，有\(n-1\) 种可能。
+\end{itemize}
+从而:\[
+    \E[C_{n}] = \E[C_{n-1}] + \frac{1}{n}
+\]
+\[
+    \E[C_{n}] = H_{n} = O(\ln n)
+\]
+
+\subsection{置换群教学中缺失的一节}
+
+不少教材讲到这里就直接开始抽代的各种推导了，但是我们明明还不会上手计算置换的种种运算，不是吗？
+
+\subsubsection{置换的乘法}
+
+对于两个一般的置换 \(\sigma\) 和 \(\tau\)，肉眼是很难看出它们的乘积的。最一般的方法就是枚举法：
+\begin{example}
+    计算 \((123)(12)\)：
+    \begin{align*}
+        1 \xrightarrow{(12)} 2 \xrightarrow{(123)} 3 \\
+        2 \xrightarrow{(12)} 1 \xrightarrow{(123)} 2 \\
+        3 \xrightarrow{(12)} 3 \xrightarrow{(123)} 1
+    \end{align*}
+\end{example}
+可以用三行式来写的更加简洁：
+\[
+    \begin{array}{c|ccccc}
+        x & 1 & 2 & 3 & 4 & \dots \\
+        \hline
+        \tau(x) & \tau(1) & \tau(2) & \tau(3) & \tau(4) & \dots \\
+        \sigma(\tau(x)) & \sigma(\tau(1)) & \sigma(\tau(2)) & \sigma(\tau(3)) & \sigma(\tau(4)) & \dots
+\end{array}\]
+
+但对于一个对换 \((ab)\) 和一个轮换 \(\sigma\)，不难验证以下结论：
+\begin{itemize}
+    \item 若\(a,b\) 均在 \(\sigma\) 中，\(\sigma = (aAbB)\) ，
+        则
+        \begin{align*}
+            (ab)\sigma &= (ab)(aAbB) = (aA)(bB)\\
+            \sigma(ab) &= (aAbB)(ab) = (aB)(bA)
+        \end{align*}
+    \item 若只有\(a\)在 \(\sigma\) 中， \(\sigma = (aA)\) ，
+        则
+        \begin{align*}
+            (ab)\sigma &= (ab)(aA) = (aAb)\\
+            \sigma(ab) &= (aA)(ab) = (abA)
+        \end{align*}
+\end{itemize}
+对置换\((i_{1}i_{r})(i_{1}i_{r-1})\dots (i_{1}i_{2})\) 反复运用 \((aA)(ab)=(abA)\)，
+立刻得到：
+\begin{theorem}[轮换的最短对换分解]
+    设 \(\sigma = (i_{1}i_{2}\dots i_{r})\) 是一个轮换，则
+    \[
+        \sigma = (i_{1}i_{r})(i_{1}i_{r-1})\dots(i_{1}i_{2})
+    \]
+    是 \(\sigma\) 的最短对换分解。
+\end{theorem}
+\begin{proof}
+    只需证明 \(\sigma\) 不能由少于 \(r-1\) 个对换组成。
+    由公式不难发现，一个对换作用于一个轮换，会使轮换的长度增加或减少 1。为了使轮换的长度从 \(r\) 变为 1，
+    至少需要 \(r-1\) 个对换。
+
+    该定理还有一个图论版本的证明：把每个元素看作顶点，轮换在图中的轨道是一个连通分量。每个对换可以看作在图中添加一条边。
+    顶点数为 \(r\) 的连通图至少需要 \(r-1\) 条边才能连通，构成一棵生成树，因此至少需要 \(r-1\) 个对换。
+\end{proof}
+
+对换分解的存在性其实也可以从冒泡排序算法中看出\UseVerb{smile}
+
+轮换 \((i_{1}i_{2}\dots i_{r})\) 的逆为 \((i_{r}i_{r-1}\dots i_{1})\)，
+或者写成 \((i_{1}i_{r}i_{r-1}\dots i_{2})\)，
+\((\sigma\tau)^{-1} = \tau^{-1}\sigma^{-1}\)。
+% todo: 证明A5是单群
+% todo: 抽象代数习题
+
+\subsection{奇偶置换}
+
+有本抽象代数书是这么定义奇置换和偶置换的：
+\begin{definition}
+    设 \(V\)是\(n\)维线性空间，
+    \(\varepsilon_{1},\varepsilon_{2}\dots \varepsilon_{n}\) 是它的一组基，
+    对于任意 \(\sigma \in S_{n}\)，定义\(V\)上线性变换 \(\pi_{\sigma}\)：
+    \begin{align*}
+        \pi_{\sigma}: S_{n} & \to \mathrm{GL}_{n} \\
+        \varepsilon_{i} & \mapsto \varepsilon_{\sigma(i)}
+    \end{align*}
+    考虑 \(\det\circ\pi_{\sigma}: S_{n}\to \left\{ -1,1 \right\}\)是群同态，
+    该同态的核记为\(A_{n}\)。若\(\sigma\in A_{n}\)，则称\(\sigma\)为\textbf{偶置换}，
+    否则称为\textbf{奇置换}。
+\end{definition}
+可从交错多重线性形看行列式，就会发现行列式的乘积定义就用的是置换的逆序数和符号。好家伙，循环定义是吧？
+
+\begin{description}
+    \item[逆序数] 排列中逆序对的个数
+    \item[置换的奇偶性] 置换的逆序数的奇偶性
+\end{description}
+置换的奇偶性也可以定义成一个置换的对换分解的数目的奇偶性。于是：
+\begin{align*}
+    \sgn \sigma\circ\tau = \sgn \sigma \cdot \sgn \tau
+\end{align*}
