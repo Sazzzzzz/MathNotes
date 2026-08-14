@@ -31,7 +31,7 @@
 其实我们已经在微积分里干过不知道多少次求最大最小值的问题了。区区求线性函数的极值，我们上来就是一个求导（梯度）：
 \begin{align*}
     \c &= \nabla f =\left( \pdv{f}{x}, \pdv{f}{y} \right) = (2,1) \neq (0,0)\\
-    f &= \c^{\mathrm{T}} \x
+    f &= \c^{\mathsf{T}} \x
 \end{align*}
 
 不难发现，非常函数线性函数的梯度总是常数值，这意味着求梯度使其等于零的做法是行不通的。
@@ -122,8 +122,8 @@
         x_{j} & \geq 0, \quad j = 1, \ldots, n
     \end{align*}
 
-    记\(\c = (c_{1}, \dots, c_{n})^{\mathrm{T}}\) 、\(\b =
-    (b_{1},\dots, b_{m})^{\mathrm{T}}\) ，
+    记\(\c = (c_{1}, \dots, c_{n})^{\mathsf{T}}\) 、\(\b =
+    (b_{1},\dots, b_{m})^{\mathsf{T}}\) ，
     \[
         A =
         \begin{pmatrix}
@@ -134,7 +134,7 @@
     \]
     则线性规划的矩阵形式可简写为：
     \begin{align*}
-        \max \quad & \c^{\mathrm{T}} \x \\
+        \max \quad & \c^{\mathsf{T}} \x \\
         \text{s.t.} \quad & A \x \leq \b \\
         & \x \geq 0
     \end{align*}
@@ -271,24 +271,24 @@ OK，了解了顶点，我们就成功了一半。接下来我们需要关注线
 为此，我们将\(\c\) 分块成\(\c = (\c_{B}, \c_{N})\) ，对应基变量和非基变量。于是线性函数可以写成：
 
 \begin{align*}
-    \c^{\mathrm{T}} \x &= \c_{B}^{\mathrm{T}} \x_{B} +
-    \c_{N}^{\mathrm{T}} \x_{N} \\
-    &= \c_{B}^{\mathrm{T}} B^{-1}(\b - N\x_{N}) +
-    \c_{N}^{\mathrm{T}} \x_{N} \\
-    &= \c_{B}^{\mathrm{T}} B^{-1} \b + (\c_{N}^{\mathrm{T}} -
-    \c_{B}^{\mathrm{T}} B^{-1} N) \x_{N}
+    \c^{\mathsf{T}} \x &= \c_{B}^{\mathsf{T}} \x_{B} +
+    \c_{N}^{\mathsf{T}} \x_{N} \\
+    &= \c_{B}^{\mathsf{T}} B^{-1}(\b - N\x_{N}) +
+    \c_{N}^{\mathsf{T}} \x_{N} \\
+    &= \c_{B}^{\mathsf{T}} B^{-1} \b + (\c_{N}^{\mathsf{T}} -
+    \c_{B}^{\mathsf{T}} B^{-1} N) \x_{N}
 \end{align*}
 
-线性函数的取值，不过是一个常数项\(\c_{B}^{\mathrm{T}} B^{-1} \b\)
-加上自由变量的线性组合\((\c_{N}^{\mathrm{T}} -
-\c_{B}^{\mathrm{T}} B^{-1} N) \x_{N}\) 。为使得自由变量的系数都非正，我们只需要让\[
-    \Delta = \c_{N}^{\mathrm{T}} - \c_{B}^{\mathrm{T}} B^{-1} N \leq \bm{0}
+线性函数的取值，不过是一个常数项\(\c_{B}^{\mathsf{T}} B^{-1} \b\)
+加上自由变量的线性组合\((\c_{N}^{\mathsf{T}} -
+\c_{B}^{\mathsf{T}} B^{-1} N) \x_{N}\) 。为使得自由变量的系数都非正，我们只需要让\[
+    \Delta = \c_{N}^{\mathsf{T}} - \c_{B}^{\mathsf{T}} B^{-1} N \leq \bm{0}
 \] 即可。
 
 没错，我们就这样推导出了单纯形法的判别式\UseVerb{cool}
 
-当然，理论的推导不能替代实际的计算。在实际操作过程当中，我们并不会刻意地去计算\(\Delta = \c_{N}^{\mathrm{T}}
-- \c_{B}^{\mathrm{T}} B^{-1} N\)，也不会去算\(\x_{B} = B^{-1}(\b -
+当然，理论的推导不能替代实际的计算。在实际操作过程当中，我们并不会刻意地去计算\(\Delta = \c_{N}^{\mathsf{T}}
+- \c_{B}^{\mathsf{T}} B^{-1} N\)，也不会去算\(\x_{B} = B^{-1}(\b -
 N\x_{N})\)的那个值。这些矩阵的抽象只是告诉我们为什么这样做是可行的，以及我们背后在究竟算什么。
 
 \begin{quote}
@@ -359,11 +359,11 @@ N\x_{N})\)的那个值。这些矩阵的抽象只是告诉我们为什么这样�
         我们可以理解为这就是已经经过取基变量 \(\to \) 对函数换元之后的结果。
     \item 左侧第一列：所有的基变量
     \item 最后一列是求出的\(B^{-1}\b\)
-    \item 结合顶点形状\((B^{-1}\b, \mathbf{0})^{\mathrm{T}}\)，
+    \item 结合顶点形状\((B^{-1}\b, \mathbf{0})^{\mathsf{T}}\)，
         可知此时我们测试的顶点就是\(x_{3} \to 3,
         x_{4} \to 2, x_{5} \to 16\)，其他变量为零。
     \item 中间的矩阵部分是\(B^{-1}A\)
-    \item 上面的\(\bar{\c}\) 是经过变换后的线性函数系数，对非基变量来说是\(\c_{B}^{\mathrm{T}}
+    \item 上面的\(\bar{\c}\) 是经过变换后的线性函数系数，对非基变量来说是\(\c_{B}^{\mathsf{T}}
         B^{-1} N\) ，对基变量来说是零。
 \end{itemize}
 

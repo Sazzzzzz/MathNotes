@@ -98,7 +98,7 @@
     =
     \begin{pmatrix}
         1 & \varepsilon & \varepsilon^2 & \cdots & \varepsilon^{n-1}
-    \end{pmatrix}^{\mathrm{T}}
+    \end{pmatrix}^{\mathsf{T}}
 \]
 \[
     B =
@@ -142,7 +142,7 @@
 \begin{theorem}[矩阵行列式引理]
     \(A\) 是可逆方阵，\(\bm{u}\)、\(\bm{v}\) 是列向量，则：
     \[
-        \det(A +\bm {uv}^{\mathrm{T}})=(1+\bm {v}^{\mathrm{T}}A^{-1}\bm {u} ) \det(A)
+        \det(A +\bm {uv}^{\mathsf{T}})=(1+\bm {v}^{\mathsf{T}}A^{-1}\bm {u} ) \det(A)
     \]
 \end{theorem}
 
@@ -150,18 +150,18 @@
     \[
         \begin{vmatrix}
             I & \bm{u} \\
-            \bm{v}^{\mathrm{T}} & 1
+            \bm{v}^{\mathsf{T}} & 1
         \end{vmatrix} =
         \begin{vmatrix}
             I & \bm{u}\\
-            0 & 1-\bm{v}^{\mathrm{T}}\bm{u}
+            0 & 1-\bm{v}^{\mathsf{T}}\bm{u}
         \end{vmatrix}
     \]
     从而\[
-        \det(I +\bm {uv}^{\mathrm{T}})=(1+\bm {v}^{\mathrm{T}}\bm {u})
+        \det(I +\bm {uv}^{\mathsf{T}})=(1+\bm {v}^{\mathsf{T}}\bm {u})
     \]
     取 \(\bm{u} \leftarrow A^{-1}u\)，得\[
-        \det(A +\bm {uv}^{\mathrm{T}})=(1+\bm {v}^{\mathrm{T}}A^{-1}\bm {u} ) \det(A)
+        \det(A +\bm {uv}^{\mathsf{T}})=(1+\bm {v}^{\mathsf{T}}A^{-1}\bm {u} ) \det(A)
     \]
 \end{proof}
 
@@ -173,8 +173,8 @@
             a & b & \dots & a \\
             \vdots &\vdots & \ddots & \vdots \\
             a & a & \dots & b
-        \end{vmatrix} &= \abs{(b-a)I+a \bm{1}\bm{1}^{\mathrm{T}}} \\
-        &= (b-a)^{n} \left( 1+a \bm{1}^{\mathrm{T}}\bm{1} \cdot \frac{1}{b-a} \right) \\
+        \end{vmatrix} &= \abs{(b-a)I+a \bm{1}\bm{1}^{\mathsf{T}}} \\
+        &= (b-a)^{n} \left( 1+a \bm{1}^{\mathsf{T}}\bm{1} \cdot \frac{1}{b-a} \right) \\
         &= (b-a)^{n-1} ((n-1)a+b)
     \end{align*}
 \end{example}

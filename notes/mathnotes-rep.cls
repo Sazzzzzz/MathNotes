@@ -88,6 +88,7 @@
 \SaveVerb{grin}|:-]|
 \SaveVerb{naughty}|:P|
 \SaveVerb{relaxed}|:-|%
+\SaveVerb{salute}|o7|
 % For cancel line
 \RequirePackage{cancel}
 % For code highlighting

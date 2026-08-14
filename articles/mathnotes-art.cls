@@ -88,6 +88,7 @@
 \SaveVerb{grin}|:-]|
 \SaveVerb{naughty}|:P|
 \SaveVerb{relaxed}|:-|%
+\SaveVerb{salute}|o7|
 \SaveVerb{froze}!:|!% % use ! as delimiter to avoid conflict with |
 % For cancel line
 \RequirePackage{cancel}
