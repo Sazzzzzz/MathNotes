@@ -186,6 +186,19 @@
     所以 \(D^* = -D\)，微分算子是一个斜伴随算子。
 \end{example}
 
+\begin{theorem}
+    自伴算子的特征值都是实数，斜伴随算子的特征值是零或纯虚数。
+\end{theorem}
+\begin{proof}
+    设 \(T\) 是自伴算子，\(Tv = \lambda v\)，则
+    \[
+        \lambda \norm{v}^{2} = \langle \lambda v,v \rangle = \langle Tv,v \rangle = \langle v, T^* v \rangle = \langle v, Tv \rangle = \langle v, \lambda v \rangle = \bar{\lambda} \norm{v}^{2}
+    \]
+    从而\(\lambda = \bar{\lambda}\)，即特征值是实数。
+    斜伴随算子同理。
+\end{proof}
+其实矩阵里面特别喜欢玩这个\UseVerb{smile}
+
 \subsection{正规算子}
 
 \subsubsection{定义与基本性质}

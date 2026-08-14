@@ -1,16 +1,180 @@
 \chapter{多重线性代数和行列式}
-\section{双线性型和二次型}
-\section{多重线性型}
-多重线性型构成向量空间
-多重线性型是泛函、二次型的推广
-% TODO:排列知识概览
-代数与分析以一种截然不同的方式刻画度量这个概念
-T 的本质是换基，行列式此处的定义就是换基前后体积的比值
+% \section{双线性型和二次型}
+% \section{多重线性型}
+% 多重线性型构成向量空间
+% 多重线性型是泛函、二次型的推广
+% % TODO:排列知识概览
+% 代数与分析以一种截然不同的方式刻画度量这个概念
+% T 的本质是换基，行列式此处的定义就是换基前后体积的比值
 
-外积 <-> wedge 翻译不错
+% 外积 <-> wedge 翻译不错
 
-源于很简单的对面积的直觉-》多重线性型-》行列式
+% 源于很简单的对面积的直觉-》多重线性型-》行列式
 
-泛函这种用数字衡量一切的思路其实很多：群里我们用阶衡量元素，线性代数我们用秩/行列式衡量线性映射，分析里我们用范数衡量函数/向量等等
+% 泛函这种用数字衡量一切的思路其实很多：群里我们用阶衡量元素，线性代数我们用秩/行列式衡量线性映射，分析里我们用范数衡量函数/向量等等
 
 % TODO: 特征值奇异值分解的用处
+\section{行列式}
+
+% 忍俊不禁
+% 交错线性形 与行列式的本质
+\section{行列式的计算}
+然而，批判的武器代替不了武器的批判。以下介绍行列式的一些计算方法。
+\subsection{行列式大赏}
+% todo: Hilbert determinant
+\subsubsection{Vandermonde 行列式}
+这玩意有很多种证明方法。
+\href{https://en.wikipedia.org/wiki/Vandermonde_matrix#First_proof:_Polynomial_properties}{维基百科}上提供了一种基于多项式次数的方法，
+很有意思。
+\[
+    \det(V)=\prod _{0\leq i<j\leq n}(x_{j}-x_{i})
+\]
+记忆这个式子也有诀窍：盯着第二行，后一项减前一项所有项的乘积就是行列式。
+\subsubsection{爪形行列式}
+把对角线上元素归一，分别消去首行元素，就能化简成下三角矩阵。
+\begin{example}[爪形行列式]
+    \[
+        \textstyle
+        \begin{vmatrix}
+            1 & 1 & 1 & 1 \\
+            1 & 2 & 0 & 0 \\
+            1 & 0 & 3 & 0 \\
+            1 & 0 & 0 & 4
+        \end{vmatrix}=
+        24
+        \begin{vmatrix}
+            1 & 1 & 1 & 1 \\
+            \frac{1}{2} & 1 & 0 & 0 \\
+            \frac{1}{3} & 0 & 1 & 0 \\
+            \frac{1}{4} & 0 & 0 & 1
+        \end{vmatrix}
+        =24
+        \begin{vmatrix}
+            1-\frac{1}{2}-\frac{1}{3}-\frac{1}{4} & 0 & 0 & 0 \\
+            \frac{1}{2} & 1 & 0 & 0 \\
+            \frac{1}{3} & 0 & 1 & 0 \\
+            \frac{1}{4} & 0 & 0 & 1
+        \end{vmatrix}
+        = -2
+    \]
+\end{example}
+\subsubsection{X 型行列式}
+\subsubsection{三对角行列式}
+\subsubsection{差一点单位阵行列式}
+分两类，一种是对角线上下相等。为\textbf{行和相等行列式}，这种全部加到一侧，然后下一行减去上一行就能计算：
+\[
+    \begin{vmatrix}
+        b & a & \dots & a \\
+        a & b & \dots & a \\
+        \vdots &\vdots & \ddots & \vdots \\
+        a & a & \dots & b
+    \end{vmatrix}
+    =
+    \begin{vmatrix}
+        (n-1)a+b & a & \dots & a \\
+        0 & b-a & \dots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \dots & b-a
+    \end{vmatrix} \\
+    = (b-a)^{n-1}\bigl((n-1)a+b\bigr).
+\]
+\subsubsection{循环行列式}
+考虑行列式
+\[
+    A =
+    \begin{pmatrix}
+        a_1 & a_2 & a_3 & \cdots & a_n \\
+        a_n & a_1 & a_2 & \cdots & a_{n-1} \\
+        a_{n-1} & a_n & a_1 & \cdots & a_{n-2} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        a_2 & a_3 & a_4 & \cdots & a_1
+    \end{pmatrix},
+\]
+令\(f(x) = a_1 + a_2x + a_3x^2 + \cdots + a_nx^{n-1}\)，
+\(\varepsilon_0, \varepsilon_1, \dots, \varepsilon_{n-1}\) 是 \(n\) 次单位根。
+设
+\[
+    v(\varepsilon)
+    =
+    \begin{pmatrix}
+        1 & \varepsilon & \varepsilon^2 & \cdots & \varepsilon^{n-1}
+    \end{pmatrix}^{\mathrm{T}}
+\]
+\[
+    B =
+    \begin{pmatrix}
+        1 & 1 & \cdots & 1 \\
+        \varepsilon_0 & \varepsilon_1 & \cdots & \varepsilon_{n-1} \\
+        \varepsilon_0^2 & \varepsilon_1^2 & \cdots & \varepsilon_{n-1}^2 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \varepsilon_0^{n-1} & \varepsilon_1^{n-1} & \cdots
+        & \varepsilon_{n-1}^{n-1}
+    \end{pmatrix} = (v(\varepsilon_0), v(\varepsilon_1), \dots, v(\varepsilon_{n-1}))
+\]
+直接计算可得
+\[
+    Av(\varepsilon)
+    =
+    \begin{pmatrix}
+        f(\varepsilon) \\
+        \varepsilon f(\varepsilon) \\
+        \varepsilon^2 f(\varepsilon) \\
+        \vdots \\
+        \varepsilon^{n-1}f(\varepsilon)
+    \end{pmatrix}
+    = f(\varepsilon)v(\varepsilon).
+\]
+因此，\(v(\varepsilon_k)\) 是 \(A\) 的特征向量，对应的特征值是
+\(f(\varepsilon_k)\)。
+从而
+\[
+    AB = B\diag\bigl(f(\varepsilon_0),f(\varepsilon_1),\dots,
+    f(\varepsilon_{n-1})\bigr)
+\]
+\[
+    \det A = \prod_{k=0}^{n-1}f(\varepsilon_k)
+\]
+
+以此纪念我大一上高等代数课的青葱岁月\UseVerb{salute}
+\subsection{矩阵行列式引理}
+高等代数没学好的知识，终于以线代的方式又回到了我身边\UseVerb{grin}
+
+\begin{theorem}[矩阵行列式引理]
+    \(A\) 是可逆方阵，\(\bm{u}\)、\(\bm{v}\) 是列向量，则：
+    \[
+        \det(A +\bm {uv}^{\mathrm{T}})=(1+\bm {v}^{\mathrm{T}}A^{-1}\bm {u} ) \det(A)
+    \]
+\end{theorem}
+
+\begin{proof}
+    \[
+        \begin{vmatrix}
+            I & \bm{u} \\
+            \bm{v}^{\mathrm{T}} & 1
+        \end{vmatrix} =
+        \begin{vmatrix}
+            I & \bm{u}\\
+            0 & 1-\bm{v}^{\mathrm{T}}\bm{u}
+        \end{vmatrix}
+    \]
+    从而\[
+        \det(I +\bm {uv}^{\mathrm{T}})=(1+\bm {v}^{\mathrm{T}}\bm {u})
+    \]
+    取 \(\bm{u} \leftarrow A^{-1}u\)，得\[
+        \det(A +\bm {uv}^{\mathrm{T}})=(1+\bm {v}^{\mathrm{T}}A^{-1}\bm {u} ) \det(A)
+    \]
+\end{proof}
+
+这个定理还可以用于\(\bm{u},\bm{v}\) 是矩阵的情况。可以快速计算与\(A\) 相差不大的矩阵的行列式。
+\begin{example}[差一点单位阵行列式]
+    \begin{align*}
+        \begin{vmatrix}
+            b & a & \dots & a \\
+            a & b & \dots & a \\
+            \vdots &\vdots & \ddots & \vdots \\
+            a & a & \dots & b
+        \end{vmatrix} &= \abs{(b-a)I+a \bm{1}\bm{1}^{\mathrm{T}}} \\
+        &= (b-a)^{n} \left( 1+a \bm{1}^{\mathrm{T}}\bm{1} \cdot \frac{1}{b-a} \right) \\
+        &= (b-a)^{n-1} ((n-1)a+b)
+    \end{align*}
+\end{example}
