@@ -154,15 +154,36 @@ counterexample}
         \end{align*}
         是\(V_{1} \times V_{2} \to
         W_{1} \times W_{2}\) 的线性变换。
-    \item （习题4）线性变换不严格单调降低向量组的秩
+    \item （习题4）线性变换不严格单调降低向量组的秩。由此可以看出，可逆线性变换作为同构，不改变向量组的秩。
     \item （习题7）一维子空间有特征值
 \end{itemize}
 
 从抽象代数的角度看，线性映射\(\A \in \L(V,W)\)可以看作是从\(V\) 到\(W\)
 保持线性结构的映射，也就是同态。故也可记\(\L(V,W)=\Hom(V,W)\)
+\subsection{变换大赏}
+\subsubsection{剪切变换}
+把矩阵的一行加到另一行，对应的变换就是剪切变换\UseVerb{smile}
+
+对于向量空间 \(V\) 和子空间 \(W\)，固定 \(W\) 的剪切变换会将所有向量沿平行于 \(W\) 的方向平移。
+广义的剪切变换包括所有的单位上三角阵和单位下三角阵。
+\begin{align*}
+    v &= w' + w \\
+    L(v) &= Lw'+Lw = (w + Mw') + w'
+\end{align*}
+
+剪切变换可以说是保行列式不变的所有操作中乍一看最摸不着头脑的那个。
+但实际上高斯消元法、证明平行四边形面积与同底等高的长方形相同、斜二测画法对\(y\)轴缩放后的变换、甚至文字的\emph{斜体}，都是剪切变换的应用。
+
+\subsubsection{旋转变换}
+特殊正交群 \(SO(n)\) 是所有旋转变换的集合。每个旋转变化都能分解成若干个二维平面上的旋转变换的组合。
+\subsubsection{反射变换}
+向量 \(\bm{x}\) 经子空间 \(W\) 反射后的向量为\(\bm{x} - 2\inner{\bm{x}}{\bm{n}}\bm{n}\)。
+其中 \(\bm{n}\) 是 \(W\) 的单位法向量。该变换也称为 Householder 变换。
+矩阵形式为 \(I - 2\bm{n} \bm{n}^{\mathsf{T}}\)
+
+这玩意似乎在数值分析里有很多应用。不过我个人最喜欢的应用还是高中的时候快速计算点关于直线的反射\UseVerb{laugh}
 
 \section{零空间与值域}
-\subsection{记号}
 \begin{description}
     \item[零空间(Null space)：] \(\nullspace \A\)
         \(\A\) 是单射当且仅当
@@ -214,7 +235,7 @@ counterexample}
 
 最后，如果我们反观习题3A. 4，我们将发现它是线性代数基本定理的直接推论：
 \begin{proof}
-    记\(T'= T|\Span(v_{1}, \dots, v_{m})\)，
+    记\(T'= T|_{\Span(v_{1}, \dots, v_{m})}\)，
     则对于\[T': \Span(v_{1}, \dots, v_{m}) \to
     \Span(Tv_{1}, \dots, Tv_{m})\]
     有：
@@ -229,6 +250,10 @@ counterexample}
 如果从马后炮的视角来看，
 线性映射基本定理的重要之处在于它给出了线性映射可逆性的充要条件，
 以及所有线性空间的分类——线性空间的同构性被其维数唯一确定。这是非常强的结论。
+
+此外要注意，尽管\(\dim V = \dim \nullspace T + \dim \range T\)，但构成\(V\)的一组基，
+不是\(\range T\)的基加上\(\nullspace T\)的基（也即并非直和），
+而是\(\nullspace T\)的基与\(\range T\)的基的原像。这个小问题将会在广义特征分解里痛击我们\UseVerb{sad}
 
 \section{矩阵}
 \subsection{什么是矩阵}
@@ -251,7 +276,16 @@ counterexample}
 我们仅仅在讨论矩阵代数——充其量是在讨论\(\F^{n}\) 上的线性变换。
 只有在矩阵前乘上给定的基向量组，我们才能表示\(V\) 上的线性变换。
 
-\subsection{什么是矩阵乘法}
+\subsection{矩阵乘法}
+矩阵乘法可以从元素、列/行、列乘行以及低秩分解四个角度理解：
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{resources/MatrixTimesMatrix.pdf}
+    \caption{矩阵乘法的四种理解（图源：
+        \href{https://github.com/kenjihiranabe/The-Art-of-Linear-Algebra}{Kenji Hiranabe, \emph{The Art of Linear Algebra}}，
+    CC0 1.0）}
+    \label{fig:matrix-times-matrix}
+\end{figure}
 \subsection{秩！}
 % 可逆线性变换的逆也是线性变换，保持数乘和加法结构。这说明可逆线性变换本身就是一个同构。
 \subsection{矩阵的计算}
@@ -266,28 +300,6 @@ counterexample}
     \diag(a_{1},\dots ,a_{n})^{k} &= \diag(a_{1}^{k},\dots,a_{n}^{k} )\quad k\in \N \\
     \diag(a_{1},\dots ,a_{n})\diag(b_{1},\dots ,b_{n}) &= \diag(a_{1}b_{1},\dots ,a_{n}b_{n})
 \end{align*}
-\section{变换大赏}
-\subsubsection{剪切变换}
-把矩阵的一行加到另一行，对应的变换就是剪切变换\UseVerb{smile}
-
-对于向量空间 \(V\) 和子空间 \(W\)，固定 \(W\) 的剪切变换会将所有向量沿平行于 \(W\) 的方向平移。
-广义的剪切变换包括所有的单位上三角阵和单位下三角阵。
-\begin{align*}
-    v &= w' + w \\
-    L(v) &= Lw'+Lw = (w + Mw') + w'
-\end{align*}
-
-剪切变换可以说是保行列式不变的所有操作中乍一看最摸不着头脑的那个。
-但实际上高斯消元法、证明平行四边形面积与同底等高的长方形相同、斜二测画法对\(y\)轴缩放后的变换、甚至文字的\textit{斜体}，都是剪切变换的应用。
-
-\subsubsection{旋转变换}
-特殊正交群 \(SO(n)\) 是所有旋转变换的集合。每个旋转变化都能分解成若干个二维平面上的旋转变换的组合。
-\subsubsection{反射变换}
-向量 \(\bm{x}\) 经子空间 \(W\) 反射后的向量为\(\bm{x} - 2\inner{\bm{x}}{\bm{n}}\bm{n}\)。
-其中 \(\bm{n}\) 是 \(W\) 的单位法向量。该变换也称为 Householder 变换。
-矩阵形式为 \(I - 2\bm{n}^T \bm{n}\)
-
-这玩意似乎在数值分析里有很多应用。不过我个人最喜欢的应用还是高中的时候快速计算点关于直线的反射\UseVerb{laugh}
 
 \section{向量空间的积与商}
 \subsection{把子空间放大}

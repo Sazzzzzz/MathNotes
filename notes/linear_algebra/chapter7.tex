@@ -50,7 +50,7 @@
 \subsubsection{零空间与值域}
 伴随算子将原算子的零空间与值域通过正交补联系起来。
 \begin{theorem}[伴随的零空间与值域]
-    设 \(T \in \mathcal{L}(V, W)\)，则：
+    设 \(T \in \L(V, W)\)，则：
     \begin{itemize}
         \item \(\text{null } T^* = (\text{range } T)^\perp\)
         \item \(\text{range } T^* = (\text{null } T)^\perp\)
@@ -123,12 +123,16 @@
 这使得我们可以将对偶空间的概念``拉回''到原空间中。
 
 零化子与对偶映射实际上对应着正交补和伴随，而正交补、零化子与商空间都有相同的维数，因而同构。
+\subsubsection{如何计算正交补}
+给定一组列向量\(\alpha_{1},\dots \alpha_{n}\)，如何计算其正交补呢？只需利用行空间与零空间的正交补关系。
 
+令\(A = (\alpha_{1},\dots \alpha_{n})^{\mathsf{T}}\)，求解\(A \bm{x}=\bm{0}\) 得其零空间，
+就是原向量组张成空间的正交补空间。
 \subsection{自伴算子}
 
 \subsubsection{定义}
 \begin{definition}[自伴算子]
-    如果一个算子 \(T \in \mathcal{L}(V)\) 满足 \(T = T^*\)，即对于所有 \(v, w \in V\) 都有
+    如果一个算子 \(T \in \L(V)\) 满足 \(T = T^*\)，即对于所有 \(v, w \in V\) 都有
     \[
         \langle Tv, w \rangle = \langle v, Tw \rangle
     \]

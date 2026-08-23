@@ -1,3 +1,4 @@
+% !TeX root = main.tex
 \chapter{多重线性代数和行列式}
 % \section{双线性型和二次型}
 % \section{多重线性型}
@@ -16,8 +17,14 @@
 % TODO: 特征值奇异值分解的用处
 \section{行列式}
 
-% 忍俊不禁
-% 交错线性形 与行列式的本质
+行列式本身就是迷一样的定义，不少教科书还信誓旦旦地试图讲解行列式的本质，只是弄巧成拙，令人忍俊不禁。
+
+为了让这个概念更加神秘：如果我们认定行列式就是面积，不难发现行列式本身的定义是不依赖于内积的，与我们想象中的度量空间大相径庭。
+
+% 交错线性形
+% Gram阵，不知道为什么，张宇特别喜欢这个Gram矩阵，老拿他举例子
+% 即使我们就此打住，也已经可以解决如三维空间中面积计算积分公式为什么那么难背诵了
+% 外积与微分流形
 \section{行列式的计算}
 然而，批判的武器代替不了武器的批判。以下介绍行列式的一些计算方法。
 \subsection{行列式大赏}
@@ -44,16 +51,16 @@
         24
         \begin{vmatrix}
             1 & 1 & 1 & 1 \\
-            \frac{1}{2} & 1 & 0 & 0 \\
-            \frac{1}{3} & 0 & 1 & 0 \\
-            \frac{1}{4} & 0 & 0 & 1
+            \tfrac{1}{2} & 1 & 0 & 0 \\
+            \tfrac{1}{3} & 0 & 1 & 0 \\
+            \tfrac{1}{4} & 0 & 0 & 1
         \end{vmatrix}
         =24
         \begin{vmatrix}
-            1-\frac{1}{2}-\frac{1}{3}-\frac{1}{4} & 0 & 0 & 0 \\
-            \frac{1}{2} & 1 & 0 & 0 \\
-            \frac{1}{3} & 0 & 1 & 0 \\
-            \frac{1}{4} & 0 & 0 & 1
+            1-\tfrac{1}{2}-\tfrac{1}{3}-\tfrac{1}{4} & 0 & 0 & 0 \\
+            \tfrac{1}{2} & 1 & 0 & 0 \\
+            \tfrac{1}{3} & 0 & 1 & 0 \\
+            \tfrac{1}{4} & 0 & 0 & 1
         \end{vmatrix}
         = -2
     \]
@@ -144,6 +151,7 @@
     \[
         \det(A +\bm {uv}^{\mathsf{T}})=(1+\bm {v}^{\mathsf{T}}A^{-1}\bm {u} ) \det(A)
     \]
+    \label{theorem:matrix-determinent-lemma}
 \end{theorem}
 
 \begin{proof}
@@ -164,8 +172,12 @@
         \det(A +\bm {uv}^{\mathsf{T}})=(1+\bm {v}^{\mathsf{T}}A^{-1}\bm {u} ) \det(A)
     \]
 \end{proof}
+在矩阵情况下还可以有：
+\[
+    \det(A+ UV^{\mathsf{T}}) = \det(I_{m} + V^{\mathsf{T}}A^{-1}U) \det A
+\]
 
-这个定理还可以用于\(\bm{u},\bm{v}\) 是矩阵的情况。可以快速计算与\(A\) 相差不大的矩阵的行列式。
+该定理可以用于快速计算与\(A\) 相差不大的矩阵的行列式。
 \begin{example}[差一点单位阵行列式]
     \begin{align*}
         \begin{vmatrix}
@@ -178,3 +190,10 @@
         &= (b-a)^{n-1} ((n-1)a+b)
     \end{align*}
 \end{example}
+那最符合以上条件的行列式莫过于矩阵的特征多项式了！简单计算不难得到：
+\begin{align*}
+    \det(\lambda I - \bm{u}\bm{v}^{\mathsf{T}}) &= \lambda^{n-1} (\lambda - \bm{v}^{\mathsf{T}}\bm{u})\\
+    \det(\lambda I - UV^{\mathsf{T}}) &= \lambda^{n-m} \det(\lambda I_{m}-V^{\mathsf{T}}U)
+\end{align*}
+不难看出形如\(A=\bm{u}\bm{v}^{\mathsf{T}}\) 的矩阵特征值为\(0\) 与\(\tr A = \bm{u}^{\mathsf{T}}\bm{v}\)。
+低秩矩阵的特征值就是与其对应满秩方阵的特征值加若干重零。

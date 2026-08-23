@@ -1,0 +1,119 @@
+% !TeX root = ./main.tex
+\chapter{广义特征分解}
+
+初学者接触广义特征分解，往往找不到定义的动机。直到现在，我也不知道自己是理解了它还是接受了它（或者还压根没有理解\UseVerb{cry}）
+
+在这部分的学习过程中，我们头顶上难免冒出几朵疑云：
+\begin{enumerate}
+    \item 为什么一个因式分解块\((\lambda I - T)^{r} \)就恰好是一个不变子空间？
+    \item 这些块乘起来构成的式子怎么恰好是行列式\(\det (\lambda I - T)\)？
+\end{enumerate}
+\section{广义特征向量和幂零算子}
+
+\subsection{小淘气向量}
+\begin{theorem}
+    设 \(T \in \L(V)\). 那么
+    \begin{itemize}
+        \item \(\{0\} = \nullspace T^0 \subseteq \nullspace T^1 \subseteq \dots \subseteq \nullspace T^k \subseteq \nullspace T^{k+1} \subseteq \dots\)
+        \item 若\(\nullspace T^m = \nullspace T^{m+1}\)，
+            则\(\nullspace T^m = \nullspace T^{m+1} = \nullspace T^{m+2} = \nullspace T^{m+3} = \cdots\)
+        \item \(\nullspace T ^ {\dim V} = \nullspace T ^ {\dim V + 1} = \nullspace T ^ {\dim V + 2} = \dots\)
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+\begin{theorem}[Fitting引理]
+    \[
+        V = \nullspace T^{\dim V}\oplus\range T^{\dim V}
+    \]
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+\subsection{广义特征向量}
+还记得线性映射基本定理里\(V\neq \range T \oplus \nullspace T\)吗？这是因为对于一般的映射\(T\)，
+\(\range T\)里总会有小淘气向量\(v=Tu\)，看起来\(v\neq 0\)，
+但\(Tv\)却跳到了\(\nullspace T\)里，导致\(Tu\neq 0\)但\(T^{2}u=0\)。
+这导致整个空间不能被分成直和。但如果反复应用\(T\)直到零空间收敛，
+就能有\(V=\range T^{\dim V}\oplus \nullspace T^{\dim V}\)。
+
+这有什么用呢？回想一下之前我们对算子的分解。我们的梦中算子最好能分成一个个小算子。
+即：\[
+    V=V_{1}\oplus V_{2}\oplus \dots V_{n}
+\]
+同时\(V_{i}\)还得是\(T\)的不变子空间。
+
+这实际上是两个要求：不变子空间+直和。
+
+目前，我们做到了：
+\begin{itemize}
+    \item 在\(\C\)上，任何算子都有上三角形式。也就是层层递增的不变子空间
+    \item 对于最小多项式无重根的多项式，还能分解成特征子空间的直和
+\end{itemize}
+但这离我们分解所有算子的梦想还相差甚远。
+
+我们仔细观察证明过程，不难看出，无重根的证明思路大抵长这样：
+\begin{enumerate}
+    \item 考虑最小多项式里的一项\(U=\range(T-\lambda_{m}I)\)，受限算子\(T|_{U}\)有特征向量的基。
+    \item 在\(\nullspace(T-\lambda_{m}I)\)上\(T\)自然也有特征向量的基
+    \item 不同特征值对应基线性无关。
+        因此\(V = \range(T-\lambda_{m}I)\oplus\nullspace(T-\lambda_{m}I) \)。
+        从而\(T\)有特征向量构成的基，可以对角化。
+\end{enumerate}
+
+不难看出，
+罪魁祸首就在于一般\(V \neq  \range(T-\lambda_{m}I)\oplus\nullspace(T-\lambda_{m}I)\)，
+这就是线性映射基本定理给我们下的绊子！
+
+怎么绕过这个问题呢？还是得借用我们刚刚看到的Fitting引理，
+我们把空间分解成\(V=\range T^{\dim V}\oplus \nullspace T^{\dim V}\)就好。
+
+\begin{definition}
+    设 \(\lambda\) 是 \(T\) 的特征值. 称向量 \(v \in V\) 是 \(T\) 对应于 \(\lambda\) 的广义特征向量，
+    若 \(v \neq 0\) 且对某个正整数 \(k\) 有 \((T - \lambda I)^k v = 0\).
+\end{definition}
+
+这样一来，任意复向量空间算子都有广义特征向量的基：
+\begin{theorem}
+    设 \(\F = \C\) 且 \(T \in \L(V)\). 那么存在由 \(T\) 的广义特征向量构成的 \(V\) 的基.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+这组基完美符合我们的要求：
+\begin{definition}
+    \(T\) 对应于 \(\lambda\) 的广义特征空间
+    定义为：\(G(\lambda ,T) = \{v\in V:(T - \lambda I)^k v = 0,k\) 为某正整数\}
+\end{definition}
+不难看出\(G(\lambda,T) = \nullspace T^{\dim V} \)。
+
+\begin{theorem}
+    设 \(\F = \C\) 且 \(T \in \L(V)\). 令 \(\lambda_1, \dots, \lambda_m\) 是 \(T\) 的所有互异特征值. 那么
+    \begin{itemize}
+        \item 对每个 \(k = 1, \dots, m\), \(G(\lambda_k, T)\) 在 \(T\) 下是不变的;
+        \item \(V = \bigoplus_ {k = 1}^{m} G (\lambda_{k}, T)\).
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+% todo:证明 p253
+% 还有一些无关紧要的东西，比如广义特征向量线性无关等证明，后续补充
+
+% 这时一个子空间上的算子，自然就能分解成幂零部分和不变部分
+% 幂零部分的性质什么的，见第一节
+
+% todo: 问题解答
+% 1. 简单来说range(p(T))是T的不变子空间，而且任意算子在任意子空间上都有特征值。
+% 借此我们把算子分解成null lam I -T（实际上是null lam T - I + range lam T - I，
+% 我的值域就是别人的零空间），因此一个块就是一个子空间。至于为什么要研究多项式可见第5章
+% 2. 书上的证明是证明代数重数>=几何重数，在上三角分解里主对角线lam次数一定小于子空间维数（实际上就是等于，因为直和）。于是行列式就是这堆东西乘一起。
+% 但我觉得这个证明并不本质，可见cherry studio笔记。某种意义上在域论和最小多项式的概念上，算子的广义特征分解就是中国剩余定理
+
+% todo: 后续若当标准型什么的
+% 若当标准型的计算
+% 还记得大一下学期的高代月考，第一题就是计算矩阵的若当标准型。可惜当时学业不精，第一题就没写出来\UseVerb{sad}，考试后才知道有若当链这么一个东西。
+% https://math.stackexchange.com/questions/4495/the-intuition-behind-generalized-eigenvectors

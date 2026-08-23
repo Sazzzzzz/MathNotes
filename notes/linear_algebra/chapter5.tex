@@ -1,6 +1,6 @@
 % !TeX root = main.tex
 \chapter{特征值与特征向量}
-特征值与特征向量，以及接下来的Jordan标准型，都是为了分解算子，本质上是在研究线性空间上自同态的结构。
+特征值与特征向量，以及接下来的广义特征分解，都是为了分解算子，本质上是在研究线性空间上自同态的结构。
 
 \section{特征值}
 % TODO: https://www.zhihu.com/question/37615080/answer/1982559561807307059
@@ -76,33 +76,111 @@
 \end{proof}
 
 短短的几行证明，不知蕴含了作者大一多少不解\UseVerb{cry}。哪个证明更加符合直觉，
-想必是高下立判了吧\UseVerb{surprised}
+想必是高下立判了吧\UseVerb{surprised}\footnote{其实回头看来，二者区别也没有那么大：无非变换顺序的问题。
+但初学时确实会产生不小困惑。}
 
-\(T\) 的不变子空间包括可交换的算子的值域与零空间，其自身及其多项式的值域与子空间自然也包含在内。特别的，
-自身零空间的子空间与包含值域的子空间也是不变子空间。子空间的交与和也不变。
-% TODO：  Is that all the invariant subspaces?
+不同特征值对应特征向量线性无关这一定理，还可以用于证明向量线性无关：
+\begin{example}
+    考虑\(V=\Span(\e^{\lambda_{1}x},\dots \e^{\lambda_{n}x}  )\)。
+    不难发现\(\e^{\lambda_{i}x} \)是 \(Df = f'\) 算子的特征向量，
+    对应特征值为 \(\lambda_{i}\)。
+    因此\(\left\{ \e^{\lambda_{1}x},\dots \e^{\lambda_{n}x} \right\}\) 线性无关。
+\end{example}
 
-习题当中我们得以看到特征值更多的性质：
-\begin{enumerate}
-    \item \(T\) 与自身共轭的算子特征值相同，特征向量相差一个平移
-    \item 对偶算子与原算子特征值相同，特征向量相差一个转置
-    \item \(T\) 的特征值也是\(T_{\C}\) 的特征值
-    \item \(T\) 的特征值也是商算子\(T/U\) 的特征值，其中\((T/U)v=Tv+U\)
-\end{enumerate}
+\(T\) 的不变子空间包括：
+\begin{itemize}
+    \item \(\nullspace T\) 和\(\range T\)，
+        包括所有\(U\subseteq \nullspace T\) 和 \(V \supseteq \range T\)
+    \item \hl{\(\nullspace p(T)\) 与 \(\range p(T)\)}
+\end{itemize}
+% todo: 补充可交换的多项式
+
+特征值是算子本身的一种特质：
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{cccccccccc}
+        \hline
+        & \(T\) & \(p(T)\) & \(T^{-1}\) & \(T^{\mathsf{T}}\) & \(P^{-1}TP\) & \(T_{\C}\) & \(T/U\) & \(T^*\) & \(aE - A\)\\
+        \hline
+        特征值 & \(\lambda\) & \(p(\lambda)\) & \(\lambda^{-1}\) & \(\lambda\) & \(\lambda\) & \(\lambda\) & \(\lambda\) & \(\tfrac{\abs{A}}{\lambda}\) & \(a-\lambda\)\\
+        特征向量 & \(\xi\) & \(\xi\) & \(\xi\) & & \(P^{-1}\xi\) & & & \(\xi\) & \(\xi\)\\
+        \hline
+    \end{tabular}
+\end{table}
+\(T/U\) 表示商算子，\((T/U)v=Tv+U\)。
+
+整个线性代数的计算可以说都建立在解方程上，求特征值也不例外。特征值的概念和矩阵零空间息息相关。
+
+欲求\(T\xi = \lambda\xi\)，即解\((\lambda I - T)\xi = 0\)，
+也就是求 \(\nullspace(\lambda I - T)\)。这个方程的意义就是试根：踏破铁鞋无觅处，
+寻找满足存在 \((\lambda I - T)v\)的那个\(\lambda \)。
+从这个角度上看，\(0\)是不可逆算子天然的特征值，
+\(T\)的特征值个数不会超过 \(1+\dim \range T\)\footnote{更多计算可见\cref{theorem:matrix-determinent-lemma}}。
 
 \section{最小多项式}
 
-% 特征值的存在性（Tv一列必线性相关）
-% 最小多项式的存在性（把整个的约化成小的，然后小的必然存在）
-% 以上命题也可以直接Hamilton-Cayley定理来证明。
+% thm:特征值的存在性（Tv一列必线性相关）
+% thm:最小多项式的存在性（把整个的约化成小的，然后小的必然存在）
+% 后一个定理的不平凡之处就在于，前者只证明了存在一个多项式对于某个特定向量v可以零化，后者则证明了整个算子都存在一个多项式可以零花
+% (唯一性相当好证，略)
+% todo:最小多项式计算方法
+% 此时可能会有同学发问了？这和课本上写的不一样呐？不应该计算det lambda I - T，然后计算特征值吗？
+% 至少在LADR这个框架下，应该是先有特征值和特征向量，然后有最小多项式。根据广义特征分解给出特征多项式，然后才发现嘿这不就是det lam I - A ?
+% 先入为主的要求特征多项式det lam I - A去匹配广义特征分解就是抽象的，这时候和行列式还没啥关系呢。起码在此刻的叙事下，det的特征多项式更难
 
-最小多项式的神奇性质：
-\begin{enumerate}
-    \item 最小多项式的根是特征值
-    \item 最小多项式整除所有零化多项式
-    \item 商算子的最小多项式是原算子的最小多项式除以不变子空间的最小多项式？
-\end{enumerate}
-求解方法
-% （任给多项式可求最小多项式为多项式的矩阵）
+% thm 最小多项式的根是特征值and证明
+% thm 最小多项式整除所有零化多项式（也非常好证，很经典）
 
-% 习题4: p(T) 的特征值a是p（lambda）
+% 商算子的最小多项式是原算子的最小多项式除以不变子空间的最小多项式？
+
+% 为什么要研究最小多项式
+% 这个东西也很复杂。简单来说你都可以从range(p(T))是T不变子空间入手说明，甚至在式子两边取行列式得到特征多项式。
+% 但似乎这个研究与矩阵生成的代数等有很深刻联系，可见cherry studio笔记
+\section{上三角矩阵}
+算子的上三角矩阵看似很弱，但这一分解足够普遍也足够简单，为后文的对角化和广义特征分解打下了基础，还是得牢牢掌握。
+% thm 上三角阵三个条件（挺直观的，不必证明）
+% thm 5.40
+% thm 5.41 上个定理只是说(T-lam I)...v可以被零化，这里直接说肯定有一维度必被零化
+% 上三角阵充要条件！这个和后面很多证明一脉相承
+\section{可对角化算子}
+% 特征空间定义、三个性质（不必证）
+% 可对角化充要条件
+
+\begin{theorem}
+    设 \(V\) 是有限维的，且 \(T \in \L(V)\). 那么 \(T\) 是可对角化的，
+    当且仅当 \(T\) 的最小多项式等于 \((z - \lambda_1) \cdots (z - \lambda_m)\), 其中 \(\lambda_1, \ldots, \lambda_m \in \F\) 为互不相同的数。
+\end{theorem}
+
+\begin{proof}
+    首先设 \(T\) 是可对角化的. 那么存在由 \(T\) 的特征向量构成的 \(V\) 的基 \(v_1, \ldots, v_n\). 令 \(\lambda_1, \ldots, \lambda_m\) 是 \(T\) 的所有互异特征值. 那么对每个 \(v_j\), 存在 \(\lambda_k\) 使得 \((T - \lambda_k I)v_j = 0\). 于是
+    \[(T - \lambda_1 I) \cdots (T - \lambda_m I)v_j = 0,\]
+
+    意味着 \(T\) 的最小多项式等于 \((z - \lambda_1) \cdots (z - \lambda_m)\).
+
+    为了证明另一方向的蕴涵关系，
+    现设 \(T\) 的最小多项式等于 \((z - \lambda_1) \cdots (z - \lambda_m)\), 其中 \(\lambda_1, \ldots, \lambda_m \in \mathbf{F}\) 为互不相同的数. 于是
+    \[(T - \lambda_1 I) \cdots (T - \lambda_m I) = 0\]
+
+    我们将通过对 \(m\) 用归纳法来证明 \(T\) 是可对角化的. 首先设 \(m = 1\). 那么 \(T - \lambda_1 I = 0\), 这意味着 \(T\) 是恒等算子的标量倍，
+    也就说明了 \(T\) 是可对角化的.
+
+    现在设 \(m > 1\) 且欲证结论在 \(m\) 为更小的值时都成立. \(\range(T - \lambda_m I)\) 这个子空间在 \(T\) 下是不变的。
+    那么限制在 \(\range(T - \lambda_m I)\) 上的 \(T\) 就是 \(\range(T - \lambda_m I)\) 上的算子。
+
+    若 \(u \in \range(T - \lambda_m I)\), 那么对某个 \(v \in V\) 有 \(u = (T - \lambda_m I)v\)，
+    可得
+    \[(T - \lambda_1 I) \cdots (T - \lambda_{m-1} I)u = (T - \lambda_1 I) \cdots (T - \lambda_m I)v = 0\]
+
+    因此，
+    \((z - \lambda_1) \cdots (z - \lambda_{m-1})\) 是限制于 \(\range(T - \lambda_m I)\) 上的 \(T\) 的最小多项式的多项式倍（由 5.29）。
+    于是，由归纳假设，\(\range(T - \lambda_m I)\) 中存在由 \(T\) 的特征向量组成的基.
+
+    设 \(u \in \range(T - \lambda_m I) \cap \nullspace(T - \lambda_m I)\). 那么 \(Tu = \lambda_m u\). 结合式 (5.64) 可得
+    \begin{align}
+        0 &= (T - \lambda_1 I) \cdots (T - \lambda_{m-1} I)u \\ &= (\lambda_m - \lambda_1) \cdots (\lambda_m - \lambda_{m-1})u.
+    \end{align}
+
+    因为 \(\lambda_1, \ldots, \lambda_m\) 是互异的，
+    所以上式表明 \(u = 0\). 因此 \(\range(T - \lambda_m I) \cap \nullspace(T - \lambda_m I) = \{0\}\).
+
+\end{proof}
